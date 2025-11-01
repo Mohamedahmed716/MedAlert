@@ -1,0 +1,253 @@
+################ run this code in Mermaid 
+#####First photo
+%%{init: {'theme':'base'}}%%
+graph TB
+    Guest((Guest User))
+    Patient((Patient))
+    Doctor((Doctor))
+    HospitalAdmin((Hospital Admin))
+    SystemAdmin((System Admin))
+    
+    subgraph System["MedAlert Authentication System"]
+        Login([Login])
+        Signup([Sign Up])
+        ContinueLogout([Continue as Guest])
+        VerifyCredentials([Verify Credentials])
+        CreateAccount([Create Account])
+        EnterEmail([Enter Email])
+        EnterPassword([Enter Password])
+        EnterPhone([Enter Phone])
+        EnterGender([Enter Gender])
+        EnterAge([Enter Age])
+        CheckPrivilege([Check User Privilege])
+        RedirectDashboard([Redirect to Dashboard])
+        
+        Login -.->|include| VerifyCredentials
+        VerifyCredentials -.->|include| CheckPrivilege
+        CheckPrivilege -.->|include| RedirectDashboard
+        
+        Signup -.->|include| EnterEmail
+        Signup -.->|include| EnterPassword
+        Signup -.->|include| EnterPhone
+        Signup -.->|include| EnterGender
+        Signup -.->|include| EnterAge
+        EnterAge -.->|include| CreateAccount
+        CreateAccount -->|then login| Login
+    end
+    
+    Guest --> Login
+    Guest --> Signup
+    Guest --> ContinueLogout
+    
+    RedirectDashboard -.-> Patient
+    RedirectDashboard -.-> Doctor
+    RedirectDashboard -.-> HospitalAdmin
+    RedirectDashboard -.-> SystemAdmin
+----------------------------------------
+----------------------------------------
+######Second photo
+%%{init: {'theme':'base'}}%%
+graph TB
+    SystemAdmin((System Admin))
+    
+    subgraph System["MedAlert - System Admin Module"]
+        ViewDashboard([View Dashboard])
+        ManageHospitals([Manage Hospitals])
+        AddHospital([Add Hospital])
+        RemoveHospital([Remove Hospital])
+        CheckLocations([Check Hospital Locations])
+        ViewMap([View Map Interface])
+        ManageProfile([Manage Profile])
+        
+        AddHospital -->|extends| ManageHospitals
+        RemoveHospital -->|extends| ManageHospitals
+        ManageHospitals -.->|include| CheckLocations
+        CheckLocations -.->|include| ViewMap
+    end
+    
+    SystemAdmin --> ViewDashboard
+    SystemAdmin --> ManageHospitals
+    SystemAdmin --> ManageProfile
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+----------------------------------------------------------------------------
+##third Photo
+
+%%{init: {'theme':'base'}}%%
+graph TB
+    HospitalAdmin((Hospital Admin))
+    Doctor((Doctor))
+    
+    subgraph System["MedAlert - Hospital Admin Module"]
+        ViewDashboard([View Dashboard])
+        ManageDepartments([Manage Departments])
+        AddDepartment([Add Department])
+        RemoveDepartment([Remove Department])
+        ManageDoctors([Manage Doctors])
+        AddDoctor([Add Doctor])
+        RemoveDoctor([Remove Doctor])
+        ManageEmergency([Manage Emergency System])
+        UpdateEmergencyStatus([Update Emergency Status])
+        ManageRooms([Manage Room Status])
+        UpdateRoomAvailability([Update Room Availability])
+        SendNotifications([Send Notifications to Doctors])
+        SelectDoctor([Select Doctor])
+        ComposeMessage([Compose Message])
+        ManageProfile([Manage Profile])
+        
+        AddDepartment -->|extends| ManageDepartments
+        RemoveDepartment -->|extends| ManageDepartments
+        AddDoctor -->|extends| ManageDoctors
+        RemoveDoctor -->|extends| ManageDoctors
+        ManageEmergency -.->|include| UpdateEmergencyStatus
+        ManageRooms -.->|include| UpdateRoomAvailability
+        SendNotifications -.->|include| SelectDoctor
+        SendNotifications -.->|include| ComposeMessage
+    end
+    
+    HospitalAdmin --> ViewDashboard
+    HospitalAdmin --> ManageDepartments
+    HospitalAdmin --> ManageDoctors
+    HospitalAdmin --> ManageEmergency
+    HospitalAdmin --> ManageRooms
+    HospitalAdmin --> SendNotifications
+    HospitalAdmin --> ManageProfile
+    
+    SendNotifications -.->|notifies| Doctor
+
+
+
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+#####photo 4
+%%{init: {'theme':'base'}}%%
+graph TB
+    Doctor((Doctor))
+    Patient((Patient))
+    HospitalAdmin((Hospital Admin))
+    
+    subgraph System["MedAlert - Doctor Module"]
+        ViewDashboard([View Dashboard])
+        ManageReservations([Manage Patient Reservations])
+        ViewReservationHistory([View Reservation History])
+        ViewTodaySchedule([View Today's Schedule])
+        ConfirmAppointment([Confirm Appointment])
+        CancelAppointment([Cancel Appointment])
+        ManagePrescriptions([Manage Prescriptions])
+        CreatePrescription([Create Prescription])
+        EditPrescription([Edit Prescription])
+        ViewPatientPrescriptions([View Patient Prescriptions])
+        SendPrescription([Send Prescription to Patient])
+        ReceiveNotifications([Receive Emergency Notifications])
+        ViewNotification([View Notification Details])
+        RespondToEmergency([Respond to Emergency])
+        ManageProfile([Manage Profile])
+        ViewPatients([View My Patients])
+        
+        ManageReservations -.->|include| ViewReservationHistory
+        ManageReservations -.->|include| ViewTodaySchedule
+        ConfirmAppointment -->|extends| ManageReservations
+        CancelAppointment -->|extends| ManageReservations
+        CreatePrescription -->|extends| ManagePrescriptions
+        EditPrescription -->|extends| ManagePrescriptions
+        ManagePrescriptions -.->|include| ViewPatientPrescriptions
+        CreatePrescription -.->|include| SendPrescription
+        ReceiveNotifications -.->|include| ViewNotification
+        RespondToEmergency -->|extends| ReceiveNotifications
+    end
+    
+    Doctor --> ViewDashboard
+    Doctor --> ManageReservations
+    Doctor --> ManagePrescriptions
+    Doctor --> ReceiveNotifications
+    Doctor --> ManageProfile
+    Doctor --> ViewPatients
+    
+    SendPrescription -.->|sends to| Patient
+    HospitalAdmin -.->|triggers| ReceiveNotifications
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------
+####photo 5 
+
+
+
+
+
+
+
+
+
+%%{init: {'theme':'base'}}%%
+graph TB
+    Patient((Patient))
+    Guest((Guest User))
+    Doctor((Doctor))
+    
+    subgraph System["MedAlert - Patient Module"]
+        ViewDashboard([View Dashboard])
+        ViewNearbyHospitals([View Nearby Hospitals])
+        SearchHospitals([Search Hospitals])
+        ViewHospitalDetails([View Hospital Details])
+        ViewMap([View Map with Locations])
+        EmergencyServices([Access Emergency Services])
+        RequestEmergency([Request Emergency Room])
+        SelectHospital([Select Hospital])
+        ConfirmEmergency([Confirm Emergency Request])
+        TrackEmergencyStatus([Track Emergency Status])
+        MakeAppointment([Make Appointment with Doctor])
+        SelectDoctor([Select Doctor])
+        SelectDateTime([Select Date & Time])
+        ConfirmAppointment([Confirm Appointment])
+        ViewReservations([View My Reservations])
+        CancelReservation([Cancel Reservation])
+        ViewPrescriptions([View My Prescriptions])
+        DownloadPrescription([Download Prescription])
+        ManageProfile([Manage My Profile])
+        ViewPersonalDetails([View Personal Details])
+        EditDetails([Edit Name/Phone])
+        
+        ViewNearbyHospitals -.->|include| SearchHospitals
+        ViewNearbyHospitals -.->|include| ViewMap
+        ViewHospitalDetails -->|extends| ViewNearbyHospitals
+        EmergencyServices -.->|include| RequestEmergency
+        RequestEmergency -.->|include| SelectHospital
+        RequestEmergency -.->|include| ConfirmEmergency
+        TrackEmergencyStatus -->|extends| EmergencyServices
+        MakeAppointment -.->|include| SelectDoctor
+        MakeAppointment -.->|include| SelectDateTime
+        MakeAppointment -.->|include| ConfirmAppointment
+        CancelReservation -->|extends| ViewReservations
+        DownloadPrescription -->|extends| ViewPrescriptions
+        ManageProfile -.->|include| ViewPersonalDetails
+        EditDetails -->|extends| ManageProfile
+    end
+    
+    Patient --> ViewDashboard
+    Patient --> ViewNearbyHospitals
+    Patient --> EmergencyServices
+    Patient --> MakeAppointment
+    Patient --> ViewReservations
+    Patient --> ViewPrescriptions
+    Patient --> ManageProfile
+    
+    Guest --> ViewNearbyHospitals
+    Guest --> EmergencyServices
+    
+    ConfirmAppointment -.->|notifies| Doctor
