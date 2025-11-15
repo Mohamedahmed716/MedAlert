@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MedAlert - Reservation Confirmed</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#4A90E2",
+              "background-light": "#FFFFFF",
+              "background-dark": "#101c22",
+              "accent": "#50E3C2",
+              "text-primary": "#333333",
+              "text-secondary": "#666666"
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-primary dark:text-white">
+<div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<header class="flex justify-between items-center p-6 px-10">
+<h1 class="text-2xl font-bold text-primary">MedAlert</h1>
+</header>
+<main class="flex flex-1 justify-center items-center py-5">
+<div class="layout-content-container flex flex-col max-w-[720px] flex-1 text-center">
+<div class="flex justify-center mb-6">
+<div class="w-24 h-24 rounded-full bg-accent/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-accent" style="font-size: 64px;">
+                            check_circle
+                        </span>
+</div>
+</div>
+<div class="flex flex-col gap-3 p-4">
+<h2 class="text-4xl font-black leading-tight tracking-[-0.033em]">Your Reservation is Confirmed!</h2>
+<p class="text-text-secondary dark:text-gray-300 text-lg font-normal leading-normal max-w-xl mx-auto">
+                        You will receive a notification and an email when your appointment is approaching. You can view your upcoming appointments in the 'My Reservations' section.
+                    </p>
+</div>
+<div class="bg-white dark:bg-background-dark shadow-lg rounded-xl my-8 border border-gray-200 dark:border-gray-700">
+<div class="p-8 grid grid-cols-[150px_1fr] gap-x-6 text-left">
+<div class="col-span-2 grid grid-cols-subgrid border-b border-b-gray-200 dark:border-b-gray-700 py-5">
+<p class="text-text-secondary dark:text-gray-400 text-base font-normal leading-normal">Date</p>
+<p class="text-text-primary dark:text-white text-base font-bold leading-normal">2023-10-26</p>
+</div>
+<div class="col-span-2 grid grid-cols-subgrid border-b border-b-gray-200 dark:border-b-gray-700 py-5">
+<p class="text-text-secondary dark:text-gray-400 text-base font-normal leading-normal">Time</p>
+<p class="text-text-primary dark:text-white text-base font-bold leading-normal">14:30 PM</p>
+</div>
+<div class="col-span-2 grid grid-cols-subgrid border-b border-b-gray-200 dark:border-b-gray-700 py-5">
+<p class="text-text-secondary dark:text-gray-400 text-base font-normal leading-normal">Doctor</p>
+<p class="text-text-primary dark:text-white text-base font-bold leading-normal">Dr. Emily Carter, Cardiology</p>
+</div>
+<div class="col-span-2 grid grid-cols-subgrid py-5">
+<p class="text-text-secondary dark:text-gray-400 text-base font-normal leading-normal">Hospital</p>
+<p class="text-text-primary dark:text-white text-base font-bold leading-normal">Oak Valley General Hospital, 123 Health St., Wellsville</p>
+</div>
+</div>
+</div>
+<div class="flex justify-center">
+<div class="flex gap-4 flex-wrap px-4 py-3 justify-center">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-14 px-6 bg-accent text-white text-lg font-bold leading-normal tracking-[0.015em] hover:bg-accent/90 transition-colors duration-200">
+<span class="material-symbols-outlined mr-2">
+                                calendar_add_on
+                            </span>
+<span class="truncate">Add to Calendar</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-14 px-6 bg-primary/20 text-primary dark:bg-primary/30 dark:text-white text-lg font-bold leading-normal tracking-[0.015em] hover:bg-primary/30 dark:hover:bg-primary/40 transition-colors duration-200">
+<span class="truncate">View My Reservations</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

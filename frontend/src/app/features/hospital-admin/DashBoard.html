@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MedAlert - Hospital Admin Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1193d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101c22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="flex h-full grow flex-row">
+<div class="w-64 bg-white dark:bg-gray-900/50 p-4 flex flex-col justify-between shrink-0">
+<div class="flex flex-col gap-8">
+<div class="flex items-center gap-2 px-3">
+<span class="material-symbols-outlined text-primary text-3xl">health_and_safety</span>
+<h1 class="text-xl font-bold text-[#0d171b] dark:text-white">MedAlert</h1>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<p class="text-primary text-sm font-medium leading-normal">Dashboard</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 cursor-pointer">
+<span class="material-symbols-outlined text-[#0d171b] dark:text-gray-300">apartment</span>
+<p class="text-[#0d171b] dark:text-gray-300 text-sm font-medium leading-normal">Departments</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 cursor-pointer">
+<span class="material-symbols-outlined text-[#0d171b] dark:text-gray-300">stethoscope</span>
+<p class="text-[#0d171b] dark:text-gray-300 text-sm font-medium leading-normal">Doctors</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 cursor-pointer">
+<span class="material-symbols-outlined text-[#0d171b] dark:text-gray-300">event_available</span>
+<p class="text-[#0d171b] dark:text-gray-300 text-sm font-medium leading-normal">Reservations</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 cursor-pointer">
+<span class="material-symbols-outlined text-[#0d171b] dark:text-gray-300">bed</span>
+<p class="text-[#0d171b] dark:text-gray-300 text-sm font-medium leading-normal">ER Bed Status</p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-slate-50 text-sm font-bold leading-normal tracking-[0.015em] w-full">
+<span class="truncate">Logout</span>
+</button>
+</div>
+</div>
+<main class="flex-1 p-8">
+<div class="flex justify-between items-center mb-8">
+<p class="text-[#0d171b] dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Hospital Dashboard</p>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-500 dark:text-gray-400">notifications</span>
+<div class="relative">
+<div class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAMwj_yY92p2FK--N5rDeMD0F16_i0mkCWk5B8NrjAVUsClj35Rp7S5D_33Qm6YhjgpdU737oVUCf65brHz-Gjnx_54PQ5zLq9VDrasbd3bNSe6jNruvS4C6DMHkQJNfk8F2b9uHNJBDHytc4rwd02fANveO9RvtdnZLwXsT5TtJgh1fRtwtc8U_XiUKXowBPwz4MuTwF1Z0dnJfOsxWkZsEDACu6ksmbnNXixcpGAPZRv_DCSkV3kl3fEKTj201rKFYJpwKhVkw58');"></div>
+<div class="flex flex-col">
+<h1 class="text-[#0d171b] dark:text-white text-base font-medium leading-normal">Dr. Evelyn Reed</h1>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Hospital Admin</p>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-4 mb-8">
+<div class="bg-cover bg-center flex flex-col gap-3 rounded-lg justify-end p-4 aspect-video shadow-md cursor-pointer" data-alt="A modern hospital building exterior" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuB9AmKs8FIQQVGu_JwNkCaDwOTf98Su8WvNo-xf43xqqzzDErr0Q3e4FBiVmhOi2ON41MYOx8MehYcDRgVsRQDsg-1C3WFn_pNMTTfHBVixFTWTRCA_bzqnqUaU_6giLo5RokuguJj1Ts-Qxq6aN4sTvjnC0KBrVRWtLA39O7IH6k4h8wDXq6Uc1-ik7SowTAEUd7RQZgPYbjAxSLNA8qTVLSJ2z0nEo1C0DlhXuBEvNK7wL2EhwjtFo77ZRs9d5NUmTW7h9dd023A');">
+<p class="text-white text-base font-bold leading-tight line-clamp-2">Manage Departments</p>
+</div>
+<div class="bg-cover bg-center flex flex-col gap-3 rounded-lg justify-end p-4 aspect-video shadow-md cursor-pointer" data-alt="A team of doctors in a meeting" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuD6BgHepLK5JThobrmBagiF5oEEawcnsy5UhbIK-mwpSt2uNDEMQADRP7McZuZiRHjjmjbZN8SQ8kq_Cw7vEmsYA3K5D_LBJ6KoizE8DBaz8-Xuiyu9SfBshqQD28bj-FAieq83-PyI90aT13zqd5SZ7Hu_HFtULJTkIZbokDJaVuoZ-jzrhr1euJd3LhZnTi2GJFKNb4EeyQXeiVoPTg-341WmN4I7dBAxzE3VBnUxWRy8fUljNit3u5LRK9F1KOXkBVl0c3VrnBY');">
+<p class="text-white text-base font-bold leading-tight line-clamp-2">Manage Doctors</p>
+</div>
+<div class="bg-cover bg-center flex flex-col gap-3 rounded-lg justify-end p-4 aspect-video shadow-md cursor-pointer" data-alt="A calendar with appointments" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuB4wTR_YgfGjOQO521ZnHK97U6U-vpkiB_Qx5tttOzBUi690w6zGS9f1h906HVK9_j-4iMN4wvWiMxTsi31CWfoJTeD4REsDCyIWD0rms-yed1pRozlREOLHBP8tiigwmEqt9hpOJ_kOwTOygMfst9f-CLEMJ8iHTyi-lpxwcg-JICSM4l9lha8NPj72QxCP5pciWyWf-ExQ8SFxQW_718eavCajwV2nR1UYTJvSE_51NTfY1nRtSQiYoIbgde6jiYRZbKwHu_PiNc');">
+<p class="text-white text-base font-bold leading-tight line-clamp-2">Pending Reservations</p>
+</div>
+<div class="bg-cover bg-center flex flex-col gap-3 rounded-lg justify-end p-4 aspect-video shadow-md cursor-pointer" data-alt="An empty hospital bed in a room" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuDgn5sZGjYN-k6e5aAQp-JnnewkJqEZVyPo72bf0LcseCMaF_gFY_VFVCpIfV6bp_QOMIKj1iw34u5WukhFf3XY2imYnBnX1pFrU7FLw_oh6RJxa4pWVVBVnIPM5caHPZLh0FKFleBPMo2ozVrOVziquHMUOPr8c2NXrfs0gudBHk2HBbsuXXwscfzJk8Iq1t7fL-DI8_j6jq3V3tbeog0NhkVmodyQryDHy87uVFMsQjsLYSjayutoKYAylzAZqs6njZkv2tqJYTk');">
+<p class="text-white text-base font-bold leading-tight line-clamp-2">ER Bed Status</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-6 bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800">
+<p class="text-[#0d171b] dark:text-gray-300 text-base font-medium leading-normal">Total Patients</p>
+<p class="text-[#0d171b] dark:text-white tracking-light text-2xl font-bold leading-tight">1,234</p>
+</div>
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-6 bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800">
+<p class="text-[#0d171b] dark:text-gray-300 text-base font-medium leading-normal">Active Doctors</p>
+<p class="text-[#0d171b] dark:text-white tracking-light text-2xl font-bold leading-tight">87</p>
+</div>
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-6 bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800">
+<p class="text-[#0d171b] dark:text-gray-300 text-base font-medium leading-normal">Available Beds</p>
+<p class="text-[#0d171b] dark:text-white tracking-light text-2xl font-bold leading-tight">15</p>
+</div>
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-6 bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800">
+<p class="text-[#0d171b] dark:text-gray-300 text-base font-medium leading-normal">Upcoming Appointments</p>
+<p class="text-[#0d171b] dark:text-white tracking-light text-2xl font-bold leading-tight">42</p>
+</div>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+<div class="xl:col-span-2 bg-white dark:bg-gray-900/50 rounded-lg p-6 border border-gray-200 dark:border-gray-800">
+<div class="flex flex-wrap gap-4">
+<div class="flex min-w-72 flex-1 flex-col gap-2">
+<p class="text-[#0d171b] dark:text-white text-base font-medium leading-normal">Patient Admissions Over the Last 7 Days</p>
+<p class="text-[#0d171b] dark:text-white tracking-light text-[32px] font-bold leading-tight truncate">345</p>
+<div class="flex gap-1">
+<p class="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal">Last 7 Days</p>
+<p class="text-green-600 dark:text-green-500 text-base font-medium leading-normal">+12%</p>
+</div>
+<div class="grid min-h-[180px] grid-flow-col gap-6 grid-rows-[1fr_auto] items-end justify-items-center px-3 pt-6">
+<div class="bg-primary/20 dark:bg-primary/30 w-full rounded-t-sm" style="height: 50%;"></div>
+<p class="text-gray-500 dark:text-gray-400 text-[13px] font-bold leading-normal tracking-[0.015em]">Mon</p>
+<div class="bg-primary/20 dark:bg-primary/30 w-full rounded-t-sm" style="height: 10%;"></div>
+<p class="text-gray-500 dark:text-gray-400 text-[13px] font-bold leading-normal tracking-[0.015em]">Tue</p>
+<div class="bg-primary/20 dark:bg-primary/30 w-full rounded-t-sm" style="height: 20%;"></div>
+<p class="text-gray-500 dark:text-gray-400 text-[13px] font-bold leading-normal tracking-[0.015em]">Wed</p>
+<div class="bg-primary/20 dark:bg-primary/30 w-full rounded-t-sm" style="height: 100%;"></div>
+<p class="text-gray-500 dark:text-gray-400 text-[13px] font-bold leading-normal tracking-[0.015em]">Thu</p>
+<div class="bg-primary/20 dark:bg-primary/30 w-full rounded-t-sm" style="height: 80%;"></div>
+<p class="text-gray-500 dark:text-gray-400 text-[13px] font-bold leading-normal tracking-[0.015em]">Fri</p>
+<div class="bg-primary/20 dark:bg-primary/30 w-full rounded-t-sm" style="height: 80%;"></div>
+<p class="text-gray-500 dark:text-gray-400 text-[13px] font-bold leading-normal tracking-[0.015em]">Sat</p>
+<div class="bg-primary/20 dark:bg-primary/30 w-full rounded-t-sm" style="height: 50%;"></div>
+<p class="text-gray-500 dark:text-gray-400 text-[13px] font-bold leading-normal tracking-[0.015em]">Sun</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-900/50 rounded-lg p-6 border border-gray-200 dark:border-gray-800">
+<h3 class="text-[#0d171b] dark:text-white text-lg font-semibold mb-4">Recent Activity</h3>
+<div class="space-y-4">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center shrink-0 mt-1">
+<span class="material-symbols-outlined text-blue-500 text-lg">person_add</span>
+</div>
+<div class="flex-1">
+<p class="text-sm text-[#0d171b] dark:text-gray-300">New doctor <span class="font-semibold text-primary">Dr. John Smith</span> added to Cardiology.</p>
+<p class="text-xs text-gray-500 dark:text-gray-400">2 hours ago</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center shrink-0 mt-1">
+<span class="material-symbols-outlined text-green-500 text-lg">apartment</span>
+</div>
+<div class="flex-1">
+<p class="text-sm text-[#0d171b] dark:text-gray-300">New department <span class="font-semibold text-primary">Neurology</span> created.</p>
+<p class="text-xs text-gray-500 dark:text-gray-400">1 day ago</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-orange-100 dark:bg-orange-900 flex items-center justify-center shrink-0 mt-1">
+<span class="material-symbols-outlined text-orange-500 text-lg">event_available</span>
+</div>
+<div class="flex-1">
+<p class="text-sm text-[#0d171b] dark:text-gray-300">High-priority reservation for <span class="font-semibold text-primary">Jane Doe</span>.</p>
+<p class="text-xs text-gray-500 dark:text-gray-400">3 days ago</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center shrink-0 mt-1">
+<span class="material-symbols-outlined text-red-500 text-lg">bed</span>
+</div>
+<div class="flex-1">
+<p class="text-sm text-[#0d171b] dark:text-gray-300">ER Bed capacity reached <span class="font-semibold text-red-500">95%</span>.</p>
+<p class="text-xs text-gray-500 dark:text-gray-400">5 days ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

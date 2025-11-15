@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Patient Settings - MedAlert</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#3B82F6",
+            "secondary": "#10B981",
+            "accent": "#FBBF24",
+            "background-light": "#F3F4F6",
+            "background-dark": "#111827",
+            "text-light": "#4B5563",
+            "text-dark": "#E5E7EB",
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.5rem",
+            "lg": "0.75rem",
+            "xl": "1rem",
+            "full": "9999px"
+          },
+        },
+      },
+    };
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">
+<div class="relative flex min-h-screen w-full flex-col">
+<div class="layout-container flex h-full grow flex-col">
+<div class="flex flex-1 justify-center p-4 sm:p-6 md:p-8">
+<div class="layout-content-container flex w-full max-w-7xl flex-1 gap-6">
+<aside class="flex w-full max-w-xs flex-col">
+<div class="flex flex-col gap-4 rounded-lg bg-white dark:bg-gray-800 p-4 shadow-sm">
+<div class="flex gap-3 items-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="Patient profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD9Pnx7oTveyBN3HpMdL6pDJfagt0YNaKeKqwsvEHQED7bHR6wOwyxaAxJ-YtJHhRrPcjJrhpERu1tjVqRFI8O_5PRMWF0u6GTRKmEmC0ZM5ECAbo7lwqIT4pLl9VXGoF7wTM5NbIZjBiL7T0fbmOEpVwAmKzLkf-4OE6w75-Jf_s9GfowjAx2_-EuZFxAGDOl959Gt2d0RZC4P8qYNrg8OE7hWEiMrLP-krcwVvf9WTjLWRQXCZpEYU0jZ8new1mVfqITNqpwZBf0");'></div>
+<div class="flex flex-col">
+<h1 class="text-gray-900 dark:text-white text-base font-semibold leading-normal">Jane Doe</h1>
+<p class="text-text-light dark:text-text-dark text-sm font-normal leading-normal">jane.doe@email.com</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined">person</span>
+<p class="text-sm font-medium leading-normal">Profile</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200" href="#">
+<span class="material-symbols-outlined">notifications</span>
+<p class="text-sm font-medium leading-normal">Notifications</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200" href="#">
+<span class="material-symbols-outlined">security</span>
+<p class="text-sm font-medium leading-normal">Security</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200" href="#">
+<span class="material-symbols-outlined">privacy_tip</span>
+<p class="text-sm font-medium leading-normal">Privacy</p>
+</a>
+</div>
+</div>
+<div class="mt-auto p-4">
+<button class="w-full flex items-center justify-center gap-2 rounded-lg h-10 px-4 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 text-sm font-bold leading-normal tracking-wide">
+<span class="material-symbols-outlined">logout</span>
+<span>Logout</span>
+</button>
+</div>
+</aside>
+<main class="flex-1">
+<div class="flex flex-col gap-6">
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+<div class="flex flex-wrap justify-between gap-3">
+<div class="flex min-w-72 flex-col gap-3">
+<p class="text-gray-900 dark:text-white text-3xl font-bold leading-tight">Profile</p>
+<p class="text-text-light dark:text-text-dark text-base font-normal leading-normal">Manage your personal information, address, and emergency contacts.</p>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+<h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Personal Information</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<label class="flex flex-col">
+<p class="text-gray-800 dark:text-gray-100 text-sm font-medium leading-normal pb-2">Full Name</p>
+<input class="form-input w-full rounded-lg text-gray-900 dark:text-white bg-background-light dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:ring-primary focus:border-primary h-12 px-4 text-base font-normal" value="Jane Doe"/>
+</label>
+<label class="flex flex-col">
+<p class="text-gray-800 dark:text-gray-100 text-sm font-medium leading-normal pb-2">Email Address</p>
+<input class="form-input w-full rounded-lg text-gray-900 dark:text-white bg-background-light dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:ring-primary focus:border-primary h-12 px-4 text-base font-normal" value="jane.doe@email.com"/>
+</label>
+<label class="flex flex-col">
+<p class="text-gray-800 dark:text-gray-100 text-sm font-medium leading-normal pb-2">Date of Birth</p>
+<input class="form-input w-full rounded-lg text-gray-900 dark:text-white bg-background-light dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:ring-primary focus:border-primary h-12 px-4 text-base font-normal" type="date" value="1990-05-15"/>
+</label>
+<label class="flex flex-col">
+<p class="text-gray-800 dark:text-gray-100 text-sm font-medium leading-normal pb-2">Gender</p>
+<select class="form-select w-full rounded-lg text-gray-900 dark:text-white bg-background-light dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:ring-primary focus:border-primary h-12 px-4 text-base font-normal">
+<option>Female</option>
+<option>Male</option>
+<option>Other</option>
+<option>Prefer not to say</option>
+</select>
+</label>
+<label class="flex flex-col md:col-span-2">
+<p class="text-gray-800 dark:text-gray-100 text-sm font-medium leading-normal pb-2">Address</p>
+<input class="form-input w-full rounded-lg text-gray-900 dark:text-white bg-background-light dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:ring-primary focus:border-primary h-12 px-4 text-base font-normal" value="123 Main Street, Anytown, USA 12345"/>
+</label>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+<h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Emergency Contact</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<label class="flex flex-col">
+<p class="text-gray-800 dark:text-gray-100 text-sm font-medium leading-normal pb-2">Contact Name</p>
+<input class="form-input w-full rounded-lg text-gray-900 dark:text-white bg-background-light dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:ring-primary focus:border-primary h-12 px-4 text-base font-normal" value="John Doe"/>
+</label>
+<label class="flex flex-col">
+<p class="text-gray-800 dark:text-gray-100 text-sm font-medium leading-normal pb-2">Relationship</p>
+<input class="form-input w-full rounded-lg text-gray-900 dark:text-white bg-background-light dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:ring-primary focus:border-primary h-12 px-4 text-base font-normal" value="Spouse"/>
+</label>
+<label class="flex flex-col md:col-span-2">
+<p class="text-gray-800 dark:text-gray-100 text-sm font-medium leading-normal pb-2">Phone Number</p>
+<input class="form-input w-full rounded-lg text-gray-900 dark:text-white bg-background-light dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:ring-primary focus:border-primary h-12 px-4 text-base font-normal" value="(123) 456-7890"/>
+</label>
+</div>
+</div>
+<div class="flex justify-end gap-4 mt-2">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 text-sm font-bold leading-normal tracking-wide hover:bg-gray-300 dark:hover:bg-gray-600">
+<span class="truncate">Cancel</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-secondary text-white text-sm font-bold leading-normal tracking-wide hover:bg-secondary/90">
+<span class="truncate">Save Changes</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+</div>
+</div>
+</div>
+</body></html>

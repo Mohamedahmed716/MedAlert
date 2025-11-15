@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MedAlert - ER Bed Availability</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#007bff",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#142210",
+                        "available": "#28a745",
+                        "occupied": "#dc3545",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 md:px-10 lg:px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-gray-700 px-4 sm:px-10 py-3">
+<div class="flex items-center gap-4 text-gray-800 dark:text-white">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_319)">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+</g>
+<defs>
+<clippath id="clip0_6_319"><rect fill="white" height="48" width="48"></rect></clippath>
+</defs>
+</svg>
+</div>
+<h2 class="text-xl font-bold leading-tight tracking-[-0.015em] text-gray-800 dark:text-white">MedAlert</h2>
+</div>
+<div class="flex flex-1 justify-end items-center gap-4 sm:gap-8">
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium leading-normal text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary" href="#">Home</a>
+<a class="text-sm font-medium leading-normal text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary" href="#">My Profile</a>
+<a class="text-sm font-medium leading-normal text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary" href="#">Logout</a>
+</nav>
+<button class="flex md:hidden items-center justify-center p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<main class="flex-1">
+<div class="flex flex-wrap justify-between gap-3 p-4 my-6">
+<div class="flex min-w-72 flex-col gap-2">
+<p class="text-4xl font-black leading-tight tracking-[-0.033em] text-gray-900 dark:text-white">ER Bed Availability</p>
+<p class="text-base font-normal leading-normal text-gray-500 dark:text-gray-400">Green beds are available. Red beds are occupied.</p>
+</div>
+</div>
+<div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-4 p-4">
+<div class="flex flex-1 flex-col gap-3 rounded-lg border border-available bg-available p-4 items-center justify-center text-white">
+<span class="material-symbols-outlined text-4xl">bed</span>
+<h2 class="text-base font-bold leading-tight">Bed 101</h2>
+<p class="text-sm font-medium">Available</p>
+</div>
+<div class="flex flex-1 flex-col gap-3 rounded-lg border border-occupied bg-occupied p-4 items-center justify-center text-white">
+<span class="material-symbols-outlined text-4xl">bed</span>
+<h2 class="text-base font-bold leading-tight">Bed 102</h2>
+<p class="text-sm font-medium">Occupied</p>
+</div>
+<div class="flex flex-1 flex-col gap-3 rounded-lg border border-occupied bg-occupied p-4 items-center justify-center text-white">
+<span class="material-symbols-outlined text-4xl">bed</span>
+<h2 class="text-base font-bold leading-tight">Bed 103</h2>
+<p class="text-sm font-medium">Occupied</p>
+</div>
+<div class="flex flex-1 flex-col gap-3 rounded-lg border border-available bg-available p-4 items-center justify-center text-white">
+<span class="material-symbols-outlined text-4xl">bed</span>
+<h2 class="text-base font-bold leading-tight">Bed 104</h2>
+<p class="text-sm font-medium">Available</p>
+</div>
+<div class="flex flex-1 flex-col gap-3 rounded-lg border border-available bg-available p-4 items-center justify-center text-white">
+<span class="material-symbols-outlined text-4xl">bed</span>
+<h2 class="text-base font-bold leading-tight">Bed 105</h2>
+<p class="text-sm font-medium">Available</p>
+</div>
+<div class="flex flex-1 flex-col gap-3 rounded-lg border border-occupied bg-occupied p-4 items-center justify-center text-white">
+<span class="material-symbols-outlined text-4xl">bed</span>
+<h2 class="text-base font-bold leading-tight">Bed 106</h2>
+<p class="text-sm font-medium">Occupied</p>
+</div>
+<div class="flex flex-1 flex-col gap-3 rounded-lg border border-available bg-available p-4 items-center justify-center text-white">
+<span class="material-symbols-outlined text-4xl">bed</span>
+<h2 class="text-base font-bold leading-tight">Bed 107</h2>
+<p class="text-sm font-medium">Available</p>
+</div>
+<div class="flex flex-1 flex-col gap-3 rounded-lg border border-available bg-available p-4 items-center justify-center text-white">
+<span class="material-symbols-outlined text-4xl">bed</span>
+<h2 class="text-base font-bold leading-tight">Bed 108</h2>
+<p class="text-sm font-medium">Available</p>
+</div>
+<div class="flex flex-1 flex-col gap-3 rounded-lg border border-occupied bg-occupied p-4 items-center justify-center text-white">
+<span class="material-symbols-outlined text-4xl">bed</span>
+<h2 class="text-base font-bold leading-tight">Bed 109</h2>
+<p class="text-sm font-medium">Occupied</p>
+</div>
+<div class="flex flex-1 flex-col gap-3 rounded-lg border border-available bg-available p-4 items-center justify-center text-white">
+<span class="material-symbols-outlined text-4xl">bed</span>
+<h2 class="text-base font-bold leading-tight">Bed 110</h2>
+<p class="text-sm font-medium">Available</p>
+</div>
+<div class="flex flex-1 flex-col gap-3 rounded-lg border border-occupied bg-occupied p-4 items-center justify-center text-white">
+<span class="material-symbols-outlined text-4xl">bed</span>
+<h2 class="text-base font-bold leading-tight">Bed 111</h2>
+<p class="text-sm font-medium">Occupied</p>
+</div>
+<div class="flex flex-1 flex-col gap-3 rounded-lg border border-available bg-available p-4 items-center justify-center text-white">
+<span class="material-symbols-outlined text-4xl">bed</span>
+<h2 class="text-base font-bold leading-tight">Bed 112</h2>
+<p class="text-sm font-medium">Available</p>
+</div>
+</div>
+<div class="flex px-4 py-8 justify-center">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 flex-1 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-blue-600 dark:hover:bg-blue-500 transition-colors">
+<span class="truncate">Make ER Reservation</span>
+</button>
+</div>
+</main>
+<footer class="flex flex-col gap-6 px-5 py-10 text-center @container mt-10 border-t border-gray-200 dark:border-gray-700">
+<div class="flex flex-wrap items-center justify-center gap-6 @[480px]:flex-row @[480px]:justify-around">
+<a class="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal min-w-40 hover:text-primary dark:hover:text-primary" href="#">Privacy Policy</a>
+<a class="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal min-w-40 hover:text-primary dark:hover:text-primary" href="#">Terms of Service</a>
+<a class="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal min-w-40 hover:text-primary dark:hover:text-primary" href="#">Contact Us</a>
+</div>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">© 2023 MedAlert. All Rights Reserved.</p>
+</footer>
+</div>
+</div>
+</div>
+</div>
+</body></html>

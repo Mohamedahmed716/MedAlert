@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Doctor Management - MedAlert</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#2c3e50",
+              "background-light": "#ecf0f1",
+              "background-dark": "#101c22",
+              "accent": "#27ae60",
+              "text-dark": "#34495e",
+              "active": "#2ecc71",
+              "inactive": "#e74c3c"
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.25rem",
+              "lg": "0.5rem",
+              "xl": "0.75rem",
+              "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-dark dark:text-white/80">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="flex h-full grow flex-row">
+<!-- SideNavBar -->
+<div class="w-64 bg-white dark:bg-background-dark/50 p-4 flex flex-col justify-between border-r border-gray-200 dark:border-gray-700">
+<div>
+<div class="flex items-center gap-3 mb-8">
+<div class="bg-primary/20 rounded-full p-2">
+<span class="material-symbols-outlined text-primary dark:text-white" style="font-size: 28px;">medical_services</span>
+</div>
+<h1 class="text-xl font-bold text-primary dark:text-white">MedAlert</h1>
+</div>
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 dark:hover:bg-white/10" href="#">
+<span class="material-symbols-outlined text-text-dark dark:text-white/80">dashboard</span>
+<p class="text-sm font-medium">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 dark:hover:bg-white/10" href="#">
+<span class="material-symbols-outlined text-text-dark dark:text-white/80">group</span>
+<p class="text-sm font-medium">Patients</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 dark:bg-white/20" href="#">
+<span class="material-symbols-outlined text-primary dark:text-white font-bold">stethoscope</span>
+<p class="text-sm font-medium text-primary dark:text-white">Doctors</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 dark:hover:bg-white/10" href="#">
+<span class="material-symbols-outlined text-text-dark dark:text-white/80">calendar_month</span>
+<p class="text-sm font-medium">Appointments</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 dark:hover:bg-white/10" href="#">
+<span class="material-symbols-outlined text-text-dark dark:text-white/80">corporate_fare</span>
+<p class="text-sm font-medium">Departments</p>
+</a>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="border-t border-gray-200 dark:border-gray-700 pt-4">
+<div class="flex gap-3 items-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBWano1jOytVOEwJ7DskshAYkII0xiW_SGJkv5ZQEb93yokthsoaJEbXU6nK3vbRe4e_rchcGOafnlpyPTwipDJAEUouxFqOVTCuMzqqhrAKfEpbnMju4D95mLG8kZUwPC2d1qw-btZcLTAp6JB006M7stBoWYOGxL4AUg1U9B1y2jYFksvPi3xB5p8iqOoG5RleMWpHta6GyFuYO13PyKnIbJrdDgKfMeRhFLKsy7Rati8xZwSthqnXb266QlibQwIchl-f3rVBn4");'></div>
+<div class="flex flex-col">
+<h1 class="text-text-dark dark:text-white text-base font-medium leading-normal">Dr. Emily Carter</h1>
+<p class="text-text-dark/70 dark:text-white/60 text-sm font-normal leading-normal">Hospital Admin</p>
+</div>
+</div>
+</div>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-10 px-4 bg-primary/10 dark:bg-white/10 text-primary dark:text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/20 dark:hover:bg-white/20">
+<span class="material-symbols-outlined">logout</span>
+<span class="truncate">Logout</span>
+</button>
+</div>
+</div>
+<!-- Main Content -->
+<div class="flex-1 p-8">
+<div class="max-w-7xl mx-auto">
+<!-- Breadcrumbs -->
+<div class="flex flex-wrap gap-2 mb-4">
+<a class="text-text-dark/70 dark:text-white/60 text-sm font-medium leading-normal hover:text-primary dark:hover:text-white" href="#">Home</a>
+<span class="text-text-dark/70 dark:text-white/60 text-sm font-medium leading-normal">/</span>
+<span class="text-text-dark dark:text-white text-sm font-medium leading-normal">Doctors</span>
+</div>
+<!-- PageHeading -->
+<div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+<div class="flex flex-col gap-1">
+<p class="text-text-dark dark:text-white text-3xl font-black leading-tight tracking-tight">Doctor Management</p>
+<p class="text-text-dark/70 dark:text-white/60 text-base font-normal leading-normal">A list of all doctors in your hospital.</p>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-accent text-white text-sm font-bold leading-normal tracking-[0.015em] gap-2 hover:bg-accent/90">
+<span class="material-symbols-outlined">add</span>
+<span class="truncate">Add New Doctor</span>
+</button>
+</div>
+<div class="bg-white dark:bg-background-dark/50 rounded-xl shadow-sm p-6">
+<!-- SearchBar and Filters -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+<div class="md:col-span-1">
+<label class="flex flex-col min-w-40 h-12 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-text-dark/70 dark:text-white/60 flex border-none bg-background-light dark:bg-background-dark/80 items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-dark dark:text-white focus:outline-0 focus:ring-0 border-none bg-background-light dark:bg-background-dark/80 focus:border-none h-full placeholder:text-text-dark/70 dark:placeholder:text-white/60 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search by Name, Specialty..." value=""/>
+</div>
+</label>
+</div>
+<div class="md:col-span-2 flex justify-start md:justify-end gap-3">
+<!-- Chips -->
+<button class="flex h-12 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-background-light dark:bg-background-dark/80 px-4">
+<p class="text-text-dark dark:text-white/80 text-sm font-medium leading-normal">Specialty</p>
+<span class="material-symbols-outlined text-text-dark/70 dark:text-white/60">arrow_drop_down</span>
+</button>
+<button class="flex h-12 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-background-light dark:bg-background-dark/80 px-4">
+<p class="text-text-dark dark:text-white/80 text-sm font-medium leading-normal">Department</p>
+<span class="material-symbols-outlined text-text-dark/70 dark:text-white/60">arrow_drop_down</span>
+</button>
+<button class="flex h-12 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-background-light dark:bg-background-dark/80 px-4">
+<p class="text-text-dark dark:text-white/80 text-sm font-medium leading-normal">Status</p>
+<span class="material-symbols-outlined text-text-dark/70 dark:text-white/60">arrow_drop_down</span>
+</button>
+</div>
+</div>
+<!-- Doctor List Table -->
+<div class="overflow-x-auto">
+<table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+<thead class="bg-background-light dark:bg-background-dark/80">
+<tr>
+<th class="px-6 py-3 text-left text-xs font-medium text-text-dark/70 dark:text-white/60 uppercase tracking-wider" scope="col">Doctor Name</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-text-dark/70 dark:text-white/60 uppercase tracking-wider" scope="col">Specialty</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-text-dark/70 dark:text-white/60 uppercase tracking-wider" scope="col">Department</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-text-dark/70 dark:text-white/60 uppercase tracking-wider" scope="col">Status</th>
+<th class="px-6 py-3 text-right text-xs font-medium text-text-dark/70 dark:text-white/60 uppercase tracking-wider" scope="col">Actions</th>
+</tr>
+</thead>
+<tbody class="bg-white dark:bg-background-dark/50 divide-y divide-gray-200 dark:divide-gray-700">
+<!-- Table Row 1 -->
+<tr>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-dark dark:text-white">Dr. Johnathan Smith</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-text-dark/80 dark:text-white/70">Cardiology</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-text-dark/80 dark:text-white/70">Medical</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-active/20 text-active-dark">Active</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 rounded-lg hover:bg-primary/10 dark:hover:bg-white/10 group">
+<span class="material-symbols-outlined text-text-dark/70 dark:text-white/60 group-hover:text-primary dark:group-hover:text-white" style="font-size: 20px;">visibility</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-primary/10 dark:hover:bg-white/10 group">
+<span class="material-symbols-outlined text-text-dark/70 dark:text-white/60 group-hover:text-primary dark:group-hover:text-white" style="font-size: 20px;">edit</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-inactive/10 group">
+<span class="material-symbols-outlined text-text-dark/70 dark:text-white/60 group-hover:text-inactive" style="font-size: 20px;">toggle_off</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Table Row 2 -->
+<tr>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-dark dark:text-white">Dr. Amelia Jones</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-text-dark/80 dark:text-white/70">Neurology</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-text-dark/80 dark:text-white/70">Surgical</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-active/20 text-active-dark">Active</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 rounded-lg hover:bg-primary/10 dark:hover:bg-white/10 group">
+<span class="material-symbols-outlined text-text-dark/70 dark:text-white/60 group-hover:text-primary dark:group-hover:text-white" style="font-size: 20px;">visibility</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-primary/10 dark:hover:bg-white/10 group">
+<span class="material-symbols-outlined text-text-dark/70 dark:text-white/60 group-hover:text-primary dark:group-hover:text-white" style="font-size: 20px;">edit</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-inactive/10 group">
+<span class="material-symbols-outlined text-text-dark/70 dark:text-white/60 group-hover:text-inactive" style="font-size: 20px;">toggle_off</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Table Row 3 -->
+<tr>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-dark dark:text-white">Dr. Benjamin Lee</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-text-dark/80 dark:text-white/70">Pediatrics</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-text-dark/80 dark:text-white/70">Outpatient</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-inactive/20 text-inactive">Inactive</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 rounded-lg hover:bg-primary/10 dark:hover:bg-white/10 group">
+<span class="material-symbols-outlined text-text-dark/70 dark:text-white/60 group-hover:text-primary dark:group-hover:text-white" style="font-size: 20px;">visibility</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-primary/10 dark:hover:bg-white/10 group">
+<span class="material-symbols-outlined text-text-dark/70 dark:text-white/60 group-hover:text-primary dark:group-hover:text-white" style="font-size: 20px;">edit</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-active/10 group">
+<span class="material-symbols-outlined text-text-dark/70 dark:text-white/60 group-hover:text-active" style="font-size: 20px;">toggle_on</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- More rows... -->
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="flex items-center justify-between mt-6">
+<p class="text-sm text-text-dark/70 dark:text-white/60">
+                                Showing <span class="font-medium">1</span> to <span class="font-medium">10</span> of <span class="font-medium">97</span> results
+                            </p>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-lg hover:bg-primary/10 dark:hover:bg-white/10">
+<span class="material-symbols-outlined text-text-dark/70 dark:text-white/60">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-lg text-sm bg-primary/20 text-primary dark:bg-white/20 dark:text-white">1</button>
+<button class="w-8 h-8 rounded-lg text-sm hover:bg-primary/10 dark:hover:bg-white/10 text-text-dark dark:text-white/80">2</button>
+<button class="w-8 h-8 rounded-lg text-sm hover:bg-primary/10 dark:hover:bg-white/10 text-text-dark dark:text-white/80">3</button>
+<span class="text-text-dark/70 dark:text-white/60">...</span>
+<button class="w-8 h-8 rounded-lg text-sm hover:bg-primary/10 dark:hover:bg-white/10 text-text-dark dark:text-white/80">10</button>
+<button class="p-2 rounded-lg hover:bg-primary/10 dark:hover:bg-white/10">
+<span class="material-symbols-outlined text-text-dark/70 dark:text-white/60">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

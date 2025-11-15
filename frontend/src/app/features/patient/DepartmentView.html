@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MedAlert - Doctors by Department</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1193d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101c22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 md:px-10 lg:px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-gray-700 px-4 md:px-10 py-3">
+<div class="flex items-center gap-4 text-gray-800 dark:text-white">
+<div class="size-8 text-primary">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_319)">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"></path>
+</g>
+<defs>
+<clippath id="clip0_6_319"><rect fill="white" height="48" width="48"></rect></clippath>
+</defs>
+</svg>
+</div>
+<h2 class="text-gray-800 dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">MedAlert</h2>
+</div>
+<div class="flex flex-1 justify-end gap-4 md:gap-8 items-center">
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-gray-500 dark:text-gray-400 flex bg-gray-100 dark:bg-gray-800 items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-800 dark:text-white focus:outline-0 focus:ring-0 border-none bg-gray-100 dark:bg-gray-800 focus:border-none h-full placeholder:text-gray-500 dark:placeholder:text-gray-400 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search doctors" value=""/>
+</div>
+</label>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Patient's profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAYtEcXHatoV6emTvIKu9v0mPu2cD7q0xKcd2JKKMPD-cRDGsRT18-E5KvgvlDGxTJ_amMqAIOKakfPIgkOiShgjtzyKEME-vpGlZCWxyzyRDtAZStWFYRg8NAmB1L67x8lUGpJKYQmUyKwOd9qg4wtvZqezbE18B91fiUGVzaG3C-H4Y2gcb0rOXB8JRfQ1KYCWcN5zsU2xFhIGMSX02x3Gd6pVdLOWYileiKqwB7L7LY7kKakbvqfcGvIOHIjnzC7dpGpotgfCFk");'></div>
+</div>
+</header>
+<main class="flex-1">
+<div class="flex flex-wrap gap-2 p-4">
+<a class="text-primary hover:underline text-base font-medium leading-normal" href="#">Home</a>
+<span class="text-gray-500 dark:text-gray-400 text-base font-medium leading-normal">/</span>
+<a class="text-primary hover:underline text-base font-medium leading-normal" href="#">Departments</a>
+<span class="text-gray-500 dark:text-gray-400 text-base font-medium leading-normal">/</span>
+<span class="text-gray-800 dark:text-white text-base font-medium leading-normal">Cardiology</span>
+</div>
+<div class="flex flex-wrap justify-between gap-3 p-4">
+<p class="text-gray-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em] min-w-72">Cardiology</p>
+</div>
+<div class="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-6 p-4">
+<div class="flex flex-col gap-4 pb-3 rounded-lg bg-white dark:bg-background-dark shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-200 dark:border-gray-700">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover" data-alt="Professional headshot of Dr. John Doe" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAOoTpTAhAnOCtTDHfirUuf2M_T3jGXctiDVjGxtjY4UzNC7_T7rfwFi6XaG0orI8ordOCxxYp4kj0yjc68mjZSQvYlHGPrymvVQskoNPYku-incgYN6NrSkVBKhmLH_26MXDdovmXwOiC8_dkeFDHt4TS7jJaAv2cxhIEQi2NeAasC3-zDWcBv4UUfkhwnN3IkZCymqQSoyqP3sSHLbXdlsqY1han5nunryE9tf6YEIZNnts9t6WTwkBrBv43MqnnWgmB-4MDsoYM");'></div>
+<div class="px-4 flex flex-col flex-grow">
+<p class="text-gray-900 dark:text-white text-lg font-bold leading-normal">Dr. John Doe</p>
+<p class="text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal">Interventional Cardiology</p>
+<a class="mt-4 text-center bg-primary text-white py-2 px-4 rounded-lg text-sm font-semibold hover:bg-primary/90 transition-colors duration-200" href="#">View Profile</a>
+</div>
+</div>
+<div class="flex flex-col gap-4 pb-3 rounded-lg bg-white dark:bg-background-dark shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-200 dark:border-gray-700">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover" data-alt="Professional headshot of Dr. Jane Smith" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDvD68NLb-KXxqzBbjbTnsmwjTZUO97ejsasLD5L3sU0ops243tehP7_d9ZGirqyRwVM5JWE-OTHXq0ShqgKFnaNYwqDf8EDuHUOXjDDpDwIFuRZfvHrkRuqn2wVSOcz57gGQ7-yHcIZvwQQ7JUxfWee1VOHY4FuSZ1wEXiq0O1MXkXB65iSfdA_GNqpwxMQxDAxkNfe8uFNtWqIlYlghfCZdosL0SiTR4GchgSTOYfyUxDTPNJUmZLLrHB9HxDgCcEoVQxPmo7SPg");'></div>
+<div class="px-4 flex flex-col flex-grow">
+<p class="text-gray-900 dark:text-white text-lg font-bold leading-normal">Dr. Jane Smith</p>
+<p class="text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal">Electrophysiology</p>
+<a class="mt-4 text-center bg-primary text-white py-2 px-4 rounded-lg text-sm font-semibold hover:bg-primary/90 transition-colors duration-200" href="#">View Profile</a>
+</div>
+</div>
+<div class="flex flex-col gap-4 pb-3 rounded-lg bg-white dark:bg-background-dark shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-200 dark:border-gray-700">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover" data-alt="Professional headshot of Dr. Emily Jones" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC_ZIDb5fiNJY-Hy_NPiDw6m1sfg9vbBjRxXdDrxc63HCCduaYxM_mgEn3UeJBo-VVKtHsPWDPgFqSPCtbZVHSQmzFAo-zpQrYLUWRvd8M5tNRTIkbFEPpfBu0BTwT_lEsJWIIe41_OafIC1AU6jHiHwS3dYWcn7go5x-R53SrE6lMt6hLpUgFzE88IC68pJT6TOUUCUHEllXhZYM5Z3gtaw9NaiTWt_IrjFtIO0azRUCPPE-4XocGlOTF7OZTJ-jR6k7dIpcbln-c");'></div>
+<div class="px-4 flex flex-col flex-grow">
+<p class="text-gray-900 dark:text-white text-lg font-bold leading-normal">Dr. Emily Jones</p>
+<p class="text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal">Pediatric Cardiology</p>
+<a class="mt-4 text-center bg-primary text-white py-2 px-4 rounded-lg text-sm font-semibold hover:bg-primary/90 transition-colors duration-200" href="#">View Profile</a>
+</div>
+</div>
+<div class="flex flex-col gap-4 pb-3 rounded-lg bg-white dark:bg-background-dark shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-200 dark:border-gray-700">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover" data-alt="Professional headshot of Dr. Michael Brown" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBYVwCHkQAZgD6srTDTLqxyc9Y08qPlvK4XewkMSvcWu33xn5J8F78QQN2jxzCWSJ2djADC-ao3iRmrUJJ8ue6r1BpljgbKBC0_Y1ntPiQ37nFZ33r3kM6WQeOzCUZJHmGKvxmrJUVUqfknaOjVy4iaKE9AKygaaLsYS3mFHyIe2-YKYwf0o71FDjBqZ1-EwXlzyBD7XOErc3BEw10e2gn76UliqOyLoQTE1M8QVUK-dC7JPDL6B37wjMr2h0WUTV24xJm1E6cesCo");'></div>
+<div class="px-4 flex flex-col flex-grow">
+<p class="text-gray-900 dark:text-white text-lg font-bold leading-normal">Dr. Michael Brown</p>
+<p class="text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal">Heart Failure &amp; Transplant</p>
+<a class="mt-4 text-center bg-primary text-white py-2 px-4 rounded-lg text-sm font-semibold hover:bg-primary/90 transition-colors duration-200" href="#">View Profile</a>
+</div>
+</div>
+<div class="flex flex-col gap-4 pb-3 rounded-lg bg-white dark:bg-background-dark shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-200 dark:border-gray-700">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover" data-alt="Professional headshot of Dr. Sarah Miller" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCpaRhVb4_Xw2bOlahy18gl-sYrnusmM0YmsyLrcwwm7__S7yMJq-_PzS7BMW0ZNlbX8PNpBym6PYe7VDHtA2j3QBVCKz9_NOgNkbxzXlZPt-Ph7zx1LDfvZa7rZsaqUfDV3_OZpHqojCQhKVHNcdnpntsf830tox2DH5MhhlkReE-Ra4iSd0K_UxoS_BRTZ6ghBaaUgWY7_OJ_rxHedQFB04QUEbIzsADmhDwJgqK-fVKgowcSaIEnxfn7peb4bnMdFUZkZkPCrsA");'></div>
+<div class="px-4 flex flex-col flex-grow">
+<p class="text-gray-900 dark:text-white text-lg font-bold leading-normal">Dr. Sarah Miller</p>
+<p class="text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal">Cardiothoracic Surgery</p>
+<a class="mt-4 text-center bg-primary text-white py-2 px-4 rounded-lg text-sm font-semibold hover:bg-primary/90 transition-colors duration-200" href="#">View Profile</a>
+</div>
+</div>
+<div class="flex flex-col gap-4 pb-3 rounded-lg bg-white dark:bg-background-dark shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-200 dark:border-gray-700">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover" data-alt="Professional headshot of Dr. David Wilson" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCop8uTbAVedr8LMMi3PdegnPl4XtorcExIROxzYpmk9ZTu5MuWtE0UDbUu35q7xDswkzMZdJdimJ7Q8kcKd44jkC77EgXzxW3BKcB96oWNtj4bML8IydirV2CE7w5BWaP0-MJEBSZGXvNPVVNyttKl_073EUKemo02HF8M9Q2plgyTeNeV2au6ZzIqHfPBghjFOii8C-P6OtciPZBGnVG9zxbGPksZNxnpAMWIwgEg_w3HlCGBmlk8QZ16vD92jAs4sMbkCalonm4");'></div>
+<div class="px-4 flex flex-col flex-grow">
+<p class="text-gray-900 dark:text-white text-lg font-bold leading-normal">Dr. David Wilson</p>
+<p class="text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal">Clinical Cardiology</p>
+<a class="mt-4 text-center bg-primary text-white py-2 px-4 rounded-lg text-sm font-semibold hover:bg-primary/90 transition-colors duration-200" href="#">View Profile</a>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-center p-4">
+<a class="flex size-10 items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full" href="#">
+<span class="material-symbols-outlined text-lg">chevron_left</span>
+</a>
+<a class="text-sm font-bold leading-normal tracking-[0.015em] flex size-10 items-center justify-center text-white rounded-full bg-primary" href="#">1</a>
+<a class="text-sm font-normal leading-normal flex size-10 items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full" href="#">2</a>
+<a class="text-sm font-normal leading-normal flex size-10 items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full" href="#">3</a>
+<a class="text-sm font-normal leading-normal flex size-10 items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full" href="#">4</a>
+<a class="text-sm font-normal leading-normal flex size-10 items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full" href="#">5</a>
+<a class="flex size-10 items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full" href="#">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</a>
+</div>
+</main>
+</div>
+</div>
+</div>
+</div>
+</body></html>

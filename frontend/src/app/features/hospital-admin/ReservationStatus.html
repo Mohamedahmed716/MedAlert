@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reservation Confirmation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#3B82F6",
+                "success": "#10B981",
+                "error": "#EF4444",
+                "background-light": "#F9FAFB",
+                "background-dark": "#1F2937",
+                "text-light": "#1F2937",
+                "text-dark": "#F9FAFB",
+              },
+              fontFamily: {
+                "display": ["Inter", "sans-serif"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 py-5 flex flex-1 justify-center items-center">
+<div class="layout-content-container flex flex-col max-w-[560px] flex-1 bg-white dark:bg-background-dark shadow-lg rounded-xl p-8">
+<div class="flex flex-col items-center gap-6">
+<div class="flex items-center justify-center w-24 h-24 bg-success/10 rounded-full">
+<span class="material-symbols-outlined text-success" style="font-size: 64px;">check_circle</span>
+</div>
+<div class="text-center">
+<h1 class="text-3xl font-black text-success leading-tight tracking-tight">Reservation Accepted</h1>
+<p class="mt-2 text-base font-normal text-gray-500 dark:text-gray-400">The reservation for John Smith has been successfully accepted.</p>
+</div>
+<div class="w-full">
+<div class="grid grid-cols-[auto_1fr] gap-x-6 gap-y-4">
+<p class="text-sm font-medium text-gray-500 dark:text-gray-400">Patient Name</p>
+<p class="text-sm font-medium text-text-light dark:text-text-dark text-right">John Smith</p>
+<p class="text-sm font-medium text-gray-500 dark:text-gray-400">Appointment Date</p>
+<p class="text-sm font-medium text-text-light dark:text-text-dark text-right">October 26, 2023</p>
+<p class="text-sm font-medium text-gray-500 dark:text-gray-400">Time</p>
+<p class="text-sm font-medium text-text-light dark:text-text-dark text-right">2:30 PM</p>
+<p class="text-sm font-medium text-gray-500 dark:text-gray-400">Department</p>
+<p class="text-sm font-medium text-text-light dark:text-text-dark text-right">Cardiology</p>
+</div>
+</div>
+<div class="flex w-full flex-col items-stretch gap-3 pt-4">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-wide">
+<span class="truncate">Return to Pending Reservations</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-gray-100 dark:bg-gray-700 text-text-light dark:text-text-dark text-base font-bold leading-normal tracking-wide">
+<span class="truncate">View All Reservations</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>MedAlert - Super Admin</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#1193d4',
+              'background-light': '#f6f7f8',
+              'background-dark': '#101c22',
+            },
+            fontFamily: {
+              display: ['Inter'],
+            },
+            borderRadius: { DEFAULT: '0.25rem', lg: '0.5rem', xl: '0.75rem', full: '9999px' },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+    </style>
+  </head>
+  <body class="bg-background-light dark:bg-background-dark font-display">
+    <div class="relative flex min-h-screen w-full">
+      <aside
+        class="sticky top-0 z-20 flex h-screen flex-col justify-between bg-white dark:bg-[#182832] p-2 lg:p-4 transition-all duration-300 w-16 lg:w-64"
+      >
+        <div class="flex flex-col gap-8">
+          <div class="flex items-center gap-3 px-3">
+            <div class="size-8 shrink-0 text-primary">
+              <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_6_319)">
+                  <path
+                    d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
+                    fill="currentColor"
+                  ></path>
+                </g>
+                <defs>
+                  <clipPath id="clip0_6_319">
+                    <rect fill="white" height="48" width="48"></rect>
+                  </clipPath>
+                </defs>
+              </svg>
+            </div>
+            <h1 class="hidden lg:block text-xl font-bold text-slate-800 dark:text-white">
+              MedAlert
+            </h1>
+          </div>
+          <nav class="flex flex-col gap-2">
+            <a
+              class="flex items-center gap-3 rounded-lg bg-primary/20 dark:bg-primary/30 px-3 py-2 text-primary font-medium lg:justify-start justify-center"
+              href="#"
+              title="Hospital Management"
+            >
+              <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1"
+                >corporate_fare</span
+              >
+              <p class="text-sm font-medium hidden lg:block">Hospital Management</p>
+            </a>
+            <a
+              class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white lg:justify-start justify-center"
+              href="#"
+              title="User Management"
+            >
+              <span class="material-symbols-outlined">group</span>
+              <p class="text-sm font-medium hidden lg:block">User Management</p>
+            </a>
+            <a
+              class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white lg:justify-start justify-center"
+              href="#"
+              title="Settings"
+            >
+              <span class="material-symbols-outlined">settings</span>
+              <p class="text-sm font-medium hidden lg:block">Settings</p>
+            </a>
+          </nav>
+        </div>
+        <div class="flex flex-col gap-4 p-1">
+          <div class="flex items-center gap-3 lg:justify-start justify-center">
+            <div
+              class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 shrink-0"
+              data-alt="A portrait of the super admin"
+              style="
+                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC1JdiNkZXxoMHgmOOxvQwDhU6cjXEGfUCLxYx9mAtPl0UaKXrh0yTCdp-6RQc9PmUjkEggSDpw30r_DV7yqWx3SoTuBpvdXvFsK3me1ezq8x4PpSBOQqyvrPQNtKhYP2rxAF34A6ousnlw08zmx__zTcsJm37moVIpirCvzdIsMtk_2wkfGH3TnBl8YSl2bWawO2CI8FKUTA3TPhhgVE_0CZtVPiMAR3q9sG_VFRp_pS1HOz64sX5z-XDoAXsrG82pOBgqkQXsXdc');
+              "
+            ></div>
+            <div class="hidden lg:flex flex-col">
+              <h1 class="text-sm font-medium text-slate-800 dark:text-white">John Doe</h1>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Super Admin</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+      <div class="flex-1 flex flex-col">
+        <header
+          class="sticky top-0 z-10 flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm px-4 sm:px-6 lg:px-10 py-3"
+        >
+          <div class="lg:hidden">
+            <button
+              class="flex size-10 cursor-pointer items-center justify-center rounded-lg bg-white dark:bg-[#182832] text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-800"
+            >
+              <span class="material-symbols-outlined">menu</span>
+            </button>
+          </div>
+          <div class="flex items-center gap-2 sm:gap-4 ml-auto">
+            <label class="relative flex items-center">
+              <span
+                class="material-symbols-outlined absolute left-3 text-slate-500 dark:text-slate-400"
+                >search</span
+              >
+              <input
+                class="form-input w-full min-w-0 sm:min-w-40 max-w-64 rounded-lg border-slate-200 dark:border-slate-800 bg-white dark:bg-[#182832] pl-10 h-10 placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm"
+                placeholder="Search..."
+                value=""
+              />
+            </label>
+            <button
+              class="flex size-10 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-white dark:bg-[#182832] text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-800"
+            >
+              <span class="material-symbols-outlined text-xl">notifications</span>
+            </button>
+            <button
+              class="flex size-10 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-white dark:bg-[#182832] text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-800"
+            >
+              <span class="material-symbols-outlined">logout</span>
+            </button>
+          </div>
+        </header>
+        <main class="flex-1 p-4 sm:p-6 lg:p-10">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+            <h1
+              class="text-3xl lg:text-4xl font-black text-slate-800 dark:text-white tracking-tight"
+            >
+              Hospital Management
+            </h1>
+            <button
+              class="flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg bg-primary h-10 px-4 text-white text-sm font-bold hover:bg-primary/90"
+            >
+              <span class="material-symbols-outlined">add</span>
+              <span class="truncate">Add New Hospital</span>
+            </button>
+          </div>
+          <div
+            class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#182832]"
+          >
+            <table class="w-full min-w-[640px]">
+              <thead>
+                <tr class="bg-slate-50 dark:bg-slate-900/50">
+                  <th
+                    class="px-6 py-4 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                  >
+                    Hospital Name
+                  </th>
+                  <th
+                    class="px-6 py-4 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                  >
+                    Location
+                  </th>
+                  <th
+                    class="px-6 py-4 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                  >
+                    Admin Count
+                  </th>
+                  <th
+                    class="px-6 py-4 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                  >
+                    Status
+                  </th>
+                  <th
+                    class="px-6 py-4 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                  >
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-900/50">
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-800 dark:text-white"
+                  >
+                    City General Hospital
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400"
+                  >
+                    New York, NY
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400"
+                  >
+                    5
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm">
+                    <span
+                      class="inline-flex items-center rounded-full bg-green-100 dark:bg-green-900/50 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:text-green-300"
+                      >Active</span
+                    >
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <div class="flex items-center gap-2">
+                      <button
+                        class="flex items-center justify-center gap-1 rounded-md px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                      >
+                        <span class="material-symbols-outlined text-base">edit</span>
+                        <span class="text-xs hidden sm:inline">Edit</span>
+                      </button>
+                      <button
+                        class="flex items-center justify-center gap-1 rounded-md px-2.5 py-1 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/50"
+                      >
+                        <span class="material-symbols-outlined text-base">delete</span>
+                        <span class="text-xs hidden sm:inline">Remove</span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-900/50">
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-800 dark:text-white"
+                  >
+                    Oak Valley Healthcare
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400"
+                  >
+                    San Francisco, CA
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400"
+                  >
+                    8
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm">
+                    <span
+                      class="inline-flex items-center rounded-full bg-green-100 dark:bg-green-900/50 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:text-green-300"
+                      >Active</span
+                    >
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <div class="flex items-center gap-2">
+                      <button
+                        class="flex items-center justify-center gap-1 rounded-md px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                      >
+                        <span class="material-symbols-outlined text-base">edit</span>
+                        <span class="text-xs hidden sm:inline">Edit</span>
+                      </button>
+                      <button
+                        class="flex items-center justify-center gap-1 rounded-md px-2.5 py-1 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/50"
+                      >
+                        <span class="material-symbols-outlined text-base">delete</span>
+                        <span class="text-xs hidden sm:inline">Remove</span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-900/50">
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-800 dark:text-white"
+                  >
+                    Sunset Medical Center
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400"
+                  >
+                    Los Angeles, CA
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400"
+                  >
+                    3
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm">
+                    <span
+                      class="inline-flex items-center rounded-full bg-red-100 dark:bg-red-900/50 px-2.5 py-0.5 text-xs font-medium text-red-800 dark:text-red-300"
+                      >Inactive</span
+                    >
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <div class="flex items-center gap-2">
+                      <button
+                        class="flex items-center justify-center gap-1 rounded-md px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                      >
+                        <span class="material-symbols-outlined text-base">edit</span>
+                        <span class="text-xs hidden sm:inline">Edit</span>
+                      </button>
+                      <button
+                        class="flex items-center justify-center gap-1 rounded-md px-2.5 py-1 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/50"
+                      >
+                        <span class="material-symbols-outlined text-base">delete</span>
+                        <span class="text-xs hidden sm:inline">Remove</span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Prescriptions - MedAlert</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4A90E2",
+                        "background-light": "#F5F5F5",
+                        "background-dark": "#101c22",
+                        "text-light": "#333333",
+                        "text-dark": "#F5F5F5",
+                        "success": "#50E3C2",
+                        "danger": "#D0021B",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        };
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 md:px-10 lg:px-20 xl:px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col w-full max-w-[960px] flex-1">
+<div class="flex flex-wrap justify-between gap-3 p-4">
+<div class="flex min-w-72 flex-col gap-2">
+<p class="text-text-light dark:text-text-dark text-4xl font-black leading-tight tracking-[-0.033em]">My Prescriptions</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-base font-normal leading-normal">Here is a list of all your current and past prescriptions.</p>
+</div>
+</div>
+<div class="p-4">
+<label class="flex flex-col min-w-40 h-12 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-text-light/70 dark:text-text-dark/70 flex border-none bg-white dark:bg-background-dark/50 items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-0 border-none bg-white dark:bg-background-dark/50 h-full placeholder:text-text-light/70 dark:placeholder:text-text-dark/70 px-4 pl-2 text-base font-normal leading-normal" placeholder="Search by medication or doctor" value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-wrap gap-3 p-4">
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white dark:bg-background-dark/50 pl-4 pr-3 text-text-light dark:text-text-dark">
+<p class="text-sm font-medium leading-normal">Sort by Date</p>
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white dark:bg-background-dark/50 pl-4 pr-3 text-text-light dark:text-text-dark">
+<p class="text-sm font-medium leading-normal">Filter by Doctor</p>
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+</div>
+<div class="flex flex-col gap-4 p-4">
+<div class="flex flex-col md:flex-row gap-4 bg-white dark:bg-background-dark/50 p-6 rounded-xl shadow-sm justify-between">
+<div class="flex items-start gap-4">
+<div class="text-primary flex items-center justify-center rounded-full bg-primary/20 shrink-0 size-12">
+<span class="material-symbols-outlined text-2xl">medication</span>
+</div>
+<div class="flex flex-1 flex-col justify-center gap-1">
+<p class="text-text-light dark:text-text-dark text-lg font-bold leading-normal">Amoxicillin</p>
+<p class="text-text-light/80 dark:text-text-dark/80 text-sm font-normal leading-normal">500mg, twice a day</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Take with food for 7 days.</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Prescribed by Dr. Emily Carter on October 26, 2023</p>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center gap-4 shrink-0 mt-4 md:mt-0">
+<button class="text-primary text-base font-medium leading-normal hover:underline">View Details</button>
+<button class="flex items-center justify-center gap-2 h-10 px-4 bg-primary text-white rounded-lg text-sm font-medium leading-normal">
+<span class="material-symbols-outlined text-base">print</span>
+                                    Print
+                                </button>
+</div>
+</div>
+<div class="flex flex-col md:flex-row gap-4 bg-white dark:bg-background-dark/50 p-6 rounded-xl shadow-sm justify-between">
+<div class="flex items-start gap-4">
+<div class="text-primary flex items-center justify-center rounded-full bg-primary/20 shrink-0 size-12">
+<span class="material-symbols-outlined text-2xl">medication</span>
+</div>
+<div class="flex flex-1 flex-col justify-center gap-1">
+<p class="text-text-light dark:text-text-dark text-lg font-bold leading-normal">Ibuprofen</p>
+<p class="text-text-light/80 dark:text-text-dark/80 text-sm font-normal leading-normal">200mg, as needed for pain</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Do not exceed 1200mg in 24 hours.</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Prescribed by Dr. John Smith on October 22, 2023</p>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center gap-4 shrink-0 mt-4 md:mt-0">
+<button class="text-primary text-base font-medium leading-normal hover:underline">View Details</button>
+<button class="flex items-center justify-center gap-2 h-10 px-4 bg-primary text-white rounded-lg text-sm font-medium leading-normal">
+<span class="material-symbols-outlined text-base">print</span>
+                                    Print
+                                </button>
+</div>
+</div>
+<div class="flex flex-col md:flex-row gap-4 bg-white dark:bg-background-dark/50 p-6 rounded-xl shadow-sm justify-between">
+<div class="flex items-start gap-4">
+<div class="text-primary flex items-center justify-center rounded-full bg-primary/20 shrink-0 size-12">
+<span class="material-symbols-outlined text-2xl">medication</span>
+</div>
+<div class="flex flex-1 flex-col justify-center gap-1">
+<p class="text-text-light dark:text-text-dark text-lg font-bold leading-normal">Lisinopril</p>
+<p class="text-text-light/80 dark:text-text-dark/80 text-sm font-normal leading-normal">10mg, once a day</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Take in the morning.</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Prescribed by Dr. Ben Adams on September 15, 2023</p>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center gap-4 shrink-0 mt-4 md:mt-0">
+<button class="text-primary text-base font-medium leading-normal hover:underline">View Details</button>
+<button class="flex items-center justify-center gap-2 h-10 px-4 bg-primary text-white rounded-lg text-sm font-medium leading-normal">
+<span class="material-symbols-outlined text-base">print</span>
+                                    Print
+                                </button>
+</div>
+</div>
+<!-- Empty State -->
+<!-- <div class="flex flex-col items-center justify-center text-center p-10 bg-white dark:bg-background-dark/50 rounded-xl shadow-sm">
+                            <span class="material-symbols-outlined text-6xl text-text-light/40 dark:text-text-dark/40 mb-4">pill_off</span>
+                            <p class="text-lg font-semibold text-text-light dark:text-text-dark">You have no prescriptions yet.</p>
+                            <p class="text-sm text-text-light/70 dark:text-text-dark/70 mt-1">When your doctor sends a prescription, it will appear here.</p>
+                        </div> -->
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

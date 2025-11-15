@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MedAlert - Add New User</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#3A86FF",
+              "background-light": "#F8F9FA",
+              "background-dark": "#101c22",
+              "surface-light": "#FFFFFF",
+              "surface-dark": "#1a2a33",
+              "text-primary-light": "#212529",
+              "text-primary-dark": "#e8e8e8",
+              "text-secondary-light": "#6C757D",
+              "text-secondary-dark": "#a0a0a0",
+              "border-light": "#dee2e6",
+              "border-dark": "#344551",
+              "success": "#28A745",
+              "error": "#DC3545",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.25rem",
+              "lg": "0.5rem",
+              "xl": "0.75rem",
+              "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark">
+<div class="relative flex min-h-screen w-full">
+<header class="absolute top-0 left-0 right-0 z-10 flex items-center justify-between p-4 border-b border-border-light dark:border-border-dark bg-surface-light/80 dark:bg-surface-dark/80 backdrop-blur-sm">
+<div class="flex items-center gap-3">
+<div class="bg-primary flex items-center justify-center rounded-lg size-10">
+<span class="material-symbols-outlined text-white">medical_services</span>
+</div>
+<h1 class="text-xl font-bold">MedAlert</h1>
+</div>
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Profile picture of Dr. Evelyn Reed" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCQSJYyhQvz47v7xZ9yJU_Te-Km828mdbEWV085NbBHAL9EPIThb11t0ViylHdIJEYbnnaIzfD7ulWYDlAnYkPc0sOWxmD5CWQ4G629XrdW0IN3ucJEkLyMFVp-mA31y4OGJTqOfFPzkqmOjycubY2GzqbN4CULpOZ1wbH-hItJY3gYNWc_QLkX7yC45Cn0-isYfSCZDG8ir_uB9aJOyY1_bu_qiM-m7VTrWpREf2E-IWeJoCayQN7gJP-RRT0kjZeyZfn35bzVMk4");'></div>
+<div class="flex flex-col">
+<h1 class="text-base font-medium leading-normal text-text-primary-light dark:text-text-primary-dark">Dr. Evelyn Reed</h1>
+<p class="text-sm font-normal leading-normal text-text-secondary-light dark:text-text-secondary-dark">Super Admin</p>
+</div>
+</div>
+</header>
+<main class="w-full pt-24 px-4 pb-8 sm:px-6 lg:px-8">
+<div class="max-w-4xl mx-auto">
+<div class="flex flex-wrap gap-2 mb-4">
+<a class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-medium leading-normal hover:text-primary" href="#">Dashboard</a>
+<span class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-medium leading-normal">/</span>
+<a class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-medium leading-normal hover:text-primary" href="#">User Management</a>
+<span class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-medium leading-normal">/</span>
+<span class="text-text-primary-light dark:text-text-primary-dark text-sm font-medium leading-normal">Add User</span>
+</div>
+<div class="flex flex-wrap justify-between gap-3 mb-8">
+<h1 class="text-4xl font-black leading-tight tracking-[-0.033em]">Create a New User</h1>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-6 sm:p-8 rounded-xl border border-border-light dark:border-border-dark">
+<form class="space-y-6">
+<div class="pb-6 border-b border-border-light dark:border-border-dark">
+<h2 class="text-lg font-semibold mb-1">User Credentials</h2>
+<p class="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-6">Enter the basic account information for the new user.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<label class="flex flex-col">
+<p class="text-sm font-medium leading-normal pb-2">Full Name</p>
+<input class="form-input flex w-full rounded-lg text-text-primary-light dark:text-text-primary-dark focus:outline-0 border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:border-primary focus:ring-2 focus:ring-primary/20 h-11 placeholder:text-text-secondary-light dark:placeholder:text-text-secondary-dark p-3 text-sm font-normal" placeholder="Enter user's full name" type="text" value=""/>
+</label>
+<label class="flex flex-col">
+<p class="text-sm font-medium leading-normal pb-2">Email</p>
+<input class="form-input flex w-full rounded-lg text-text-primary-light dark:text-text-primary-dark focus:outline-0 border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:border-primary focus:ring-2 focus:ring-primary/20 h-11 placeholder:text-text-secondary-light dark:placeholder:text-text-secondary-dark p-3 text-sm font-normal" placeholder="Enter user's email address" type="email" value=""/>
+</label>
+<label class="flex flex-col">
+<p class="text-sm font-medium leading-normal pb-2">Create Password</p>
+<div class="relative">
+<input class="form-input flex w-full rounded-lg text-text-primary-light dark:text-text-primary-dark focus:outline-0 border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:border-primary focus:ring-2 focus:ring-primary/20 h-11 placeholder:text-text-secondary-light dark:placeholder:text-text-secondary-dark p-3 text-sm font-normal pr-10" placeholder="Enter a secure password" type="password" value=""/>
+<button class="absolute inset-y-0 right-0 flex items-center pr-3 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary" type="button">
+<span class="material-symbols-outlined text-xl">visibility_off</span>
+</button>
+</div>
+</label>
+<label class="flex flex-col">
+<p class="text-sm font-medium leading-normal pb-2">Confirm Password</p>
+<div class="relative">
+<input class="form-input flex w-full rounded-lg text-text-primary-light dark:text-text-primary-dark focus:outline-0 border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:border-primary focus:ring-2 focus:ring-primary/20 h-11 placeholder:text-text-secondary-light dark:placeholder:text-text-secondary-dark p-3 text-sm font-normal pr-10 border-error focus:border-error focus:ring-error/20" placeholder="Confirm the password" type="password" value=""/>
+<button class="absolute inset-y-0 right-0 flex items-center pr-3 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary" type="button">
+<span class="material-symbols-outlined text-xl">visibility_off</span>
+</button>
+</div>
+<p class="text-error text-xs pt-1">Passwords do not match.</p>
+</label>
+</div>
+</div>
+<div class="pt-6">
+<h2 class="text-lg font-semibold mb-1">Role &amp; Permissions</h2>
+<p class="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-6">Assign a role and corresponding permissions to the user.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<label class="flex flex-col">
+<p class="text-sm font-medium leading-normal pb-2">User Role</p>
+<div class="relative">
+<select class="form-select appearance-none w-full rounded-lg text-text-primary-light dark:text-text-primary-dark focus:outline-0 border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:border-primary focus:ring-2 focus:ring-primary/20 h-11 placeholder:text-text-secondary-light dark:placeholder:text-text-secondary-dark p-3 text-sm font-normal">
+<option>Select a role</option>
+<option>Patient</option>
+<option selected="">Hospital Admin</option>
+<option>Super Admin</option>
+</select>
+<span class="material-symbols-outlined pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary-light dark:text-text-secondary-dark">expand_more</span>
+</div>
+</label>
+<label class="flex flex-col">
+<p class="text-sm font-medium leading-normal pb-2">Hospital Assignment</p>
+<div class="relative">
+<select class="form-select appearance-none w-full rounded-lg text-text-primary-light dark:text-text-primary-dark focus:outline-0 border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:border-primary focus:ring-2 focus:ring-primary/20 h-11 placeholder:text-text-secondary-light dark:placeholder:text-text-secondary-dark p-3 text-sm font-normal">
+<option>Select a hospital</option>
+<option>General Hospital</option>
+<option>City Central Medical Center</option>
+<option>Sunrise Health Clinic</option>
+</select>
+<span class="material-symbols-outlined pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary-light dark:text-text-secondary-dark">expand_more</span>
+</div>
+</label>
+</div>
+</div>
+<div class="flex items-center justify-end gap-4 pt-6">
+<button class="px-4 py-2 text-sm font-semibold rounded-lg hover:bg-black/5 dark:hover:bg-white/10 transition-colors" type="button">Cancel</button>
+<button class="px-6 py-2.5 text-sm font-semibold text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 dark:focus:ring-offset-surface-dark" type="submit">Create User</button>
+</div>
+</form>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

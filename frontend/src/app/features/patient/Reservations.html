@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Reservations - MedAlert</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#3B82F6",
+                        secondary: "#10B981",
+                        accent: "#F59E0B",
+                        "background-light": "#F3F4F6",
+                        "background-dark": "#111827",
+                        "text-light": "#4B5563",
+                        "text-dark": "#D1D5DB",
+                        "card-light": "#FFFFFF",
+                        "card-dark": "#1F2937",
+                        "border-light": "#E5E7EB",
+                        "border-dark": "#374151",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px",
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="flex h-full grow flex-row">
+<aside class="flex w-64 flex-col bg-card-light dark:bg-card-dark border-r border-border-light dark:border-border-dark">
+<div class="flex items-center gap-4 px-6 py-5 border-b border-border-light dark:border-border-dark">
+<span class="material-symbols-outlined text-primary text-3xl">health_and_safety</span>
+<h2 class="text-gray-800 dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">MedAlert</h2>
+</div>
+<nav class="flex-1 p-4">
+<ul class="flex flex-col gap-2">
+<li>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-text-light dark:text-text-dark hover:bg-background-light dark:hover:bg-background-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">event_available</span>
+<span class="text-sm font-medium">My Appointments</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary-300 px-3 py-2" href="#">
+<span class="material-symbols-outlined text-xl">book_online</span>
+<span class="text-sm font-bold">My Reservations</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-text-light dark:text-text-dark hover:bg-background-light dark:hover:bg-background-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">medication</span>
+<span class="text-sm font-medium">My Prescriptions</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-text-light dark:text-text-dark hover:bg-background-light dark:hover:bg-background-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</li>
+</ul>
+</nav>
+<div class="p-4 border-t border-border-light dark:border-border-dark">
+<button class="w-full flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white text-sm font-bold leading-normal tracking-[0.015em] gap-2">
+<span class="material-symbols-outlined text-xl">logout</span>
+<span class="truncate">Logout</span>
+</button>
+</div>
+</aside>
+<div class="flex flex-1 flex-col">
+<header class="flex items-center justify-end whitespace-nowrap border-b border-border-light dark:border-border-dark px-10 py-5 bg-card-light dark:bg-card-dark">
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center h-10 w-10 rounded-full hover:bg-background-light dark:hover:bg-card-dark">
+<span class="material-symbols-outlined text-text-light dark:text-text-dark">notifications</span>
+</button>
+<img alt="User Avatar" class="h-10 w-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ0PJ6blh6GXZ4MZ8T2aas245QI3crpvhTQu5Hx4T04hEnN-rOI-i9zz9eZBeF3rXpPzGwzpDwR_WzxtD29oJKizsX3FklHolSzMgrmiL2Ap3XhF2tpumDOJXwMXx4YSF6i-KvlDwRZfiHJDc7WrzU5Fj7HRPGgXihk6akhKGHzurznJdXDl8RQGx25aSQ9UTFMdebjY1GrXGYwlvCCzSSjcwxpfvnnL1I8YjyKD31J5HidJROkkuwW36T3iSjLuGwz_1Cay6vixA"/>
+</div>
+</header>
+<main class="flex-1 p-4 sm:p-6 lg:p-10">
+<div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+<h1 class="text-gray-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em] min-w-72">My Reservations</h1>
+</div>
+<div class="mb-6">
+<div class="flex border-b border-border-light dark:border-border-dark gap-8">
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-primary text-gray-900 dark:text-white pb-3 pt-1" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Upcoming Reservations</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-text-light dark:text-text-dark pb-3 pt-1" href="#">
+<p class="text-sm font-medium leading-normal tracking-[0.015em]">Past Reservations</p>
+</a>
+</div>
+</div>
+<div class="mb-6">
+<label class="flex flex-col min-w-40 h-12 w-full max-w-md">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-text-light dark:text-text-dark flex bg-card-light dark:bg-card-dark items-center justify-center pl-4 rounded-l-lg border border-border-light dark:border-border-dark border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark h-full placeholder:text-text-light dark:placeholder:text-text-dark px-4 text-base font-normal leading-normal" placeholder="Search by doctor's name..." value=""/>
+</div>
+</label>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="p-4">
+<div class="flex flex-col gap-4 rounded-xl bg-card-light dark:bg-card-dark p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+<div class="flex flex-col gap-1">
+<p class="text-sm font-medium text-secondary">Confirmed</p>
+<p class="text-gray-900 dark:text-white text-lg font-bold leading-tight">Dr. Evelyn Reed, Dermatologist</p>
+<p class="text-text-light dark:text-text-dark text-sm font-normal leading-normal">City Health Clinic</p>
+<p class="text-text-light dark:text-text-dark text-sm font-normal leading-normal pt-2">Tomorrow, 10:30 AM</p>
+</div>
+<div class="flex items-center gap-2 pt-4">
+<button class="flex-1 flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-3 bg-accent/20 text-accent text-sm font-medium leading-normal gap-2 hover:bg-accent/30 transition-colors">
+<span class="material-symbols-outlined text-base">edit_calendar</span>
+<span class="truncate">Reschedule</span>
+</button>
+<button class="flex-1 flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-3 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-sm font-medium leading-normal gap-2 hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors">
+<span class="material-symbols-outlined text-base">cancel</span>
+<span class="truncate">Cancel</span>
+</button>
+</div>
+</div>
+</div>
+<div class="p-4">
+<div class="flex flex-col gap-4 rounded-xl bg-card-light dark:bg-card-dark p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+<div class="flex flex-col gap-1">
+<p class="text-sm font-medium text-secondary">Confirmed</p>
+<p class="text-gray-900 dark:text-white text-lg font-bold leading-tight">Dr. Ben Carter, Pediatrician</p>
+<p class="text-text-light dark:text-text-dark text-sm font-normal leading-normal">Oak Valley Hospital</p>
+<p class="text-text-light dark:text-text-dark text-sm font-normal leading-normal pt-2">In 3 days, 2:00 PM</p>
+</div>
+<div class="flex items-center gap-2 pt-4">
+<button class="flex-1 flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-3 bg-accent/20 text-accent text-sm font-medium leading-normal gap-2 hover:bg-accent/30 transition-colors">
+<span class="material-symbols-outlined text-base">edit_calendar</span>
+<span class="truncate">Reschedule</span>
+</button>
+<button class="flex-1 flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-3 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-sm font-medium leading-normal gap-2 hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors">
+<span class="material-symbols-outlined text-base">cancel</span>
+<span class="truncate">Cancel</span>
+</button>
+</div>
+</div>
+</div>
+<div class="p-4 col-span-1 md:col-span-2 lg:col-span-3">
+<div class="flex flex-col items-center justify-center gap-4 rounded-xl bg-card-light dark:bg-card-dark p-10 text-center border-2 border-dashed border-border-light dark:border-border-dark">
+<span class="material-symbols-outlined text-5xl text-text-light dark:text-text-dark">event_note</span>
+<p class="text-gray-900 dark:text-white text-lg font-semibold">No more upcoming reservations</p>
+<p class="text-text-light dark:text-text-dark text-sm max-w-sm">You're all caught up! When you book a new appointment, it will appear here.</p>
+<button class="flex mt-4 min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+<span class="truncate">Book a New Appointment</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</div>
+
+</body></html>

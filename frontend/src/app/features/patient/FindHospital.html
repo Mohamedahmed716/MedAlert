@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Patient Dashboard - Find Hospital</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#005792",
+                        "background-light": "#F4F7F9",
+                        "background-dark": "#101c22",
+                        "text-light": "#333333",
+                        "text-dark": "#F4F7F9",
+                        "accent": "#4CAF50",
+                        "error": "#D9534F"
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        };
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">
+<div class="relative flex min-h-screen w-full">
+<div class="flex flex-col bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 w-64 p-4">
+<div class="flex items-center gap-3 mb-8">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDMDlfG_Bz1H8E2OHp5yZp_7Fy8x_QAiuX1i0nO_4jEtGXjbUl6MwaIn4Lx0ZaM4cM-XlNzTPFvHchHjnY_IKYXrv4d365CgsduVX3SBYKFocS7xIQuKkUB3E4IIj_7E4ZW2JUkFZQr4SOE5oDOFOOkbIIZ6BGI1q-RvC_tDXQqxV_h2MTpXr9Vt5bKucHZGTlQkMj0Us1uUBUBxAf3STcDIcifrlOu5ZBalCOQz_Syl1J_b-txp7ElDTilJgDhMeLn9Fy7vGATlwE");'></div>
+<div class="flex flex-col">
+<h1 class="text-text-light dark:text-text-dark text-base font-medium leading-normal">John Doe</h1>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">Patient</p>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 dark:bg-primary/20" href="#">
+<span class="material-symbols-outlined text-primary dark:text-white">local_hospital</span>
+<p class="text-primary dark:text-white text-sm font-medium leading-normal">Find a Hospital</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined text-slate-700 dark:text-slate-300">calendar_month</span>
+<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal">My Appointments</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined text-slate-700 dark:text-slate-300">medication</span>
+<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal">My Prescriptions</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined text-slate-700 dark:text-slate-300">medical_information</span>
+<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal">Medical Records</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined text-slate-700 dark:text-slate-300">settings</span>
+<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal">Settings</p>
+</a>
+</div>
+<div class="mt-auto">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined text-slate-700 dark:text-slate-300">logout</span>
+<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal">Logout</p>
+</a>
+</div>
+</div>
+<main class="flex-1 p-8">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col gap-2 mb-6">
+<h1 class="text-text-light dark:text-text-dark text-3xl font-bold leading-tight tracking-tight">Find a Hospital</h1>
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal leading-normal">Search for hospitals near you</p>
+</div>
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm mb-6">
+<div class="flex flex-wrap items-center gap-4">
+<div class="relative flex-grow">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="form-input w-full rounded-lg text-text-light dark:text-text-dark bg-background-light dark:bg-background-dark border-slate-300 dark:border-slate-700 focus:ring-primary focus:border-primary placeholder:text-slate-400 pl-10" placeholder="Search by hospital name, city, or zip code..." type="text"/>
+</div>
+<button class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold bg-primary text-white hover:bg-primary/90">
+<span class="material-symbols-outlined">filter_list</span>
+                            Filters
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold bg-slate-200 dark:bg-slate-700 text-text-light dark:text-text-dark hover:bg-slate-300 dark:hover:bg-slate-600">
+<span class="material-symbols-outlined">my_location</span>
+                             Use My Location
+                        </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300">
+<div class="bg-center bg-no-repeat aspect-video bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBPLKpk7NlSsCJZUL6lRGwmhGH6-ZC7yZYmLOpGCMUPcwazWOL5vfrrnv10PozCRL0L44lY8257AEN-bYbV6U-DoHwqsjqOxun-MckqmPkdXZvgLLg1jjMQuaMQKpbXzYjpPvF19WMy45R1ju5HRMc5AFb-1y4MNMcoWte-gXfu7Xd1Xo-ROtbuRDmFLAvYsdL_zVb4m9Ix5XplSYSBKYyAWbl57q8LpYBMBPJyjS6TP3pCKsjUG5Mn9I2mGC67U7ZfSQ2JA1IHiX4");'></div>
+<div class="p-6 flex flex-col flex-grow">
+<h2 class="text-xl font-bold text-text-light dark:text-text-dark mb-2">City General Hospital</h2>
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm mb-4">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span>123 Health St, Medville, USA</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-300 mb-4 flex-grow">A leading healthcare provider committed to delivering compassionate and high-quality medical care.</p>
+<a class="mt-auto inline-block text-center w-full px-6 py-2.5 rounded-lg text-sm font-semibold bg-primary text-white hover:bg-primary/90" href="#">View Details</a>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300">
+<div class="bg-center bg-no-repeat aspect-video bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBPLKpk7NlSsCJZUL6lRGwmhGH6-ZC7yZYmLOpGCMUPcwazWOL5vfrrnv10PozCRL0L44lY8257AEN-bYbV6U-DoHwqsjqOxun-MckqmPkdXZvgLLg1jjMQuaMQKpbXzYjpPvF19WMy45R1ju5HRMc5AFb-1y4MNMcoWte-gXfu7Xd1Xo-ROtbuRDmFLAvYsdL_zVb4m9Ix5XplSYSBKYyAWbl57q8LpYBMBPJyjS6TP3pCKsjUG5Mn9I2mGC67U7ZfSQ2JA1IHiX4");'></div>
+<div class="p-6 flex flex-col flex-grow">
+<h2 class="text-xl font-bold text-text-light dark:text-text-dark mb-2">Oak Valley Medical Center</h2>
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm mb-4">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span>456 Wellness Ave, Oakhaven, USA</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-300 mb-4 flex-grow">State-of-the-art facility with a focus on specialized treatments and patient-centered care.</p>
+<a class="mt-auto inline-block text-center w-full px-6 py-2.5 rounded-lg text-sm font-semibold bg-primary text-white hover:bg-primary/90" href="#">View Details</a>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300">
+<div class="bg-center bg-no-repeat aspect-video bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBPLKpk7NlSsCJZUL6lRGwmhGH6-ZC7yZYmLOpGCMUPcwazWOL5vfrrnv10PozCRL0L44lY8257AEN-bYbV6U-DoHwqsjqOxun-MckqmPkdXZvgLLg1jjMQuaMQKpbXzYjpPvF19WMy45R1ju5HRMc5AFb-1y4MNMcoWte-gXfu7Xd1Xo-ROtbuRDmFLAvYsdL_zVb4m9Ix5XplSYSBKYyAWbl57q8LpYBMBPJyjS6TP3pCKsjUG5Mn9I2mGC67U7ZfSQ2JA1IHiX4");'></div>
+<div class="p-6 flex flex-col flex-grow">
+<h2 class="text-xl font-bold text-text-light dark:text-text-dark mb-2">Bayside Community Clinic</h2>
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm mb-4">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span>789 Waterfront Rd, Bayview, USA</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-300 mb-4 flex-grow">Providing accessible and affordable healthcare services to the local community.</p>
+<a class="mt-auto inline-block text-center w-full px-6 py-2.5 rounded-lg text-sm font-semibold bg-primary text-white hover:bg-primary/90" href="#">View Details</a>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300">
+<div class="bg-center bg-no-repeat aspect-video bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBPLKpk7NlSsCJZUL6lRGwmhGH6-ZC7yZYmLOpGCMUPcwazWOL5vfrrnv10PozCRL0L44lY8257AEN-bYbV6U-DoHwqsjqOxun-MckqmPkdXZvgLLg1jjMQuaMQKpbXzYjpPvF19WMy45R1ju5HRMc5AFb-1y4MNMcoWte-gXfu7Xd1Xo-ROtbuRDmFLAvYsdL_zVb4m9Ix5XplSYSBKYyAWbl57q8LpYBMBPJyjS6TP3pCKsjUG5Mn9I2mGC67U7ZfSQ2JA1IHiX4");'></div>
+<div class="p-6 flex flex-col flex-grow">
+<h2 class="text-xl font-bold text-text-light dark:text-text-dark mb-2">Mountain Peak Regional</h2>
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm mb-4">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span>101 Summit Dr, Ridgeland, USA</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-300 mb-4 flex-grow">Specializing in emergency services and trauma care for the entire region.</p>
+<a class="mt-auto inline-block text-center w-full px-6 py-2.5 rounded-lg text-sm font-semibold bg-primary text-white hover:bg-primary/90" href="#">View Details</a>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300">
+<div class="bg-center bg-no-repeat aspect-video bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBPLKpk7NlSsCJZUL6lRGwmhGH6-ZC7yZYmLOpGCMUPcwazWOL5vfrrnv10PozCRL0L44lY8257AEN-bYbV6U-DoHwqsjqOxun-MckqmPkdXZvgLLg1jjMQuaMQKpbXzYjpPvF19WMy45R1ju5HRMc5AFb-1y4MNMcoWte-gXfu7Xd1Xo-ROtbuRDmFLAvYsdL_zVb4m9Ix5XplSYSBKYyAWbl57q8LpYBMBPJyjS6TP3pCKsjUG5Mn9I2mGC67U7ZfSQ2JA1IHiX4");'></div>
+<div class="p-6 flex flex-col flex-grow">
+<h2 class="text-xl font-bold text-text-light dark:text-text-dark mb-2">Sunrise Children's Hospital</h2>
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm mb-4">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span>212 Pediactric Ln, Sunnyside, USA</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-300 mb-4 flex-grow">Dedicated pediatric care with a friendly atmosphere and world-class specialists.</p>
+<a class="mt-auto inline-block text-center w-full px-6 py-2.5 rounded-lg text-sm font-semibold bg-primary text-white hover:bg-primary/90" href="#">View Details</a>
+</div>
+</div>
+</div>
+<div class="flex justify-center mt-8">
+<nav aria-label="Pagination" class="flex items-center gap-2">
+<a class="flex items-center justify-center size-10 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700" href="#">
+<span class="material-symbols-outlined">chevron_left</span>
+</a>
+<a class="flex items-center justify-center size-10 rounded-lg text-white bg-primary font-semibold" href="#">1</a>
+<a class="flex items-center justify-center size-10 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 font-semibold" href="#">2</a>
+<a class="flex items-center justify-center size-10 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 font-semibold" href="#">3</a>
+<span class="flex items-center justify-center size-10 text-slate-500 dark:text-slate-400">...</span>
+<a class="flex items-center justify-center size-10 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 font-semibold" href="#">8</a>
+<a class="flex items-center justify-center size-10 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700" href="#">
+<span class="material-symbols-outlined">chevron_right</span>
+</a>
+</nav>
+</div>
+</div>
+</main>
+</div>
+</body></html>

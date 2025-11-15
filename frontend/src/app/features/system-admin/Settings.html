@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MedAlert Super Admin Settings</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3B82F6",
+                        "background-light": "#F9FAFB",
+                        "background-dark": "#111827",
+                        "text-light": "#6B7280",
+                        "text-dark": "#9CA3AF",
+                        "success": "#10B981",
+                        "warning": "#F59E0B",
+                        "danger": "#EF4444"
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.375rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="flex min-h-screen">
+<!-- Sidebar -->
+<aside class="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col">
+<div class="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center gap-3">
+<img alt="MedAlert Logo" class="h-8 w-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsNmTYYPEZH9O5brWGU433L8ihawqGFbuhnijVIcBWlMscAJWTgPT8xBpUtrSPFw0wgQqzOmx9QFJTEJ5AiLgo86kEAKeF1JLu2aMuv0sBAU1m0FlD0VxXCFpUn16yOy8q9kFk647JGIHg57wBU3rfLw-KDgSyHaToKVaH1ATVNr_fD7lapMbv5Fwm_-FOyouqeDzmi3NkfnIbdY5Em1GKYhQiXLDoQux-FQzOXmZ1UPpzk8tEesTzeiNrukAdrsk4oVZjAtAsPdQ"/>
+<span class="text-xl font-bold text-gray-800 dark:text-white">MedAlert</span>
+</div>
+<nav class="flex-1 p-4 space-y-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary font-medium" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>General</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-light dark:text-text-dark hover:bg-gray-100 dark:hover:bg-gray-700" href="#">
+<span class="material-symbols-outlined">security</span>
+<span>Security</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-light dark:text-text-dark hover:bg-gray-100 dark:hover:bg-gray-700" href="#">
+<span class="material-symbols-outlined">link</span>
+<span>Integrations</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-light dark:text-text-dark hover:bg-gray-100 dark:hover:bg-gray-700" href="#">
+<span class="material-symbols-outlined">folder</span>
+<span>Data Management</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-light dark:text-text-dark hover:bg-gray-100 dark:hover:bg-gray-700" href="#">
+<span class="material-symbols-outlined">history</span>
+<span>Audit Log</span>
+</a>
+</nav>
+<div class="p-4 border-t border-gray-200 dark:border-gray-700">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Super admin avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA8q_Y0uzBl37q81pMOk9uee1h0vRM9YFtYSaGEoEsvKBKPeJ70Ftlas-nVUjmhcTwxXpL6_-KXRL2CcHelQR2PVOutLh-ZrBRWdWT1HbRXsub3tYU-h9xrhSs0ZFJFeiSTzTO5NoYSP6leYmKlA0bKgzL-M7ESS7aokOtLOrGlk6kFLVVlPvglieNknLDigSWR4ZPI7krdU-aAdzWd0utlHaBVRpp4DPnxkvA-eMXTVd3ifPtcfMeW8MINvaCm6fK7Y88_a-B4CIo');"></div>
+<div class="flex flex-col">
+<h1 class="text-gray-800 dark:text-white text-sm font-medium">Super Admin</h1>
+<p class="text-text-light dark:text-text-dark text-xs">super.admin@medalert.com</p>
+</div>
+</div>
+<button class="mt-4 w-full flex items-center justify-center gap-2 rounded-lg h-10 px-4 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white text-sm font-medium hover:bg-gray-300 dark:hover:bg-gray-600">
+<span class="material-symbols-outlined">logout</span>
+<span class="truncate">Logout</span>
+</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 p-8">
+<div class="max-w-4xl mx-auto">
+<div class="flex flex-wrap justify-between items-center gap-4 mb-8">
+<h1 class="text-gray-900 dark:text-white text-4xl font-black tracking-tighter">General Settings</h1>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 px-4 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-white text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-600">Cancel</button>
+<button class="flex items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-medium hover:bg-primary/90">Save Changes</button>
+</div>
+</div>
+<!-- Application Settings -->
+<div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+<h2 class="text-gray-900 dark:text-white text-[22px] font-bold tracking-tight px-6 pb-3 pt-5 border-b border-gray-200 dark:border-gray-700">Application</h2>
+<div class="p-6 space-y-4">
+<div class="flex items-center gap-4 min-h-14 justify-between">
+<div class="flex items-center gap-4 flex-1">
+<div class="text-gray-600 dark:text-gray-300 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-700 shrink-0 size-10">
+<span class="material-symbols-outlined">text_fields</span>
+</div>
+<div class="flex-1">
+<label class="text-gray-900 dark:text-white text-base font-medium" for="appName">Application Name</label>
+<input class="w-full mt-1 bg-background-light dark:bg-gray-900 border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-800 dark:text-gray-200 focus:ring-primary focus:border-primary" id="appName" type="text" value="MedAlert"/>
+</div>
+</div>
+</div>
+<hr class="border-gray-200 dark:border-gray-700"/>
+<div class="flex items-center gap-4 min-h-14 justify-between">
+<div class="flex items-center gap-4">
+<div class="text-gray-600 dark:text-gray-300 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-700 shrink-0 size-10">
+<span class="material-symbols-outlined">cloud_upload</span>
+</div>
+<p class="text-gray-900 dark:text-white text-base font-medium">Logo</p>
+</div>
+<div class="shrink-0">
+<button class="flex items-center justify-center rounded-lg h-9 px-4 bg-primary/10 dark:bg-primary/20 text-primary text-sm font-medium hover:bg-primary/20 dark:hover:bg-primary/30">Upload</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Localization Settings -->
+<div class="mt-8 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+<h2 class="text-gray-900 dark:text-white text-[22px] font-bold tracking-tight px-6 pb-3 pt-5 border-b border-gray-200 dark:border-gray-700">Localization</h2>
+<div class="p-6 space-y-4">
+<div class="flex items-center gap-4 min-h-14 justify-between">
+<div class="flex items-center gap-4 flex-1">
+<div class="text-gray-600 dark:text-gray-300 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-700 shrink-0 size-10">
+<span class="material-symbols-outlined">language</span>
+</div>
+<div class="flex-1">
+<label class="text-gray-900 dark:text-white text-base font-medium" for="defaultLang">Default Language</label>
+<select class="w-full mt-1 bg-background-light dark:bg-gray-900 border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-800 dark:text-gray-200 focus:ring-primary focus:border-primary" id="defaultLang">
+<option>English (US)</option>
+<option>Spanish</option>
+<option>French</option>
+<option>German</option>
+</select>
+</div>
+</div>
+</div>
+<hr class="border-gray-200 dark:border-gray-700"/>
+<div class="flex items-center gap-4 min-h-14 justify-between">
+<div class="flex items-center gap-4 flex-1">
+<div class="text-gray-600 dark:text-gray-300 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-700 shrink-0 size-10">
+<span class="material-symbols-outlined">schedule</span>
+</div>
+<div class="flex-1">
+<label class="text-gray-900 dark:text-white text-base font-medium" for="timeZone">Time Zone</label>
+<select class="w-full mt-1 bg-background-light dark:bg-gray-900 border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-800 dark:text-gray-200 focus:ring-primary focus:border-primary" id="timeZone">
+<option>(GMT-08:00) Pacific Time (US &amp; Canada)</option>
+<option>(GMT-05:00) Eastern Time (US &amp; Canada)</option>
+<option>(GMT+00:00) Greenwich Mean Time</option>
+<option>(GMT+01:00) Central European Time</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Notification Settings -->
+<div class="mt-8 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+<h2 class="text-gray-900 dark:text-white text-[22px] font-bold tracking-tight px-6 pb-3 pt-5 border-b border-gray-200 dark:border-gray-700">System Notifications</h2>
+<div class="p-6 space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="text-gray-600 dark:text-gray-300 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-700 shrink-0 size-10">
+<span class="material-symbols-outlined">notifications</span>
+</div>
+<div>
+<p class="text-gray-900 dark:text-white text-base font-medium">System-wide email notifications</p>
+<p class="text-text-light dark:text-text-dark text-sm">Enable or disable all automated emails sent by the system.</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="flex items-center cursor-pointer" for="email-toggle">
+<div class="relative">
+<input checked="" class="sr-only" id="email-toggle" type="checkbox"/>
+<div class="block bg-gray-200 dark:bg-gray-600 w-14 h-8 rounded-full"></div>
+<div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform"></div>
+</div>
+</label>
+</div>
+</div>
+<style>
+                            input:checked ~ .dot {
+                                transform: translateX(100%);
+                                background-color: #ffffff;
+                            }
+                            input:checked ~ .block {
+                                background-color: #3B82F6;
+                            }
+                        </style>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

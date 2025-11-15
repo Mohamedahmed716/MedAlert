@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MedAlert - Notifications</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#1193d4",
+            "background-light": "#f6f7f8",
+            "background-dark": "#101c22",
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-row">
+<aside class="w-64 bg-white dark:bg-slate-900/70 p-4 flex flex-col justify-between border-r border-slate-200 dark:border-slate-800">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="A portrait of Dr. Smith" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAf0NyT0vdBkOFVFAs_5Tbl-u_X56TfQGb1yqJ48Xk-PUteM_6LWLyLkCvqIYpiaVuDZWaaN_9i25siib3cYmBkNSmrm4hoq58n3iJ_xQgxUpbKMotLVVz5NTz0sQlsLW2hcSLCJv-qfXKkRjhNGXr1zJftbwnSUGVf2iWhFRXOJdx2-0U7I0w7i02C45v9yQyuKFnAM0eATrBHASNP0aquuKpzvZ5jMmw8G74-CCNsx5yhI3rgSUF5-ooYCR6WmkGW1r25SbUVvMc");'></div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-slate-50 text-base font-medium leading-normal">Dr. Smith</h1>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">Hospital Admin</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<p class="text-sm font-medium leading-normal">Reservations</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg" href="#">
+<span class="material-symbols-outlined">bed</span>
+<p class="text-sm font-medium leading-normal">ER</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg" href="#">
+<span class="material-symbols-outlined">group</span>
+<p class="text-sm font-medium leading-normal">Patients</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-300" href="#">
+<span class="material-symbols-outlined">notifications</span>
+<p class="text-sm font-medium leading-normal">Notifications</p>
+</a>
+</nav>
+</div>
+<div class="flex flex-col gap-4">
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">New Patient</span>
+</button>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-sm font-medium leading-normal">Settings</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg" href="#">
+<span class="material-symbols-outlined">support_agent</span>
+<p class="text-sm font-medium leading-normal">Support</p>
+</a>
+</div>
+</div>
+</aside>
+<main class="flex-1 grid grid-cols-1 md:grid-cols-3">
+<div class="md:col-span-1 flex flex-col bg-white dark:bg-slate-900/70 border-r border-slate-200 dark:border-slate-800">
+<div class="p-4 border-b border-slate-200 dark:border-slate-800">
+<p class="text-slate-900 dark:text-slate-50 text-2xl font-bold leading-tight">Notifications</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">All notifications from MedAlert</p>
+</div>
+<div class="p-4 border-b border-slate-200 dark:border-slate-800">
+<label class="flex flex-col min-w-40 h-12 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-slate-500 dark:text-slate-400 flex border-none bg-slate-100 dark:bg-slate-800 items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-slate-900 dark:text-slate-50 focus:outline-0 focus:ring-0 border-none bg-slate-100 dark:bg-slate-800 focus:border-none h-full placeholder:text-slate-500 dark:placeholder:text-slate-400 px-4 pl-2 text-base font-normal leading-normal" placeholder="Search notifications" value=""/>
+</div>
+</label>
+</div>
+<div class="p-4 border-b border-slate-200 dark:border-slate-800">
+<div class="flex gap-2 overflow-x-auto pb-2">
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary/10 dark:bg-primary/20 px-3">
+<p class="text-primary dark:text-primary-300 text-sm font-medium leading-normal">All</p>
+</button>
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-slate-100 dark:bg-slate-800 px-3">
+<p class="text-slate-700 dark:text-slate-300 text-sm font-medium leading-normal">Reservations</p>
+</button>
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-slate-100 dark:bg-slate-800 px-3">
+<p class="text-slate-700 dark:text-slate-300 text-sm font-medium leading-normal">ER Status</p>
+</button>
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-slate-100 dark:bg-slate-800 px-3">
+<p class="text-slate-700 dark:text-slate-300 text-sm font-medium leading-normal">System Updates</p>
+</button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto">
+<div class="flex flex-col">
+<div class="flex items-center gap-4 bg-primary/5 dark:bg-primary/10 p-4 min-h-[72px] border-l-4 border-primary">
+<div class="text-primary flex items-center justify-center rounded-lg bg-primary/10 dark:bg-primary/20 shrink-0 size-12">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+<div class="flex flex-col justify-center flex-1">
+<p class="text-slate-900 dark:text-slate-50 text-base font-medium leading-normal line-clamp-1">New Reservation Pending</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal line-clamp-2">5 minutes ago</p>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-transparent p-4 min-h-[72px] border-l-4 border-transparent hover:bg-slate-50 dark:hover:bg-slate-800/50">
+<div class="text-red-500 flex items-center justify-center rounded-lg bg-red-500/10 shrink-0 size-12">
+<span class="material-symbols-outlined">bed</span>
+</div>
+<div class="flex flex-col justify-center flex-1">
+<p class="text-slate-900 dark:text-slate-50 text-base font-medium leading-normal line-clamp-1">ER Bed 3 Now Available</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal line-clamp-2">15 minutes ago</p>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-transparent p-4 min-h-[72px] border-l-4 border-transparent hover:bg-slate-50 dark:hover:bg-slate-800/50">
+<div class="text-yellow-500 flex items-center justify-center rounded-lg bg-yellow-500/10 shrink-0 size-12">
+<span class="material-symbols-outlined">build_circle</span>
+</div>
+<div class="flex flex-col justify-center flex-1">
+<p class="text-slate-900 dark:text-slate-50 text-base font-medium leading-normal line-clamp-1">System Update v2.5 Scheduled</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal line-clamp-2">2 hours ago</p>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-transparent p-4 min-h-[72px] border-l-4 border-transparent hover:bg-slate-50 dark:hover:bg-slate-800/50">
+<div class="text-green-500 flex items-center justify-center rounded-lg bg-green-500/10 shrink-0 size-12">
+<span class="material-symbols-outlined">chat</span>
+</div>
+<div class="flex flex-col justify-center flex-1">
+<p class="text-slate-900 dark:text-slate-50 text-base font-medium leading-normal line-clamp-1">Patient Inquiry from J. Doe</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal line-clamp-2">Yesterday</p>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-transparent p-4 min-h-[72px] border-l-4 border-transparent hover:bg-slate-50 dark:hover:bg-slate-800/50">
+<div class="text-primary flex items-center justify-center rounded-lg bg-primary/10 dark:bg-primary/20 shrink-0 size-12">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+<div class="flex flex-col justify-center flex-1">
+<p class="text-slate-900 dark:text-slate-50 text-base font-medium leading-normal line-clamp-1">Reservation Confirmed: A. Williams</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal line-clamp-2">2 days ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md:col-span-2 flex flex-col bg-background-light dark:bg-background-dark">
+<div class="p-6 border-b border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center rounded-lg bg-primary/10 dark:bg-primary/20 shrink-0 size-16">
+<span class="material-symbols-outlined text-4xl">calendar_month</span>
+</div>
+<div>
+<h2 class="text-2xl font-bold text-slate-900 dark:text-slate-50">New Reservation Pending</h2>
+<p class="text-sm text-slate-500 dark:text-slate-400">5 minutes ago</p>
+</div>
+</div>
+</div>
+<div class="p-6 flex-1 space-y-6">
+<div class="space-y-2">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200">Patient Details</h3>
+<div class="grid grid-cols-2 gap-4 text-sm">
+<div>
+<p class="font-medium text-slate-600 dark:text-slate-400">Name</p>
+<p class="text-slate-800 dark:text-slate-200">John Appleseed</p>
+</div>
+<div>
+<p class="font-medium text-slate-600 dark:text-slate-400">Date of Birth</p>
+<p class="text-slate-800 dark:text-slate-200">1985-07-22</p>
+</div>
+<div>
+<p class="font-medium text-slate-600 dark:text-slate-400">Contact</p>
+<p class="text-slate-800 dark:text-slate-200">(555) 123-4567</p>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200">Reservation Information</h3>
+<div class="grid grid-cols-2 gap-4 text-sm">
+<div>
+<p class="font-medium text-slate-600 dark:text-slate-400">Department</p>
+<p class="text-slate-800 dark:text-slate-200">Cardiology</p>
+</div>
+<div>
+<p class="font-medium text-slate-600 dark:text-slate-400">Requested Date</p>
+<p class="text-slate-800 dark:text-slate-200">2023-10-28 at 10:00 AM</p>
+</div>
+<div>
+<p class="font-medium text-slate-600 dark:text-slate-400">Reason</p>
+<p class="text-slate-800 dark:text-slate-200 col-span-2">Routine check-up and consultation regarding recent heart palpitations.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="p-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-end gap-3">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-slate-50 text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Dismiss</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">View Reservation</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+</body></html>

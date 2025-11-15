@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add New Doctor - MedAlert</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3498db",
+                        "secondary": "#ecf0f1",
+                        "accent-green": "#2ecc71",
+                        "accent-red": "#e74c3c",
+                        "text-primary": "#34495e",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101c22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex min-h-screen w-full">
+<!-- SideNavBar -->
+<aside class="w-64 bg-white dark:bg-background-dark/50 p-4 flex-shrink-0">
+<div class="flex flex-col h-full">
+<div class="flex items-center gap-3 mb-8">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Admin profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDwTZECLEX5vsz4lINnniTNkRHTtwBE68EKBYOpWxdrajBopbuTFn3YY1DTrhEz94GYkbmu9kfxeiF0QY9KYJxvJ5Y6a5ryzP3U0BvsobzDJ1QiakR5qQjCce6EWgxFnA_P6ImJIJUIvaG3hg_eeIwMHQ8jsvASodryrGryW_Sn7nFHG1o_Vf28z2mN5hoeDC5d50Hqotp9R7bVcVOqAO2i9iUUosATfwQf86fTmRgvQSFhm1PyeaXtOubW_dKmfVgrkgfvzY2doG0");'></div>
+<div class="flex flex-col">
+<h1 class="text-text-primary dark:text-white text-base font-medium">Admin</h1>
+<p class="text-text-primary/70 dark:text-white/70 text-sm font-normal">Hospital Admin</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-primary dark:text-white hover:bg-primary/20" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-sm font-medium">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+<p class="text-sm font-medium">Doctors</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-primary dark:text-white hover:bg-primary/20" href="#">
+<span class="material-symbols-outlined">groups</span>
+<p class="text-sm font-medium">Patients</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-primary dark:text-white hover:bg-primary/20" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<p class="text-sm font-medium">Appointments</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-primary dark:text-white hover:bg-primary/20" href="#">
+<span class="material-symbols-outlined">corporate_fare</span>
+<p class="text-sm font-medium">Departments</p>
+</a>
+</nav>
+<div class="mt-auto">
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-primary dark:text-white hover:bg-primary/20" href="#">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-sm font-medium">Settings</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-primary dark:text-white hover:bg-primary/20" href="#">
+<span class="material-symbols-outlined">help</span>
+<p class="text-sm font-medium">Support</p>
+</a>
+</div>
+<button class="w-full flex items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold mt-4">
+                        Logout
+                    </button>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 p-8">
+<div class="max-w-4xl mx-auto">
+<!-- PageHeading -->
+<div class="flex flex-wrap justify-between items-center gap-3 mb-8">
+<h1 class="text-text-primary dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Add New Doctor</h1>
+</div>
+<div class="bg-white dark:bg-background-dark/50 rounded-xl shadow-sm p-8">
+<form action="#" method="POST">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+<!-- Doctor's Information -->
+<div class="md:col-span-2">
+<h2 class="text-xl font-bold text-text-primary dark:text-white mb-4">Doctor's Information</h2>
+</div>
+<label class="flex flex-col">
+<p class="text-text-primary dark:text-white text-base font-medium pb-2">Full Name</p>
+<input class="form-input flex w-full rounded-lg text-text-primary dark:text-white bg-secondary dark:bg-background-dark/60 border-none focus:ring-2 focus:ring-primary h-12 placeholder:text-text-primary/50" placeholder="Enter doctor's full name" type="text"/>
+</label>
+<label class="flex flex-col">
+<p class="text-text-primary dark:text-white text-base font-medium pb-2">Specialty</p>
+<input class="form-input flex w-full rounded-lg text-text-primary dark:text-white bg-secondary dark:bg-background-dark/60 border-none focus:ring-2 focus:ring-primary h-12 placeholder:text-text-primary/50" placeholder="e.g., Cardiology" type="text"/>
+</label>
+<label class="flex flex-col">
+<p class="text-text-primary dark:text-white text-base font-medium pb-2">Department</p>
+<select class="form-select flex w-full rounded-lg text-text-primary dark:text-white bg-secondary dark:bg-background-dark/60 border-none focus:ring-2 focus:ring-primary h-12">
+<option>Select a department</option>
+<option>Cardiology</option>
+<option>Neurology</option>
+<option>Pediatrics</option>
+<option>Oncology</option>
+</select>
+</label>
+<!-- Photo Upload -->
+<div class="md:col-span-2">
+<p class="text-text-primary dark:text-white text-base font-medium pb-2">Profile Picture</p>
+<div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-lg bg-secondary/50 dark:bg-background-dark/30">
+<div class="space-y-1 text-center">
+<span class="material-symbols-outlined text-5xl text-text-primary/50 dark:text-white/50">cloud_upload</span>
+<div class="flex text-sm text-text-primary/80 dark:text-white/80">
+<label class="relative cursor-pointer bg-transparent rounded-md font-medium text-primary hover:text-primary/80 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary" for="file-upload">
+<span>Upload a file</span>
+<input class="sr-only" id="file-upload" name="file-upload" type="file"/>
+</label>
+<p class="pl-1">or drag and drop</p>
+</div>
+<p class="text-xs text-text-primary/50 dark:text-white/50">PNG, JPG, GIF up to 10MB</p>
+</div>
+</div>
+</div>
+<!-- Contact Details -->
+<div class="md:col-span-2 mt-4">
+<h2 class="text-xl font-bold text-text-primary dark:text-white mb-4">Contact Details</h2>
+</div>
+<label class="flex flex-col">
+<p class="text-text-primary dark:text-white text-base font-medium pb-2">Phone Number</p>
+<input class="form-input flex w-full rounded-lg text-text-primary dark:text-white bg-secondary dark:bg-background-dark/60 border-none focus:ring-2 focus:ring-primary h-12 placeholder:text-text-primary/50" placeholder="(123) 456-7890" type="tel"/>
+</label>
+<label class="flex flex-col">
+<p class="text-text-primary dark:text-white text-base font-medium pb-2">Email Address</p>
+<input class="form-input flex w-full rounded-lg text-text-primary dark:text-white bg-secondary dark:bg-background-dark/60 border-none focus:ring-2 focus:ring-primary h-12 placeholder:text-text-primary/50" placeholder="doctor.name@example.com" type="email"/>
+</label>
+<!-- Bio -->
+<div class="md:col-span-2">
+<label class="flex flex-col" for="bio">
+<p class="text-text-primary dark:text-white text-base font-medium pb-2">Bio</p>
+<textarea class="form-textarea flex w-full rounded-lg text-text-primary dark:text-white bg-secondary dark:bg-background-dark/60 border-none focus:ring-2 focus:ring-primary placeholder:text-text-primary/50" id="bio" name="bio" placeholder="Write a brief bio about the doctor..." rows="4"></textarea>
+<p class="text-xs text-text-primary/50 dark:text-white/50 mt-1">Max 500 characters.</p>
+</label>
+</div>
+<!-- Availability -->
+<div class="md:col-span-2 mt-4">
+<h2 class="text-xl font-bold text-text-primary dark:text-white mb-4">Availability</h2>
+<p class="text-sm text-text-primary/80 dark:text-white/80 mb-4">Select the days and times the doctor is available for appointments.</p>
+<div class="space-y-4">
+<div class="flex items-center gap-4 p-4 rounded-lg bg-secondary dark:bg-background-dark/60">
+<div class="flex items-center gap-2">
+<input class="form-checkbox h-5 w-5 text-primary rounded focus:ring-primary/50 border-gray-400 dark:border-gray-600 bg-transparent" id="monday" name="day" type="checkbox"/>
+<label class="text-text-primary dark:text-white font-medium" for="monday">Mon</label>
+</div>
+<div class="flex items-center gap-2 flex-1">
+<input class="form-input w-full rounded-lg text-text-primary dark:text-white bg-white dark:bg-background-dark/80 border-none focus:ring-2 focus:ring-primary h-10" type="time" value="09:00"/>
+<span class="text-text-primary/80 dark:text-white/80">-</span>
+<input class="form-input w-full rounded-lg text-text-primary dark:text-white bg-white dark:bg-background-dark/80 border-none focus:ring-2 focus:ring-primary h-10" type="time" value="17:00"/>
+</div>
+<button class="text-primary hover:text-primary/80" type="button">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-lg bg-secondary dark:bg-background-dark/60">
+<div class="flex items-center gap-2">
+<input checked="" class="form-checkbox h-5 w-5 text-primary rounded focus:ring-primary/50 border-gray-400 dark:border-gray-600 bg-transparent" id="tuesday" name="day" type="checkbox"/>
+<label class="text-text-primary dark:text-white font-medium" for="tuesday">Tue</label>
+</div>
+<div class="flex items-center gap-2 flex-1">
+<input class="form-input w-full rounded-lg text-text-primary dark:text-white bg-white dark:bg-background-dark/80 border-none focus:ring-2 focus:ring-primary h-10" type="time" value="09:00"/>
+<span class="text-text-primary/80 dark:text-white/80">-</span>
+<input class="form-input w-full rounded-lg text-text-primary dark:text-white bg-white dark:bg-background-dark/80 border-none focus:ring-2 focus:ring-primary h-10" type="time" value="13:00"/>
+</div>
+<button class="text-primary hover:text-primary/80" type="button">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+</div>
+<!-- Repeat for other days -->
+<div class="flex items-center gap-4 p-4 rounded-lg bg-secondary dark:bg-background-dark/60 opacity-50">
+<div class="flex items-center gap-2">
+<input class="form-checkbox h-5 w-5 text-primary rounded focus:ring-primary/50 border-gray-400 dark:border-gray-600 bg-transparent" id="wednesday" name="day" type="checkbox"/>
+<label class="text-text-primary dark:text-white font-medium" for="wednesday">Wed</label>
+</div>
+<div class="flex items-center gap-2 flex-1">
+<input class="form-input w-full rounded-lg text-text-primary dark:text-white bg-white dark:bg-background-dark/80 border-none focus:ring-2 focus:ring-primary h-10" disabled="" type="time"/>
+<span class="text-text-primary/80 dark:text-white/80">-</span>
+<input class="form-input w-full rounded-lg text-text-primary dark:text-white bg-white dark:bg-background-dark/80 border-none focus:ring-2 focus:ring-primary h-10" disabled="" type="time"/>
+</div>
+<button class="text-primary hover:text-primary/80" disabled="" type="button">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-lg bg-secondary dark:bg-background-dark/60">
+<div class="flex items-center gap-2">
+<input checked="" class="form-checkbox h-5 w-5 text-primary rounded focus:ring-primary/50 border-gray-400 dark:border-gray-600 bg-transparent" id="thursday" name="day" type="checkbox"/>
+<label class="text-text-primary dark:text-white font-medium" for="thursday">Thu</label>
+</div>
+<div class="flex items-center gap-2 flex-1">
+<input class="form-input w-full rounded-lg text-text-primary dark:text-white bg-white dark:bg-background-dark/80 border-none focus:ring-2 focus:ring-primary h-10" type="time" value="10:00"/>
+<span class="text-text-primary/80 dark:text-white/80">-</span>
+<input class="form-input w-full rounded-lg text-text-primary dark:text-white bg-white dark:bg-background-dark/80 border-none focus:ring-2 focus:ring-primary h-10" type="time" value="18:00"/>
+</div>
+<button class="text-primary hover:text-primary/80" type="button">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-lg bg-secondary dark:bg-background-dark/60 opacity-50">
+<div class="flex items-center gap-2">
+<input class="form-checkbox h-5 w-5 text-primary rounded focus:ring-primary/50 border-gray-400 dark:border-gray-600 bg-transparent" id="friday" name="day" type="checkbox"/>
+<label class="text-text-primary dark:text-white font-medium" for="friday">Fri</label>
+</div>
+<div class="flex items-center gap-2 flex-1">
+<input class="form-input w-full rounded-lg text-text-primary dark:text-white bg-white dark:bg-background-dark/80 border-none focus:ring-2 focus:ring-primary h-10" disabled="" type="time"/>
+<span class="text-text-primary/80 dark:text-white/80">-</span>
+<input class="form-input w-full rounded-lg text-text-primary dark:text-white bg-white dark:bg-background-dark/80 border-none focus:ring-2 focus:ring-primary h-10" disabled="" type="time"/>
+</div>
+<button class="text-primary hover:text-primary/80" disabled="" type="button">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Buttons -->
+<div class="mt-8 flex justify-end gap-4">
+<button class="flex min-w-[84px] items-center justify-center rounded-lg h-12 px-6 bg-secondary dark:bg-background-dark/60 text-text-primary dark:text-white text-base font-bold" type="button">
+<span class="truncate">Cancel</span>
+</button>
+<button class="flex min-w-[84px] items-center justify-center rounded-lg h-12 px-6 bg-primary text-white text-base font-bold" type="submit">
+<span class="truncate">Save Doctor</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+</main>
+</div>
+</body></html>
