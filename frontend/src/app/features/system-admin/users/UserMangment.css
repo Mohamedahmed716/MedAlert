@@ -113,7 +113,7 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1.25rem 1.5rem;
+  padding: 1rem 1.5rem;
   border-bottom: 1px solid var(--light-border);
 }
 
@@ -168,7 +168,7 @@ body {
   white-space: nowrap;
   border-bottom: 1px solid var(--light-border);
   padding: 0.75rem 2.5rem;
-  background-color: var(--light-surface-1);
+  background-color: rgba(246, 247, 248, 0.8);
 }
 
 .header-actions {
