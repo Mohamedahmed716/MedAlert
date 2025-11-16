@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>MedAlert - Add New User</title>
+
+    <!-- Google Fonts and Icons -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="AddUser.css" />
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <header class="header">
+        <div class="logo-container">
+          <div class="logo-icon-bg">
+            <span class="material-symbols-outlined logo-icon">medical_services</span>
+          </div>
+          <h1 class="logo-text">MedAlert</h1>
+        </div>
+        <div class="profile-container">
+          <div
+            class="profile-avatar"
+            data-alt="Profile picture of Dr. Evelyn Reed"
+            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCQSJYyhQvz47v7xZ9yJU_Te-Km828mdbEWV085NbBHAL9EPIThb11t0ViylHdIJEYbnnaIzfD7ulWYDlAnYkPc0sOWxmD5CWQ4G629XrdW0IN3ucJEkLyMFVp-mA31y4OGJTqOfFPzkqmOjycubY2GzqbN4CULpOZ1wbH-hItJY3gYNWc_QLkX7yC45Cn0-isYfSCZDG8ir_uB9aJOyY1_bu_qiM-m7VTrWpREf2E-IWeJoCayQN7gJP-RRT0kjZeyZfn35bzVMk4");'
+          ></div>
+          <div class="profile-info">
+            <h1 class="profile-name">Dr. Evelyn Reed</h1>
+            <p class="profile-role">Super Admin</p>
+          </div>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <div class="main-container">
+          <div class="page-header">
+            <h1 class="page-title">Create a New User</h1>
+          </div>
+
+          <!-- Form Card -->
+          <div class="card">
+            <form class="form-layout">
+              <!-- User Credentials Section -->
+              <div class="form-section border-bottom">
+                <h2 class="section-title">User Credentials</h2>
+                <p class="section-subtitle">
+                  Enter the basic account information for the new user.
+                </p>
+                <div class="grid-layout">
+                  <label class="form-label">
+                    <p class="input-label">Full Name</p>
+                    <input
+                      class="form-input"
+                      placeholder="Enter user's full name"
+                      type="text"
+                    />
+                  </label>
+                  <label class="form-label">
+                    <p class="input-label">Email</p>
+                    <input
+                      class="form-input"
+                      placeholder="Enter user's email address"
+                      type="email"
+                    />
+                  </label>
+                  <label class="form-label">
+                    <p class="input-label">Create Password</p>
+                    <div class="password-wrapper">
+                      <input
+                        class="form-input"
+                        placeholder="Enter a secure password"
+                        type="password"
+                        id="passwordField1"
+                      />
+                      <button class="password-toggle" type="button" data-target="passwordField1">
+                        <span class="material-symbols-outlined">visibility_off</span>
+                      </button>
+                    </div>
+                  </label>
+                  <label class="form-label">
+                    <p class="input-label">Confirm Password</p>
+                    <div class="password-wrapper">
+                      <!-- Example of error state -->
+                      <input
+                        class="form-input input-error"
+                        placeholder="Confirm the password"
+                        type="password"
+                        id="passwordField2"
+                      />
+                      <button class="password-toggle" type="button" data-target="passwordField2">
+                        <span class="material-symbols-outlined">visibility_off</span>
+                      </button>
+                    </div>
+                    <p class="input-error-msg">Passwords do not match.</p>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Role & Permissions Section -->
+              <div class="form-section">
+                <h2 class="section-title">Role &amp; Permissions</h2>
+                <p class="section-subtitle">
+                  Assign a role and corresponding permissions to the user.
+                </p>
+                <div class="grid-layout">
+                  <label class="form-label">
+                    <p class="input-label">User Role</p>
+                    <div class="select-wrapper">
+                      <select class="form-select">
+                        <option>Select a role</option>
+                        <option>Patient</option>
+                        <option selected>Hospital Admin</option>
+                        <option>Super Admin</option>
+                      </select>
+                      <span class="material-symbols-outlined select-icon">expand_more</span>
+                    </div>
+                  </label>
+                  <label class="form-label">
+                    <p class="input-label">Hospital Assignment</p>
+                    <div class="select-wrapper">
+                      <select class="form-select">
+                        <option>Select a hospital</option>
+                        <option>General Hospital</option>
+                        <option>City Central Medical Center</option>
+                        <option>Sunrise Health Clinic</option>
+                      </select>
+                      <span class="material-symbols-outlined select-icon">expand_more</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Form Actions -->
+              <div class="form-actions">
+                <button class="btn btn-cancel" type="button">Cancel</button>
+                <button class="btn btn-submit" type="submit">Create User</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // Simple script for password visibility toggles
+      document.querySelectorAll('.password-toggle').forEach(button => {
+        button.addEventListener('click', function () {
+          const targetId = this.getAttribute('data-target');
+          const passwordField = document.getElementById(targetId);
+          const icon = this.querySelector('span');
+
+          if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            icon.textContent = 'visibility';
+          } else {
+            passwordField.type = 'password';
+            icon.textContent = 'visibility_off';
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

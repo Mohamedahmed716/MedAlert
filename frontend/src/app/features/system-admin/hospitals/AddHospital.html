@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html class"light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Manage Hospital - MedAlert</title>
+
+    <!-- Google Fonts and Icons -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="AddHospital.css" />
+  </head>
+  <body>
+
+    <div class="layout-wrapper">
+      <div class="layout-container">
+
+        <!-- Header -->
+        <header class="header">
+          <div class="logo-container">
+            <svg
+              class="logo-icon"
+              fill="currentColor"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4.28915 4.28915C2.76896 5.80934 1.72554 7.75723 1.30473 9.87258C0.883925 11.9879 1.09993 14.1805 1.92529 16.1731C2.75065 18.1657 4.14833 19.8688 5.94168 21.0822C7.73503 22.2956 9.84838 22.9696 12 22.9696C14.1516 22.9696 16.265 22.2956 18.0583 21.0822C19.8517 19.8688 21.2493 18.1657 22.0747 16.1731C22.9001 14.1805 23.1161 11.9879 22.6953 9.87258C22.2745 7.75723 21.231 5.80934 19.7108 4.28915L12 12L4.28915 4.28915Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+            <h2 class="logo-text">MedAlert</h2>
+          </div>
+          <div class="header-actions">
+            <button class="icon-btn">
+              <span class="material-symbols-outlined">person</span>
+            </button>
+            <button class="icon-btn">
+              <span class="material-symbols-outlined">logout</span>
+            </button>
+            <div
+              class="profile-avatar"
+              style="
+                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCQMJlmgnFXFp0qn8G02lJo-D2mcRH8gVLwAfz8XU0gKdXaStO8HmtNw-sAFZYArzSAo0twgdJ6TIc2t3mEm-k6kgLYOjTpJygqwlUi7gc43PTlrEx6cWbuE-ppH5pXCBonvrtl1oAPhaMJEApNzb2pwtG8Xk16y6MHVfo-7F2xP8GgygrYbpvtrtKtPCCL8m03JqQFflbHI5Fb4FZ9fAJ8rkK3LzfwHW8R3LmMigR9wZm1v1cYvUshg6cIuQv9Ygf4QpribvtRljQ');
+              "
+            ></div>
+          </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+          <div class="form-container">
+            <div class="page-header">
+              <div class="page-title-group">
+                <p class="page-title">Manage Hospital</p>
+                <p class="page-subtitle">Add a new hospital or edit an existing one</p>
+              </div>
+            </div>
+
+            <form class="form-layout">
+              <!-- Hospital Information Card -->
+              <div class="card">
+                <h2 class="card-title">Hospital Information</h2>
+                <div class="card-grid">
+                  <div class="grid-span-2">
+                    <label class="form-label">
+                      <p class="input-label">Hospital Name</p>
+                      <input
+                        class="form-input"
+                        placeholder="Enter hospital name"
+                        required=""
+                        type="text"
+                      />
+                    </label>
+                  </div>
+                  <div>
+                    <label class="form-label">
+                      <p class="input-label">Street Address</p>
+                      <input
+                        class="form-input"
+                        placeholder="Enter street address"
+                        required=""
+                        type="text"
+                      />
+                    </label>
+                  </div>
+                  <div>
+                    <label class="form-label">
+                      <p class="input-label">City</p>
+                      <input
+                        class="form-input"
+                        placeholder="Enter city"
+                        required=""
+                        type="text"
+                      />
+                    </label>
+                  </div>
+                  <div>
+                    <label class="form-label">
+                      <p class="input-label">State</p>
+                      <input
+                        class="form-input"
+                        placeholder="Enter state"
+                        required=""
+                        type="text"
+                      />
+                    </label>
+                  </div>
+                  <div>
+                    <label class="form-label">
+                      <p class="input-label">Zip Code</p>
+                      <input
+                        class="form-input"
+                        placeholder="Enter zip code"
+                        required=""
+                        type="text"
+                      />
+                      <p class="input-error-msg">Please enter a valid zip code.</p>
+                    </label>
+                  </div>
+                  <div>
+                    <label class="form-label">
+                      <p class="input-label">Hospital Phone Number</p>
+                      <input
+                        class="form-input"
+                        placeholder="(123) 456-7890"
+                        required=""
+                        type="tel"
+                      />
+                    </label>
+                  </div>
+                  <div>
+                    <label class="form-label">
+                      <p class="input-label">
+                        Hospital Website
+                        <span class="label-optional">(Optional)</span>
+                      </p>
+                      <input
+                        class="form-input"
+                        placeholder="https://example.com"
+                        type="url"
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Hospital Admin Card -->
+              <div class="card">
+                <h2 class="card-title">Hospital Admin Account</h2>
+                <p class="card-subtitle">
+                  Create an administrator account for this hospital.
+                </p>
+                <div class="card-grid">
+                  <div>
+                    <label class="form-label">
+                      <p class="input-label">Username</p>
+                      <input
+                        class="form-input"
+                        placeholder="Enter a username"
+                        required=""
+                        type="text"
+                      />
+                    </label>
+                  </div>
+                  <div class="password-wrapper">
+                    <label class="form-label">
+                      <p class="input-label">Password</p>
+                      <input
+                        class="form-input"
+                        placeholder="Enter a strong password"
+                        required=""
+                        type="password"
+                        id="passwordField"
+                      />
+                      <button class="toggle-visibility" type="button" id="togglePassword">
+                        <span class="material-symbols-outlined">visibility</span>
+                      </button>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Form Actions -->
+              <div class="form-actions">
+                <button class="btn btn-secondary" type="button">
+                  Cancel
+                </button>
+                <button class="btn btn-primary" type="submit">
+                  <span class="material-symbols-outlined btn-icon-hidden">sync</span>
+                  Save Hospital
+                </button>
+              </div>
+            </form>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Simple script for password visibility toggle -->
+    <script>
+      document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordField = document.getElementById('passwordField');
+        const icon = this.querySelector('span');
+
+        if (passwordField.type === 'password') {
+          passwordField.type = 'text';
+          icon.textContent = 'visibility_off';
+        } else {
+          passwordField.type = 'password';
+          icon.textContent = 'visibility';
+        }
+      });
+    </script>
+  </body>
+</html>

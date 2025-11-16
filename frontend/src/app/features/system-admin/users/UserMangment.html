@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>User Management - MedAlert</title>
+
+    <!-- Google Fonts and Icons -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="UserMangment.css" />
+  </head>
+  <body>
+    <div class="page-layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo-icon-wrapper">
+            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_6_319)">
+                <path
+                  d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
+                  fill="currentColor"
+                ></path>
+              </g>
+              <defs>
+                <clipPath id="clip0_6_319">
+                  <rect fill="white" height="48" width="48"></rect>
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <h2 class="logo-text">MedAlert</h2>
+        </div>
+        <nav class="sidebar-nav">
+          <a class="nav-link" href="#">
+            <span class="material-symbols-outlined">dashboard</span>
+            <span>Dashboard</span>
+          </a>
+          <a class="nav-link active" href="#">
+            <span class="material-symbols-outlined">group</span>
+            <span>User Management</span>
+          </a>
+          <a class="nav-link" href="#">
+            <span class="material-symbols-outlined">settings</span>
+            <span>Settings</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content Area -->
+      <div class="main-content-area">
+        <!-- Header -->
+        <header class="header">
+          <div class="header-actions">
+            <button class="icon-btn">
+              <span class="material-symbols-outlined">notifications</span>
+            </button>
+            <div class="profile">
+              <div
+                class="profile-avatar"
+                data-alt="Admin User Avatar"
+                style="
+                  background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCoVYfrIel8wpixocH9YLbI7yq2gZj--W8FPVWBpRFLD7VX95JwliS7QcpSnV1Zpk1Dce7OA0-oTTI7acojsgCo4k71HGfzOdIbteVw-Sflk7eCq6Z2avpxGB0UD94m9HJX6XpgPcST5freqp2QEn23usUpTesLapLN075LPevpcgmLmYn9yuU54lt447MEtj2rkk-pJdzrgM9QACILzzQAQ4Wq7WgTAgXvzEd8QvVlozfnTLqyXBuwL0G3Rx6e9fX_BDNiPBttVuI');
+                "
+              ></div>
+              <div class="profile-info">
+                <span class="profile-name">Admin User</span>
+                <span class="profile-role">Super Admin</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Main Section -->
+        <main class="main-content">
+          <div class="content-container">
+            <!-- Page Header -->
+            <div class="page-header">
+              <div class="page-title-group">
+                <p class="page-title">User Management</p>
+                <p class="page-subtitle">
+                  Search, filter, and manage all user accounts in the MedAlert system.
+                </p>
+              </div>
+              <button class="btn btn-primary">
+                <span class="material-symbols-outlined">add</span>
+                <span class="truncate">Add New User</span>
+              </button>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+              <div class="filter-grid">
+                <div class="search-bar-wrapper">
+                  <label class="search-bar">
+                    <div class="search-icon-wrapper">
+                      <span class="material-symbols-outlined">search</span>
+                    </div>
+                    <input
+                      class="search-input"
+                      placeholder="Search by name or email..."
+                      type="text"
+                    />
+                  </label>
+                </div>
+                <div class="filter-buttons">
+                  <button class="btn btn-filter">
+                    <p class="btn-text">Filter by Role</p>
+                    <span class="material-symbols-outlined btn-icon-down">arrow_drop_down</span>
+                  </button>
+                  <button class="btn btn-filter">
+                    <p class="btn-text">Filter by Status</p>
+                    <span class="material-symbols-outlined btn-icon-down">arrow_drop_down</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Data Table -->
+            <div class="table-wrapper">
+              <div class="table-scroll-wrapper">
+                <table class="data-table">
+                  <thead class="table-header">
+                    <tr>
+                      <th scope="col">User Name</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Role</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Date Created</th>
+                      <th scope="col" class="text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="table-row">
+                      <th class="table-cell-header" scope="row">
+                        John Doe
+                      </th>
+                      <td class="table-cell">john.doe@example.com</td>
+                      <td class="table-cell">Patient</td>
+                      <td class="table-cell">
+                        <span class="status-badge status-active">Active</span>
+                      </td>
+                      <td class="table-cell">2023-01-15</td>
+                      <td class="table-cell text-right action-links">
+                        <button class="action-link link-primary">Edit Role</button>
+                        <button class="action-link link-warning">Reset Password</button>
+                        <button class="action-link link-danger">Deactivate</button>
+                      </td>
+                    </tr>
+                    <tr class="table-row">
+                      <th class="table-cell-header" scope="row">
+                        Jane Smith
+                      </th>
+                      <td class="table-cell">jane.smith@hospital.org</td>
+                      <td class="table-cell">Hospital Admin</td>
+                      <td class="table-cell">
+                        <span class="status-badge status-active">Active</span>
+                      </td>
+                      <td class="table-cell">2022-11-20</td>
+                      <td class="table-cell text-right action-links">
+                        <button class="action-link link-primary">Edit Role</button>
+                        <button class="action-link link-warning">Reset Password</button>
+                        <button class="action-link link-danger">Deactivate</button>
+                      </td>
+                    </tr>
+                    <tr class="table-row">
+                      <th class="table-cell-header" scope="row">
+                        Sam Wilson
+                      </th>
+                      <td class="table-cell">sam.wilson@medalert.io</td>
+                      <td class="table-cell">Super Admin</td>
+                      <td class="table-cell">
+                        <span class="status-badge status-inactive">Inactive</span>
+                      </td>
+                      <td class="table-cell">2021-03-10</td>
+                      <td class="table-cell text-right action-links">
+                        <button class="action-link link-primary">Edit Role</button>
+                        <button class="action-link link-warning">Reset Password</button>
+                        <button class="action-link link-success">Activate</button>
+                      </td>
+                    </tr>
+                    <tr class="table-row no-border">
+                      <th class="table-cell-header" scope="row">
+                        Maria Garcia
+                      </th>
+                      <td class="table-cell">maria.garcia@example.com</td>
+                      <td class="table-cell">Patient</td>
+                      <td class="table-cell">
+                        <span class="status-badge status-active">Active</span>
+                      </td>
+                      <td class="table-cell">2023-05-01</td>
+                      <td class="table-cell text-right action-links">
+                        <button class="action-link link-primary">Edit Role</button>
+                        <button class="action-link link-warning">Reset Password</button>
+                        <button class="action-link link-danger">Deactivate</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- Pagination -->
+              <nav class="pagination-nav" aria-label="Table navigation">
+                <span class="pagination-info">
+                  Showing
+                  <span class="font-semibold">1-4</span>
+                  of
+                  <span class="font-semibold">100</span>
+                </span>
+                <ul class="pagination-links">
+                  <li>
+                    <a class="pagination-link rounded-left" href="#">Previous</a>
+                  </li>
+                  <li>
+                    <a class="pagination-link active" href="#">1</a>
+                  </li>
+                  <li>
+                    <a class="pagination-link" href="#">2</a>
+                  </li>
+                  <li>
+                    <a class="pagination-link" href="#">3</a>
+                  </li>
+                  <li>
+                    <a class="pagination-link rounded-right" href="#">Next</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

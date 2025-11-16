@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Sign Up for MedAlert</title>
+
+    <!-- Google Fonts and Icons -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="SignUp.css" />
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="layout-container">
+        <div class="main-content">
+          <div class="content-wrapper">
+            <div class="signup-container">
+
+              <!-- Logo and App Name -->
+              <div class="logo-header">
+                <span class="material-symbols-outlined logo-icon">health_and_safety</span>
+                <h1 class="logo-text">MedAlert</h1>
+              </div>
+
+              <!-- Page Title and Subtitle -->
+              <div class="header-text">
+                <div class="header-text-content">
+                  <p class="title">Create an Account</p>
+                  <p class="subtitle">
+                    Join MedAlert today. It's quick and easy.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Sign Up Form -->
+              <form class="signup-form">
+
+                <!-- Full Name Field -->
+                <div class="form-group">
+                  <label class="form-label">
+                    <p class="input-label">Full Name</p>
+                    <input
+                      class="form-input"
+                      placeholder="Enter your full name"
+                      type="text"
+                    />
+                  </label>
+                </div>
+
+                <!-- Email Field -->
+                <div class="form-group">
+                  <label class="form-label">
+                    <p class="input-label">Email</p>
+                    <input
+                      class="form-input"
+                      placeholder="Enter your email"
+                      type="email"
+                    />
+                  </label>
+                </div>
+
+                <!-- Password Field -->
+                <div class="form-group">
+                  <label class="form-label">
+                    <p class="input-label">Password</p>
+                    <div class="password-wrapper">
+                      <input
+                        class="form-input password-input"
+                        placeholder="Create a password"
+                        type="password"
+                        id="passwordField"
+                      />
+                      <button type="button" class="toggle-visibility" id="togglePassword">
+                        <span class="material-symbols-outlined">visibility_off</span>
+                      </button>
+                    </div>
+                  </label>
+                </div>
+
+                <!-- Date of Birth Field -->
+                <div class="form-group">
+                  <label class="form-label">
+                    <p class="input-label">Date of Birth</p>
+                    <input
+                      class="form-input"
+                      placeholder="MM/DD/YYYY"
+                      type="date"
+                    />
+                  </label>
+                </div>
+
+                <!-- Create Account Button -->
+                <div class="form-group form-group-button">
+                  <button type="submit" class="btn btn-primary">
+                    <span class="truncate">Create Account</span>
+                  </button>
+                </div>
+
+                <!-- Sign In Link -->
+                <p class="signin-link">
+                  Already have an account?
+                  <a class="link" href="#">Sign In</a>
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Simple script for password visibility toggle -->
+    <script>
+      document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordField = document.getElementById('passwordField');
+        const icon = this.querySelector('span');
+
+        if (passwordField.type === 'password') {
+          passwordField.type = 'text';
+          icon.textContent = 'visibility';
+        } else {
+          passwordField.type = 'password';
+          icon.textContent = 'visibility_off';
+        }
+      });
+    </script>
+  </body>
+</html>
