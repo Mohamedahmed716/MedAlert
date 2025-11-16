@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>MedAlert - ER Bed Management</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="ER.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="layout-wrapper">
+  <div class="layout-container">
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="logo-section">
+          <svg class="logo-icon" fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"></path>
+          </svg>
+          <h2>MedAlert</h2>
+        </div>
+        <div class="header-right">
+          <div class="user-section">
+            <span class="user-name">Dr. Emily Carter</span>
+            <div class="user-avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBIN9s_1kCCXJp2pAEGHONkpCQrUK6Dby5CW66hhpXXyBv5q9o6BYUqkyLPJ1gTEgpdhwwO40_qUQ8KcubmMVJykXoVV79xc8ZJpfM6GZfaoFVRiN3sgVxt34ZHfvQS7X85Ng31uGAoFijVe2jW4hYDSgHwS1tVWfux8Shs67l9-kLPq7eYJxcIzVeg_WkBZ3FVpq4vF9gpZ19EOXUdyRAp_OxvFwddw9bfxjK7PfVJujEHcx16LPEMo_Bis37GIKILDkNSEFVMzSs");'></div>
+          </div>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <div class="page-title-section">
+          <h1 class="page-title">ER Bed Management</h1>
+        </div>
+
+        <div class="legend-section">
+          <div class="legend-item">
+            <p class="legend-label">Available</p>
+            <div class="legend-indicator">
+              <div class="color-box available"></div>
+              <p>Indicates the bed is ready for a new patient.</p>
+            </div>
+          </div>
+          <div class="legend-item">
+            <p class="legend-label">Occupied</p>
+            <div class="legend-indicator">
+              <div class="color-box occupied"></div>
+              <p>Indicates the bed is currently in use.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="beds-grid">
+          <div class="bed-card available-bed">
+            <div class="bed-content">
+              <span class="material-symbols-outlined bed-icon">bed</span>
+              <p class="bed-number">ER-01</p>
+              <p class="bed-status">Available</p>
+            </div>
+          </div>
+
+          <div class="bed-card occupied-bed">
+            <div class="bed-content">
+              <span class="material-symbols-outlined bed-icon">bed</span>
+              <p class="bed-number">ER-02</p>
+              <p class="bed-status">Occupied</p>
+            </div>
+          </div>
+
+          <div class="bed-card available-bed">
+            <div class="bed-content">
+              <span class="material-symbols-outlined bed-icon">bed</span>
+              <p class="bed-number">ER-03</p>
+              <p class="bed-status">Available</p>
+            </div>
+          </div>
+
+          <div class="bed-card available-bed">
+            <div class="bed-content">
+              <span class="material-symbols-outlined bed-icon">bed</span>
+              <p class="bed-number">ER-04</p>
+              <p class="bed-status">Available</p>
+            </div>
+          </div>
+
+          <div class="bed-card occupied-bed">
+            <div class="bed-content">
+              <span class="material-symbols-outlined bed-icon">bed</span>
+              <p class="bed-number">ER-05</p>
+              <p class="bed-status">Occupied</p>
+            </div>
+          </div>
+
+          <div class="bed-card available-bed">
+            <div class="bed-content">
+              <span class="material-symbols-outlined bed-icon">bed</span>
+              <p class="bed-number">ER-06</p>
+              <p class="bed-status">Available</p>
+            </div>
+          </div>
+
+          <div class="bed-card occupied-bed">
+            <div class="bed-content">
+              <span class="material-symbols-outlined bed-icon">bed</span>
+              <p class="bed-number">ER-07</p>
+              <p class="bed-status">Occupied</p>
+            </div>
+          </div>
+
+          <div class="bed-card occupied-bed">
+            <div class="bed-content">
+              <span class="material-symbols-outlined bed-icon">bed</span>
+              <p class="bed-number">ER-08</p>
+              <p class="bed-status">Occupied</p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal-overlay" id="confirmation-modal">
+  <div class="modal-card">
+    <h3 class="modal-title">Confirm Status Change</h3>
+    <p class="modal-text">Are you sure you want to change the status of <span class="modal-bed-id">ER-01</span> to <span class="modal-new-status">Occupied</span>?</p>
+    <div class="modal-actions">
+      <button class="modal-btn cancel-btn">Cancel</button>
+      <button class="modal-btn confirm-btn">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const bedCards = document.querySelectorAll('.bed-card');
+    const modal = document.getElementById('confirmation-modal');
+    const cancelButton = modal.querySelector('.cancel-btn');
+    const confirmButton = modal.querySelector('.confirm-btn');
+
+    bedCards.forEach(card => {
+      card.addEventListener('click', () => {
+        modal.classList.add('active');
+      });
+    });
+
+    cancelButton.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    confirmButton.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if(e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
