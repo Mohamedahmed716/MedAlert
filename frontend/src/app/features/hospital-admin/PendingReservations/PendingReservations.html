@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>MedAlert - Hospital Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+  <link href="PendingReservations.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="layout-wrapper">
+  <div class="main-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-content">
+        <div class="logo-section">
+          <span class="material-symbols-outlined logo-icon">health_and_safety</span>
+          <h1>MedAlert</h1>
+        </div>
+
+        <nav class="nav-menu">
+          <div class="nav-item">
+            <span class="material-symbols-outlined">dashboard</span>
+            <p>Dashboard</p>
+          </div>
+          <div class="nav-item">
+            <span class="material-symbols-outlined">apartment</span>
+            <p>Departments</p>
+          </div>
+          <div class="nav-item">
+            <span class="material-symbols-outlined">stethoscope</span>
+            <p>Doctors</p>
+          </div>
+          <div class="nav-item active">
+            <span class="material-symbols-outlined icon-filled">event_available</span>
+            <p>Reservations</p>
+          </div>
+          <div class="nav-item">
+            <span class="material-symbols-outlined">bed</span>
+            <p>ER Bed Status</p>
+          </div>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <button class="logout-btn">Logout</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="header">
+        <h1>Pending Reservation Details</h1>
+        <div class="header-right">
+          <span class="material-symbols-outlined notification-icon">notifications</span>
+          <div class="user-section">
+            <div class="user-avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAMwj_yY92p2FK--N5rDeMD0F16_i0mkCWk5B8NrjAVUsClj35Rp7S5D_33Qm6YhjgpdU737oVUCf65brHz-Gjnx_54PQ5zLq9VDrasbd3bNSe6jNruvS4C6DMHkQJNfk8F2b9uHNJBDHytc4rwd02fANveO9RvtdnZLwXsT5TtJgh1fRtwtc8U_XiUKXowBPwz4MuTwF1Z0dnJfOsxWkZsEDACu6ksmbnNXixcpGAPZRv_DCSkV3kl3fEKTj201rKFYJpwKhVkw58')"></div>
+            <div class="user-info">
+              <h2>Dr. Evelyn Reed</h2>
+              <p>Hospital Admin</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-grid">
+        <!-- Patient Information Card -->
+        <div class="info-card">
+          <div class="card-section">
+            <h3>Patient Information</h3>
+            <div class="info-grid">
+              <div class="info-item">
+                <p class="info-label">Patient Name</p>
+                <p class="info-value">Liam Johnson</p>
+              </div>
+              <div class="info-item">
+                <p class="info-label">Contact Number</p>
+                <p class="info-value">(555) 123-4567</p>
+              </div>
+              <div class="info-item">
+                <p class="info-label">Email Address</p>
+                <p class="info-value">liam.johnson&#64;example.com</p>
+              </div>
+              <div class="info-item">
+                <p class="info-label">Date of Birth</p>
+                <p class="info-value">October 26, 1988</p>
+              </div>
+              <div class="info-item full-width">
+                <p class="info-label">Reason for Visit</p>
+                <p class="info-value">Annual check-up and persistent cough.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-section">
+            <h3>Reservation Request</h3>
+            <div class="info-grid">
+              <div class="info-item">
+                <p class="info-label">Requested</p>
+                <p class="info-value">Doctor</p>
+              </div>
+              <div class="info-item">
+                <p class="info-label">Doctor's Name</p>
+                <p class="info-value">Dr. Ava Chen</p>
+              </div>
+              <div class="info-item">
+                <p class="info-label">Department</p>
+                <p class="info-value">Cardiology</p>
+              </div>
+              <div class="info-item">
+                <p class="info-label">Requested Date & Time</p>
+                <p class="info-value">November 15, 2023, 10:30 AM</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions Card -->
+        <div class="actions-card">
+          <h3>Actions</h3>
+          <div class="actions-content">
+            <button class="action-btn accept">
+              <span class="material-symbols-outlined">check_circle</span>
+              <span>Accept Reservation</span>
+            </button>
+            <button class="action-btn decline">
+              <span class="material-symbols-outlined">cancel</span>
+              <span>Decline Reservation</span>
+            </button>
+            <div class="form-group">
+              <label for="decline-reason">Reason for Decline (Optional)</label>
+              <textarea id="decline-reason" rows="3" placeholder="e.g., Doctor unavailable"></textarea>
+            </div>
+            <hr class="divider"/>
+            <button class="action-btn contact">
+              <span class="material-symbols-outlined">contact_phone</span>
+              <span>Contact Patient</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>
