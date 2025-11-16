@@ -1,0 +1,61 @@
+<aside class="sidebar-container">
+
+  <div class="sidebar-top">
+    <div class="user-profile">
+      <div class="user-avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuALw9YJ_sMUz-IjBnHIIKXtX7tMpwqC83AsGUiBNdpi-52auhgI-AgqvfcohEVSF4o_RR0KHA1B0rsW3-k2KB0fg8E0n_qgDWq3dsN2lxVoKGWPSXqfiU6ces7t-kztoGwtzOCwgfFaUMJjeayNH2pSC9MXYg5ciqyRvy9AXBnZ30adeZX5x0YkJdqIK5yyfsShxnOTG4CDSYserAzCUKjtZDutfvC2nYZ9bCzf9ovwmMKOkgtF9bl2zdGzuBcReV9m2EAQlQ0nxJ8");'></div>
+      <div>
+        <h1 class="user-name">Dr. Evelyn Reed</h1>
+        <p class="user-title">Cardiologist</p>
+      </div>
+    </div>
+
+    <nav class="nav-links">
+      <a
+        class="nav-link"
+        routerLink="/doctors/dashboard"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <span class="material-symbols-outlined">dashboard</span>
+        <p class="text-sm font-medium">Dashboard</p>
+      </a>
+      <a
+        class="nav-link"
+        routerLink="/doctors/patients"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <span class="material-symbols-outlined">group</span>
+        <p class="text-sm font-medium">Patients</p>
+      </a>
+      <a
+        class="nav-link"
+        routerLink="/doctors/prescriptions"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <span class="material-symbols-outlined">medication</span>
+        <p class="text-sm font-medium">Prescriptions</p>
+      </a>
+      <a
+        class="nav-link"
+        routerLink="/doctors/reservations"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <span class="material-symbols-outlined">book_online</span>
+        <p class="text-sm font-medium">Reservations</p>
+      </a>
+      <a
+        class="nav-link"
+        routerLink="/doctors/er"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <span class="material-symbols-outlined">emergency</span>
+        <p class="text-sm font-medium">ER</p>
+      </a>
+    </nav>
+  </div>
+
+  <button class="logout-button">
+    <span class="material-symbols-outlined">logout</span>
+    <span>Logout</span>
+  </button>
+
+</aside>

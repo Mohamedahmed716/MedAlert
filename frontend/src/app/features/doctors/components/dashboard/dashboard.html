@@ -1,0 +1,153 @@
+<main class="dashboard-container">
+
+  <div class="dashboard-grid-top">
+
+    <div class="main-card-wrapper">
+      <div class="card main-card">
+        <div class="main-card-content">
+          <div class="main-card-header">
+            <div>
+              <p class="main-card-title">Today's Overview</p>
+              <p class="main-card-subtitle">Reservations and key statistics</p>
+            </div>
+          </div>
+
+          <div class="reservations-widget-inset">
+            <h3 class="widget-title">Today's Reservations</h3>
+            <div class="reservation-list-simple">
+              <div class="reservation-item-simple">
+                <p class="reservation-name">Maria Garcia</p>
+                <p class="reservation-time">11:00 AM - Check-up</p>
+              </div>
+              <div class="reservation-item-simple">
+                <p class="reservation-name">David Lee</p>
+                <p class="reservation-time">11:30 AM - Consultation</p>
+              </div>
+              <div class="reservation-item-simple">
+                <p class="reservation-name">Robert Johnson</p>
+                <p class="reservation-time">1:00 PM - Pre-op</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="er-stats-grid">
+            <div class="er-stat-item pending-stat-item">
+              <div>
+                <p class="er-stat-label">Pending Reservations</p>
+                <p class="er-stat-value">2</p>
+              </div>
+              <button class="button-view">View All</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="card date-shift-widget">
+      <div class="date-widget">
+        <p class="date-day">16</p>
+        <p class="date-month-year">November<br>2025</p>
+      </div>
+      <div class="shift-widget">
+        <h3 class="widget-title">Current Shift</h3>
+        <p class="shift-time">8:00 AM - 5:00 PM</p>
+      </div>
+      <button class="er-card-button">
+        <span class="material-symbols-outlined">emergency</span>
+        <span>Go to ER</span>
+      </button>
+      <div class="er-stats-grid-inset">
+        <div class="er-stat-item">
+          <p class="er-stat-label">ER Occupancy</p>
+          <p class="er-stat-value">75%</p>
+        </div>
+        <div class="er-stat-item">
+          <div class="er-stat-label-critical">
+            <p>Critical Cases</p>
+            <span class="ping-container">
+              <span class="ping-animation"></span>
+              <span class="ping-dot"></span>
+            </span>
+          </div>
+          <p class="er-stat-value">3</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="dashboard-grid-bottom">
+
+    <div class="card patient-queue-card">
+
+      <div class="patient-queue-header">
+        <h3>Patient Queue</h3>
+        <div class="stat-waiting-patients">
+          <p class="er-stat-label">Waiting Patients</p>
+          <p class="er-stat-value">12</p>
+        </div>
+      </div>
+
+      <div class="queue-list">
+        <div class="queue-item">
+          <div class="queue-item-details">
+            <div>
+              <p class="patient-name">John Doe</p>
+              <p class="patient-info">Room 302 | Chest Pain</p>
+            </div>
+          </div>
+          <span class="status-tag critical">Critical</span>
+        </div>
+        <div class="queue-item">
+          <div class="queue-item-details">
+            <div>
+              <p class="patient-name">Jane Smith</p>
+              <p class="patient-info">Room 305 | Follow-up</p>
+            </div>
+          </div>
+          <span class="status-tag stable">Stable</span>
+        </div>
+        <div class="queue-item">
+          <div class="queue-item-details">
+            <div>
+              <p class="patient-name">Robert Johnson</p>
+              <p class="patient-info">Room 308 | Pre-op</p>
+            </div>
+          </div>
+          <span class="status-tag observation">Observation</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card prescriptions-card">
+      <h3>Recent Prescriptions</h3>
+      <div class="prescription-list">
+        <div class="prescription-item">
+          <div>
+            <p class="prescription-name">Lisinopril - 10mg</p>
+            <p class="prescription-patient">For: John Doe</p>
+          </div>
+          <p class="prescription-date">Oct 26, 2024</p>
+        </div>
+        <hr class="divider" />
+        <div class="prescription-item">
+          <div>
+            <p class="prescription-name">Metformin - 500mg</p>
+            <p class="prescription-patient">For: Emily White</p>
+          </div>
+          <p class="prescription-date">Oct 25, 2024</p>
+        </div>
+        <hr class="divider" />
+        <div class="prescription-item">
+          <div>
+            <p class="prescription-name">Atorvastatin - 20mg</p>
+            <p class="prescription-patient">For: Michael Brown</p>
+          </div>
+          <p class="prescription-date">Oct 25, 2024</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
