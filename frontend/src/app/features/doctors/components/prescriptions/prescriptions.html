@@ -1,0 +1,127 @@
+<div class="prescription-container">
+
+  <div class="page-header">
+    <h1 class="page-title">Manage Prescriptions</h1>
+    <p class="page-subtitle">Create and view prescriptions for your patients.</p>
+  </div>
+
+  <div class="prescription-layout-grid">
+
+    <div class="form-column">
+      <div class="card">
+        <h2 class="card-title">New Prescription</h2>
+        <form class="prescription-form">
+
+          <div class="form-group">
+            <label class="form-label" for="patient-name">Patient Name</label>
+            <div class="input-with-icon">
+              <span class="material-symbols-outlined icon">search</span>
+              <input class="form-input" id="patient-name" placeholder="Select a patient" type="text"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="medication-name">Medication Name</label>
+            <input class="form-input" id="medication-name" placeholder="e.g., Amoxicillin" type="text"/>
+          </div>
+
+          <div class="form-grid-cols-2">
+            <div class="form-group">
+              <label class="form-label" for="dosage">Dosage</label>
+              <input class="form-input" id="dosage" placeholder="e.g., 500mg" type="text"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="frequency">Frequency</label>
+              <select class="form-select" id="frequency">
+                <option>Once daily</option>
+                <option>Twice daily</option>
+                <option>Three times daily</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="duration">Duration</label>
+            <div class="form-field-group">
+              <input class="form-input" id="duration" placeholder="e.g., 7" type="number"/>
+              <select class="form-select duration-unit">
+                <option>Days</option>
+                <option>Weeks</option>
+                <option>Months</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="special-instructions">Special Instructions</label>
+            <textarea class="form-textarea" id="special-instructions" placeholder="e.g., Take with food." rows="4"></textarea>
+          </div>
+
+          <div class="button-group">
+            <button class="button button-primary" type="submit">
+              <span>Send Prescription</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="table-column">
+      <div class="card">
+        <h2 class="card-title">Sent Prescriptions</h2>
+
+        <div class="input-with-icon search-bar">
+          <span class="material-symbols-outlined icon">search</span>
+          <input class="form-input" placeholder="Search prescriptions..." type="text"/>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="prescription-table">
+            <thead>
+            <tr>
+              <th>Patient</th>
+              <th>Medication</th>
+              <th>Date</th>
+              <th class="text-right"></th> </tr>
+            </thead>
+            <tbody>
+            <tr class="table-row-hover">
+              <td>Liam Gallagher</td>
+              <td>Lisinopril</td>
+              <td class="text-secondary">2023-10-26</td>
+              <td class="text-right">
+                <button class="button-view">View</button>
+              </td>
+            </tr>
+            <tr class="table-row-hover">
+              <td>Olivia Chen</td>
+              <td>Metformin</td>
+              <td class="text-secondary">2023-10-25</td>
+              <td class="text-right">
+                <button class="button-view">View</button>
+              </td>
+            </tr>
+            <tr class="table-row-hover">
+              <td>Benjamin Carter</td>
+              <td>Atorvastatin</td>
+              <td class="text-secondary">2023-10-24</td>
+              <td class="text-right">
+                <button class="button-view">View</button>
+              </td>
+            </tr>
+            <tr class="table-row-hover">
+              <td>Sophia Rodriguez</td>
+              <td>Amlodipine</td>
+              <td class="text-secondary">2023-10-23</td>
+              <td class="text-right">
+                <button class="button-view">View</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
