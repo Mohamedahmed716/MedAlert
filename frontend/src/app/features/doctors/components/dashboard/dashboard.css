@@ -288,13 +288,13 @@
 }
 .stat-waiting-patients {
   display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: 0.75rem;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
   border-radius: var(--radius-lg);
   background-color: var(--slate-50);
   border: 1px solid var(--slate-200);
-  text-align: right;
   flex-shrink: 0;
 }
 .stat-waiting-patients .er-stat-label {

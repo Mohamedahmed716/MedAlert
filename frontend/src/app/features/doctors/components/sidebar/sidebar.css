@@ -1,3 +1,8 @@
+.logo{
+  width: 210px;
+  height: auto;
+}
+
 .sidebar-container {
   width: 256px;
   border-right: 1px solid var(--slate-200);
