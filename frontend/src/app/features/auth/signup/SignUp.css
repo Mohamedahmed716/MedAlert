@@ -5,12 +5,12 @@
 :root {
   --primary: #1193d4;
   --background-light: #f6f7f8;
-  --background-dark: #101c22; /* For potential dark mode */
+  --background-dark: #101c22;
   --text-primary: #0d171b;
   --text-secondary: #4c809a;
   --border-color: #cfdfe7;
-  --input-bg: #f8fafc; /* bg-slate-50 */
-  --input-bg-hover: #e2e8f0; /* bg-slate-100 */
+  --input-bg: #f8fafc;
+  --input-bg-hover: #e2e8f0;
   --white-text: #f8fafc;
 }
 
