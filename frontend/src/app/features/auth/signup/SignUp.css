@@ -67,7 +67,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
 }
 
 /* --- Header and Logo --- */
@@ -77,6 +76,12 @@ body {
   justify-content: center;
   gap: 0.5rem;
   margin-bottom: 1rem;
+}
+
+.logo-header img{
+  width: 200px;
+  height: auto;
+  image-rendering: -webkit-optimize-contrast;
 }
 
 .logo-icon {

@@ -85,9 +85,10 @@ body {
 }
 
 .logo-icon {
-  color: var(--primary);
-  width: 24px;
-  height: 24px;
+  width: 100px;
+  height: auto;
+  image-rendering: -webkit-optimize-contrast;
+  background-color: transparent;
 }
 
 .logo-text {

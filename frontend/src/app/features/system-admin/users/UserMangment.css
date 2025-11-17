@@ -113,15 +113,18 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 1.5rem;
+  padding: 0;
   border-bottom: 1px solid var(--light-border);
 }
 
-.logo-icon-wrapper {
-  width: 2rem;
-  height: 2rem;
-  color: var(--primary);
+.logo-icon-wrapper img {
+  width: 150px;
+  height: auto;
+  image-rendering: -webkit-optimize-contrast;
+  background-color: transparent;
 }
+
+
 
 .logo-text {
   color: var(--light-text-heading);

@@ -103,14 +103,10 @@ hr {
 }
 
 .logo {
-  height: 2rem;
-  width: 2rem;
-}
-
-.logo-text {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--light-text-strong);
+  width: 150px;
+  height: auto;
+  image-rendering: -webkit-optimize-contrast;
+  background-color: transparent;
 }
 
 .sidebar-nav {
