@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Add New Doctor - MedAlert</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+  <link href="AddDoctor.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="layout-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-content">
+      <div class="profile-section">
+        <div class="profile-avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDwTZECLEX5vsz4lINnniTNkRHTtwBE68EKBYOpWxdrajBopbuTFn3YY1DTrhEz94GYkbmu9kfxeiF0QY9KYJxvJ5Y6a5ryzP3U0BvsobzDJ1QiakR5qQjCce6EWgxFnA_P6ImJIJUIvaG3hg_eeIwMHQ8jsvASodryrGryW_Sn7nFHG1o_Vf28z2mN5hoeDC5d50Hqotp9R7bVcVOqAO2i9iUUosATfwQf86fTmRgvQSFhm1PyeaXtOubW_dKmfVgrkgfvzY2doG0");'></div>
+        <div class="profile-info">
+          <h1>Admin</h1>
+          <p>Hospital Admin</p>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="#" class="nav-item">
+          <span class="material-symbols-outlined">dashboard</span>
+          <p>Dashboard</p>
+        </a>
+        <a href="#" class="nav-item active">
+          <span class="material-symbols-outlined icon-filled">medical_services</span>
+          <p>Doctors</p>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="material-symbols-outlined">groups</span>
+          <p>Patients</p>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="material-symbols-outlined">calendar_month</span>
+          <p>Appointments</p>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="material-symbols-outlined">corporate_fare</span>
+          <p>Departments</p>
+        </a>
+      </nav>
+    </div>
+
+    <div class="sidebar-footer">
+      <a href="#" class="nav-item">
+        <span class="material-symbols-outlined">settings</span>
+        <p>Settings</p>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="material-symbols-outlined">help</span>
+        <p>Support</p>
+      </a>
+      <button class="logout-btn">Logout</button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="content-container">
+      <div class="page-header">
+        <h1>Add New Doctor</h1>
+      </div>
+
+      <div class="form-card">
+        <form action="#" method="POST">
+          <div class="form-grid">
+            <!-- Doctor's Information Section -->
+            <div class="section-header">
+              <h2>Doctor's Information</h2>
+            </div>
+
+            <div class="form-group">
+              <label>
+                <span class="label-text">Full Name</span>
+                <input type="text" placeholder="Enter doctor's full name" class="form-input"/>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label>
+                <span class="label-text">Specialty</span>
+                <input type="text" placeholder="e.g., Cardiology" class="form-input"/>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label>
+                <span class="label-text">Department</span>
+                <select class="form-select">
+                  <option>Select a department</option>
+                  <option>Cardiology</option>
+                  <option>Neurology</option>
+                  <option>Pediatrics</option>
+                  <option>Oncology</option>
+                </select>
+              </label>
+            </div>
+
+            <!-- Photo Upload -->
+            <div class="form-group full-width">
+              <span class="label-text">Profile Picture</span>
+              <div class="upload-area">
+                <span class="material-symbols-outlined upload-icon">cloud_upload</span>
+                <div class="upload-text">
+                  <label for="file-upload" class="upload-label">
+                    <span>Upload a file</span>
+                    <input id="file-upload" name="file-upload" type="file" class="file-input"/>
+                  </label>
+                  <p>or drag and drop</p>
+                </div>
+                <p class="upload-hint">PNG, JPG, GIF up to 10MB</p>
+              </div>
+            </div>
+
+            <!-- Contact Details Section -->
+            <div class="section-header">
+              <h2>Contact Details</h2>
+            </div>
+
+            <div class="form-group">
+              <label>
+                <span class="label-text">Phone Number</span>
+                <input type="tel" placeholder="(123) 456-7890" class="form-input"/>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label>
+                <span class="label-text">Email Address</span>
+                <input type="email" placeholder="doctor.name@example.com" class="form-input"/>
+              </label>
+            </div>
+
+            <!-- Bio -->
+            <div class="form-group full-width">
+              <label for="bio">
+                <span class="label-text">Bio</span>
+                <textarea id="bio" name="bio" placeholder="Write a brief bio about the doctor..." rows="4" class="form-textarea"></textarea>
+                <p class="field-hint">Max 500 characters.</p>
+              </label>
+            </div>
+
+            <!-- Availability Section -->
+            <div class="section-header">
+              <h2>Availability</h2>
+              <p class="section-description">Select the days and times the doctor is available for appointments.</p>
+            </div>
+
+            <div class="availability-section">
+              <div class="availability-day">
+                <div class="day-checkbox">
+                  <input type="checkbox" id="monday" name="day" class="checkbox"/>
+                  <label for="monday">Mon</label>
+                </div>
+                <div class="time-inputs">
+                  <input type="time" value="09:00" class="time-input"/>
+                  <span>-</span>
+                  <input type="time" value="17:00" class="time-input"/>
+                </div>
+                <button type="button" class="add-slot-btn">
+                  <span class="material-symbols-outlined">add_circle</span>
+                </button>
+              </div>
+
+              <div class="availability-day">
+                <div class="day-checkbox">
+                  <input type="checkbox" id="tuesday" name="day" class="checkbox" checked/>
+                  <label for="tuesday">Tue</label>
+                </div>
+                <div class="time-inputs">
+                  <input type="time" value="09:00" class="time-input"/>
+                  <span>-</span>
+                  <input type="time" value="13:00" class="time-input"/>
+                </div>
+                <button type="button" class="add-slot-btn">
+                  <span class="material-symbols-outlined">add_circle</span>
+                </button>
+              </div>
+
+              <div class="availability-day disabled">
+                <div class="day-checkbox">
+                  <input type="checkbox" id="wednesday" name="day" class="checkbox"/>
+                  <label for="wednesday">Wed</label>
+                </div>
+                <div class="time-inputs">
+                  <input type="time" class="time-input" disabled/>
+                  <span>-</span>
+                  <input type="time" class="time-input" disabled/>
+                </div>
+                <button type="button" class="add-slot-btn" disabled>
+                  <span class="material-symbols-outlined">add_circle</span>
+                </button>
+              </div>
+
+              <div class="availability-day">
+                <div class="day-checkbox">
+                  <input type="checkbox" id="thursday" name="day" class="checkbox" checked/>
+                  <label for="thursday">Thu</label>
+                </div>
+                <div class="time-inputs">
+                  <input type="time" value="10:00" class="time-input"/>
+                  <span>-</span>
+                  <input type="time" value="18:00" class="time-input"/>
+                </div>
+                <button type="button" class="add-slot-btn">
+                  <span class="material-symbols-outlined">add_circle</span>
+                </button>
+              </div>
+
+              <div class="availability-day disabled">
+                <div class="day-checkbox">
+                  <input type="checkbox" id="friday" name="day" class="checkbox"/>
+                  <label for="friday">Fri</label>
+                </div>
+                <div class="time-inputs">
+                  <input type="time" class="time-input" disabled/>
+                  <span>-</span>
+                  <input type="time" class="time-input" disabled/>
+                </div>
+                <button type="button" class="add-slot-btn" disabled>
+                  <span class="material-symbols-outlined">add_circle</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="form-actions">
+            <button type="button" class="btn-secondary">Cancel</button>
+            <button type="submit" class="btn-primary">Save Doctor</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

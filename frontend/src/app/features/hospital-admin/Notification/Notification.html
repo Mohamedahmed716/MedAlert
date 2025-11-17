@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>MedAlert - Notifications</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+  <link href="Notification.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="layout-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-content">
+      <div class="user-profile">
+        <div class="user-avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAf0NyT0vdBkOFVFAs_5Tbl-u_X56TfQGb1yqJ48Xk-PUteM_6LWLyLkCvqIYpiaVuDZWaaN_9i25siib3cYmBkNSmrm4hoq58n3iJ_xQgxUpbKMotLVVz5NTz0sQlsLW2hcSLCJv-qfXKkRjhNGXr1zJftbwnSUGVf2iWhFRXOJdx2-0U7I0w7i02C45v9yQyuKFnAM0eATrBHASNP0aquuKpzvZ5jMmw8G74-CCNsx5yhI3rgSUF5-ooYCR6WmkGW1r25SbUVvMc");'></div>
+        <div class="user-info">
+          <h1>Dr. Smith</h1>
+          <p>Hospital Admin</p>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="#" class="nav-item">
+          <span class="material-symbols-outlined">dashboard</span>
+          <p>Dashboard</p>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="material-symbols-outlined">calendar_month</span>
+          <p>Reservations</p>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="material-symbols-outlined">bed</span>
+          <p>ER</p>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="material-symbols-outlined">group</span>
+          <p>Patients</p>
+        </a>
+        <a href="#" class="nav-item active">
+          <span class="material-symbols-outlined">notifications</span>
+          <p>Notifications</p>
+        </a>
+      </nav>
+    </div>
+
+    <div class="sidebar-footer">
+      <button class="new-patient-btn">New Patient</button>
+      <div class="footer-links">
+        <a href="#" class="nav-item">
+          <span class="material-symbols-outlined">settings</span>
+          <p>Settings</p>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="material-symbols-outlined">support_agent</span>
+          <p>Support</p>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Notifications List -->
+    <div class="notifications-panel">
+      <div class="panel-header">
+        <h1>Notifications</h1>
+        <p>All notifications from MedAlert</p>
+      </div>
+
+      <div class="search-section">
+        <div class="search-box">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" placeholder="Search notifications" class="search-input"/>
+        </div>
+      </div>
+
+      <div class="filter-tabs">
+        <button class="filter-tab active">All</button>
+        <button class="filter-tab">Reservations</button>
+        <button class="filter-tab">ER Status</button>
+        <button class="filter-tab">System Updates</button>
+      </div>
+
+      <div class="notifications-list">
+        <div class="notification-item active">
+          <div class="notification-icon blue">
+            <span class="material-symbols-outlined">calendar_month</span>
+          </div>
+          <div class="notification-content">
+            <p class="notification-title">New Reservation Pending</p>
+            <p class="notification-time">5 minutes ago</p>
+          </div>
+        </div>
+
+        <div class="notification-item">
+          <div class="notification-icon red">
+            <span class="material-symbols-outlined">bed</span>
+          </div>
+          <div class="notification-content">
+            <p class="notification-title">ER Bed 3 Now Available</p>
+            <p class="notification-time">15 minutes ago</p>
+          </div>
+        </div>
+
+        <div class="notification-item">
+          <div class="notification-icon yellow">
+            <span class="material-symbols-outlined">build_circle</span>
+          </div>
+          <div class="notification-content">
+            <p class="notification-title">System Update v2.5 Scheduled</p>
+            <p class="notification-time">2 hours ago</p>
+          </div>
+        </div>
+
+        <div class="notification-item">
+          <div class="notification-icon green">
+            <span class="material-symbols-outlined">chat</span>
+          </div>
+          <div class="notification-content">
+            <p class="notification-title">Patient Inquiry from J. Doe</p>
+            <p class="notification-time">Yesterday</p>
+          </div>
+        </div>
+
+        <div class="notification-item">
+          <div class="notification-icon blue">
+            <span class="material-symbols-outlined">calendar_month</span>
+          </div>
+          <div class="notification-content">
+            <p class="notification-title">Reservation Confirmed: A. Williams</p>
+            <p class="notification-time">2 days ago</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Details -->
+    <div class="details-panel">
+      <div class="details-header">
+        <div class="details-icon-section">
+          <div class="details-icon">
+            <span class="material-symbols-outlined">calendar_month</span>
+          </div>
+          <div class="details-title-section">
+            <h2>New Reservation Pending</h2>
+            <p>5 minutes ago</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="details-content">
+        <div class="details-section">
+          <h3>Patient Details</h3>
+          <div class="details-grid">
+            <div class="detail-item">
+              <p class="detail-label">Name</p>
+              <p class="detail-value">John Appleseed</p>
+            </div>
+            <div class="detail-item">
+              <p class="detail-label">Date of Birth</p>
+              <p class="detail-value">1985-07-22</p>
+            </div>
+            <div class="detail-item">
+              <p class="detail-label">Contact</p>
+              <p class="detail-value">(555) 123-4567</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="details-section">
+          <h3>Reservation Information</h3>
+          <div class="details-grid">
+            <div class="detail-item">
+              <p class="detail-label">Department</p>
+              <p class="detail-value">Cardiology</p>
+            </div>
+            <div class="detail-item">
+              <p class="detail-label">Requested Date</p>
+              <p class="detail-value">2023-10-28 at 10:00 AM</p>
+            </div>
+            <div class="detail-item full-width">
+              <p class="detail-label">Reason</p>
+              <p class="detail-value">Routine check-up and consultation regarding recent heart palpitations.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="details-footer">
+        <button class="dismiss-btn">Dismiss</button>
+        <button class="view-btn">View Reservation</button>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

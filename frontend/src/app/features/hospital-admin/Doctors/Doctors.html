@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Doctor Management - MedAlert</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+  <link href="Doctors.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="layout-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <div class="logo-section">
+        <div class="logo-icon">
+          <span class="material-symbols-outlined">medical_services</span>
+        </div>
+        <h1 class="logo-text">MedAlert</h1>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="#" class="nav-item">
+          <span class="material-symbols-outlined">dashboard</span>
+          <p>Dashboard</p>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="material-symbols-outlined">group</span>
+          <p>Patients</p>
+        </a>
+        <a href="#" class="nav-item active">
+          <span class="material-symbols-outlined">stethoscope</span>
+          <p>Doctors</p>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="material-symbols-outlined">calendar_month</span>
+          <p>Appointments</p>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="material-symbols-outlined">corporate_fare</span>
+          <p>Departments</p>
+        </a>
+      </nav>
+    </div>
+
+    <div class="sidebar-bottom">
+      <div class="user-profile">
+        <div class="user-avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBWano1jOytVOEwJ7DskshAYkII0xiW_SGJkv5ZQEb93yokthsoaJEbXU6nK3vbRe4e_rchcGOafnlpyPTwipDJAEUouxFqOVTCuMzqqhrAKfEpbnMju4D95mLG8kZUwPC2d1qw-btZcLTAp6JB006M7stBoWYOGxL4AUg1U9B1y2jYFksvPi3xB5p8iqOoG5RleMWpHta6GyFuYO13PyKnIbJrdDgKfMeRhFLKsy7Rati8xZwSthqnXb266QlibQwIchl-f3rVBn4");'></div>
+        <div class="user-info">
+          <h2>Dr. Emily Carter</h2>
+          <p>Hospital Admin</p>
+        </div>
+      </div>
+      <button class="logout-btn">
+        <span class="material-symbols-outlined">logout</span>
+        <span>Logout</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="content-container">
+      <!-- Breadcrumbs -->
+      <div class="breadcrumbs">
+        <a href="#">Home</a>
+        <span>/</span>
+        <span class="current">Doctors</span>
+      </div>
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div class="header-info">
+          <h1>Doctor Management</h1>
+          <p>A list of all doctors in your hospital.</p>
+        </div>
+        <button class="add-doctor-btn">
+          <span class="material-symbols-outlined">add</span>
+          <span>Add New Doctor</span>
+        </button>
+      </div>
+
+      <!-- Content Card -->
+      <div class="content-card">
+        <!-- Search and Filters -->
+        <div class="search-filter-section">
+          <div class="search-box">
+            <span class="material-symbols-outlined search-icon">search</span>
+            <input type="text" placeholder="Search by Name, Specialty..." class="search-input"/>
+          </div>
+
+          <div class="filter-chips">
+            <button class="filter-chip">
+              <span>Specialty</span>
+              <span class="material-symbols-outlined">arrow_drop_down</span>
+            </button>
+            <button class="filter-chip">
+              <span>Department</span>
+              <span class="material-symbols-outlined">arrow_drop_down</span>
+            </button>
+            <button class="filter-chip">
+              <span>Status</span>
+              <span class="material-symbols-outlined">arrow_drop_down</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+          <table class="doctors-table">
+            <thead>
+            <tr>
+              <th>Doctor Name</th>
+              <th>Specialty</th>
+              <th>Department</th>
+              <th>Status</th>
+              <th class="text-right">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td class="doctor-name">Dr. Johnathan Smith</td>
+              <td>Cardiology</td>
+              <td>Medical</td>
+              <td><span class="status-badge active">Active</span></td>
+              <td class="actions-cell">
+                <button class="action-btn view">
+                  <span class="material-symbols-outlined">visibility</span>
+                </button>
+                <button class="action-btn edit">
+                  <span class="material-symbols-outlined">edit</span>
+                </button>
+                <button class="action-btn deactivate">
+                  <span class="material-symbols-outlined">toggle_off</span>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="doctor-name">Dr. Amelia Jones</td>
+              <td>Neurology</td>
+              <td>Surgical</td>
+              <td><span class="status-badge active">Active</span></td>
+              <td class="actions-cell">
+                <button class="action-btn view">
+                  <span class="material-symbols-outlined">visibility</span>
+                </button>
+                <button class="action-btn edit">
+                  <span class="material-symbols-outlined">edit</span>
+                </button>
+                <button class="action-btn deactivate">
+                  <span class="material-symbols-outlined">toggle_off</span>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="doctor-name">Dr. Benjamin Lee</td>
+              <td>Pediatrics</td>
+              <td>Outpatient</td>
+              <td><span class="status-badge inactive">Inactive</span></td>
+              <td class="actions-cell">
+                <button class="action-btn view">
+                  <span class="material-symbols-outlined">visibility</span>
+                </button>
+                <button class="action-btn edit">
+                  <span class="material-symbols-outlined">edit</span>
+                </button>
+                <button class="action-btn activate">
+                  <span class="material-symbols-outlined">toggle_on</span>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+          <p class="pagination-info">
+            Showing <span>1</span> to <span>10</span> of <span>97</span> results
+          </p>
+          <div class="pagination-controls">
+            <button class="page-btn">
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            <button class="page-number active">1</button>
+            <button class="page-number">2</button>
+            <button class="page-number">3</button>
+            <span class="pagination-dots">...</span>
+            <button class="page-number">10</button>
+            <button class="page-btn">
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>
