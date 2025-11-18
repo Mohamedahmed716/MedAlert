@@ -21,40 +21,31 @@
     <link rel="stylesheet" href="SignUp.css" />
   </head>
   <body>
-
     <div class="container">
       <div class="layout-container">
         <div class="main-content">
           <div class="content-wrapper">
             <div class="signup-container">
-
               <!-- Logo and App Name -->
               <div class="logo-header">
-                <img src="../../../../assets/Logo.png" alt="">
+                <img src="../../../../assets/Logo.png" alt="MedAlert Logo" />
               </div>
 
               <!-- Page Title and Subtitle -->
               <div class="header-text">
                 <div class="header-text-content">
                   <p class="title">Create an Account</p>
-                  <p class="subtitle">
-                    Join MedAlert today. It's quick and easy.
-                  </p>
+                  <p class="subtitle">Join MedAlert today. It's quick and easy.</p>
                 </div>
               </div>
 
               <!-- Sign Up Form -->
               <form class="signup-form">
-
                 <!-- Full Name Field -->
                 <div class="form-group">
                   <label class="form-label">
                     <p class="input-label">Full Name</p>
-                    <input
-                      class="form-input"
-                      placeholder="Enter your full name"
-                      type="text"
-                    />
+                    <input class="form-input" placeholder="Enter your full name" type="text" />
                   </label>
                 </div>
 
@@ -62,11 +53,7 @@
                 <div class="form-group">
                   <label class="form-label">
                     <p class="input-label">Email</p>
-                    <input
-                      class="form-input"
-                      placeholder="Enter your email"
-                      type="email"
-                    />
+                    <input class="form-input" placeholder="Enter your email" type="email" />
                   </label>
                 </div>
 
@@ -92,11 +79,39 @@
                 <div class="form-group">
                   <label class="form-label">
                     <p class="input-label">Date of Birth</p>
-                    <input
-                      class="form-input"
-                      placeholder="MM/DD/YYYY"
-                      type="date"
-                    />
+                    <input class="form-input" placeholder="MM/DD/YYYY" type="date" />
+                  </label>
+                </div>
+
+                <!-- Role Selection -->
+                <div class="form-group">
+                  <label class="form-label">
+                    <p class="input-label">Role</p>
+                    <div class="select-wrapper">
+                      <select class="form-input" id="roleSelect">
+                        <option value="" disabled selected>Select your role</option>
+                        <option value="patient">Patient</option>
+                        <option value="doctor">Doctor</option>
+                        <option value="admin">Hospital Admin</option>
+                      </select>
+                      <span class="material-symbols-outlined select-icon">expand_more</span>
+                    </div>
+                  </label>
+                </div>
+
+                <!-- Conditional Hospital Selection (Hidden by default) -->
+                <div class="form-group hidden" id="hospitalGroup">
+                  <label class="form-label">
+                    <p class="input-label">Hospital Assignment</p>
+                    <div class="select-wrapper">
+                      <select class="form-input">
+                        <option value="" disabled selected>Select a hospital</option>
+                        <option value="general">General Hospital</option>
+                        <option value="city">City Central Medical Center</option>
+                        <option value="sunrise">Sunrise Health Clinic</option>
+                      </select>
+                      <span class="material-symbols-outlined select-icon">domain</span>
+                    </div>
                   </label>
                 </div>
 
@@ -119,8 +134,8 @@
       </div>
     </div>
 
-    <!-- Simple script for password visibility toggle -->
     <script>
+      // Password Visibility Toggle
       document.getElementById('togglePassword').addEventListener('click', function () {
         const passwordField = document.getElementById('passwordField');
         const icon = this.querySelector('span');
@@ -131,6 +146,20 @@
         } else {
           passwordField.type = 'password';
           icon.textContent = 'visibility_off';
+        }
+      });
+
+      // Role Conditional Logic
+      const roleSelect = document.getElementById('roleSelect');
+      const hospitalGroup = document.getElementById('hospitalGroup');
+
+      roleSelect.addEventListener('change', function () {
+        const value = this.value;
+        // Show hospital field if role is Doctor or Admin
+        if (value === 'doctor' || value === 'admin') {
+          hospitalGroup.classList.remove('hidden');
+        } else {
+          hospitalGroup.classList.add('hidden');
         }
       });
     </script>

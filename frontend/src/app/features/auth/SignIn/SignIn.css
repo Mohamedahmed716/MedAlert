@@ -84,18 +84,17 @@ body {
   flex-direction: column;
 }
 
-.logo-header img{
+.logo-header img {
   width: 200px;
   height: auto;
   image-rendering: -webkit-optimize-contrast;
 }
 
-.logo-header span{
+.logo-header span {
   position: absolute;
   left: 0;
-  top:0;
-  transform: translate(55px,20px);
-
+  top: 0;
+  transform: translate(55px, 20px);
 }
 
 .logo-icon {
@@ -264,7 +263,7 @@ body {
   line-height: 1.5;
   letter-spacing: 0.015em;
   border: none;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .btn span {
@@ -283,12 +282,12 @@ body {
 }
 
 .btn-secondary {
-  background-color: var(--btn-secondary-bg);
-  color: var(--text-primary);
+  background-color: rgb(255, 0, 0);
+  color: white;
 }
 
 .btn-secondary:hover {
-  background-color: var(--btn-secondary-hover);
+  background-color: rgb(112, 0, 0);
 }
 
 /* --- Divider and Links --- */
