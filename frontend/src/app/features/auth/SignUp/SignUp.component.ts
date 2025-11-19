@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+
 import { AuthService } from '../auth.service';
 import { RegisterRequest } from '../auth.service';
 
@@ -50,8 +51,8 @@ export class SignUpComponent {
     this.authService.register(registerPayload).subscribe({
       next: (response) => {
         this.isLoading = false;
-        console.log('Registration successful', response);
-        this.router.navigate(['/auth/sign-in']);
+        // Navigate to Sign In with a query parameter 'registered=true'
+        this.router.navigate(['/auth/SignIn'], { queryParams: { registered: 'true' } });
       },
       error: (err) => {
         this.isLoading = false;
