@@ -4,9 +4,6 @@
 
   /* Forces the app to be *exactly* the viewport height */
   height: 100vh;
-
-  /* Prevents the app-root itself from ever scrolling */
-  overflow: hidden;
 }
 
 .main-content-outlet {
@@ -15,6 +12,5 @@
   /* This makes the div grow to fill all remaining vertical space */
   flex: 1;
 
-  /* This wrapper should not scroll */
-  overflow: hidden;
+  justify-content: center;
 }

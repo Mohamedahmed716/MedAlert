@@ -1,12 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
 :root {
-
   --primary: #1193d4;
   --background-light: #f6f7f8;
   --white: #ffffff;
@@ -42,7 +42,7 @@ html, body {
   --background-light: #f8f9fa;
   --text-light: #212529;
 
-  --font-display: "Inter", sans-serif;
+  --font-display: 'Inter', sans-serif;
   --text-primary: #0d171b;
   --text-secondary: #4c809a;
 
@@ -52,6 +52,17 @@ html, body {
   --radius-full: 9999px;
 
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --primary: #1193d4;
+  --background-light: #f6f7f8;
+  --background-dark: #101c22; /* For potential dark mode */
+  --text-primary: #0d171b;
+  --text-secondary: #4c809a;
+  --border-color: #cfdfe7;
+  --input-bg: #f8fafc; /* bg-slate-50 */
+  --input-bg-hover: #e2e8f0; /* bg-slate-100 */
+  --btn-secondary-bg: #e2e8f0; /* bg-slate-200 */
+  --btn-secondary-hover: #cbd5e1; /* bg-slate-300 */
+  --white-text: #f8fafc;
 }
 
 body {

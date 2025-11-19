@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="layout-container">
+    <div class="main-content">
+      <div class="content-wrapper">
+        <div class="login-container">
+          <!-- Logo -->
+          <div class="logo-header">
+            <img src="../../../../assets/Logo.png" alt="MedAlert Logo" />
+          </div>
+
+          <!-- Header Text -->
+          <div class="header-text">
+            <div class="header-text-content">
+              <p class="title">Sign In to MedAlert</p>
+              <p class="subtitle">Smart health management. All in one place</p>
+            </div>
+          </div>
+
+          <!-- Form -->
+          <form class="login-form" (ngSubmit)="onLogin()">
+            <!-- Error Message -->
+            <div *ngIf="errorMessage" class="error-message">
+              {{ errorMessage }}
+            </div>
+
+            <!-- Username -->
+            <div class="form-group">
+              <label class="form-label">
+                <p class="input-label">Username or Email</p>
+                <input
+                  class="form-input"
+                  placeholder="Enter your username or email"
+                  type="text"
+                  name="email"
+                  [(ngModel)]="email"
+                  required
+                />
+              </label>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+              <label class="form-label">
+                <p class="input-label">Password</p>
+                <div class="password-wrapper">
+                  <input
+                    class="form-input password-input"
+                    placeholder="Enter your password"
+                    [type]="passwordVisible ? 'text' : 'password'"
+                    name="password"
+                    [(ngModel)]="password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="toggle-visibility"
+                    (click)="togglePasswordVisibility()"
+                  >
+                    <span class="material-symbols-outlined">
+                      {{ passwordVisible ? 'visibility' : 'visibility_off' }}
+                    </span>
+                  </button>
+                </div>
+              </label>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+                <span class="truncate">{{ isLoading ? 'Signing In...' : 'Sign In' }}</span>
+              </button>
+            </div>
+
+            <!-- Divider -->
+            <div class="divider">
+              <hr class="divider-line" />
+              <p class="divider-text">OR</p>
+              <hr class="divider-line" />
+            </div>
+
+            <!-- Guest -->
+            <div class="form-group">
+              <button type="button" class="btn btn-secondary">
+                <span class="truncate">Emergency</span>
+              </button>
+            </div>
+
+            <!-- Sign Up Link -->
+            <p class="signup-link">
+              Don't have an account?
+              <a class="link" routerLink="/auth/sign-up">Sign Up</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

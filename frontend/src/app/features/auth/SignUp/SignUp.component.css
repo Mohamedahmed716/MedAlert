@@ -1,0 +1,390 @@
+/* --- Root Variables and Font Imports --- */
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --primary: #1193d4;
+  --background-light: #f6f7f8;
+  --background-dark: #101c22; /* For potential dark mode */
+  --text-primary: #0d171b;
+  --text-secondary: #4c809a;
+  --border-color: #cfdfe7;
+  --input-bg: #f8fafc; /* bg-slate-50 */
+  --input-bg-hover: #e2e8f0; /* bg-slate-100 */
+  --white-text: #f8fafc;
+}
+
+/* --- Base Styles --- */
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--background-light);
+  margin: 0;
+  padding: 0;
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* --- Utility Classes --- */
+/* This is crucial for the JavaScript toggle logic */
+.hidden {
+  display: none !important;
+}
+
+/* --- Layout Containers --- */
+.container {
+  position: relative;
+  display: flex;
+  min-height: 100%;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--input-bg);
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.layout-container {
+  display: flex;
+  height: 100%;
+  flex-grow: 1;
+  flex-direction: column;
+  width: 100%;
+}
+
+.main-content {
+  padding: 1.25rem 10rem;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 960px;
+  flex: 1;
+}
+
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* --- Header and Logo --- */
+.logo-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.logo-header img {
+  width: 200px;
+  height: auto;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.logo-icon {
+  color: var(--primary);
+  font-size: 2.25rem; /* 36px */
+}
+
+.logo-text {
+  font-size: 1.875rem; /* 30px */
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.header-text {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.error-message {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  color: rgb(255, 0, 0);
+}
+
+.header-text-content {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.title {
+  color: var(--text-primary);
+  font-size: 2.25rem; /* 36px */
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.033em;
+  margin: 0;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* --- Form Styles --- */
+.signup-form {
+  width: 100%;
+  max-width: 24rem; /* 384px */
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* gap-0 */
+}
+
+.form-group {
+  display: flex;
+  max-width: 480px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Special padding for the button group */
+.form-group-button {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.form-label {
+  display: flex;
+  flex-direction: column;
+  min-width: 10rem;
+  flex: 1;
+}
+
+.input-label {
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  padding-bottom: 0.5rem; /* Fixed padding to ensure spacing */
+  margin: 0;
+}
+
+.form-input {
+  width: 100%;
+  min-width: 0;
+  flex: 1;
+  resize: none;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  color: var(--text-primary);
+  outline: 0;
+  border: 1px solid var(--border-color);
+  background-color: var(--input-bg);
+  height: 3.5rem; /* 56px */
+  padding: 15px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-input::placeholder {
+  color: var(--text-secondary);
+}
+
+.form-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary);
+}
+
+/* Handle date input styling */
+.form-input[type='date'] {
+  color: var(--text-primary);
+}
+.form-input[type='date']:invalid {
+  color: var(--text-secondary);
+}
+.form-input[type='date']::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+/* --- Custom Select Styling --- */
+/* This handles the custom arrow icon for the Role dropdown */
+.select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.select-wrapper .form-input {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-right: 2.5rem; /* Make room for icon */
+  background-color: var(--input-bg);
+}
+
+.select-icon {
+  pointer-events: none;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+}
+
+/* --- Password Styling --- */
+.password-wrapper {
+  display: flex;
+  width: 100%;
+  flex: 1;
+  align-items: stretch;
+  position: relative;
+}
+
+.password-input {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: 0;
+  padding-right: 0.5rem;
+}
+
+.password-input:focus {
+  position: relative;
+  z-index: 1;
+}
+
+.toggle-visibility {
+  color: var(--text-secondary);
+  display: flex;
+  border: 1px solid var(--border-color);
+  background-color: var(--input-bg);
+  align-items: center;
+  justify-content: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  border-left: 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.toggle-visibility:hover {
+  background-color: var(--input-bg-hover);
+}
+
+/* --- Buttons --- */
+.btn {
+  display: flex;
+  min-width: 84px;
+  max-width: 480px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  height: 3rem; /* 48px */
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.015em;
+  border: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--white-text);
+}
+
+.btn-primary:hover {
+  background-color: #0e7ab0; /* Darker primary */
+}
+
+/* --- Links --- */
+.signin-link {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 0.5rem;
+}
+
+.link {
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+  .main-content {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .title {
+    font-size: 1.875rem; /* 30px */
+  }
+
+  .subtitle {
+    font-size: 0.875rem; /* 14px */
+  }
+
+  .form-group {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .signin-link {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}

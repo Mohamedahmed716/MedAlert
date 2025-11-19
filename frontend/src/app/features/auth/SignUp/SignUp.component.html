@@ -1,0 +1,157 @@
+<div class="container">
+  <div class="layout-container">
+    <div class="main-content">
+      <div class="content-wrapper">
+        <div class="signup-container">
+          <!-- Logo -->
+          <div class="logo-header">
+            <img src="../../../../assets/Logo.png" alt="MedAlert Logo" />
+          </div>
+
+          <!-- Title -->
+          <div class="header-text">
+            <div class="header-text-content">
+              <p class="title">Create an Account</p>
+              <p class="subtitle">Join MedAlert today. It's quick and easy.</p>
+            </div>
+          </div>
+
+          <!-- Form -->
+          <form class="signup-form" (ngSubmit)="onSignUp()">
+            <!-- Error Message -->
+            <div
+              *ngIf="errorMessage"
+              class="text-red-500 text-sm text-center mb-2"
+              style="
+                display: flex;
+                flex: 1;
+                justify-content: center;
+                align-items: center;
+                color: rgb(255, 0, 0);
+                margin-bottom: 0.5rem;
+              "
+            >
+              {{ errorMessage }}
+            </div>
+
+            <!-- Full Name -->
+            <div class="form-group">
+              <label class="form-label">
+                <p class="input-label">Full Name</p>
+                <input
+                  class="form-input"
+                  placeholder="Enter your full name"
+                  type="text"
+                  name="fullName"
+                  [(ngModel)]="fullName"
+                  required
+                />
+              </label>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+              <label class="form-label">
+                <p class="input-label">Email</p>
+                <input
+                  class="form-input"
+                  placeholder="Enter your email"
+                  type="email"
+                  name="email"
+                  [(ngModel)]="email"
+                  required
+                />
+              </label>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+              <label class="form-label">
+                <p class="input-label">Password</p>
+                <div class="password-wrapper">
+                  <input
+                    class="form-input password-input"
+                    placeholder="Create a password"
+                    [type]="passwordVisible ? 'text' : 'password'"
+                    name="password"
+                    [(ngModel)]="password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="toggle-visibility"
+                    (click)="togglePasswordVisibility()"
+                  >
+                    <span class="material-symbols-outlined">
+                      {{ passwordVisible ? 'visibility' : 'visibility_off' }}
+                    </span>
+                  </button>
+                </div>
+              </label>
+            </div>
+
+            <!-- DOB -->
+            <div class="form-group">
+              <label class="form-label">
+                <p class="input-label">Date of Birth</p>
+                <input
+                  class="form-input"
+                  placeholder="MM/DD/YYYY"
+                  type="date"
+                  name="dateOfBirth"
+                  [(ngModel)]="dateOfBirth"
+                  required
+                />
+              </label>
+            </div>
+
+            <!-- Role Selection -->
+            <div class="form-group">
+              <label class="form-label">
+                <p class="input-label">Role</p>
+                <div class="select-wrapper">
+                  <select class="form-input" name="role" [(ngModel)]="role" required>
+                    <option value="" disabled selected>Select your role</option>
+                    <option value="patient">Patient</option>
+                    <option value="doctor">Doctor</option>
+                    <option value="admin">Hospital Admin</option>
+                  </select>
+                  <span class="material-symbols-outlined select-icon">expand_more</span>
+                </div>
+              </label>
+            </div>
+
+            <!-- Conditional Hospital Selection -->
+            <div class="form-group" *ngIf="showHospitalField">
+              <label class="form-label">
+                <p class="input-label">Hospital Assignment</p>
+                <div class="select-wrapper">
+                  <select class="form-input" name="hospital" [(ngModel)]="hospital" required>
+                    <option value="" disabled selected>Select a hospital</option>
+                    <option value="general">General Hospital</option>
+                    <option value="city">City Central Medical Center</option>
+                    <option value="sunrise">Sunrise Health Clinic</option>
+                  </select>
+                  <span class="material-symbols-outlined select-icon">domain</span>
+                </div>
+              </label>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group form-group-button">
+              <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+                <span class="truncate">{{ isLoading ? 'Creating...' : 'Create Account' }}</span>
+              </button>
+            </div>
+
+            <!-- Sign In Link -->
+            <p class="signin-link">
+              Already have an account?
+              <a class="link" routerLink="/auth/sign-in">Sign In</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
