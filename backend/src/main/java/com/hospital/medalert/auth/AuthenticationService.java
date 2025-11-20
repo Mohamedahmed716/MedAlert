@@ -45,15 +45,13 @@ public class AuthenticationService {
                 .dateOfBirth(request.getDateOfBirth())
                 .role(userRole)
                 .hospitalId(request.getHospitalId())
-                .isActive(false) // <--- EXPLICITLY PENDING
+                .isActive(false)
                 .build();
         
         repository.save(user);
         
-        // We do NOT generate a token here anymore because the user is not active.
-        // Or we return null/empty to signify "Registered but not logged in"
         return AuthenticationResponse.builder()
-                .token(null) // No token for pending users
+                .token(null)
                 .email(user.getEmail())
                 .fullName(user.getFullName())
                 .role(user.getRole().name())
@@ -61,7 +59,6 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        // This method checks isEnabled(). If false, it throws DisabledException
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
