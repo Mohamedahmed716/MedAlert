@@ -1,4 +1,16 @@
 <div class="container">
+  <div class="notification-banner" [class.show]="showNotification">
+    <div class="notification-content">
+      <span class="material-symbols-outlined notification-icon">check_circle</span>
+      <div class="notification-text">
+        <p class="notification-title">Registration Successful</p>
+        <p class="notification-desc">Your account is pending System Admin approval.</p>
+      </div>
+      <button class="close-btn" (click)="showNotification = false">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+  </div>
   <div class="layout-container">
     <div class="main-content">
       <div class="content-wrapper">
@@ -88,7 +100,7 @@
             <!-- Sign Up Link -->
             <p class="signup-link">
               Don't have an account?
-              <a class="link" routerLink="/auth/sign-up">Sign Up</a>
+              <a class="link" routerLink="/auth/SignUp">Sign Up</a>
             </p>
           </form>
         </div>

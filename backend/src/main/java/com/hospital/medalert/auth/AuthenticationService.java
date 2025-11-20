@@ -1,0 +1,82 @@
+package com.hospital.medalert.auth;
+
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.hospital.medalert.config.JwtService;
+import com.hospital.medalert.user.Role;
+import com.hospital.medalert.user.User;
+import com.hospital.medalert.user.UserRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class AuthenticationService {
+    private final UserRepository repository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
+
+    public AuthenticationResponse register(RegisterRequest request) {
+        Role userRole;
+        try {
+            String roleInput = request.getRole().toUpperCase();
+            if (roleInput.equals("ADMIN")) {
+                userRole = Role.HOSPITAL_ADMIN;
+            } else {
+                userRole = Role.valueOf(roleInput);
+            }
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("Invalid role: " + request.getRole());
+        }
+
+        if ((userRole == Role.DOCTOR || userRole == Role.HOSPITAL_ADMIN) && 
+            (request.getHospitalId() == null || request.getHospitalId().trim().isEmpty())) {
+            throw new RuntimeException("Hospital selection is required for Doctors and Hospital Admins.");
+        }
+
+        var user = User.builder()
+                .fullName(request.getFullName())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .dateOfBirth(request.getDateOfBirth())
+                .role(userRole)
+                .hospitalId(request.getHospitalId())
+                .isActive(false) // <--- EXPLICITLY PENDING
+                .build();
+        
+        repository.save(user);
+        
+        // We do NOT generate a token here anymore because the user is not active.
+        // Or we return null/empty to signify "Registered but not logged in"
+        return AuthenticationResponse.builder()
+                .token(null) // No token for pending users
+                .email(user.getEmail())
+                .fullName(user.getFullName())
+                .role(user.getRole().name())
+                .build();
+    }
+
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        // This method checks isEnabled(). If false, it throws DisabledException
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail(),
+                        request.getPassword()
+                )
+        );
+        var user = repository.findByEmail(request.getEmail())
+                .orElseThrow();
+        var jwtToken = jwtService.generateToken(user);
+        
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .email(user.getEmail())
+                .fullName(user.getFullName())
+                .role(user.getRole().name())
+                .build();
+    }
+}
