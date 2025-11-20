@@ -23,7 +23,7 @@ export class SignInComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute // Used to check if we just registered
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -33,7 +33,12 @@ export class SignInComponent implements OnInit {
 
         setTimeout(() => {
           this.showNotification = false;
-        }, 4000);
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { registered: null },
+            queryParamsHandling: 'merge',
+          });
+        }, 6000);
       }
     });
   }
@@ -45,6 +50,7 @@ export class SignInComponent implements OnInit {
   onLogin(): void {
     this.isLoading = true;
     this.errorMessage = '';
+    this.showNotification = false;
 
     const loginRequest: LoginRequest = {
       email: this.email,
@@ -59,11 +65,15 @@ export class SignInComponent implements OnInit {
       },
       error: (err) => {
         this.isLoading = false;
-        // Check for 403 Forbidden (which usually means Account Disabled/Pending)
-        if (err.status === 403 || err.error?.message?.toLowerCase().includes('disabled')) {
-          this.errorMessage = 'Your account is pending approval.';
+
+        const backendMessage = err.error?.message;
+
+        if (err.status === 403 && backendMessage === 'ACCOUNT_PENDING') {
+          this.errorMessage = 'Your account is pending for approval.';
+        } else if (err.status === 401) {
+          this.errorMessage = 'Invalid username or password.';
         } else {
-          this.errorMessage = err.error?.message || 'Login failed. Please check your credentials.';
+          this.errorMessage = 'Login failed. Please check your credentials or try again later.';
         }
         console.error('Login error:', err);
       },
