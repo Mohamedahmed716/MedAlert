@@ -1,7 +1,16 @@
-<div class="doctors-layout-container">
+<div class="layout-container">
 
-  <app-sidebar></app-sidebar>
+  <app-topbar></app-topbar>
 
-  <router-outlet></router-outlet>
+  <div class="bottom-container">
 
+    <div class="sidebar-area">
+      <app-sidebar></app-sidebar>
+    </div>
+
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
 </div>

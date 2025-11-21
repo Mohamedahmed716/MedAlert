@@ -1,15 +1,5 @@
 <aside class="sidebar-container">
   <div class="sidebar-top">
-    <div>
-      <img src="assets/Logo.png" class="logo"/>
-    </div>
-    <div class="user-profile">
-      <div>
-        <h1 class="user-name">Dr. Evelyn Reed</h1>
-        <p class="user-title">Cardiologist</p>
-      </div>
-    </div>
-
     <nav class="nav-links">
       <a
         class="nav-link"
@@ -50,6 +40,14 @@
         [routerLinkActiveOptions]="{exact: true}">
         <span class="material-symbols-outlined">emergency</span>
         <p class="text-sm font-medium">ER</p>
+      </a>
+      <a
+        class="nav-link"
+        routerLink="/doctors/settings"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <span class="material-symbols-outlined">settings</span>
+        <p class="text-sm font-medium">Settings</p>
       </a>
     </nav>
   </div>

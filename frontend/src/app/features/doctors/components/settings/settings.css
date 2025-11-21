@@ -1,0 +1,137 @@
+/* --- Global/Layout --- */
+:host {
+  display: block;
+  background-color: #f6f7f8; /* Light gray background matching the dashboard */
+  min-height: 100%;
+  font-family: 'Inter', sans-serif;
+  padding-bottom: 3rem;
+}
+
+/* Wrapper for the profile content */
+.profile, .security {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* --- 2. Form Section Cards --- */
+.personal-info,
+.emergency-contact{
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.password-update {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* This adds the space between the password inputs */
+}
+
+/* Section Headings (e.g., "Personal Information") */
+.personal-info h3,
+.emergency-contact h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* --- 3. Grid Layout for Inputs --- */
+.info-items {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .info-items {
+    grid-template-columns: 1fr 1fr; /* 2 Columns on larger screens */
+  }
+
+  /* Make "Address" span the full width (It's the 5th item in your Personal Info HTML) */
+  .personal-info .info-item:nth-child(5) {
+    grid-column: span 2;
+  }
+
+  /* Optional: Make Phone span full width in Emergency contact if you want to match the layout exactly */
+  .emergency-contact .info-item:last-child {
+    grid-column: span 2;
+  }
+}
+
+/* --- 4. Input Styling --- */
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"] {
+  height: 2.75rem; /* Match the chunky look in the image */
+  padding: 0 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+  background-color: #f9fafb; /* Very light gray inside input */
+  font-size: 0.95rem;
+  color: #0f172a;
+  outline: none;
+  transition: all 0.2s;
+}
+
+input:focus {
+  background-color: #ffffff;
+  border-color: #10b981; /* Green focus border to match button */
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* --- 5. Buttons --- */
+.buttons {
+  display: flex;
+  justify-content: flex-end; /* Align to right */
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s;
+}
+
+.cancel-button {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.save-button {
+  background-color: #10b981; /* The Green from your image */
+  color: #ffffff;
+}
+
+button:hover {
+  opacity: 0.9;
+}

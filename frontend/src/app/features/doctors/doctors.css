@@ -1,14 +1,40 @@
 :host {
-  display: flex;
-  flex: 1;
-  width: 100%;
-  overflow: hidden;
+  display: block;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden; /* Prevent the whole page from scrolling */
 }
 
-.doctors-layout-container {
+/* 2. Main Layout: Vertical Stack (Top bar on top of bottom container) */
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+/* 3. Bottom Container: Horizontal Row (Sidebar Left, Content Right) */
+.bottom-container {
   display: flex;
   flex-direction: row;
-  flex: 1;
-  width: 100%;
-  overflow: hidden;
+  flex: 1; /* Take up all remaining height below the Topbar */
+  overflow: hidden; /* Ensure only the inner content scrolls */
 }
+
+/* 4. Sidebar Wrapper */
+.sidebar-area {
+  flex-shrink: 0; /* Prevent sidebar from being squashed */
+  height: 100%;
+  /* Note: The width is determined by the <app-sidebar> component itself */
+}
+
+/* 5. Content Wrapper */
+.content-area {
+  flex: 1; /* Grow to fill the rest of the width */
+  height: 100%;
+  overflow-y: auto; /* ENABLE SCROLLING HERE */
+  padding: 0.5rem;
+  background-color: var(--background-light, #f6f7f8); /* Ensure background color */
+  position: relative;
+}
+
