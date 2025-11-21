@@ -190,35 +190,6 @@
   background-color: #1193d4e6;
 }
 
-.table-wrapper {
-  overflow-x: auto;
-}
-
-.prescription-table {
-  width: 100%;
-  text-align: left;
-  border-collapse: collapse;
-}
-
-.prescription-table th,
-.prescription-table td {
-  padding: 1rem;
-  border-bottom: 1px solid var(--slate-200);
-  white-space: nowrap;
-}
-
-.prescription-table th {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
-.prescription-table td {
-  color: var(--text-primary);
-}
-
 .text-secondary {
   color: var(--slate-500);
 }
@@ -226,25 +197,54 @@
   text-align: right;
 }
 
-.table-row-hover:hover {
-  background-color: var(--slate-100);
+.prescription-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Space between cards */
 }
 
-.button-view {
-  display: inline-flex;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-lg);
-  height: 2.25rem;
-  padding: 0 1rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  border: none;
+.prescription-card {
+  display: flex;
+  flex-direction: column; /* Stacks the two lines vertically */
+  gap: 0.5rem; /* Gap between the Name line and Med line */
+
+  background-color: #f1f5f9; /* Your light gray/blue background */
+  padding: 1.25rem 1.5rem;
+  border-radius: 0.5rem; /* Rounded corners */
   transition: background-color 0.2s;
-  background-color: var(--slate-100);
-  color: var(--slate-700);
 }
-.button-view:hover {
+
+.prescription-card:hover {
   background-color: var(--slate-200);
 }
+
+/* --- Line 1: Name and Date --- */
+.card-top {
+  display: flex;
+  justify-content: space-between; /* Pushes Name to left, Date to right */
+  align-items: center;
+}
+
+.patient-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary, #0f172a);
+}
+
+.date {
+  font-size: 0.875rem;
+  color: var(--text-secondary, #64748b);
+}
+
+.card-bottom {
+  display: flex;
+  align-items: center;
+}
+
+.med-details {
+  font-size: 0.95rem;
+  color: #334155; /* Slightly lighter than the name */
+  font-weight: 500;
+}
+
+

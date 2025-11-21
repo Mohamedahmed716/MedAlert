@@ -102,3 +102,96 @@
 .logo{
   height: 100px;
 }
+
+.notification-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* 2. The Floating Card */
+.notification-popup {
+  position: absolute;
+  top: 120%;
+  right: -60px;
+  width: 300px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow: hidden;
+
+  /* --- CHANGED: Default State (Hidden) --- */
+  opacity: 0;
+  visibility: hidden; /* Prevents clicking when hidden */
+  transform: translateY(-10px); /* Start slightly up */
+
+  /* This creates the smooth fade IN and OUT */
+  transition: all 0.2s ease-in-out;
+}
+
+/* --- NEW: Active State (Visible) --- */
+.notification-popup.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0); /* Slide down to natural position */
+}
+
+/* 3. Popup Internal Styling */
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #f1f5f9;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #0f172a;
+}
+
+.popup-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.popup-item {
+  display: flex;
+  align-items: start;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f8fafc;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.popup-item:hover {
+  background-color: #f8fafc;
+}
+
+.popup-item.unread {
+  background-color: #d1f7ff; /* Very light blue for unread */
+}
+
+.item-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-text .title {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.item-text .time {
+  margin: 2px 0 0 0;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+/* Icon Colors */
+.icon-blue { color: #3b82f6; font-size: 1.2rem; }
+.icon-red { color: #ef4444; font-size: 1.2rem; }
+.icon-green { color: #10b981; font-size: 1.2rem; }
