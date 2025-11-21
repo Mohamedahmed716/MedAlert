@@ -11,9 +11,40 @@
     </div>
 
     <div class="actions-group">
-      <button class="icon-btn notification-btn">
-        <span class="material-symbols-outlined">notifications</span>
-      </button>
+      <div class="notification-wrapper">
+
+        <button class="icon-btn notification-btn" (click)="toggleNotifications()">
+          <span class="material-symbols-outlined">notifications</span>
+        </button>
+
+        <div class="notification-popup" [class.active]="showNotifications">
+          <div class="popup-header">
+            <span>Notifications</span>
+          </div>
+
+          <div class="popup-list">
+            <div class="popup-item unread">
+              <div class="item-text">
+                <p class="title">New Appointment</p>
+                <p class="time">Sarah Jenkins - 10 min ago</p>
+              </div>
+            </div>
+            <div class="popup-item unread">
+              <div class="item-text">
+                <p class="title">ER Alert</p>
+                <p class="time">Critical Patient - 25 min ago</p>
+              </div>
+            </div>
+            <div class="popup-item">
+              <div class="item-text">
+                <p class="title">Lab Results</p>
+                <p class="time">John Doe - 1 hour ago</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
 
       <div class="user-avatar-small"
            role="img"

@@ -75,53 +75,40 @@
           <input class="form-input" placeholder="Search prescriptions..." type="text"/>
         </div>
 
-        <div class="table-wrapper">
-          <table class="prescription-table">
-            <thead>
-            <tr>
-              <th>Patient</th>
-              <th>Medication</th>
-              <th>Date</th>
-              <th class="text-right"></th> </tr>
-            </thead>
-            <tbody>
-            <tr class="table-row-hover">
-              <td>Liam Gallagher</td>
-              <td>Lisinopril</td>
-              <td class="text-secondary">2023-10-26</td>
-              <td class="text-right">
-                <button class="button-view">View</button>
-              </td>
-            </tr>
-            <tr class="table-row-hover">
-              <td>Olivia Chen</td>
-              <td>Metformin</td>
-              <td class="text-secondary">2023-10-25</td>
-              <td class="text-right">
-                <button class="button-view">View</button>
-              </td>
-            </tr>
-            <tr class="table-row-hover">
-              <td>Benjamin Carter</td>
-              <td>Atorvastatin</td>
-              <td class="text-secondary">2023-10-24</td>
-              <td class="text-right">
-                <button class="button-view">View</button>
-              </td>
-            </tr>
-            <tr class="table-row-hover">
-              <td>Sophia Rodriguez</td>
-              <td>Amlodipine</td>
-              <td class="text-secondary">2023-10-23</td>
-              <td class="text-right">
-                <button class="button-view">View</button>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+        <div class="prescription-list">
+
+          <div class="prescription-card">
+            <div class="card-top">
+              <span class="patient-name">Liam Gallagher</span>
+              <span class="date">2023-10-26</span>
+            </div>
+            <div class="card-bottom">
+              <span class="med-details">Lisinopril - 10mg • Once daily • 7 Days</span>
+            </div>
+          </div>
+
+          <div class="prescription-card">
+            <div class="card-top">
+              <span class="patient-name">Olivia Chen</span>
+              <span class="date">2023-10-25</span>
+            </div>
+            <div class="card-bottom">
+              <span class="med-details">Metformin - 500mg • Twice daily • 14 Days</span>
+            </div>
+          </div>
+
+          <div class="prescription-card">
+            <div class="card-top">
+              <span class="patient-name">Benjamin Carter</span>
+              <span class="date">2023-10-24</span>
+            </div>
+            <div class="card-bottom">
+              <span class="med-details">Atorvastatin - 20mg • Once daily • 30 Days</span>
+            </div>
+          </div>
+        </div>
         </div>
       </div>
     </div>
 
   </div>
-</div>
