@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 
-// Inlined Model
 export interface User {
   id: number;
   fullName: string;
@@ -65,12 +64,13 @@ export class UserListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Check URL for ?created=true to show success banner
     this.route.queryParams.subscribe((params) => {
       if (params['created'] === 'true') {
         this.showNotification = true;
-
         setTimeout(() => {
           this.showNotification = false;
+          // Clear the query param
           this.router.navigate([], {
             relativeTo: this.route,
             queryParams: { created: null },
@@ -88,12 +88,14 @@ export class UserListComponent implements OnInit {
 
   approveUser(user: User) {
     if (confirm(`Approve account for ${user.fullName}?`)) {
+      console.log('Approving:', user.fullName);
       user.isActive = true;
     }
   }
 
   deactivateUser(user: User) {
     if (confirm(`Deactivate account for ${user.fullName}?`)) {
+      console.log('Deactivating:', user.fullName);
       user.isActive = false;
     }
   }

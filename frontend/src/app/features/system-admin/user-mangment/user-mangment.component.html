@@ -1,5 +1,5 @@
 <div class="page-layout">
-  <!-- Success Notification (Slides down if showNotification is true) -->
+  <!-- Notification Banner (Hidden by default, slides down via CSS class 'show') -->
   <div class="notification-banner" [class.show]="showNotification">
     <div class="notification-content">
       <span class="material-symbols-outlined notification-icon">check_circle</span>
@@ -15,43 +15,42 @@
 
   <!-- Sidebar -->
   <aside class="sidebar">
-    <div class="sidebar-top">
-      <div class="sidebar-logo">
-        <div class="logo-icon">
-          <!-- Ensure this path is correct relative to your assets folder -->
-          <img src="assets/Logo.png" alt="MedAlert Logo" />
-        </div>
+    <div class="sidebar-header">
+      <div class="logo-icon-wrapper">
+        <img src="assets/Logo.png" alt="MedAlert Logo" />
       </div>
-      <nav class="sidebar-nav">
-        <a class="nav-link" routerLink="/admin/hospitals" routerLinkActive="active">
-          <span class="material-symbols-outlined nav-icon" style="font-variation-settings: 'FILL' 1"
-            >corporate_fare</span
-          >
-          <p class="sidebar-text nav-text">Hospital Management</p>
-        </a>
-        <!-- Active class on User Management -->
-        <a class="nav-link active" routerLink="/admin/users" routerLinkActive="active">
-          <span class="material-symbols-outlined nav-icon">group</span>
-          <p class="sidebar-text nav-text">User Management</p>
-        </a>
-        <a class="nav-link" routerLink="/admin/settings" routerLinkActive="active">
-          <span class="material-symbols-outlined nav-icon">settings</span>
-          <p class="sidebar-text nav-text">Settings</p>
-        </a>
-      </nav>
     </div>
+    <nav class="sidebar-nav">
+      <a class="nav-link" routerLink="/admin/hospitals" routerLinkActive="active">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1"
+          >corporate_fare</span
+        >
+        <span>Hospital Management</span>
+      </a>
+      <!-- Active Link -->
+      <a class="nav-link active" routerLink="/admin/users" routerLinkActive="active">
+        <span class="material-symbols-outlined">group</span>
+        <span>User Management</span>
+      </a>
+      <a class="nav-link" routerLink="/admin/settings" routerLinkActive="active">
+        <span class="material-symbols-outlined">settings</span>
+        <span>Settings</span>
+      </a>
+    </nav>
 
-    <!-- Profile Section -->
-    <div class="sidebar-profile">
-      <div
-        class="profile-avatar"
-        style="
-          background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC1JdiNkZXxoMHgmOOxvQwDhU6cjXEGfUCLxYx9mAtPl0UaKXrh0yTCdp-6RQc9PmUjkEggSDpw30r_DV7yqWx3SoTuBpvdXvFsK3me1ezq8x4PpSBOQqyvrPQNtKhYP2rxAF34A6ousnlw08zmx__zTcsJm37moVIpirCvzdIsMtk_2wkfGH3TnBl8YSl2bWawO2CI8FKUTA3TPhhgVE_0CZtVPiMAR3q9sG_VFRp_pS1HOz64sX5z-XDoAXsrG82pOBgqkQXsXdc');
-        "
-      ></div>
-      <div class="sidebar-text profile-info">
-        <h1 class="profile-name">John Doe</h1>
-        <p class="profile-role">System Admin</p>
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+      <div class="profile-section">
+        <div
+          class="profile-avatar"
+          style="
+            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC1JdiNkZXxoMHgmOOxvQwDhU6cjXEGfUCLxYx9mAtPl0UaKXrh0yTCdp-6RQc9PmUjkEggSDpw30r_DV7yqWx3SoTuBpvdXvFsK3me1ezq8x4PpSBOQqyvrPQNtKhYP2rxAF34A6ousnlw08zmx__zTcsJm37moVIpirCvzdIsMtk_2wkfGH3TnBl8YSl2bWawO2CI8FKUTA3TPhhgVE_0CZtVPiMAR3q9sG_VFRp_pS1HOz64sX5z-XDoAXsrG82pOBgqkQXsXdc');
+          "
+        ></div>
+        <div class="profile-info">
+          <span class="profile-name">John Doe</span>
+          <span class="profile-role">System Admin</span>
+        </div>
       </div>
     </div>
   </aside>
@@ -60,85 +59,87 @@
   <div class="main-content-area">
     <!-- Header -->
     <header class="header">
-      <div class="hamburger-menu">
-        <button class="icon-btn"><span class="material-symbols-outlined">menu</span></button>
-      </div>
       <div class="header-actions">
-        <label class="search-bar">
-          <span class="material-symbols-outlined search-icon">search</span>
-          <input class="form-input search-input" placeholder="Search..." />
-        </label>
-        <button class="icon-btn">
+        <button class="icon-btn notification-btn">
           <span class="material-symbols-outlined">notifications</span>
+          <span class="notification-dot"></span>
         </button>
-        <button class="icon-btn" (click)="logout()">
+        <button class="icon-btn logout-btn" (click)="logout()">
           <span class="material-symbols-outlined">logout</span>
         </button>
+
+        <div class="header-profile">
+          <div
+            class="header-avatar"
+            style="
+              background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC1JdiNkZXxoMHgmOOxvQwDhU6cjXEGfUCLxYx9mAtPl0UaKXrh0yTCdp-6RQc9PmUjkEggSDpw30r_DV7yqWx3SoTuBpvdXvFsK3me1ezq8x4PpSBOQqyvrPQNtKhYP2rxAF34A6ousnlw08zmx__zTcsJm37moVIpirCvzdIsMtk_2wkfGH3TnBl8YSl2bWawO2CI8FKUTA3TPhhgVE_0CZtVPiMAR3q9sG_VFRp_pS1HOz64sX5z-XDoAXsrG82pOBgqkQXsXdc');
+            "
+          ></div>
+          <div class="header-info">
+            <span class="header-name">Admin User</span>
+            <span class="header-role">Super Admin</span>
+          </div>
+        </div>
       </div>
     </header>
 
-    <!-- Main Section -->
+    <!-- Main Content -->
     <main class="main-content">
       <div class="content-container">
-        <!-- Page Header -->
+        <!-- Page Title & Button -->
         <div class="page-header">
           <div class="page-title-group">
-            <p class="page-title">User Management</p>
+            <h1 class="page-title">User Management</h1>
             <p class="page-subtitle">
               Search, filter, and manage all user accounts in the MedAlert system.
             </p>
           </div>
-          <!-- Placeholder Add User Button -->
           <button routerLink="/admin/users/new" class="btn btn-primary">
             <span class="material-symbols-outlined">add</span>
-            <span class="truncate">Add New User</span>
+            <span>Add New User</span>
           </button>
         </div>
 
-        <!-- Filter Bar -->
-        <div class="filter-bar">
-          <div class="filter-grid">
-            <div class="search-bar-wrapper">
-              <label class="search-bar">
-                <div class="search-icon-wrapper">
-                  <span class="material-symbols-outlined">search</span>
-                </div>
-                <input class="search-input" placeholder="Search by name or email..." type="text" />
-              </label>
+        <!-- White Content Card -->
+        <div class="content-card">
+          <!-- Filter Bar -->
+          <div class="filter-bar">
+            <div class="search-wrapper">
+              <span class="material-symbols-outlined search-icon">search</span>
+              <input type="text" class="search-input" placeholder="Search by name or email..." />
             </div>
+
             <div class="filter-buttons">
-              <button class="btn btn-filter">
-                <p class="btn-text">Filter by Role</p>
-                <span class="material-symbols-outlined btn-icon-down">arrow_drop_down</span>
+              <button class="btn-filter">
+                <span>Filter by Role</span>
+                <span class="material-symbols-outlined dropdown-icon">arrow_drop_down</span>
               </button>
-              <button class="btn btn-filter">
-                <p class="btn-text">Filter by Status</p>
-                <span class="material-symbols-outlined btn-icon-down">arrow_drop_down</span>
+              <button class="btn-filter">
+                <span>Filter by Status</span>
+                <span class="material-symbols-outlined dropdown-icon">arrow_drop_down</span>
               </button>
             </div>
           </div>
-        </div>
 
-        <!-- Data Table -->
-        <div class="table-wrapper">
-          <div class="table-scroll-wrapper">
+          <!-- Data Table -->
+          <div class="table-responsive">
             <table class="data-table">
-              <thead class="table-header">
+              <thead>
                 <tr>
-                  <th scope="col">User Name</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Role</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Date Created</th>
-                  <th scope="col" class="text-right">Actions</th>
+                  <th>USER NAME</th>
+                  <th>EMAIL</th>
+                  <th>ROLE</th>
+                  <th>STATUS</th>
+                  <th>DATE CREATED</th>
+                  <th class="text-right">ACTIONS</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let user of users" class="table-row">
-                  <th class="table-cell-header" scope="row">{{ user.fullName }}</th>
-                  <td class="table-cell">{{ user.email }}</td>
-                  <td class="table-cell">{{ user.role }}</td>
-                  <td class="table-cell">
+                <tr *ngFor="let user of users">
+                  <td class="font-medium text-dark">{{ user.fullName }}</td>
+                  <td class="text-secondary">{{ user.email }}</td>
+                  <td class="text-secondary">{{ user.role }}</td>
+                  <td>
                     <span
                       class="status-badge"
                       [ngClass]="{
@@ -146,29 +147,30 @@
                         'status-inactive': !user.isActive
                       }"
                     >
-                      {{ user.isActive ? 'Active' : 'Pending' }}
+                      {{ user.isActive ? 'Active' : 'Inactive' }}
                     </span>
                   </td>
-                  <td class="table-cell">{{ user.dateCreated }}</td>
-                  <td class="table-cell text-right action-links">
-                    <button class="action-link link-primary">Edit Role</button>
-                    <button class="action-link link-warning">Reset Password</button>
+                  <td class="text-secondary">{{ user.dateCreated }}</td>
+                  <td class="text-right">
+                    <div class="action-links">
+                      <button class="link-btn link-primary">Edit Role</button>
+                      <button class="link-btn link-warning">Reset Password</button>
 
-                    <!-- Conditional Buttons -->
-                    <button
-                      *ngIf="user.isActive"
-                      class="action-link link-danger"
-                      (click)="deactivateUser(user)"
-                    >
-                      Deactivate
-                    </button>
-                    <button
-                      *ngIf="!user.isActive"
-                      class="action-link link-success"
-                      (click)="approveUser(user)"
-                    >
-                      Approve
-                    </button>
+                      <button
+                        *ngIf="user.isActive"
+                        class="link-btn link-danger"
+                        (click)="deactivateUser(user)"
+                      >
+                        Deactivate
+                      </button>
+                      <button
+                        *ngIf="!user.isActive"
+                        class="link-btn link-success"
+                        (click)="approveUser(user)"
+                      >
+                        Activate
+                      </button>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -176,21 +178,19 @@
           </div>
 
           <!-- Pagination -->
-          <nav class="pagination-nav" aria-label="Table navigation">
-            <span class="pagination-info">
-              Showing <span class="font-semibold">1-4</span> of
-              <span class="font-semibold">100</span>
-            </span>
-            <ul class="pagination-links">
-              <li>
-                <a class="pagination-link rounded-left" href="javascript:void(0)">Previous</a>
-              </li>
-              <li><a class="pagination-link active" href="javascript:void(0)">1</a></li>
-              <li><a class="pagination-link" href="javascript:void(0)">2</a></li>
-              <li><a class="pagination-link" href="javascript:void(0)">3</a></li>
-              <li><a class="pagination-link rounded-right" href="javascript:void(0)">Next</a></li>
-            </ul>
-          </nav>
+          <div class="pagination-wrapper">
+            <span class="pagination-info"
+              >Showing <span class="font-semibold">1-4</span> of
+              <span class="font-semibold">100</span></span
+            >
+            <div class="pagination-controls">
+              <button class="page-btn prev">Previous</button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn">2</button>
+              <button class="page-btn">3</button>
+              <button class="page-btn next">Next</button>
+            </div>
+          </div>
         </div>
       </div>
     </main>
