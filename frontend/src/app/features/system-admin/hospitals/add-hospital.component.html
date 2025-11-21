@@ -1,0 +1,190 @@
+<div class="layout-wrapper">
+  <div class="layout-container">
+    <!-- Header (No Sidebar) -->
+    <header class="header">
+      <div class="logo-container">
+        <img class="logo-icon" src="assets/Logo.png" alt="MedAlert Logo" />
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn">
+          <span class="material-symbols-outlined">person</span>
+        </button>
+        <button class="icon-btn" (click)="logout()">
+          <span class="material-symbols-outlined">logout</span>
+        </button>
+        <div
+          class="profile-avatar"
+          style="
+            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCQMJlmgnFXFp0qn8G02lJo-D2mcRH8gVLwAfz8XU0gKdXaStO8HmtNw-sAFZYArzSAo0twgdJ6TIc2t3mEm-k6kgLYOjTpJygqwlUi7gc43PTlrEx6cWbuE-ppH5pXCBonvrtl1oAPhaMJEApNzb2pwtG8Xk16y6MHVfo-7F2xP8GgygrYbpvtrtKtPCCL8m03JqQFflbHI5Fb4FZ9fAJ8rkK3LzfwHW8R3LmMigR9wZm1v1cYvUshg6cIuQv9Ygf4QpribvtRljQ');
+          "
+        ></div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="form-container">
+        <div class="page-header">
+          <div class="page-title-group">
+            <p class="page-title">Manage Hospital</p>
+            <p class="page-subtitle">
+              {{ isEditMode ? 'Edit existing details' : 'Add a new hospital to the system' }}
+            </p>
+          </div>
+        </div>
+
+        <form class="form-layout" (ngSubmit)="onSaveHospital()">
+          <!-- Hospital Info Card -->
+          <div class="card">
+            <h2 class="card-title">Hospital Information</h2>
+            <div class="card-grid">
+              <div class="grid-span-2">
+                <label class="form-label">
+                  <p class="input-label">Hospital Name</p>
+                  <input
+                    class="form-input"
+                    placeholder="Enter hospital name"
+                    type="text"
+                    name="name"
+                    [(ngModel)]="hospital.name"
+                    required
+                  />
+                </label>
+              </div>
+              <div>
+                <label class="form-label">
+                  <p class="input-label">Street Address</p>
+                  <input
+                    class="form-input"
+                    placeholder="Enter street address"
+                    type="text"
+                    name="streetAddress"
+                    [(ngModel)]="hospital.streetAddress"
+                    required
+                  />
+                </label>
+              </div>
+              <div>
+                <label class="form-label">
+                  <p class="input-label">City</p>
+                  <input
+                    class="form-input"
+                    placeholder="Enter city"
+                    type="text"
+                    name="city"
+                    [(ngModel)]="hospital.city"
+                    required
+                  />
+                </label>
+              </div>
+              <div>
+                <label class="form-label">
+                  <p class="input-label">State</p>
+                  <input
+                    class="form-input"
+                    placeholder="Enter state"
+                    type="text"
+                    name="state"
+                    [(ngModel)]="hospital.state"
+                    required
+                  />
+                </label>
+              </div>
+              <div>
+                <label class="form-label">
+                  <p class="input-label">Zip Code</p>
+                  <input
+                    class="form-input"
+                    placeholder="Enter zip code"
+                    type="text"
+                    name="zipCode"
+                    [(ngModel)]="hospital.zipCode"
+                    required
+                  />
+                </label>
+              </div>
+              <div>
+                <label class="form-label">
+                  <p class="input-label">Hospital Phone Number</p>
+                  <input
+                    class="form-input"
+                    placeholder="(123) 456-7890"
+                    type="tel"
+                    name="phoneNumber"
+                    [(ngModel)]="hospital.phoneNumber"
+                    required
+                  />
+                </label>
+              </div>
+              <div>
+                <label class="form-label">
+                  <p class="input-label">
+                    Hospital Website <span class="label-optional">(Optional)</span>
+                  </p>
+                  <input
+                    class="form-input"
+                    placeholder="https://example.com"
+                    type="url"
+                    name="website"
+                    [(ngModel)]="hospital.website"
+                  />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Admin Account Card -->
+          <div class="card">
+            <h2 class="card-title">Hospital Admin Account</h2>
+            <p class="card-subtitle">Create an administrator account for this hospital.</p>
+            <div class="card-grid">
+              <div>
+                <label class="form-label">
+                  <p class="input-label">Username</p>
+                  <input
+                    class="form-input"
+                    placeholder="Enter a username"
+                    type="text"
+                    name="username"
+                    [(ngModel)]="admin.username"
+                    required
+                  />
+                </label>
+              </div>
+              <div class="password-wrapper">
+                <label class="form-label">
+                  <p class="input-label">Password</p>
+                  <div style="position: relative">
+                    <input
+                      class="form-input password-input"
+                      placeholder="Enter a strong password"
+                      [type]="passwordVisible ? 'text' : 'password'"
+                      name="password"
+                      [(ngModel)]="admin.password"
+                      required
+                    />
+                    <button
+                      class="toggle-visibility"
+                      type="button"
+                      (click)="togglePasswordVisibility()"
+                    >
+                      <span class="material-symbols-outlined">{{
+                        passwordVisible ? 'visibility' : 'visibility_off'
+                      }}</span>
+                    </button>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="form-actions">
+            <button class="btn btn-secondary" type="button" (click)="onCancel()">Cancel</button>
+            <button class="btn btn-primary" type="submit">Save Hospital</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>

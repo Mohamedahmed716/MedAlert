@@ -1,0 +1,132 @@
+<div class="dashboard-layout">
+  <!-- Success Notification (Slides down if showNotification is true) -->
+  <div class="notification-banner" [class.show]="showNotification">
+    <div class="notification-content">
+      <span class="material-symbols-outlined notification-icon">check_circle</span>
+      <div class="notification-text">
+        <p class="notification-title">Success</p>
+        <p class="notification-desc">New hospital added successfully.</p>
+      </div>
+      <button class="close-btn" (click)="showNotification = false">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <div class="sidebar-logo">
+        <div class="logo-icon">
+          <img src="assets/Logo.png" alt="MedAlert Logo" />
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="nav-link active" routerLink="/admin/dashboard" routerLinkActive="active">
+          <span class="material-symbols-outlined nav-icon" style="font-variation-settings: 'FILL' 1"
+            >corporate_fare</span
+          >
+          <p class="sidebar-text nav-text">Hospital Management</p>
+        </a>
+        <a class="nav-link" routerLink="/admin/users" routerLinkActive="active">
+          <span class="material-symbols-outlined nav-icon">group</span>
+          <p class="sidebar-text nav-text">User Management</p>
+        </a>
+        <a class="nav-link" routerLink="/admin/settings" routerLinkActive="active">
+          <span class="material-symbols-outlined nav-icon">settings</span>
+          <p class="sidebar-text nav-text">Settings</p>
+        </a>
+      </nav>
+    </div>
+
+    <div class="sidebar-profile">
+      <div
+        class="profile-avatar"
+        style="
+          background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC1JdiNkZXxoMHgmOOxvQwDhU6cjXEGfUCLxYx9mAtPl0UaKXrh0yTCdp-6RQc9PmUjkEggSDpw30r_DV7yqWx3SoTuBpvdXvFsK3me1ezq8x4PpSBOQqyvrPQNtKhYP2rxAF34A6ousnlw08zmx__zTcsJm37moVIpirCvzdIsMtk_2wkfGH3TnBl8YSl2bWawO2CI8FKUTA3TPhhgVE_0CZtVPiMAR3q9sG_VFRp_pS1HOz64sX5z-XDoAXsrG82pOBgqkQXsXdc');
+        "
+      ></div>
+      <div class="sidebar-text profile-info">
+        <h1 class="profile-name">John Doe</h1>
+        <p class="profile-role">System Admin</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="main-content-area">
+    <header class="header">
+      <div class="hamburger-menu">
+        <button class="icon-btn">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+
+      <div class="header-actions">
+        <label class="search-bar">
+          <span class="material-symbols-outlined search-icon">search</span>
+          <input class="form-input search-input" placeholder="Search..." />
+        </label>
+        <button class="icon-btn">
+          <span class="material-symbols-outlined">notifications</span>
+        </button>
+        <button class="icon-btn" (click)="logout()" title="Logout">
+          <span class="material-symbols-outlined">logout</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="main-section">
+      <div class="page-header">
+        <h1 class="page-title">Hospital Management</h1>
+        <a routerLink="/admin/hospitals/new" class="btn btn-primary">
+          <span class="material-symbols-outlined">add</span>
+          <span class="truncate">Add New Hospital</span>
+        </a>
+      </div>
+
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Hospital Name</th>
+              <th>Location</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let hospital of hospitals">
+              <td class="cell-primary">{{ hospital.name }}</td>
+              <td>{{ hospital.location }}</td>
+              <td>
+                <span
+                  class="status-badge"
+                  [ngClass]="{
+                    'status-active': hospital.status === 'Active',
+                    'status-inactive': hospital.status === 'Inactive'
+                  }"
+                >
+                  {{ hospital.status }}
+                </span>
+              </td>
+              <td>
+                <div class="action-buttons">
+                  <button class="action-btn action-btn-edit">
+                    <span class="material-symbols-outlined">edit</span>
+                    <span class="action-text">Edit</span>
+                  </button>
+                  <button class="action-btn action-btn-remove">
+                    <span class="material-symbols-outlined">delete</span>
+                    <span class="action-text">Remove</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>

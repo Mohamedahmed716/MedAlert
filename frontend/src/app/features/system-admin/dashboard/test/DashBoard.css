@@ -35,7 +35,6 @@
   --red-text: #ef4444; /* red-500 */
   --red-hover-light: #fef2f2; /* red-50 */
   --red-hover-dark: rgba(239, 68, 68, 0.1); /* red-900/50 */
-
 }
 
 /* --- Base Styles --- */
@@ -96,14 +95,13 @@ body {
   height: 100px;
 }
 
-.logo-icon img{
+.logo-icon img {
   position: absolute;
   width: 150px;
   height: auto;
   image-rendering: -webkit-optimize-contrast;
   background-color: transparent;
-  top:0;
-
+  top: 0;
 }
 
 .logo-text {

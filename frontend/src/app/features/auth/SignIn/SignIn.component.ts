@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
-import { AuthService, LoginRequest } from '../auth.service';
+import { AuthService, LoginRequest } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -17,7 +17,6 @@ export class SignInComponent implements OnInit {
   passwordVisible = false;
   isLoading = false;
   errorMessage = '';
-
   showNotification = false;
 
   constructor(
@@ -30,7 +29,6 @@ export class SignInComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       if (params['registered'] === 'true') {
         this.showNotification = true;
-
         setTimeout(() => {
           this.showNotification = false;
           this.router.navigate([], {
@@ -61,15 +59,25 @@ export class SignInComponent implements OnInit {
       next: (response) => {
         this.isLoading = false;
         this.authService.saveToken(response.token);
-        this.router.navigate(['/admin/dashboard']);
+
+        // --- UPDATED ROLE-BASED REDIRECT ---
+        if (response.role === 'SYSTEM_ADMIN') {
+          // Send to the new Admin root path, which defaults to the Hospital List table
+          this.router.navigate(['/admin/hospitals']);
+        } else if (response.role === 'HOSPITAL_ADMIN') {
+          this.router.navigate(['/hospital/dashboard']);
+        } else if (response.role === 'DOCTOR') {
+          this.router.navigate(['/doctor/dashboard']);
+        } else {
+          this.router.navigate(['/dashboard']); // Patient/Default
+        }
       },
       error: (err) => {
         this.isLoading = false;
-
         const backendMessage = err.error?.message;
 
         if (err.status === 403 && backendMessage === 'ACCOUNT_PENDING') {
-          this.errorMessage = 'Your account is pending for approval.';
+          this.errorMessage = 'Your account is pending System Admin approval.';
         } else if (err.status === 401) {
           this.errorMessage = 'Invalid username or password.';
         } else {
