@@ -16,6 +16,6 @@ public class RegisterRequest {
     private String email;
     private String password;
     private LocalDate dateOfBirth;
-    private String role;       // "PATIENT", "DOCTOR", etc.
-    private String hospitalId; // "general", "city", etc.
+    private String role;
+    private String hospitalId;
 }
