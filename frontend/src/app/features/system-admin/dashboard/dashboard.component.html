@@ -1,5 +1,4 @@
 <div class="dashboard-layout">
-  <!-- Success Notification (Slides down if showNotification is true) -->
   <div class="notification-banner" [class.show]="showNotification">
     <div class="notification-content">
       <span class="material-symbols-outlined notification-icon">check_circle</span>
@@ -13,119 +12,181 @@
     </div>
   </div>
 
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="sidebar-top">
-      <div class="sidebar-logo">
-        <div class="logo-icon">
-          <img src="assets/Logo.png" alt="MedAlert Logo" />
-        </div>
-      </div>
-
-      <nav class="sidebar-nav">
-        <a class="nav-link active" routerLink="/admin/dashboard" routerLinkActive="active">
-          <span class="material-symbols-outlined nav-icon" style="font-variation-settings: 'FILL' 1"
-            >corporate_fare</span
-          >
-          <p class="sidebar-text nav-text">Hospital Management</p>
-        </a>
-        <a class="nav-link" routerLink="/admin/users" routerLinkActive="active">
-          <span class="material-symbols-outlined nav-icon">group</span>
-          <p class="sidebar-text nav-text">User Management</p>
-        </a>
-        <a class="nav-link" routerLink="/admin/settings" routerLinkActive="active">
-          <span class="material-symbols-outlined nav-icon">settings</span>
-          <p class="sidebar-text nav-text">Settings</p>
-        </a>
-      </nav>
+  <header class="header">
+    <div class="logo-container header-logo">
+      <img src="assets/Logo.png" alt="MedAlert Logo" class="header-logo-img" />
     </div>
 
-    <div class="sidebar-profile">
+    <div class="header-actions">
       <div
         class="profile-avatar"
         style="
           background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC1JdiNkZXxoMHgmOOxvQwDhU6cjXEGfUCLxYx9mAtPl0UaKXrh0yTCdp-6RQc9PmUjkEggSDpw30r_DV7yqWx3SoTuBpvdXvFsK3me1ezq8x4PpSBOQqyvrPQNtKhYP2rxAF34A6ousnlw08zmx__zTcsJm37moVIpirCvzdIsMtk_2wkfGH3TnBl8YSl2bWawO2CI8FKUTA3TPhhgVE_0CZtVPiMAR3q9sG_VFRp_pS1HOz64sX5z-XDoAXsrG82pOBgqkQXsXdc');
         "
       ></div>
-      <div class="sidebar-text profile-info">
-        <h1 class="profile-name">John Doe</h1>
-        <p class="profile-role">System Admin</p>
-      </div>
     </div>
-  </aside>
+  </header>
 
-  <!-- Main Content Area -->
-  <div class="main-content-area">
-    <header class="header">
-      <div class="hamburger-menu">
-        <button class="icon-btn">
-          <span class="material-symbols-outlined">menu</span>
-        </button>
+  <div class="content-wrapper">
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <nav class="sidebar-nav">
+          <a class="nav-link active" routerLink="/admin/dashboard" routerLinkActive="active">
+            <span
+              class="material-symbols-outlined nav-icon"
+              style="font-variation-settings: 'FILL' 1"
+              >corporate_fare</span
+            >
+            <p class="sidebar-text nav-text">Hospital Management</p>
+          </a>
+          <a class="nav-link" routerLink="/admin/users" routerLinkActive="active">
+            <span class="material-symbols-outlined nav-icon">group</span>
+            <p class="sidebar-text nav-text">User Management</p>
+          </a>
+          <a class="nav-link" routerLink="/admin/settings" routerLinkActive="active">
+            <span class="material-symbols-outlined nav-icon">settings</span>
+            <p class="sidebar-text nav-text">Settings</p>
+          </a>
+        </nav>
       </div>
 
-      <div class="header-actions">
-        <label class="search-bar">
-          <span class="material-symbols-outlined search-icon">search</span>
-          <input class="form-input search-input" placeholder="Search..." />
-        </label>
-        <button class="icon-btn">
-          <span class="material-symbols-outlined">notifications</span>
-        </button>
+      <div class="sidebar-profile">
         <button class="icon-btn" (click)="logout()" title="Logout">
           <span class="material-symbols-outlined">logout</span>
+          <span> Logout </span>
         </button>
       </div>
-    </header>
+    </aside>
 
-    <main class="main-section">
-      <div class="page-header">
-        <h1 class="page-title">Hospital Management</h1>
-        <a routerLink="/admin/hospitals/new" class="btn btn-primary">
-          <span class="material-symbols-outlined">add</span>
-          <span class="truncate">Add New Hospital</span>
-        </a>
-      </div>
+    <main class="main-content-area">
+      <div class="main-section">
+        <div class="page-header">
+          <div class="page-title-group">
+            <h1 class="page-title">Hospital Management</h1>
+            <p class="page-subtitle">Oversee hospital locations and statuses.</p>
+          </div>
+          <a routerLink="/admin/hospitals/new" class="btn btn-primary">
+            <span class="material-symbols-outlined">add</span>
+            <span class="truncate">Add New Hospital</span>
+          </a>
+        </div>
 
-      <div class="table-container">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Hospital Name</th>
-              <th>Location</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let hospital of hospitals">
-              <td class="cell-primary">{{ hospital.name }}</td>
-              <td>{{ hospital.location }}</td>
-              <td>
-                <span
-                  class="status-badge"
-                  [ngClass]="{
-                    'status-active': hospital.status === 'Active',
-                    'status-inactive': hospital.status === 'Inactive'
-                  }"
-                >
-                  {{ hospital.status }}
-                </span>
-              </td>
-              <td>
-                <div class="action-buttons">
-                  <button class="action-btn action-btn-edit">
-                    <span class="material-symbols-outlined">edit</span>
-                    <span class="action-text">Edit</span>
-                  </button>
-                  <button class="action-btn action-btn-remove">
-                    <span class="material-symbols-outlined">delete</span>
-                    <span class="action-text">Remove</span>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon bg-blue-light">
+              <span class="material-symbols-outlined">domain</span>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">Total Hospitals</span>
+              <span class="stat-value">124</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon bg-green-light">
+              <span class="material-symbols-outlined">check_circle</span>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">Operational</span>
+              <span class="stat-value">118</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon bg-orange-light">
+              <span class="material-symbols-outlined">construction</span>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">Maintenance</span>
+              <span class="stat-value">6</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <div class="card-toolbar">
+            <div class="search-wrapper">
+              <span class="material-symbols-outlined search-icon">search</span>
+              <input type="text" class="search-input-filter" placeholder="Search hospitals..." />
+            </div>
+
+            <div class="toolbar-actions">
+              <button class="btn-filter">
+                <span class="material-symbols-outlined">filter_list</span>
+                <span>Filter</span>
+              </button>
+              <button class="btn-filter">
+                <span class="material-symbols-outlined">download</span>
+                <span>Export</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="modern-table">
+              <thead>
+                <tr>
+                  <th>Hospital Name</th>
+                  <th>Location</th>
+                  <th>Status</th>
+                  <th class="text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let hospital of hospitals">
+                  <td>
+                    <div class="primary-cell">
+                      <div class="icon-circle">
+                        <span class="material-symbols-outlined">local_hospital</span>
+                      </div>
+                      <span class="primary-text">{{ hospital.name }}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="location-cell">
+                      <span class="material-symbols-outlined location-icon">location_on</span>
+                      {{ hospital.location }}
+                    </div>
+                  </td>
+                  <td>
+                    <span
+                      class="status-indicator"
+                      [ngClass]="{
+                        'status-active': hospital.status === 'Active',
+                        'status-inactive': hospital.status === 'Inactive'
+                      }"
+                    >
+                      <span class="dot"></span>
+                      {{ hospital.status }}
+                    </span>
+                  </td>
+                  <td class="text-right">
+                    <div class="action-buttons-group">
+                      <button class="icon-action" title="Edit">
+                        <span class="material-symbols-outlined">edit</span>
+                      </button>
+                      <button class="icon-action danger" title="Remove">
+                        <span class="material-symbols-outlined">delete</span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card-footer">
+            <span class="pagination-text">Showing 1-10 of 124</span>
+            <div class="pagination-simple">
+              <button class="page-arrow" disabled>
+                <span class="material-symbols-outlined">chevron_left</span>
+              </button>
+              <button class="page-arrow">
+                <span class="material-symbols-outlined">chevron_right</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   </div>

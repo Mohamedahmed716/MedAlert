@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../../features/auth/auth.service';
 
 @Component({
   selector: 'app-add-user',
@@ -50,7 +50,6 @@ export class AddUserComponent {
     }
     console.log('Creating User:', this.user);
     // TODO: Call backend API to create user
-
     this.router.navigate(['/admin/users'], { queryParams: { created: 'true' } });
   }
 

@@ -18,7 +18,6 @@ export class SystemAdminDashboardComponent implements OnInit {
     { name: 'Sunset Medical Center', location: 'Los Angeles, CA', status: 'Inactive' },
   ];
 
-  // Notification State
   showNotification = false;
 
   constructor(
@@ -28,7 +27,6 @@ export class SystemAdminDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Check for 'created=true' query param from Add Hospital page
     this.route.queryParams.subscribe((params) => {
       if (params['created'] === 'true') {
         this.showNotification = true;
@@ -47,6 +45,6 @@ export class SystemAdminDashboardComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/auth/SignIn']);
+    this.router.navigate(['/auth/sign-in']);
   }
 }

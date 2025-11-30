@@ -1,152 +1,157 @@
-<div class="page-container">
-  <!-- Notification Toast (Hidden by default, slides down when active) -->
-  <div class="notification-toast" [class.show]="showNotification">
-    <span class="material-symbols-outlined">check_circle</span>
-    <span>Settings saved successfully!</span>
-  </div>
-
-  <!-- Sidebar (Matches your Settings HTML) -->
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <img alt="MedAlert Logo" class="logo" src="assets/Logo.png" />
-    </div>
-    <nav class="sidebar-nav">
-      <a class="nav-link active" href="javascript:void(0)">
-        <span class="material-symbols-outlined">settings</span>
-        <span>General</span>
-      </a>
-      <a class="nav-link" href="javascript:void(0)">
-        <span class="material-symbols-outlined">security</span>
-        <span>Security</span>
-      </a>
-      <!-- Added a back link so you aren't stuck here -->
-      <a class="nav-link back-link" routerLink="/admin/dashboard">
-        <span class="material-symbols-outlined">arrow_back</span>
-        <span>Back to Dashboard</span>
-      </a>
-    </nav>
-    <div class="sidebar-footer">
-      <div class="profile">
-        <div
-          class="profile-avatar"
-          style="
-            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA8q_Y0uzBl37q81pMOk9uee1h0vRM9YFtYSaGEoEsvKBKPeJ70Ftlas-nVUjmhcTwxXpL6_-KXRL2CcHelQR2PVOutLh-ZrBRWdWT1HbRXsub3tYU-h9xrhSs0ZFJFeiSTzTO5NoYSP6leYmKlA0bKgzL-M7ESS7aokOtLOrGlk6kFLVVlPvglieNknLDigSWR4ZPI7krdU-aAdzWd0utlHaBVRpp4DPnxkvA-eMXTVd3ifPtcfMeW8MINvaCm6fK7Y88_a-B4CIo');
-          "
-        ></div>
-        <div class="profile-info">
-          <h1 class="profile-name">Super Admin</h1>
-          <p class="profile-email">super.admin@medalert.com</p>
-        </div>
+<div class="dashboard-layout">
+  <div class="notification-banner" [class.show]="showNotification">
+    <div class="notification-content">
+      <span class="material-symbols-outlined notification-icon">check_circle</span>
+      <div class="notification-text">
+        <p class="notification-title">Success</p>
+        <p class="notification-desc">Settings saved successfully!</p>
       </div>
-      <button class="btn btn-logout" (click)="logout()">
-        <span class="material-symbols-outlined">logout</span>
-        <span class="truncate">Logout</span>
+      <button class="close-btn" (click)="showNotification = false">
+        <span class="material-symbols-outlined">close</span>
       </button>
     </div>
-  </aside>
+  </div>
 
-  <!-- Main Content -->
-  <main class="main-content">
-    <div class="main-content-container">
-      <div class="page-header">
-        <h1 class="page-title">General Settings</h1>
-        <div class="header-actions">
-          <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
-          <button class="btn btn-primary" (click)="saveSettings()">Save Changes</button>
-        </div>
-      </div>
-
-      <!-- Application Settings -->
-      <div class="card">
-        <h2 class="card-title">Application</h2>
-        <div class="card-content">
-          <div class="form-row">
-            <div class="form-row-icon">
-              <span class="material-symbols-outlined">text_fields</span>
-            </div>
-            <div class="form-row-content">
-              <label class="input-label" for="appName">Application Name</label>
-              <input class="form-input" id="appName" type="text" [(ngModel)]="settings.appName" />
-            </div>
-          </div>
-          <hr class="divider" />
-          <div class="form-row">
-            <div class="form-row-icon">
-              <span class="material-symbols-outlined">cloud_upload</span>
-            </div>
-            <p class="form-row-text">Logo</p>
-            <div class="form-row-action">
-              <button class="btn btn-upload">Upload</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Localization Settings -->
-      <div class="card">
-        <h2 class="card-title">Localization</h2>
-        <div class="card-content">
-          <div class="form-row">
-            <div class="form-row-icon">
-              <span class="material-symbols-outlined">language</span>
-            </div>
-            <div class="form-row-content">
-              <label class="input-label" for="defaultLang">Default Language</label>
-              <select class="form-select" id="defaultLang" [(ngModel)]="settings.language">
-                <option>English (US)</option>
-                <option>Spanish</option>
-                <option>French</option>
-                <option>German</option>
-              </select>
-            </div>
-          </div>
-          <hr class="divider" />
-          <div class="form-row">
-            <div class="form-row-icon">
-              <span class="material-symbols-outlined">schedule</span>
-            </div>
-            <div class="form-row-content">
-              <label class="input-label" for="timeZone">Time Zone</label>
-              <select class="form-select" id="timeZone" [(ngModel)]="settings.timeZone">
-                <option>(GMT-08:00) Pacific Time (US & Canada)</option>
-                <option>(GMT-05:00) Eastern Time (US & Canada)</option>
-                <option>(GMT+00:00) Greenwich Mean Time</option>
-                <option>(GMT+01:00) Central European Time</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Notification Settings -->
-      <div class="card">
-        <h2 class="card-title">System Notifications</h2>
-        <div class="card-content">
-          <div class="form-row">
-            <div class="form-row-icon">
-              <span class="material-symbols-outlined">notifications</span>
-            </div>
-            <div class="form-row-text-group">
-              <p class="form-row-text">System-wide email notifications</p>
-              <p class="form-row-subtext">
-                Enable or disable all automated emails sent by the system.
-              </p>
-            </div>
-            <div class="form-row-action">
-              <label class="toggle-switch" for="email-toggle">
-                <input
-                  class="toggle-input"
-                  id="email-toggle"
-                  type="checkbox"
-                  [(ngModel)]="settings.notificationsEnabled"
-                />
-                <div class="toggle-track"></div>
-                <div class="toggle-dot"></div>
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
+  <header class="header">
+    <div class="logo-container header-logo">
+      <img src="assets/Logo.png" alt="MedAlert Logo" class="header-logo-img" />
     </div>
-  </main>
+
+    <div class="header-actions">
+      <div
+        class="profile-avatar"
+        style="
+          background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA8q_Y0uzBl37q81pMOk9uee1h0vRM9YFtYSaGEoEsvKBKPeJ70Ftlas-nVUjmhcTwxXpL6_-KXRL2CcHelQR2PVOutLh-ZrBRWdWT1HbRXsub3tYU-h9xrhSs0ZFJFeiSTzTO5NoYSP6leYmKlA0bKgzL-M7ESS7aokOtLOrGlk6kFLVVlPvglieNknLDigSWR4ZPI7krdU-aAdzWd0utlHaBVRpp4DPnxkvA-eMXTVd3ifPtcfMeW8MINvaCm6fK7Y88_a-B4CIo');
+        "
+      ></div>
+    </div>
+  </header>
+
+  <div class="content-wrapper">
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <nav class="sidebar-nav">
+          <a class="nav-link active" href="javascript:void(0)">
+            <span class="material-symbols-outlined">settings</span>
+            <p class="sidebar-text">General</p>
+          </a>
+          <a class="nav-link" routerLink="/admin/dashboard">
+            <span class="material-symbols-outlined">arrow_back</span>
+            <p class="sidebar-text">Back to Dashboard</p>
+          </a>
+        </nav>
+      </div>
+
+      <div class="sidebar-profile">
+        <button class="icon-btn" (click)="logout()" title="Logout">
+          <span class="material-symbols-outlined">logout</span>
+          <span class="sidebar-text">Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main-content-area">
+      <div class="main-section">
+        <div class="page-header">
+          <div class="page-title-group">
+            <h1 class="page-title">General Settings</h1>
+            <p class="page-subtitle">Manage application configuration.</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
+            <button class="btn btn-primary" (click)="saveSettings()">Save Changes</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">Application</h2>
+          <div class="card-content">
+            <div class="form-row">
+              <div class="form-row-icon">
+                <span class="material-symbols-outlined">text_fields</span>
+              </div>
+              <div class="form-row-content">
+                <label class="input-label" for="appName">Application Name</label>
+                <input class="form-input" id="appName" type="text" [(ngModel)]="settings.appName" />
+              </div>
+            </div>
+            <hr class="divider" />
+            <div class="form-row">
+              <div class="form-row-icon">
+                <span class="material-symbols-outlined">cloud_upload</span>
+              </div>
+              <p class="form-row-text">Logo</p>
+              <div class="form-row-action">
+                <button class="btn btn-upload">Upload</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">Localization</h2>
+          <div class="card-content">
+            <div class="form-row">
+              <div class="form-row-icon">
+                <span class="material-symbols-outlined">language</span>
+              </div>
+              <div class="form-row-content">
+                <label class="input-label" for="defaultLang">Default Language</label>
+                <select class="form-select" id="defaultLang" [(ngModel)]="settings.language">
+                  <option>English (US)</option>
+                  <option>Spanish</option>
+                  <option>French</option>
+                  <option>German</option>
+                </select>
+              </div>
+            </div>
+            <hr class="divider" />
+            <div class="form-row">
+              <div class="form-row-icon">
+                <span class="material-symbols-outlined">schedule</span>
+              </div>
+              <div class="form-row-content">
+                <label class="input-label" for="timeZone">Time Zone</label>
+                <select class="form-select" id="timeZone" [(ngModel)]="settings.timeZone">
+                  <option>(GMT-08:00) Pacific Time (US & Canada)</option>
+                  <option>(GMT-05:00) Eastern Time (US & Canada)</option>
+                  <option>(GMT+00:00) Greenwich Mean Time</option>
+                  <option>(GMT+01:00) Central European Time</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">System Notifications</h2>
+          <div class="card-content">
+            <div class="form-row">
+              <div class="form-row-icon">
+                <span class="material-symbols-outlined">notifications</span>
+              </div>
+              <div class="form-row-text-group">
+                <p class="form-row-text">System-wide email notifications</p>
+                <p class="form-row-subtext">
+                  Enable or disable all automated emails sent by the system.
+                </p>
+              </div>
+              <div class="form-row-action">
+                <label class="toggle-switch" for="email-toggle">
+                  <input
+                    class="toggle-input"
+                    id="email-toggle"
+                    type="checkbox"
+                    [(ngModel)]="settings.notificationsEnabled"
+                  />
+                  <div class="toggle-track"></div>
+                  <div class="toggle-dot"></div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
 </div>
