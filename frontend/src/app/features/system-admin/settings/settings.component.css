@@ -17,7 +17,6 @@
   --gray-900: #111827;
   --white: #ffffff;
 
-  /* Light Mode Colors */
   --light-bg: var(--background-light);
   --light-text: var(--text-light);
   --light-text-strong: var(--gray-800);
