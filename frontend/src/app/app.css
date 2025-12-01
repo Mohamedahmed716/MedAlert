@@ -5,12 +5,3 @@
   /* Forces the app to be *exactly* the viewport height */
   height: 100vh;
 }
-
-.main-content-outlet {
-  display: flex; /* Allows the child component to flex */
-
-  /* This makes the div grow to fill all remaining vertical space */
-  flex: 1;
-
-  justify-content: center;
-}

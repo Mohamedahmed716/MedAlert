@@ -1,0 +1,154 @@
+<div class="layout-wrapper">
+  <div class="layout-container">
+    <header class="header">
+      <div class="logo-container">
+        <img class="logo-icon" src="assets/Logo.png" alt="MedAlert Logo" />
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn">
+          <span class="material-symbols-outlined">person</span>
+        </button>
+        <button class="icon-btn" (click)="logout()">
+          <span class="material-symbols-outlined">logout</span>
+        </button>
+        <div
+          class="profile-avatar"
+          style="
+            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC1JdiNkZXxoMHgmOOxvQwDhU6cjXEGfUCLxYx9mAtPl0UaKXrh0yTCdp-6RQc9PmUjkEggSDpw30r_DV7yqWx3SoTuBpvdXvFsK3me1ezq8x4PpSBOQqyvrPQNtKhYP2rxAF34A6ousnlw08zmx__zTcsJm37moVIpirCvzdIsMtk_2wkfGH3TnBl8YSl2bWawO2CI8FKUTA3TPhhgVE_0CZtVPiMAR3q9sG_VFRp_pS1HOz64sX5z-XDoAXsrG82pOBgqkQXsXdc');
+          "
+        ></div>
+      </div>
+    </header>
+    <main class="main-content">
+      <div class="form-container">
+        <div class="page-header">
+          <div class="page-title-group">
+            <p class="page-title">Create a New User</p>
+            <p class="page-subtitle">Enter details to register a new user in the system.</p>
+          </div>
+        </div>
+
+        <form class="form-layout" (ngSubmit)="onSaveUser()">
+          <div class="card">
+            <h2 class="card-title">User Credentials</h2>
+            <p class="card-subtitle">Enter the basic account information for the new user.</p>
+
+            <div class="card-grid">
+              <div class="grid-span-2">
+                <label class="form-label">
+                  <p class="input-label">Full Name</p>
+                  <input
+                    class="form-input"
+                    placeholder="Enter user's full name"
+                    type="text"
+                    name="fullName"
+                    [(ngModel)]="user.fullName"
+                    required
+                  />
+                </label>
+              </div>
+              <div class="grid-span-2">
+                <label class="form-label">
+                  <p class="input-label">Email</p>
+                  <input
+                    class="form-input"
+                    placeholder="Enter user's email address"
+                    type="email"
+                    name="email"
+                    [(ngModel)]="user.email"
+                    required
+                  />
+                </label>
+              </div>
+              <div>
+                <label class="form-label">
+                  <p class="input-label">Create Password</p>
+                  <div class="password-wrapper">
+                    <input
+                      class="form-input password-input"
+                      placeholder="Enter a secure password"
+                      [type]="passwordVisible1 ? 'text' : 'password'"
+                      name="password"
+                      [(ngModel)]="user.password"
+                      required
+                    />
+                    <button class="toggle-visibility" type="button" (click)="togglePassword1()">
+                      <span class="material-symbols-outlined">{{
+                        passwordVisible1 ? 'visibility' : 'visibility_off'
+                      }}</span>
+                    </button>
+                  </div>
+                </label>
+              </div>
+              <div>
+                <label class="form-label">
+                  <p class="input-label">Confirm Password</p>
+                  <div class="password-wrapper">
+                    <input
+                      class="form-input password-input"
+                      placeholder="Confirm the password"
+                      [type]="passwordVisible2 ? 'text' : 'password'"
+                      name="confirmPassword"
+                      [(ngModel)]="user.confirmPassword"
+                      required
+                    />
+                    <button class="toggle-visibility" type="button" (click)="togglePassword2()">
+                      <span class="material-symbols-outlined">{{
+                        passwordVisible2 ? 'visibility' : 'visibility_off'
+                      }}</span>
+                    </button>
+                  </div>
+                  <p
+                    class="input-error-msg"
+                    *ngIf="user.confirmPassword && user.password !== user.confirmPassword"
+                  >
+                    Passwords do not match.
+                  </p>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="card-title">Role & Permissions</h2>
+            <p class="card-subtitle">Assign a role and corresponding permissions to the user.</p>
+            <div class="card-grid">
+              <div class="grid-span-2">
+                <label class="form-label">
+                  <p class="input-label">User Role</p>
+                  <div class="select-wrapper" style="position: relative">
+                    <select class="form-input" name="role" [(ngModel)]="user.role" required>
+                      <option value="" disabled selected>Select a role</option>
+                      <option value="Patient">Patient</option>
+                      <option value="Doctor">Doctor</option>
+                      <option value="Hospital Admin">Hospital Admin</option>
+                      <option value="Super Admin">Super Admin</option>
+                    </select>
+                  </div>
+                </label>
+              </div>
+              <div class="grid-span-2" *ngIf="showHospitalField">
+                <label class="form-label">
+                  <p class="input-label">Hospital Assignment</p>
+                  <div class="select-wrapper">
+                    <select class="form-input" name="hospital" [(ngModel)]="user.hospital" required>
+                      <option value="" disabled selected>Select a hospital</option>
+                      <option value="General Hospital">General Hospital</option>
+                      <option value="City Central Medical Center">
+                        City Central Medical Center
+                      </option>
+                      <option value="Sunrise Health Clinic">Sunrise Health Clinic</option>
+                    </select>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-secondary" type="button" (click)="onCancel()">Cancel</button>
+            <button class="btn btn-primary" type="submit">Create User</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,209 @@
+<div class="dashboard-layout">
+  <div class="notification-banner" [class.show]="showNotification">
+    <div class="notification-content">
+      <span class="material-symbols-outlined notification-icon">check_circle</span>
+      <div class="notification-text">
+        <p class="notification-title">Success</p>
+        <p class="notification-desc">New user account created successfully.</p>
+      </div>
+      <button class="close-btn" (click)="showNotification = false">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="logo-container header-logo">
+      <img src="assets/Logo.png" alt="MedAlert Logo" class="header-logo-img" />
+    </div>
+
+    <div class="header-actions">
+      <div
+        class="profile-avatar"
+        style="
+          background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC1JdiNkZXxoMHgmOOxvQwDhU6cjXEGfUCLxYx9mAtPl0UaKXrh0yTCdp-6RQc9PmUjkEggSDpw30r_DV7yqWx3SoTuBpvdXvFsK3me1ezq8x4PpSBOQqyvrPQNtKhYP2rxAF34A6ousnlw08zmx__zTcsJm37moVIpirCvzdIsMtk_2wkfGH3TnBl8YSl2bWawO2CI8FKUTA3TPhhgVE_0CZtVPiMAR3q9sG_VFRp_pS1HOz64sX5z-XDoAXsrG82pOBgqkQXsXdc');
+        "
+      ></div>
+    </div>
+  </header>
+
+  <div class="content-wrapper">
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <nav class="sidebar-nav">
+          <a class="nav-link" routerLink="/admin/dashboard" routerLinkActive="active">
+            <span
+              class="material-symbols-outlined nav-icon"
+              style="font-variation-settings: 'FILL' 1"
+              >corporate_fare</span
+            >
+            <p class="sidebar-text nav-text">Hospital Management</p>
+          </a>
+          <a class="nav-link active" routerLink="/admin/users" routerLinkActive="active">
+            <span class="material-symbols-outlined nav-icon">group</span>
+            <p class="sidebar-text nav-text">User Management</p>
+          </a>
+          <a class="nav-link" routerLink="/admin/settings" routerLinkActive="active">
+            <span class="material-symbols-outlined nav-icon">settings</span>
+            <p class="sidebar-text nav-text">Settings</p>
+          </a>
+        </nav>
+      </div>
+
+      <div class="sidebar-profile">
+        <button class="icon-btn" (click)="logout()" title="Logout">
+          <span class="material-symbols-outlined">logout</span>
+          <span> Logout </span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main-content-area">
+      <div class="main-section">
+        <div class="page-header">
+          <div class="page-title-group">
+            <h1 class="page-title">User Management</h1>
+            <p class="page-subtitle">Search, filter, and manage all user accounts.</p>
+          </div>
+          <a routerLink="/admin/users/new" class="btn btn-primary">
+            <span class="material-symbols-outlined">add</span>
+            <span>Add New User</span>
+          </a>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon bg-blue-light text-blue">
+              <span class="material-symbols-outlined">group</span>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">Total Users</span>
+              <span class="stat-value">2,543</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon bg-green-light text-green">
+              <span class="material-symbols-outlined">check_circle</span>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">Active Now</span>
+              <span class="stat-value">1,201</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon bg-orange-light text-orange">
+              <span class="material-symbols-outlined">pending</span>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">Pending Approval</span>
+              <span class="stat-value">45</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <div class="card-toolbar">
+            <div class="search-wrapper">
+              <span class="material-symbols-outlined search-icon">search</span>
+              <input type="text" class="search-input-filter" placeholder="Search users..." />
+            </div>
+
+            <div class="toolbar-actions">
+              <button class="btn-filter">
+                <span class="material-symbols-outlined">filter_list</span>
+                <span>Filter</span>
+              </button>
+              <button class="btn-filter">
+                <span class="material-symbols-outlined">download</span>
+                <span>Export</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="modern-table">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Date Created</th>
+                  <th class="text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of users">
+                  <td>
+                    <div class="user-cell">
+                      <div class="avatar-circle">{{ user.fullName.charAt(0) }}</div>
+                      <div class="user-info">
+                        <span class="user-name">{{ user.fullName }}</span>
+                        <span class="user-email">{{ user.email }}</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="role-badge">{{ user.role }}</span>
+                  </td>
+                  <td>
+                    <span
+                      class="status-indicator"
+                      [ngClass]="{
+                        'status-active': user.isActive,
+                        'status-inactive': !user.isActive
+                      }"
+                    >
+                      <span class="dot"></span>
+                      {{ user.isActive ? 'Active' : 'Pending' }}
+                    </span>
+                  </td>
+                  <td class="text-muted">{{ user.dateCreated }}</td>
+                  <td class="text-right">
+                    <div class="action-buttons">
+                      <button class="icon-action" title="Edit Role">
+                        <span class="material-symbols-outlined">edit</span>
+                      </button>
+                      <button class="icon-action" title="Reset Password">
+                        <span class="material-symbols-outlined">lock_reset</span>
+                      </button>
+
+                      <button
+                        *ngIf="user.isActive"
+                        class="icon-action danger"
+                        title="Deactivate"
+                        (click)="deactivateUser(user)"
+                      >
+                        <span class="material-symbols-outlined">block</span>
+                      </button>
+
+                      <button
+                        *ngIf="!user.isActive"
+                        class="icon-action success"
+                        title="Activate"
+                        (click)="approveUser(user)"
+                      >
+                        <span class="material-symbols-outlined">check</span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card-footer">
+            <span class="pagination-text">Showing 1-4 of 100</span>
+            <div class="pagination-simple">
+              <button class="page-arrow" disabled>
+                <span class="material-symbols-outlined">chevron_left</span>
+              </button>
+              <button class="page-arrow">
+                <span class="material-symbols-outlined">chevron_right</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

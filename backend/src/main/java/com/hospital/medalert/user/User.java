@@ -47,7 +47,7 @@ public class User implements UserDetails {
 
     private String hospitalId;
 
-    // --- CHANGED: Default is now FALSE (Pending) ---
+    // Default is FALSE (Pending)
     @Column(nullable = false)
     @Builder.Default
     private boolean isActive = false; 
