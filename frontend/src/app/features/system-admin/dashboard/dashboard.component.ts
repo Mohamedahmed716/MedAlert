@@ -45,6 +45,6 @@ export class SystemAdminDashboardComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/auth/sign-in']);
+    this.router.navigate(['/auth/SignIn']);
   }
 }
