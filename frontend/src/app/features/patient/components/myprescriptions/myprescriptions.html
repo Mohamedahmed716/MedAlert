@@ -1,0 +1,23 @@
+<div class="p-4 max-w-3xl mx-auto">
+  <h1 class="text-2xl font-bold mb-4">My Prescriptions</h1>
+  <input type="text" [(ngModel)]="searchQuery" placeholder="Search by medication or doctor"
+         class="border rounded p-2 w-full mb-4" />
+
+  <div *ngFor="let p of filteredPrescriptions" class="bg-white dark:bg-gray-800 rounded-lg p-4 mb-4 shadow">
+    <div class="flex items-center gap-4">
+      <span class="material-symbols-outlined text-3xl text-blue-500">medication</span>
+      <div>
+        <p class="font-bold text-lg">{{p.name}}</p>
+        <p class="text-sm text-gray-600 dark:text-gray-300">{{p.dosage}}</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400">{{p.instructions}}</p>
+        <p class="text-sm text-gray-400 dark:text-gray-500">Prescribed by {{p.doctor}} on {{p.date}}</p>
+      </div>
+    </div>
+    <div class="flex gap-2 mt-3">
+      <button class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">View Details</button>
+      <button class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 flex items-center gap-1">
+        <span class="material-symbols-outlined text-sm">print</span> Print
+      </button>
+    </div>
+  </div>
+</div>

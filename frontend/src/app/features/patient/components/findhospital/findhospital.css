@@ -1,0 +1,186 @@
+/* Layout */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f4f7f9;
+  color: #333;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background: white;
+  border-right: 1px solid #ddd;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-size: cover;
+}
+
+.username {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.role {
+  font-size: 13px;
+  color: #888;
+}
+
+/* Menu */
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu-item {
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #333;
+}
+
+.menu-item:hover {
+  background: #eee;
+}
+
+.menu-item.active {
+  background: #00579222;
+  color: #005792;
+  font-weight: 600;
+}
+
+.icon {
+  font-size: 18px;
+}
+
+.logout-box {
+  margin-top: auto;
+}
+
+/* Content */
+.content {
+  flex: 1;
+  padding: 40px;
+}
+
+.header h1 {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.header p {
+  color: #666;
+}
+
+/* Search bar */
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* Buttons */
+.btn-primary {
+  background: #005792;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #004a7a;
+}
+
+.btn-secondary {
+  background: #ddd;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+/* Cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-image {
+  height: 160px;
+  background-size: cover;
+}
+
+.card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.location {
+  color: #777;
+  font-size: 14px;
+}
+
+.full {
+  width: 100%;
+  margin-top: auto;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 30px;
+}
+
+.pagination button {
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #eee;
+  border: none;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background: #005792;
+  color: white;
+}

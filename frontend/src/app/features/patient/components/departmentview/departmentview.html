@@ -1,0 +1,25 @@
+<div class="page-container">
+
+
+  <!-- Title -->
+  <h1 class="page-title">{{ department }}</h1>
+
+  <!-- Doctors Grid -->
+  <div class="doctors-grid">
+
+    <div class="doctor-card" *ngFor="let doc of doctors">
+
+      <div class="doctor-img" [style.backgroundImage]="'url(' + doc.image + ')'"></div>
+
+      <div class="card-content">
+        <h3>{{ doc.name }}</h3>
+        <p>{{ doc.specialty }}</p>
+
+        <a class="view-btn" href="#" routerLink="/patient/doctorprofile">View Profile</a>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

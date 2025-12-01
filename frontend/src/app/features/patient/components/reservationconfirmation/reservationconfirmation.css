@@ -1,0 +1,108 @@
+* {
+  box-sizing: border-box;
+}
+
+.page-container {
+  max-width: 600px;
+  margin: 60px auto;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+/* Success Icon */
+.success-icon {
+  width: 70px;
+  height: 70px;
+  background: #d6f5d6;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 20px;
+}
+
+.success-icon span {
+  font-size: 40px;
+  color: #3cb371;
+}
+
+/* Heading */
+.title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 15px;
+  max-width: 450px;
+  margin: 0 auto 30px;
+  line-height: 1.4;
+}
+
+/* Card */
+.details-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  margin-bottom: 25px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #ececec;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  color: #666;
+  font-weight: 500;
+}
+
+.value {
+  font-weight: 700;
+  color: #000;
+}
+
+/* Buttons */
+.buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.btn {
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-green {
+  background: #5be7b2;
+  color: #fff;
+}
+
+.btn-blue {
+  background: #d7e9ff;
+  color: #4a7bd7;
+}
+
+.btn-green:hover {
+  background: #4dd9a6;
+}
+
+.btn-blue:hover {
+  background: #c8dbf7;
+}

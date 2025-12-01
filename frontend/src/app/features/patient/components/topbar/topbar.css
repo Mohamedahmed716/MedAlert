@@ -1,0 +1,197 @@
+:host {
+  display: block;
+  width: 100%;
+  flex-shrink: 0;
+  z-index: 50; /* Keeps shadows above content if you add them later */
+}
+
+.topbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px; /* Standard header height */
+  padding: 0 1.5rem; /* Match the dashboard padding */
+  background-color: var(--white); /* or var(--background-light) if you prefer */
+  border-bottom: 1px solid var(--slate-200);
+  box-sizing: border-box;
+}
+
+/* --- Left Side: Brand --- */
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brand-icon {
+  width: 1.75rem; /* size-7 approx */
+  height: 1.75rem;
+  color: var(--primary); /* Uses your blue variable */
+}
+
+.brand-name {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 700;   /* font-bold */
+  color: var(--slate-900);
+  letter-spacing: -0.015em;
+}
+
+/* --- Right Side: Actions --- */
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; /* Gap between date and icons */
+}
+
+.current-date {
+  display: none; /* Hide on very small screens */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500;
+  color: var(--slate-600);
+}
+
+@media (min-width: 768px) {
+  .current-date {
+    display: block;
+  }
+}
+
+.actions-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Notification Button */
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem; /* size-10 */
+  height: 2.5rem;
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.notification-btn {
+  background-color: var(--slate-100);
+  color: var(--slate-600);
+}
+
+.notification-btn:hover {
+  background-color: var(--slate-200);
+  color: var(--slate-800);
+}
+
+.material-symbols-outlined {
+  font-size: 1.25rem; /* Adjust icon size */
+}
+
+/* User Avatar */
+.user-avatar-small {
+  width: 2.5rem; /* size-10 */
+  height: 2.5rem;
+  border-radius: var(--radius-full);
+  background-size: cover;
+  background-position: center;
+  background-color: var(--slate-200); /* Fallback color */
+}
+
+.logo{
+  height: 100px;
+}
+
+.notification-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* 2. The Floating Card */
+.notification-popup {
+  position: absolute;
+  top: 120%;
+  right: -60px;
+  width: 300px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow: hidden;
+
+  /* --- CHANGED: Default State (Hidden) --- */
+  opacity: 0;
+  visibility: hidden; /* Prevents clicking when hidden */
+  transform: translateY(-10px); /* Start slightly up */
+
+  /* This creates the smooth fade IN and OUT */
+  transition: all 0.2s ease-in-out;
+}
+
+/* --- NEW: Active State (Visible) --- */
+.notification-popup.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0); /* Slide down to natural position */
+}
+
+/* 3. Popup Internal Styling */
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #f1f5f9;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #0f172a;
+}
+
+.popup-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.popup-item {
+  display: flex;
+  align-items: start;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f8fafc;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.popup-item:hover {
+  background-color: #f8fafc;
+}
+
+.popup-item.unread {
+  background-color: #d1f7ff; /* Very light blue for unread */
+}
+
+.item-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-text .title {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.item-text .time {
+  margin: 2px 0 0 0;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+/* Icon Colors */
+.icon-blue { color: #3b82f6; font-size: 1.2rem; }
+.icon-red { color: #ef4444; font-size: 1.2rem; }
+.icon-green { color: #10b981; font-size: 1.2rem; }

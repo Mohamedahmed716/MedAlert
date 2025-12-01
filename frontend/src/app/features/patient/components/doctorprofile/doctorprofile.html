@@ -1,0 +1,90 @@
+<div class="page-container">
+
+
+  <div class="profile-grid">
+
+    <!-- LEFT SIDE -->
+    <div>
+
+      <div class="doctor-card">
+        <div class="doctor-image" [style.backgroundImage]="'url(' + doctor.image + ')'"></div>
+
+        <h2>{{ doctor.name }}</h2>
+        <p>{{ doctor.specialty }}</p>
+        <p>{{ doctor.experience }}</p>
+
+        <!-- Tabs -->
+        <div class="tabs">
+          <div class="tab" (click)="activeTab='bio'" [class.active]="activeTab==='bio'">Biography</div>
+          <div class="tab" (click)="activeTab='qual'" [class.active]="activeTab==='qual'">Qualifications</div>
+          <div class="tab" (click)="activeTab='lang'" [class.active]="activeTab==='lang'">Languages</div>
+        </div>
+
+        <!-- Tabs Content -->
+        <div class="tab-content" *ngIf="activeTab==='bio'">
+          {{ biography }}
+        </div>
+
+        <div class="tab-content" *ngIf="activeTab==='qual'">
+          <ul class="list">
+            <li *ngFor="let q of qualifications">{{ q }}</li>
+          </ul>
+        </div>
+
+        <div class="tab-content" *ngIf="activeTab==='lang'">
+          <ul class="list">
+            <li *ngFor="let l of languages">{{ l }}</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div>
+
+      <div class="appointment-card">
+        <h3>Book an Appointment</h3>
+
+        <!-- Calendar UI -->
+        <div class="calendar-container">
+          <div class="calendar-header">
+            <span>&lt;</span>
+            <span>October 2023</span>
+            <span>&gt;</span>
+          </div>
+
+          <div class="days-row">
+            <div class="day">1</div>
+            <div class="day">2</div>
+            <div class="day">3</div>
+            <div class="day">4</div>
+            <div class="day active">5</div>
+            <div class="day">6</div>
+            <div class="day">7</div>
+          </div>
+        </div>
+
+        <h4>Available Time Slots - Wed, Oct 5</h4>
+
+        <!-- Time Slots -->
+        <div class="time-slots">
+          <span 
+            class="slot" 
+            *ngFor="let s of timeSlots" 
+            (click)="selectSlot(s)"
+            [class.active]="selectedTime === s">
+            {{ s }}
+          </span>
+        </div>
+
+        <button class="reserve-btn" routerLink="/patient/reservationconfirmation">Make Reservation</button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,60 @@
+<aside class="sidebar-container">
+  <div class="sidebar-top">
+    <nav class="nav-links">
+      <a
+        class="nav-link"
+        routerLink="/patient/dashboard"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <span class="material-symbols-outlined">dashboard</span>
+        <p class="text-sm font-medium">Dashboard</p>
+      </a>
+      <a
+        class="nav-link"
+        routerLink="/patient/findhospital"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <span class="material-symbols-outlined">group</span>
+        <p class="text-sm font-medium">Find Hospital</p>
+      </a>
+      <a
+        class="nav-link"
+        routerLink="/patient/myprescreptions"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <span class="material-symbols-outlined">medication</span>
+        <p class="text-sm font-medium">My Prescriptions</p>
+      </a>
+      <a
+        class="nav-link"
+        routerLink="/patient/myreservations"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <span class="material-symbols-outlined">book_online</span>
+        <p class="text-sm font-medium">My Reservations</p>
+      </a>
+      <a
+        class="nav-link"
+        routerLink="/patient/er"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <span class="material-symbols-outlined">emergency</span>
+        <p class="text-sm font-medium">ER</p>
+      </a>
+      <a
+        class="nav-link"
+        routerLink="/patient/settings"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <span class="material-symbols-outlined">settings</span>
+        <p class="text-sm font-medium">Settings</p>
+      </a>
+    </nav>
+  </div>
+
+  <button class="logout-button">
+    <span class="material-symbols-outlined">logout</span>
+    <span>Logout</span>
+  </button>
+
+</aside>

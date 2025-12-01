@@ -1,0 +1,58 @@
+<header class="topbar-container">
+
+  <div class="logo">
+    <img src="assets/Logo.png" class="logo"/>
+  </div>
+
+  <div class="topbar-actions">
+
+    <div class="current-date">
+      October 26, 2024 | 10:30 AM
+    </div>
+
+    <div class="actions-group">
+      <div class="notification-wrapper">
+
+        <button class="icon-btn notification-btn" (click)="toggleNotifications()">
+          <span class="material-symbols-outlined">notifications</span>
+        </button>
+
+        <div class="notification-popup" [class.active]="showNotifications">
+          <div class="popup-header">
+            <span>Notifications</span>
+          </div>
+
+          <div class="popup-list">
+            <div class="popup-item unread">
+              <div class="item-text">
+                <p class="title">New Appointment</p>
+                <p class="time">Sarah Jenkins - 10 min ago</p>
+              </div>
+            </div>
+            <div class="popup-item unread">
+              <div class="item-text">
+                <p class="title">ER Alert</p>
+                <p class="time">Critical Patient - 25 min ago</p>
+              </div>
+            </div>
+            <div class="popup-item">
+              <div class="item-text">
+                <p class="title">Lab Results</p>
+                <p class="time">John Doe - 1 hour ago</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="user-avatar-small"
+           role="img"
+           aria-label="User profile picture"
+           style='background-image: url("https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg");'>
+      </div>
+    </div>
+
+  </div>
+
+</header>

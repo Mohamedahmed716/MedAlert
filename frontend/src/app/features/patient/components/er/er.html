@@ -1,0 +1,44 @@
+<div class="page-container">
+
+  <h1 class="page-title">
+    {{ hospitalName }} - Emergency Room Status
+  </h1>
+
+  <div class="subtitle">
+    Live ER Bed Availability. Last updated: just now
+  </div>
+
+  <!-- Bed Grid -->
+  <div class="bed-grid">
+    <div 
+      *ngFor="let bed of beds"
+      class="bed-card"
+      [class.available]="bed.available"
+      [class.occupied]="!bed.available"
+    >
+      <span *ngIf="bed.available">&#10003;</span>
+      <span *ngIf="!bed.available">&#128100;</span>
+
+      Bed {{ bed.number }}
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend-row">
+    <div class="legend-dot green-dot"></div>
+    <div class="legend-label">Key: Green — Available</div>
+  </div>
+
+  <div class="legend-row">
+    <div class="legend-dot red-dot"></div>
+    <div class="legend-label">Key: Red — Occupied</div>
+  </div>
+
+  <div class="hr-line"></div>
+
+  <!-- Request Button -->
+  <button class="request-btn" (click)="requestBed()">
+    Request ER Bed
+  </button>
+
+</div>
