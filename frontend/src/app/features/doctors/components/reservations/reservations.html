@@ -9,9 +9,11 @@
 
     <div class="reservations-list-column">
 
-      <div class="card pending-reservations-card">
-        <h2 class="card-title">Pending Reservations</h2>
-        <p class="card-subtitle">These reservations need your approval.</p>
+      <div class="card todays-reservations-card">
+        <div class="card-header-flex">
+          <h2 class="card-title">Today's Reservations</h2>
+          <span class="badge-count">{{ res_num }} Scheduled</span>
+        </div>
 
         <div class="table-wrapper">
           <table class="reservations-table">
@@ -20,48 +22,39 @@
               <th>Patient</th>
               <th>Time</th>
               <th>Condition</th>
+              <th class="text-right">Status</th>
             </tr>
             </thead>
             <tbody>
-            <tr class="table-row-hover">
-              <td>
-                <div class="patient-info-cell">
-                  <p class="patient-name">Jane Smith</p>
-                </div>
-              </td>
-              <td class="text-secondary">9:30 AM</td>
-              <td>New Patient Consultation</td>
-              <td class="text-right">
-                <div class="action-buttons">
-                  <button class="icon-button icon-decline"><span class="material-symbols-outlined">cancel</span></button>
-                </div>
-              </td>
-            </tr>
-            <tr class="table-row-hover">
-              <td>
-                <div class="patient-info-cell">
-                  <p class="patient-name">Kevin McCallister</p>
-                </div>
-              </td>
-              <td class="text-secondary">2:00 PM</td>
-              <td>Routine Check-up</td>
-              <td class="text-right">
-                <div class="action-buttons">
-                  <button class="icon-button icon-decline"><span class="material-symbols-outlined">cancel</span></button>
-                </div>
-              </td>
-            </tr>
+              @for (res of todayReservations; track $index) {
+                <tr class="table-row-hover">
+                  <td>
+                    <div class="patient-info-cell">
+                      <p class="patient-name">{{res.patient}}</p>
+                    </div>
+                  </td>
+                  <td class="text-secondary">{{res.time}}</td>
+                  <td>{{res.condition}}</td>
+                  <td>
+                    <span class="status-tag" [ngClass]="{
+                      'status-confirmed': res.status === 'Confirmed',
+                      'status-cancelled': res.status === 'Cancelled',
+                      'status-pending': res.status === 'Pending'
+                    }">{{res.status}}</span>
+                  </td>
+                </tr>
+              }
             </tbody>
           </table>
         </div>
       </div>
 
-      <div class="card reservations-list-card">
-        <h2 class="card-title">Reservations for Nov 16, 2025</h2>
+      <div class="card reservations-history-card">
+        <h2 class="card-title">All Reservation</h2>
 
         <div class="input-with-icon search-bar">
           <span class="material-symbols-outlined icon">search</span>
-          <input class="form-input" placeholder="Search by patient name or condition..." type="text"/>
+          <input class="form-input" placeholder="Search by patient name..." type="text"/>
         </div>
 
         <div class="table-wrapper">
@@ -69,121 +62,50 @@
             <thead>
             <tr>
               <th>Patient</th>
-              <th>Time</th>
+              <th>Date & Time</th>
               <th>Condition</th>
               <th>Status</th>
             </tr>
             </thead>
             <tbody>
-            <tr class="table-row-hover">
-              <td>
-                <div class="patient-info-cell">
-                  <p class="patient-name">John Doe</p>
-                </div>
-              </td>
-              <td class="text-secondary">9:00 AM</td>
-              <td>Follow-up</td>
-              <td><span class="status-tag status-confirmed">Confirmed</span></td>
-            </tr>
-            <tr class="table-row-hover">
-              <td>
-                <div class="patient-info-cell">
-                  <p class="patient-name">Robert Johnson</p>
-                </div>
-              </td>
-              <td class="text-secondary">10:00 AM</td>
-              <td>Pre-op Assessment</td>
-              <td><span class="status-tag status-confirmed">Confirmed</span></td>
-            </tr>
-            <tr class="table-row-hover">
-              <td>
-                <div class="patient-info-cell">
-                  <p class="patient-name">Maria Garcia</p>
-                </div>
-              </td>
-              <td class="text-secondary">11:00 AM</td>
-              <td>Check-up</td>
-              <td><span class="status-tag status-confirmed">Confirmed</span></td>
-            </tr>
-            <tr class="table-row-hover">
-              <td>
-                <div class="patient-info-cell">
-                  <p class="patient-name">David Lee</p>
-                </div>
-              </td>
-              <td class="text-secondary">11:30 AM</td>
-              <td>Consultation</td>
-              <td><span class="status-tag status-cancelled">Cancelled</span></td>
-            </tr>
+            <!-- Loop for All data (e.g., allReservations) -->
+              @for (res of allReservations; track $index){
+                <tr class="table-row-hover">
+                  <td>
+                    <div class="patient-info-cell">
+                      <p class="patient-name">{{res.patient}}</p>
+                    </div>
+                  </td>
+                  <!-- Shows full date for history -->
+                  <td class="text-secondary">{{res.date}} {{res.time}}</td>
+                  <td>{{res.condition}}</td>
+                  <td>
+                    <span class="status-tag" [ngClass]="{
+                      'status-confirmed': res.status === 'Confirmed',
+                      'status-cancelled': res.status === 'Cancelled',
+                      'status-pending': res.status === 'Pending'
+                    }">{{res.status}}</span>
+                  </td>
+                </tr>
+              }
             </tbody>
           </table>
         </div>
       </div>
+
     </div>
 
     <div class="reservations-widgets-column">
 
       <div class="card shift-widget">
         <h3 class="widget-title">Current Shift</h3>
-        <p class="shift-time">8:00 AM - 5:00 PM</p>
-      </div>
-
-      <div class="card calendar-widget">
-        <div class="calendar-header">
-          <button class="calendar-nav">
-            <span class="material-symbols-outlined">chevron_left</span>
-          </button>
-          <p class="calendar-month">November 2025</p>
-          <button class="calendar-nav">
-            <span class="material-symbols-outlined">chevron_right</span>
-          </button>
-        </div>
-        <div class="calendar-grid">
-          <p class="calendar-weekday">S</p>
-          <p class="calendar-weekday">M</p>
-          <p class="calendar-weekday">T</p>
-          <p class="calendar-weekday">W</p>
-          <p class="calendar-weekday">T</p>
-          <p class="calendar-weekday">F</p>
-          <p class="calendar-weekday">S</p>
-
-          <button class="calendar-day other-month" style="grid-column-start: 7;">1</button>
-          <button class="calendar-day">2</button>
-          <button class="calendar-day">3</button>
-          <button class="calendar-day">4</button>
-          <button class="calendar-day">5</button>
-          <button class="calendar-day">6</button>
-          <button class="calendar-day">7</button>
-          <button class="calendar-day">8</button>
-          <button class="calendar-day">9</button>
-          <button class="calendar-day">10</button>
-          <button class="calendar-day">11</button>
-          <button class="calendar-day">12</button>
-          <button class="calendar-day">13</button>
-          <button class="calendar-day">14</button>
-          <button class="calendar-day">15</button>
-          <button class="calendar-day active">16</button>
-          <button class="calendar-day">17</button>
-          <button class="calendar-day">18</button>
-          <button class="calendar-day">19</button>
-          <button class="calendar-day">20</button>
-          <button class="calendar-day">21</button>
-          <button class="calendar-day">22</button>
-          <button class="calendar-day">23</button>
-          <button class="calendar-day">24</button>
-          <button class="calendar-day">25</button>
-          <button class="calendar-day">26</button>
-          <button class="calendar-day">27</button>
-          <button class="calendar-day">28</button>
-          <button class="calendar-day">29</button>
-          <button class="calendar-day">30</button>
-        </div>
+        <p class="shift-time">{{ shift[0] }} - {{ shift[1] }}</p>
       </div>
 
       <div class="card er-access-card">
         <h3 class="widget-title">Emergency Access</h3>
         <p class="er-access-text">View real-time ER statistics and manage emergency cases.</p>
-        <a class="er-card-button" routerLink = "/doctors/er">
+        <a class="er-card-button" routerLink="/doctors/er">
           <span class="material-symbols-outlined">emergency</span>
           <span>Go to ER</span>
         </a>

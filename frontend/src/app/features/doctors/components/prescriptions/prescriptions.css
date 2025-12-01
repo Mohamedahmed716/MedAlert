@@ -5,6 +5,58 @@
   overflow-y: auto;
   box-sizing: border-box;
 }
+.notification-banner {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ecfdf5;
+  border: 1px solid #10b981;
+  border-radius: 0.75rem;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  z-index: 1000;
+  transition: top 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  width: 90%;
+  max-width: 28rem;
+}
+.notification-banner.show {
+  top: 2rem;
+}
+.notification-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.notification-icon {
+  color: #059669;
+  font-size: 1.5rem;
+  margin-top: 0.1rem;
+}
+.notification-text {
+  flex: 1;
+}
+.notification-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #064e3b;
+}
+.notification-desc {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.875rem;
+  color: #065f46;
+  line-height: 1.4;
+}
+.close-btn {
+  background: none;
+  border: none;
+  color: #059669;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
 
 .prescription-container {
   padding: 2rem;
