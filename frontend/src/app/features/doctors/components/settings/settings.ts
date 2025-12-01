@@ -11,7 +11,8 @@ import {DoctorService} from '../../doctor.service';
 export class Settings {
   user : any = {};
 
-  showNotification = false;
+  showNotificationSettings = false;
+  showNotificationPassword = false;
 
   constructor(private doctorService: DoctorService) {}
 
@@ -24,10 +25,18 @@ export class Settings {
   saveSettings() {
     console.log('Saving settings:');
 
-    this.showNotification = true;
+    this.showNotificationSettings = true;
 
     setTimeout(() => {
-      this.showNotification = false;
+      this.showNotificationSettings = false;
+    }, 2000);
+  }
+
+  savePassword() {
+    this.showNotificationPassword = true;
+
+    setTimeout(() => {
+      this.showNotificationPassword = false;
     }, 2000);
   }
 }
