@@ -1,4 +1,16 @@
 <div class="profile">
+  <div class="notification-banner" [class.show]="showNotification">
+    <div class="notification-content">
+      <span class="material-symbols-outlined notification-icon">check_circle</span>
+      <div class="notification-text">
+        <p class="notification-title">Success</p>
+        <p class="notification-desc">Settings saved successfully!</p>
+      </div>
+      <button class="close-btn" (click)="showNotification = false">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+  </div>
   <div class="header">
     <h2>Profile</h2>
     <p>Manage your personal information, address, and emergency contact.</p>
@@ -48,7 +60,7 @@
   </div>
   <div class="buttons">
     <button class="cancel-button">Cancel</button>
-    <button class="save-button">Save Changes</button>
+    <button class="save-button" (click)="saveSettings()">Save Changes</button>
   </div>
 </div>
 

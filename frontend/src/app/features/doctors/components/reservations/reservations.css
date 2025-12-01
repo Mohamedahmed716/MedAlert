@@ -12,26 +12,11 @@
   margin: 0 auto;
 }
 
-.page-header {
-  margin-bottom: 2rem;
-}
+.page-header { margin-bottom: 2rem; }
+.page-title { font-size: 2.25rem; font-weight: 900; color: var(--text-primary); margin: 0; }
+.page-subtitle { font-size: 1rem; color: var(--text-secondary); margin: 0.25rem 0 0 0; }
 
-.page-title {
-  font-size: 2.25rem;
-  font-weight: 900;
-  line-height: 1.1;
-  letter-spacing: -0.033em;
-  color: var(--text-primary);
-  margin: 0;
-}
-
-.page-subtitle {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  line-height: 1.5;
-  margin: 0.25rem 0 0 0;
-}
-
+/* --- LAYOUT GRID --- */
 .reservations-layout-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -40,26 +25,30 @@
 
 @media (min-width: 1024px) {
   .reservations-layout-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .reservations-list-column {
-    grid-column: span 2 / span 2;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-  .reservations-widgets-column {
-    grid-column: span 1 / span 1;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    grid-template-columns: 2fr 1fr; /* 2/3 Left, 1/3 Right */
   }
 }
 
+/* --- LEFT COLUMN --- */
+.reservations-list-column {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* THIS creates the space between the two reservation cards */
+}
+
+/* --- RIGHT COLUMN --- */
+.reservations-widgets-column {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  /* Since this is a separate grid column, it won't move down */
+}
+
+/* --- CARDS --- */
 .card {
   background-color: var(--slate-50);
   border-radius: var(--radius-xl);
-  padding: 1.5rem; /* p-6 */
+  padding: 1.5rem;
   box-shadow: var(--shadow-sm);
   overflow: hidden;
 }
@@ -67,265 +56,62 @@
 .card-title {
   font-size: 1.5rem;
   font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.015em;
-  margin-top: 0;
-  margin-bottom: 0.5rem;
+  margin: 0 0 1.5rem 0;
   color: var(--text-primary);
 }
 
-.card-subtitle {
-  font-size: 0.875rem;
-  color: var(--slate-500);
-  margin-top: -0.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.input-with-icon {
-  position: relative;
-}
-.input-with-icon .icon {
-  position: absolute;
-  left: 0.75rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--slate-400);
-}
-.form-input {
-  width: 100%;
-  border-radius: var(--radius-lg);
-  color: var(--text-primary);
-  border: 1px solid var(--slate-300);
-  background-color: var(--slate-100);
-  padding: 0 1rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  box-sizing: border-box;
-  height: 3.5rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-.form-input:focus {
-  outline: 0;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 2px #1193d480;
-}
-.search-bar {
-  margin-bottom: 1.5rem;
-}
-.search-bar .form-input {
-  height: 3rem;
-  font-size: 0.875rem;
-  padding-left: 2.75rem;
-}
-
-.table-wrapper {
-  overflow-x: auto;
-}
-.reservations-table {
-  width: 100%;
-  text-align: left;
-  border-collapse: collapse;
-}
-.reservations-table th,
-.reservations-table td {
-  padding: 1rem;
-  border-bottom: 1px solid var(--slate-200);
-  white-space: nowrap;
-}
-.reservations-table th {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-.reservations-table td {
-  color: var(--text-primary);
-}
-.text-secondary {
-  color: var(--slate-500);
-}
-.text-right {
-  text-align: right;
-}
-.table-row-hover:hover {
-  background-color: var(--slate-100);
-}
-
-.patient-info-cell {
+.card-header-flex {
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-.patient-avatar {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: var(--radius-full);
-  background-size: cover;
-  background-position: center;
-  flex-shrink: 0;
-}
-.patient-name {
-  font-weight: 500;
-  color: var(--slate-800);
-  margin: 0;
-}
-
-.status-tag {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-  line-height: 1rem;
-  font-weight: 600;
-  border-radius: var(--radius-full);
-}
-.status-tag.status-confirmed {
-  color: var(--green-800);
-  background-color: var(--green-100);
-}
-.status-tag.status-pending {
-  color: var(--yellow-800);
-  background-color: var(--yellow-100);
-}
-.status-tag.status-cancelled {
-  color: var(--red-800);
-  background-color: var(--red-100);
-}
-
-.action-buttons {
-  display: flex;
-  gap: 0.25rem;
-  justify-content: flex-end;
-}
-.icon-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.25rem;
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.icon-button .material-symbols-outlined {
-  font-size: 1.25rem;
-}
-.icon-button.icon-accept {
-  color: var(--green-800);
-}
-.icon-button.icon-decline {
-  color: var(--red-800);
-}
-
-.widget-title {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--slate-900);
-  margin-top: 0;
-  margin-bottom: 0.75rem;
-}
-.shift-widget {
-  padding: 1rem;
-}
-.shift-time {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--slate-800);
-  margin: 0;
-}
-
-.calendar-widget {
-  padding: 1rem;
-}
-.calendar-header {
-  display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 0.25rem;
-}
-.calendar-nav {
-  color: var(--slate-600);
-  display: flex;
   align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  background: none;
-  border: none;
-  cursor: pointer;
+  margin-bottom: 1.5rem;
 }
-.calendar-nav .material-symbols-outlined {
-  font-size: 1.25rem;
-}
-.calendar-month {
-  color: var(--slate-900);
-  font-size: 1rem;
-  font-weight: 700;
-  flex: 1;
-  text-align: center;
-}
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  text-align: center;
-}
-.calendar-weekday {
-  color: var(--slate-500);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.015em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 2.5rem;
-  width: 100%;
-}
-.calendar-day {
-  height: 2.5rem;
-  width: 100%;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--slate-700);
-  background: none;
-  border: none;
-  cursor: pointer;
-  border-radius: var(--radius-full);
-}
-.calendar-day.other-month {
-  color: var(--slate-400);
-}
-.calendar-day.active {
-  color: var(--white);
+.card-header-flex .card-title { margin-bottom: 0; }
+
+.badge-count {
   background-color: var(--primary);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
 }
 
-.er-access-card {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+/* --- TABLES & SEARCH --- */
+.input-with-icon { position: relative; }
+.input-with-icon .icon { position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--slate-400); }
+.form-input {
+  width: 100%; border-radius: var(--radius-lg); border: 1px solid var(--slate-300);
+  background-color: var(--slate-100); padding: 0 1rem 0 2.75rem; height: 3rem;
 }
-.er-access-text {
-  font-size: 0.875rem;
-  color: var(--slate-500);
-  line-height: 1.5;
-  margin: 0;
-}
+.search-bar { margin-bottom: 1.5rem; width: 90%; }
+
+.table-wrapper { overflow-x: auto; }
+.reservations-table { width: 100%; text-align: left; border-collapse: collapse; }
+.reservations-table th { padding: 1rem; color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; border-bottom: 1px solid var(--slate-200); }
+.reservations-table td { padding: 1rem; color: var(--text-primary); border-bottom: 1px solid var(--slate-200); }
+.table-row-hover:hover { background-color: var(--slate-100); }
+
+/* --- STATUS TAGS --- */
+.status-tag { padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; display: inline-block; }
+.status-confirmed { background-color: var(--green-100); color: var(--green-800); }
+.status-cancelled { background-color: var(--red-100); color: var(--red-700); }
+.status-pending { background-color: var(--yellow-100); color: var(--yellow-800); }
+
+/* --- WIDGETS --- */
+.widget-title { font-size: 1.125rem; font-weight: 600; margin: 0 0 0.75rem 0; color: var(--slate-900); }
+.shift-time { font-size: 1.25rem; font-weight: 700; color: var(--slate-800); margin: 0; }
+
 .er-card-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  height: 3rem;
-  padding: 0 1.5rem;
-  border-radius: var(--radius-lg);
-  background-color: var(--red-600);
-  color: var(--white);
-  font-size: 1rem;
-  font-weight: 700;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem; height: 3rem;
+  background-color: var(--red-600); color: white; border-radius: var(--radius-lg);
+  font-weight: 700; text-decoration: none; transition: background 0.2s;
 }
-.er-card-button:hover {
-  background-color: var(--red-700);
-}
+.er-card-button:hover { background-color: var(--red-700); }
+.er-access-text { color: var(--slate-500); font-size: 0.875rem; margin-bottom: 1rem; }
+
+/* --- ACTION BUTTONS --- */
+.action-buttons { display: flex; gap: 0.5rem; justify-content: flex-end; }
+.icon-button { border: none; background: none; cursor: pointer; color: var(--slate-500); padding: 0; }
+.icon-accept { color: var(--green-800); }
+.icon-decline { color: var(--red-800); }

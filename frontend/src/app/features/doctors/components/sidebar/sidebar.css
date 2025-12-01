@@ -11,7 +11,7 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  background-color: var(--background-light);
+  background-color: var(--white);
   box-sizing: border-box;
 }
 

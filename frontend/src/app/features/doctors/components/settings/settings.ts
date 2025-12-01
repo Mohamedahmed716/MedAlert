@@ -11,11 +11,23 @@ import {DoctorService} from '../../doctor.service';
 export class Settings {
   user : any = {};
 
+  showNotification = false;
+
   constructor(private doctorService: DoctorService) {}
 
   ngOnInit() {
     this.doctorService.currentUser$.subscribe(data => {
       this.user = data;
     });
+  }
+
+  saveSettings() {
+    console.log('Saving settings:');
+
+    this.showNotification = true;
+
+    setTimeout(() => {
+      this.showNotification = false;
+    }, 2000);
   }
 }

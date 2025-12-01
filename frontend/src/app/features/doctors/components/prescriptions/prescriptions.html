@@ -1,5 +1,16 @@
 <div class="prescription-container">
-
+  <div class="notification-banner" [class.show]="showNotification">
+    <div class="notification-content">
+      <span class="material-symbols-outlined notification-icon">check_circle</span>
+      <div class="notification-text">
+        <p class="notification-title">Success</p>
+        <p class="notification-desc">Prescription sent successfully!</p>
+      </div>
+      <button class="close-btn" (click)="showNotification = false">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+  </div>
   <div class="page-header">
     <h1 class="page-title">Manage Prescriptions</h1>
     <p class="page-subtitle">Create and view prescriptions for your patients.</p>
@@ -58,8 +69,8 @@
           </div>
 
           <div class="button-group">
-            <button class="button button-primary" type="submit">
-              <span>Send Prescription</span>
+            <button type="button" class="button button-primary" (click)="sendPrescription()">
+              Send Prescription
             </button>
           </div>
         </form>
@@ -77,35 +88,18 @@
 
         <div class="prescription-list">
 
-          <div class="prescription-card">
-            <div class="card-top">
-              <span class="patient-name">Liam Gallagher</span>
-              <span class="date">2023-10-26</span>
+          @for (prescription of prescriptions ; track $index) {
+            <div class="prescription-card">
+              <div class="card-top">
+                <span class="patient-name">{{prescription.patient}}</span>
+                <span class="date">{{prescription.date}}</span>
+              </div>
+              <div class="card-bottom">
+                <span class="med-details">{{ prescription.medication }} - {{ prescription.dosage }} • {{ prescription.frequency }} • {{prescription.duration}}</span>
+              </div>
             </div>
-            <div class="card-bottom">
-              <span class="med-details">Lisinopril - 10mg • Once daily • 7 Days</span>
-            </div>
-          </div>
+          }
 
-          <div class="prescription-card">
-            <div class="card-top">
-              <span class="patient-name">Olivia Chen</span>
-              <span class="date">2023-10-25</span>
-            </div>
-            <div class="card-bottom">
-              <span class="med-details">Metformin - 500mg • Twice daily • 14 Days</span>
-            </div>
-          </div>
-
-          <div class="prescription-card">
-            <div class="card-top">
-              <span class="patient-name">Benjamin Carter</span>
-              <span class="date">2023-10-24</span>
-            </div>
-            <div class="card-bottom">
-              <span class="med-details">Atorvastatin - 20mg • Once daily • 30 Days</span>
-            </div>
-          </div>
         </div>
         </div>
       </div>

@@ -27,58 +27,21 @@
           </tr>
           </thead>
           <tbody>
-          <tr class="table-row-hover">
-            <td>
-              <div class="patient-info-cell">
-                <p class="patient-name">Alice Wonderland</p>
-              </div>
-            </td>
-            <td class="text-secondary">1990-05-15</td>
-            <td>Hypertension</td>
-            <td class="text-secondary">2024-10-20</td>
-            <td class="text-right">
-              <button class="button-view">View Prescription</button>
-            </td>
-          </tr>
-          <tr class="table-row-hover">
-            <td>
-              <div class="patient-info-cell">
-                <p class="patient-name">Bob The Builder</p>
-              </div>
-            </td>
-            <td class="text-secondary">1985-11-22</td>
-            <td>Diabetes Type 2</td>
-            <td class="text-secondary">2024-09-10</td>
-            <td class="text-right">
-              <button class="button-view">View Prescription</button>
-            </td>
-          </tr>
-          <tr class="table-row-hover">
-            <td>
-              <div class="patient-info-cell">
-                <p class="patient-name">Charlie Chaplin</p>
-              </div>
-            </td>
-            <td class="text-secondary">1978-03-01</td>
-            <td>Asthma</td>
-            <td class="text-secondary">2024-10-05</td>
-            <td class="text-right">
-              <button class="button-view">View Prescription</button>
-            </td>
-          </tr>
-          <tr class="table-row-hover">
-            <td>
-              <div class="patient-info-cell">
-                <p class="patient-name">Diana Prince</p>
-              </div>
-            </td>
-            <td class="text-secondary">1992-07-30</td>
-            <td>Migraine</td>
-            <td class="text-secondary">2024-10-15</td>
-            <td class="text-right">
-              <button class="button-view">View Prescription</button>
-            </td>
-          </tr>
+          @for (patient of patients; track $index) {
+            <tr class="table-row-hover">
+              <td>
+                <div class="patient-info-cell">
+                  <p class="patient-name">{{ patient.name }}</p>
+                </div>
+              </td>
+              <td class="text-secondary">{{ patient.dob }}</td>
+              <td>{{patient.condition}}</td>
+              <td class="text-secondary">{{patient.lastVisit}}</td>
+              <td class="text-right">
+                <button class="button-view">View Prescription</button>
+              </td>
+            </tr>
+          }
           </tbody>
         </table>
       </div>
