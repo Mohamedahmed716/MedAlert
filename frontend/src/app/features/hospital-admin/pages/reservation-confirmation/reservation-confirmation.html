@@ -1,0 +1,44 @@
+<div class="page-container">
+  <!-- DELETE THIS LINE -->
+  <!-- <app-sidebar></app-sidebar> -->
+
+  <div class="success-modal">
+    <div class="modal-content">
+      <div class="success-icon">
+        <img src="https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-11-30/ZhYfRO1XtE.png" alt="Success">
+      </div>
+
+      <div class="text-content">
+        <h1 class="success-title">Reservation Accepted Successfully</h1>
+        <p class="success-message">
+          The appointment has been confirmed for <strong>{{ reservation.patientName }}</strong>
+        </p>
+      </div>
+
+      <div class="details-grid">
+        <div class="detail-row">
+          <span class="label">Patient Name</span>
+          <span class="value">{{ reservation.patientName }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Appointment Date</span>
+          <span class="value">{{ reservation.date }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Time</span>
+          <span class="value">{{ reservation.time }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Department</span>
+          <span class="value">{{ reservation.department }}</span>
+        </div>
+      </div>
+
+      <div class="action-section">
+        <button class="btn-primary" routerLink="/dashboard">
+          Back to Dashboard
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

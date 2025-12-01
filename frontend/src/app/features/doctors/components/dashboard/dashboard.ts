@@ -10,6 +10,7 @@ import {DatePipe} from '@angular/common';
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
+  standalone: true
 })
 export class Dashboard {
     reservations = [

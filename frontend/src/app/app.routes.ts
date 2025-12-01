@@ -1,30 +1,31 @@
 import { Routes } from '@angular/router';
+import {HospitalAdminRoutes} from './features/hospital-admin/Hospital-Admin.routes';
 
 export const routes: Routes = [
   {
+    path: 'hospital-admin',
+    loadChildren: () => import('./features/hospital-admin/Hospital-Admin.routes').then((m) => m.HospitalAdminRoutes),
+  },
+  {
     path: 'doctors',
-    // Legacy module structure
     loadChildren: () => import('./features/doctors/doctors.module').then((m) => m.DoctorsModule),
   },
   {
     path: 'auth',
-    // Lazy loads Auth routes (Sign In, Sign Up)
     loadChildren: () => import('./features/auth/auth.routes').then((m) => m.AUTH_ROUTES),
   },
   {
     path: 'admin',
-    // Lazy loads System Admin routes (Hospital Management, Users, etc.)
     loadChildren: () =>
       import('./features/system-admin/system-admin.routes').then((m) => m.ADMIN_ROUTES),
+  },
+  {
+    path: 'patient',
+    loadChildren: () => import('./features/patient/patient-module').then(m => m.PatientModule),
   },
   {
     path: '',
     redirectTo: 'auth',
     pathMatch: 'full',
   },
-   {
-  path: 'patient',
-  loadChildren: () => import('./features/patient/patient-module').then(m => m.PatientModule),
-  },
-
 ];

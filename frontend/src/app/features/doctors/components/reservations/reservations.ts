@@ -10,6 +10,7 @@ import {NgClass} from '@angular/common';
   ],
   templateUrl: './reservations.html',
   styleUrl: './reservations.css',
+  standalone: true
 })
 export class Reservations {
   currentDate: Date = new Date();

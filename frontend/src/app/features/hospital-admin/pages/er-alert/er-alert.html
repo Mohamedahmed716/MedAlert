@@ -1,0 +1,63 @@
+<div class="page-container">
+
+  <main class="main-content">
+    <header class="page-header">
+      <h1>Urgent ER Notification</h1>
+      <p>Send an immediate alert to a doctor for an incoming ER patient.</p>
+    </header>
+
+    <div class="alert-card">
+      <form [formGroup]="alertForm" (ngSubmit)="onSubmit()">
+        <!-- Select Doctor -->
+        <label class="label">Select Doctor</label>
+        <div class="select-wrapper">
+          <select formControlName="doctorId" class="doctor-select">
+            <option value="" disabled selected>Select a doctor...</option>
+            <option *ngFor="let doctor of doctors" [value]="doctor.id">
+              {{ doctor.name }}
+            </option>
+          </select>
+          <img src="https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-11-30/tTuJ0rtOQB.png" alt="dropdown" class="dropdown-icon">
+        </div>
+
+        <!-- Preview Selected Doctor -->
+        <div class="doctor-preview" *ngIf="selectedDoctor">
+          <img [src]="selectedDoctor.avatar" alt="{{ selectedDoctor.name }}" class="preview-avatar">
+          <span>{{ selectedDoctor.name }}</span>
+        </div>
+
+        <!-- Patient Details & Bed -->
+        <div class="row">
+          <div class="field-group">
+            <label class="label">Patient Details (Optional)</label>
+            <input type="text" formControlName="patientDetails" placeholder="e.g., John Doe, 45M" class="input">
+          </div>
+          <div class="field-group">
+            <label class="label">ER Bed Number</label>
+            <input type="text" formControlName="bedNumber" placeholder="e.g., Bed 14" class="input">
+          </div>
+        </div>
+
+        <!-- Reason -->
+        <label class="label">Reason for Urgent Request</label>
+        <textarea
+          formControlName="reason"
+          rows="5"
+          placeholder="Briefly describe the patient's condition and why the alert is urgent..."
+          class="textarea"
+        ></textarea>
+
+        <!-- Submit -->
+        <!-- Submit -->
+        <button
+          type="submit"
+          class="btn-send"
+          [class.btn-sent]="isAlertSent"
+          >
+          <span *ngIf="!isAlertSent">Send Alert</span>
+          <span *ngIf="isAlertSent">✓ Alert Sent</span>
+        </button>
+      </form>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,310 @@
+/* notification-center.css – FINAL FIXED VERSION */
+
+.page-container {
+  /* Remove flex & margin-left – the global app layout already handles this */
+  min-height: 100vh;
+  background: #f6f7f8;
+  font-family: 'Inter', sans-serif;
+}
+
+/* This is the key fix – no margin-left, no flex display here */
+.main-content {
+  flex: 1;
+  padding: 0;
+  margin-left: 0 !important;   /* Overrides any previous margin */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 420px;   /* Left: reservation card | Right: notifications */
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Left Panel – Active Reservation */
+.reservation-card {
+  background: #f6f7f8;
+  padding: 40px;
+  overflow-y: auto;
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+
+    .icon-bg {
+      width: 64px;
+      height: 64px;
+      background: rgba(17, 147, 212, 0.1);
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0f172a;
+      flex: 1;
+    }
+
+    .time {
+      font-size: 14px;
+      color: #64748b;
+      white-space: nowrap;
+    }
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 32px 0 12px;
+  }
+
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+    font-size: 14px;
+
+    .label {
+      color: #475569;
+      font-weight: 500;
+    }
+
+    strong, span {
+      color: #1e293b;
+    }
+  }
+
+  .info-label {
+    color: #475569;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 16px 0 4px;
+  }
+
+  .info-value {
+    color: #1e293b;
+    font-size: 14px;
+    margin-bottom: 16px;
+
+    &.reason {
+      line-height: 1.6;
+      margin-top: 8px;
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 60px;
+    justify-content: flex-end;
+
+    button {
+      padding: 10px 24px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-dismiss {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .btn-view {
+      background: #1193d4;
+      color: white;
+      padding: 10px 32px;
+    }
+  }
+}
+
+/* Right Panel – Notifications List */
+.notifications-panel {
+  background: white;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -4px 0 10px rgba(0,0,0,0.05);
+
+  header {
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0 0 4px;
+    }
+    p {
+      font-size: 14px;
+      color: #64748b;
+      margin: 0;
+    }
+  }
+
+  .search-bar {
+    position: relative;
+    margin: 32px 0;
+
+    img {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      opacity: 0.6;
+    }
+
+    input {
+      width: 100%;
+      height: 48px;
+      padding: 0 16px 0 48px;
+      background: #f1f5f9;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      color: #1e293b;
+
+      &::placeholder {
+        color: #94a3b8;
+      }
+    }
+  }
+
+  .tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+
+    .tab {
+      padding: 8px 18px;
+      border: none;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &.active {
+        background: rgba(17, 147, 212, 0.15);
+        color: #1193d4;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .notification-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 8px;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+  }
+
+  .notification-item {
+    display: flex;
+    gap: 1px;
+    padding: 16px 0;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.2s;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .notif-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .notif-content {
+      flex: 1;
+
+      .notif-title {
+        font-size: 15px;
+        font-weight: 500;
+        color: #0f172a;
+        margin-bottom: 4px;
+      }
+
+      .notif-time {
+        font-size: 13px;
+        color: #64748b;
+      }
+    }
+  }
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .grid-layout {
+    grid-template-columns: 1fr;
+  }
+  .notifications-panel {
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .reservation-card,
+  .notifications-panel {
+    padding: 20px;
+  }
+  .grid-layout {
+    height: auto;
+    min-height: 100vh;
+  }
+}
+/* Icon enhancements */
+.icon-bg svg,
+.notif-icon svg {
+  stroke: currentColor;
+  fill: none;
+}
+
+.notif-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Optional: Add subtle background to icons */
+.reservation-card .icon-bg {
+  background: rgba(17, 147, 212, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-bar svg {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  pointer-events: none;
+}

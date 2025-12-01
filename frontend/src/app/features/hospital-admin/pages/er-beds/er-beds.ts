@@ -6,11 +6,10 @@ import {NgClass} from '@angular/common';
   imports: [
     NgClass
   ],
-  templateUrl: './er.html',
-  styleUrl: './er.css',
-  standalone: true
+  templateUrl: './er-beds.html',
+  styleUrl: './er-beds.css',
 })
-export class Er {
+export class ErBedManagementComponent {
   // Sample data for ER beds
   beds = [
     {id : 'ER-1', status: 'Available'},

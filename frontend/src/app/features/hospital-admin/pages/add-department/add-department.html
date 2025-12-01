@@ -1,0 +1,93 @@
+<div class="page-container">
+  <!-- Success Popup -->
+  <div class="success-popup" [class.show]="showSuccessPopup">
+    <div class="success-content">
+      <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+      <span>Saved Successfully!</span>
+    </div>
+  </div>
+
+  <div class="content">
+    <h1 class="page-title">Add New Department</h1>
+
+    <div class="form-card">
+      <form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+
+        <!-- Department Information -->
+        <section class="section">
+          <h2>Department Information</h2>
+
+          <div class="grid-2">
+            <div class="field">
+              <label>Department Name</label>
+              <input type="text" formControlName="name" placeholder="e.g., Cardiology" />
+            </div>
+
+            <div class="field">
+              <label>Short Code (optional)</label>
+              <input type="text" formControlName="shortCode" placeholder="e.g., CARD" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Head of Department (optional)</label>
+            <input type="text" formControlName="headOfDepartment"
+                   placeholder="Enter doctor's full name" />
+          </div>
+
+          <div class="field">
+            <label>Department Icon / Logo</label>
+            <div class="upload-area" (click)="fileInput.click()">
+              <input #fileInput type="file" hidden accept="image/*" (change)="onFileSelected($event)" />
+              <img *ngIf="previewUrl; else placeholder" [src]="previewUrl" class="preview" />
+              <ng-template #placeholder>
+                <img src="https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-11-30/y02j0MyaXV.png" alt="upload" />
+                <div class="upload-text">
+                  <span class="link">Upload a file</span> or drag and drop
+                </div>
+                <small>PNG, JPG, SVG up to 10MB</small>
+              </ng-template>
+            </div>
+          </div>
+        </section>
+
+        <!-- Contact Details -->
+        <section class="section">
+          <h2>Contact Details (optional)</h2>
+
+          <div class="grid-2">
+            <div class="field">
+              <label>Phone Number</label>
+              <input type="tel" formControlName="phone" placeholder="(123) 456-7890" />
+            </div>
+
+            <div class="field">
+              <label>Email Address</label>
+              <input type="email" formControlName="email" placeholder="department@example.com" />
+            </div>
+          </div>
+        </section>
+
+        <!-- Description -->
+        <section class="section">
+          <h2>Description</h2>
+          <p class="subtitle">Provide a brief overview of the department and the services it offers.</p>
+
+          <div class="field">
+            <textarea formControlName="description" rows="7"
+                      placeholder="Write a detailed description..."></textarea>
+            <small>Max 1000 characters.</small>
+          </div>
+        </section>
+
+        <!-- Actions -->
+        <div class="actions">
+          <button type="button" class="btn-cancel">Cancel</button>
+          <button type="submit" class="btn-save">Save Department</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

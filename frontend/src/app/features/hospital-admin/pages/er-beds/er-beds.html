@@ -1,0 +1,51 @@
+<div class="er-container">
+
+  <div class="page-header">
+    <p class="page-title">ER Bed Management</p>
+  </div>
+
+  <div class="legend-container">
+    <div class="legend-item">
+      <p class="legend-label">Available</p>
+      <div class="legend-info">
+        <div class="legend-dot legend-dot-available"></div>
+        <p class="legend-description">Indicates the bed is ready for a new patient.</p>
+      </div>
+    </div>
+    <div class="legend-item">
+      <p class="legend-label">Occupied</p>
+      <div class="legend-info">
+        <div class="legend-dot legend-dot-occupied"></div>
+        <p class="legend-description">Indicates the bed is currently in use.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bed-grid">
+    @for (bed of beds; track $index) {
+      <div class="bed-card" [ngClass]="{'bed-card-available': bed.status === 'Available', 'bed-card-occupied': bed.status === 'Occupied'}">
+        <div class="bed-content">
+          <span class="material-symbols-outlined bed-icon">bed</span>
+          <p class="bed-id">{{ bed.id }}</p>
+          <p class="bed-status">{{ bed.status }}</p>
+        </div>
+      </div>
+    }
+  </div>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmation-modal">
+  <div class="modal-content">
+    <h3 class="modal-title">Confirm Status Change</h3>
+    <p class="modal-body">
+      Are you sure you want to change the status of
+      <span class="modal-highlight" id="modal-bed-id">ER-01</span> to
+      <span class="modal-highlight" id="modal-new-status">Occupied</span>?
+    </p>
+    <div class="modal-actions">
+      <button class="button-modal button-cancel">Cancel</button>
+      <button class="button-modal button-confirm">Confirm</button>
+    </div>
+  </div>
+</div>

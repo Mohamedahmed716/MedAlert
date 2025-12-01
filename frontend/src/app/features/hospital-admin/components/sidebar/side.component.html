@@ -1,0 +1,20 @@
+<div class="sidebar-container">
+  <div class="sidebar-top">
+    <!-- Navigation Links -->
+    <nav class="nav-links">
+      <a *ngFor="let item of menuItems"
+         [routerLink]="item.route"
+         routerLinkActive="active"
+         class="nav-link">
+        <span class="material-symbols-outlined">{{ item.icon }}</span>
+        <p>{{ item.label }}</p>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Logout Button -->
+  <button class="logout-button" (click)="logout()">
+    <span class="material-symbols-outlined">logout</span>
+    Logout
+  </button>
+</div>

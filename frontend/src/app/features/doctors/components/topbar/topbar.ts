@@ -7,6 +7,7 @@ import { DoctorService} from '../../doctor.service';
   imports: [CommonModule],
   templateUrl: './topbar.html',
   styleUrl: './topbar.css',
+  standalone: true
 })
 export class Topbar {
   showNotifications = false;

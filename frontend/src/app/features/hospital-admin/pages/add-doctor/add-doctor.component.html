@@ -1,0 +1,108 @@
+<div class="page-container">
+  <!-- Sidebar reused from previous dashboard -->
+  <div class="success-popup" [class.show]="showSuccessPopup">
+    <div class="success-content">
+      <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+      <span>Saved Successfully!</span>
+    </div>
+  </div>
+  <div class="content">
+    <h1 class="page-title">Add New Doctor</h1>
+
+    <div class="form-card">
+      <form [formGroup]="doctorForm" (ngSubmit)="onSubmit()">
+        <!-- Doctor's Information -->
+        <section class="section">
+          <h2>Doctor's Information</h2>
+
+          <div class="grid-2">
+            <div class="field">
+              <label>Full Name</label>
+              <input type="text" formControlName="fullName" placeholder="Enter doctor's full name" />
+            </div>
+            <div class="field">
+              <label>Specialty</label>
+              <input type="text" formControlName="specialty" placeholder="e.g., Cardiology" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Department</label>
+            <select formControlName="department">
+              <option value="" disabled selected>Select a department</option>
+              <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Profile Picture</label>
+            <div class="upload-area" (click)="fileInput.click()">
+              <input #fileInput type="file" hidden accept="image/*" (change)="onFileSelected($event)" />
+              <img *ngIf="previewUrl; else placeholder" [src]="previewUrl" class="preview" />
+              <ng-template #placeholder>
+                <img src="https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-11-30/y02j0MyaXV.png" alt="upload" />
+                <div class="upload-text">
+                  <span class="link">Upload a file</span> or drag and drop
+                </div>
+                <small>PNG, JPG, GIF up to 10MB</small>
+              </ng-template>
+            </div>
+          </div>
+        </section>
+
+        <!-- Contact Details -->
+        <section class="section">
+          <h2>Contact Details</h2>
+          <div class="grid-2">
+            <div class="field">
+              <label>Phone Number</label>
+              <input type="tel" formControlName="phone" placeholder="(123) 456-7890" />
+            </div>
+            <div class="field">
+              <label>Email Address</label>
+              <input type="email" formControlName="email" placeholder="doctor.name@example.com" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Bio</label>
+            <textarea formControlName="bio" rows="5" placeholder="Write a brief bio about the doctor..."></textarea>
+            <small>Max 500 characters.</small>
+          </div>
+        </section>
+
+        <!-- Availability -->
+        <section class="section">
+          <h2>Availability</h2>
+          <p class="subtitle">Select the days and times the doctor is available for appointments.</p>
+
+          <div class="availability-list">
+            <div *ngFor="let day of availability" class="day-row" [class.disabled]="!day.checked">
+              <label class="checkbox-label">
+                <input type="checkbox" [checked]="day.checked" (change)="toggleDay(day)" />
+                <span class="checkmark"></span>
+                {{ day.day }}
+              </label>
+
+              <div class="time-inputs">
+                <input type="time" [(ngModel)]="day.startTime" [ngModelOptions]="{standalone: true}"
+                       [disabled]="!day.checked" />
+                <span class="dash">-</span>
+                <input type="time" [(ngModel)]="day.endTime" [ngModelOptions]="{standalone: true}"
+                       [disabled]="!day.checked" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Actions -->
+        <div class="actions">
+          <button type="button" class="btn-cancel">Cancel</button>
+          <button type="submit" class="btn-save">Save Doctor</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

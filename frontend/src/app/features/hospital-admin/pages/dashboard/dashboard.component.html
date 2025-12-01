@@ -1,0 +1,72 @@
+<div class="dashboard-container">
+  <!-- Header
+  <h1 class="page-title">{{ pageTitle }}</h1>
+
+   Quick Action Cards -->
+  <div class="quick-actions-grid">
+    <div
+      *ngFor="let action of quickActions"
+      class="action-card"
+      (click)="navigateTo(action.route)"
+      style="cursor: pointer;">
+      <img [src]="action.img" alt="{{ action.title }}" class="card-bg" />
+      <div class="card-overlay">
+        <span class="card-title">{{ action.title }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <div *ngFor="let stat of stats" class="stat-card">
+      <div class="stat-title">{{ stat.title }}</div>
+      <div class="stat-value">{{ stat.value }}</div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <!-- Patient Admissions Chart -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <h3>Patient Admissions Over the Last 7 Days</h3>
+        <div class="chart-summary">
+          <span class="total">345</span>
+          <span class="change positive">+12%</span>
+          <span class="period">Last 7 Days</span>
+        </div>
+      </div>
+
+      <div class="bar-chart">
+        <div
+          *ngFor="let bar of chartData"
+          class="bar"
+          [style.height.%]="bar.height"
+        ></div>
+      </div>
+
+      <div class="chart-labels">
+        <span *ngFor="let bar of chartData">{{ bar.day }}</span>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="activity-card">
+      <h3>Recent Activity</h3>
+      <div class="activity-list">
+        <div *ngFor="let act of activities" class="activity-item">
+          <div class="activity-icon" [style.background-color]="act.iconBg">
+            <img [src]="act.icon" alt="" />
+          </div>
+          <div class="activity-content">
+            <p>
+              {{ act.title }}
+              <span class="highlight">{{ act.highlight }}</span>
+              {{ act.description }}
+            </p>
+            <span class="time">{{ act.time }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
