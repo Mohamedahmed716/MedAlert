@@ -1,0 +1,47 @@
+<div class="page-container">
+
+  <!-- Success Icon -->
+  <div class="success-icon">
+    <span>&#10003;</span>
+  </div>
+
+  <!-- Heading -->
+  <div class="title">Your Reservation is Confirmed!</div>
+
+  <div class="subtitle">
+    You will receive a notification and an email when your appointment is approaching.  
+    You can view your upcoming appointments in the 'My Reservations' section.
+  </div>
+
+  <!-- Details Card -->
+  <div class="details-card">
+
+    <div class="row">
+      <span class="label">Date</span>
+      <span class="value">{{ reservation.date }}</span>
+    </div>
+
+    <div class="row">
+      <span class="label">Time</span>
+      <span class="value">{{ reservation.time }}</span>
+    </div>
+
+    <div class="row">
+      <span class="label">Doctor</span>
+      <span class="value">{{ reservation.doctor }}</span>
+    </div>
+
+    <div class="row">
+      <span class="label">Hospital</span>
+      <span class="value">{{ reservation.hospital }}</span>
+    </div>
+
+  </div>
+
+  <!-- Buttons -->
+  <div class="buttons">
+    <button class="btn btn-green" (click)="addToCalendar()">Add to Calendar</button>
+    <button class="btn btn-blue" (click)="viewReservations()">View My Reservation</button>
+  </div>
+
+</div>

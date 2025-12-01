@@ -22,4 +22,9 @@ export const routes: Routes = [
     redirectTo: 'auth',
     pathMatch: 'full',
   },
+   {
+  path: 'patient',
+  loadChildren: () => import('./features/patient/patient-module').then(m => m.PatientModule),
+  },
+
 ];

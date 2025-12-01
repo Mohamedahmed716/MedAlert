@@ -1,0 +1,92 @@
+.dashboard-container {
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 0.5rem 2.5rem 0.5rem 0.5rem;
+  font-size: 1rem;
+}
+
+.search-box .material-symbols-outlined {
+  position: absolute;
+  right: 0.5rem;
+  font-size: 1.5rem;
+  color: gray;
+}
+
+.reservation-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.reservation-card {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+.reservation-info p {
+  margin: 0.25rem 0;
+}
+
+.reservation-actions button {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.reschedule {
+  background-color: #10b98133;
+  color: #10b981;
+}
+
+.cancel {
+  background-color: #f8717133;
+  color: #dc2626;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+  border: 2px dashed #ccc;
+  border-radius: 0.5rem;
+}
+
+.empty-state span {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.empty-state button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  background-color: #3b82f6;
+  color: white;
+  cursor: pointer;
+}
