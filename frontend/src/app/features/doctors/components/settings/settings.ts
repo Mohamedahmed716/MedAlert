@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {DoctorService} from '../../doctor.service';
+
 
 @Component({
   selector: 'app-settings',
@@ -7,5 +9,13 @@ import { Component } from '@angular/core';
   styleUrl: './settings.css',
 })
 export class Settings {
+  user : any = {};
 
+  constructor(private doctorService: DoctorService) {}
+
+  ngOnInit() {
+    this.doctorService.currentUser$.subscribe(data => {
+      this.user = data;
+    });
+  }
 }
