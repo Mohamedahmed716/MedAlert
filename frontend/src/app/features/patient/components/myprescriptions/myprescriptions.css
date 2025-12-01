@@ -1,159 +1,105 @@
-.container {
+.page-container {
   max-width: 900px;
-  margin: 2rem auto;
-  font-family: 'Inter', sans-serif;
-  padding: 0 1rem;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
-h1 {
-  font-size: 2rem;
+/* Header */
+.page-title {
+  font-size: 32px;
   font-weight: 800;
-  margin-bottom: 1.5rem;
-  color: #1f2937;
+  margin-bottom: 5px;
 }
 
-/* Search Box */
-.search-box {
-  position: relative;
-  margin-bottom: 2rem;
+.page-subtitle {
+  color: #666;
+  margin-bottom: 25px;
 }
 
-.search-box input {
+/* Search Bar */
+.search-bar {
+  margin-bottom: 30px;
+}
+
+.search-input {
   width: 100%;
-  padding: 0.75rem 3rem 0.75rem 1rem;
-  font-size: 1rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 0.5rem;
-  transition: border 0.3s;
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 15px;
 }
 
-.search-box input:focus {
-  border-color: #3b82f6;
-  outline: none;
-}
-
-.search-box span {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #9ca3af;
-  font-size: 1.2rem;
-}
-
-/* Prescription Cards */
-.prescription-list {
-  display: grid;
-  gap: 1.5rem;
-}
-
+/* Prescription List */
 .prescription-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #eee;
+  margin-bottom: 15px;
   display: flex;
-  align-items: center;
+  gap: 20px;
+  align-items: flex-start;
   justify-content: space-between;
-  background-color: #ffffff;
-  border-radius: 1rem;
-  padding: 1rem 1.5rem;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-.prescription-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.icon {
-  flex-shrink: 0;
-  background-color: #3b82f620;
-  padding: 1rem;
-  border-radius: 50%;
+.prescription-left {
   display: flex;
-  align-items: center;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+/* Medicine icon */
+.prescription-icon {
+  width: 42px;
+  height: 42px;
+  background: #d9e9ff;
+  color: #2e7be5;
+  border-radius: 10px;
+  display: flex;
   justify-content: center;
-}
-
-.icon span {
-  font-size: 2rem;
-  color: #3b82f6;
-}
-
-.details {
-  flex: 1;
-  margin-left: 1rem;
-}
-
-.details p {
-  margin: 0.2rem 0;
-}
-
-.name {
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: #111827;
-}
-
-.dosage {
-  color: #6b7280;
-}
-
-.instructions {
-  font-style: italic;
-  color: #374151;
-}
-
-.doctor {
-  font-size: 0.9rem;
-  color: #9ca3af;
-}
-
-/* Buttons */
-.actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.actions button {
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  transition: background 0.3s;
-}
-
-.view {
-  background-color: #3b82f6;
-  color: white;
-}
-
-.view:hover {
-  background-color: #2563eb;
-}
-
-.print {
-  display: flex;
   align-items: center;
-  gap: 0.25rem;
-  background-color: #f87171;
-  color: white;
+  font-size: 22px;
 }
 
-.print:hover {
-  background-color: #ef4444;
+/* Text */
+.prescription-details h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-/* Empty State */
-.empty-state {
-  text-align: center;
-  padding: 2rem;
-  border: 2px dashed #e5e7eb;
-  border-radius: 1rem;
-  color: #6b7280;
+.prescription-details p {
+  margin: 5px 0;
+  color: #666;
+  font-size: 14px;
 }
 
-.empty-state span {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  display: block;
+/* Right side buttons */
+.prescription-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-details {
+  background: transparent;
+  border: none;
+  color: #2e7be5;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-print {
+  background: #e0e9ff;
+  color: #2e7be5;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-print:hover {
+  background: #d1ddfa;
 }
