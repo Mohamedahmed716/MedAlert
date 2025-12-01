@@ -7,7 +7,7 @@
   <div class="topbar-actions">
 
     <div class="current-date">
-      October 26, 2024 | 10:30 AM
+      {{ currentDate | date:'MMMM d, y' }} | {{ currentDate | date:'shortTime' }}
     </div>
 
     <div class="actions-group">
@@ -23,24 +23,17 @@
           </div>
 
           <div class="popup-list">
-            <div class="popup-item unread">
-              <div class="item-text">
-                <p class="title">New Appointment</p>
-                <p class="time">Sarah Jenkins - 10 min ago</p>
+            @for (notification of notifications; track $index) {
+
+              <div class="popup-item" [class.unread]="notification.status === 'unread'">
+                <div class="item-text">
+                  <p class="title">{{ notification.message }}</p>
+                  <p class="time">{{ notification.info }}</p>
+                </div>
               </div>
-            </div>
-            <div class="popup-item unread">
-              <div class="item-text">
-                <p class="title">ER Alert</p>
-                <p class="time">Critical Patient - 25 min ago</p>
-              </div>
-            </div>
-            <div class="popup-item">
-              <div class="item-text">
-                <p class="title">Lab Results</p>
-                <p class="time">John Doe - 1 hour ago</p>
-              </div>
-            </div>
+
+            }
+
           </div>
         </div>
 
@@ -49,7 +42,7 @@
       <div class="user-avatar-small"
            role="img"
            aria-label="User profile picture"
-           style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBwqIGtOWOnFrJqp3CqvZpNT4UXoiw80UoCEOOZwIX9a7H0L0Vsaq9tQ8bil-yUTzfk_CoSDDdYXz6woongwO9D94QiKnugVhjtlBdzq8FhvdK5H19Gm5QeoknrgGIMU0PZ0_xeJnpk-2mFYHL69y-shVOm2f8q3DV7mi4OeGnK-dRXdPiB-2ZHzGFk5E1n-FcxlecFuJvBXMg9_v1CjgsoaoyaXShetVeqDMfGBRrou_kJ0-PnYHnziO1yyUs-cYHSBzdfvjgVz_k");'>
+           [style.background-image]="'url(' + user.avatar + ')'">
       </div>
     </div>
 

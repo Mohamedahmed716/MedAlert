@@ -16,5 +16,4 @@ import {Topbar} from './components/topbar/topbar';
   styleUrl: './doctors.css',
 })
 export class Doctors {
-
 }

@@ -22,62 +22,15 @@
   </div>
 
   <div class="bed-grid">
-    <div class="bed-card bed-card-available">
-      <div class="bed-content">
-        <span class="material-symbols-outlined bed-icon">bed</span>
-        <p class="bed-id">ER-01</p>
-        <p class="bed-status">Available</p>
+    @for (bed of beds; track $index) {
+      <div class="bed-card" [ngClass]="{'bed-card-available': bed.status === 'Available', 'bed-card-occupied': bed.status === 'Occupied'}">
+        <div class="bed-content">
+          <span class="material-symbols-outlined bed-icon">bed</span>
+          <p class="bed-id">{{ bed.id }}</p>
+          <p class="bed-status">{{ bed.status }}</p>
+        </div>
       </div>
-    </div>
-    <div class="bed-card bed-card-occupied">
-      <div class="bed-content">
-        <span class="material-symbols-outlined bed-icon">bed</span>
-        <p class="bed-id">ER-02</p>
-        <p class="bed-status">Occupied</p>
-      </div>
-    </div>
-    <div class="bed-card bed-card-available">
-      <div class="bed-content">
-        <span class="material-symbols-outlined bed-icon">bed</span>
-        <p class="bed-id">ER-03</p>
-        <p class="bed-status">Available</p>
-      </div>
-    </div>
-    <div class="bed-card bed-card-available">
-      <div class="bed-content">
-        <span class="material-symbols-outlined bed-icon">bed</span>
-        <p class="bed-id">ER-04</p>
-        <p class="bed-status">Available</p>
-      </div>
-    </div>
-    <div class="bed-card bed-card-occupied">
-      <div class="bed-content">
-        <span class="material-symbols-outlined bed-icon">bed</span>
-        <p class="bed-id">ER-05</p>
-        <p class="bed-status">Occupied</p>
-      </div>
-    </div>
-    <div class="bed-card bed-card-available">
-      <div class="bed-content">
-        <span class="material-symbols-outlined bed-icon">bed</span>
-        <p class="bed-id">ER-06</p>
-        <p class="bed-status">Available</p>
-      </div>
-    </div>
-    <div class="bed-card bed-card-occupied">
-      <div class="bed-content">
-        <span class="material-symbols-outlined bed-icon">bed</span>
-        <p class="bed-id">ER-07</p>
-        <p class="bed-status">Occupied</p>
-      </div>
-    </div>
-    <div class="bed-card bed-card-occupied">
-      <div class="bed-content">
-        <span class="material-symbols-outlined bed-icon">bed</span>
-        <p class="bed-id">ER-08</p>
-        <p class="bed-status">Occupied</p>
-      </div>
-    </div>
+    }
   </div>
 
 </div>
