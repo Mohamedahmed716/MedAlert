@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { HospitalAdmin } from './Hospital-Admin';
+import { Hospital_admin } from './hospital_admin';
 
 import { AddDoctorComponent } from './pages/add-doctor/add-doctor.component';
 import { DoctorListComponent } from './pages/doctors/doctors.component';
@@ -15,10 +15,10 @@ import { NotificationCenterComponent } from './pages/notification/notification';
 import { PendingReservationDetailComponent } from './pages/pending-reservation/pending-reservation';
 import { AddDepartmentComponent } from './pages/add-department/add-department';
 
-export const HospitalAdminRoutes: Routes = [
+export const Hospital_adminRoutes: Routes = [
   {
     path: '',
-    component: HospitalAdmin, // Layout wrapper with sidebar and topbar
+    component: Hospital_admin, // Layout wrapper with sidebar and topbar
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },

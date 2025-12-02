@@ -5,7 +5,7 @@ graph TB
     Guest((Guest User))
     Patient((Patient))
     Doctor((Doctor))
-    HospitalAdmin((Hospital Admin))
+    Hospital_admin((Hospital Admin))
     SystemAdmin((System Admin))
     
     subgraph System["MedAlert Authentication System"]
@@ -41,7 +41,7 @@ graph TB
     
     RedirectDashboard -.-> Patient
     RedirectDashboard -.-> Doctor
-    RedirectDashboard -.-> HospitalAdmin
+    RedirectDashboard -.-> Hospital_admin
     RedirectDashboard -.-> SystemAdmin
 ----------------------------------------
 ----------------------------------------
@@ -85,7 +85,7 @@ graph TB
 
 %%{init: {'theme':'base'}}%%
 graph TB
-    HospitalAdmin((Hospital Admin))
+    Hospital_admin((Hospital Admin))
     Doctor((Doctor))
     
     subgraph System["MedAlert - Hospital Admin Module"]
@@ -115,13 +115,13 @@ graph TB
         SendNotifications -.->|include| ComposeMessage
     end
     
-    HospitalAdmin --> ViewDashboard
-    HospitalAdmin --> ManageDepartments
-    HospitalAdmin --> ManageDoctors
-    HospitalAdmin --> ManageEmergency
-    HospitalAdmin --> ManageRooms
-    HospitalAdmin --> SendNotifications
-    HospitalAdmin --> ManageProfile
+    Hospital_admin --> ViewDashboard
+    Hospital_admin --> ManageDepartments
+    Hospital_admin --> ManageDoctors
+    Hospital_admin --> ManageEmergency
+    Hospital_admin --> ManageRooms
+    Hospital_admin --> SendNotifications
+    Hospital_admin --> ManageProfile
     
     SendNotifications -.->|notifies| Doctor
 
@@ -136,7 +136,7 @@ graph TB
 graph TB
     Doctor((Doctor))
     Patient((Patient))
-    HospitalAdmin((Hospital Admin))
+    Hospital_admin((Hospital Admin))
     
     subgraph System["MedAlert - Doctor Module"]
         ViewDashboard([View Dashboard])
@@ -176,7 +176,7 @@ graph TB
     Doctor --> ViewPatients
     
     SendPrescription -.->|sends to| Patient
-    HospitalAdmin -.->|triggers| ReceiveNotifications
+    Hospital_admin -.->|triggers| ReceiveNotifications
 
 
 

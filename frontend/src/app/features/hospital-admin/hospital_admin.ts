@@ -7,7 +7,7 @@ import {TopbarComponent} from './components/topbar/topbar';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, SidebarComponent, TopbarComponent],
-  templateUrl: './Hospital-admin.html',
-  styleUrl: './Hospital-admin.css'
+  templateUrl: './hospital_admin.html',
+  styleUrl: './hospital_admin.css'
 })
-export class HospitalAdmin {}
+export class Hospital_admin {}

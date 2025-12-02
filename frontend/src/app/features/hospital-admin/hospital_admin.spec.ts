@@ -1,21 +1,21 @@
 import { TestBed } from '@angular/core/testing';
-import { HospitalAdmin } from './Hospital-Admin';
+import { Hospital_admin } from './hospital_admin';
 
-describe('HospitalAdmin', () => {
+describe('Hospital_admin', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HospitalAdmin],
+      imports: [Hospital_admin],
     }).compileComponents();
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(HospitalAdmin);
+    const fixture = TestBed.createComponent(Hospital_admin);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
   it('should render title', async () => {
-    const fixture = TestBed.createComponent(HospitalAdmin);
+    const fixture = TestBed.createComponent(Hospital_admin);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent).toContain('Hello, ver2');
