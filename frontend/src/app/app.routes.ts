@@ -1,10 +1,9 @@
 import { Routes } from '@angular/router';
-import {HospitalAdminRoutes} from './features/hospital-admin/Hospital-Admin.routes';
 
 export const routes: Routes = [
   {
     path: 'hospital-admin',
-    loadChildren: () => import('./features/hospital-admin/Hospital-Admin.routes').then((m) => m.HospitalAdminRoutes),
+    loadChildren: () => import('./features/hospital-admin/hospital_admin.routes').then((m) => m.Hospital_adminRoutes),
   },
   {
     path: 'doctors',

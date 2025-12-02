@@ -1,11 +1,11 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
-import {HospitalAdminRoutes} from './Hospital-Admin.routes';
+import {Hospital_adminRoutes} from './hospital_admin.routes';
 
-export const hospitalAdminConfig: ApplicationConfig = {
+export const hospital_adminConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(HospitalAdminRoutes)
+    provideRouter(Hospital_adminRoutes)
   ]
 };
