@@ -1,0 +1,76 @@
+<div class="page-container">
+  <!-- Reusable Sidebar (from your shared component) -->
+
+  <main class="main-content">
+    <!-- Left Sidebar: List of Departments -->
+    <aside class="dept-sidebar">
+      <h3>Departments</h3>
+      <ul>
+        <li *ngFor="let dept of departments"
+            [class.active]="dept === currentDepartment"
+            (click)="currentDepartment = dept">
+          <a href="javascript:void(0)">{{ dept }}</a>
+        </li>
+      </ul>
+
+      <button class="btn-add-dept" (click)="addDepartment()">
+        <img src="https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-11-30/SBZXXMrO6R.png" alt="add department">
+        Add Department
+      </button>
+    </aside>
+
+    <!-- Main Content Area -->
+    <section class="department-content">
+      <header class="header-bar">
+        <input
+          type="text"
+          placeholder="Search doctors in {{ currentDepartment }}..."
+          [(ngModel)]="searchTerm"
+          class="search-input"
+        />
+
+        <button class="btn-add-doctor" (click)="addDoctor()">
+          <img src="https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-11-30/o6dWivuF94.png" alt="add doctor">
+          Add Doctor
+        </button>
+      </header>
+
+      <h2 class="dept-title">
+        Doctors in <span class="highlight">{{ currentDepartment }}</span>
+      </h2>
+
+      <!-- Doctors Grid -->
+      <div class="doctors-grid">
+        <article class="doctor-card"
+                 *ngFor="let doctor of doctors | filter: searchTerm:'name' | slice:0:20">
+
+          <div class="doctor-header">
+            <img [src]="doctor.avatar" [alt]="doctor.name" class="avatar" />
+            <div class="info">
+              <h3>{{ doctor.name }}</h3>
+              <p class="title">{{ doctor.title }}</p>
+              <p class="hours">{{ doctor.officeHours }}</p>
+            </div>
+          </div>
+
+          <div class="bio">
+            <p>{{ doctor.bio.length > 150 ? (doctor.bio | slice:0:150) + '...' : doctor.bio }}</p>
+            <a class="read-more" (click)="goToDoctorDetail(doctor.id)">Read More</a>
+          </div>
+
+          <button class="btn-details" (click)="goToDoctorDetail(doctor.id)">
+            View / Edit Details
+          </button>
+        </article>
+
+        <!-- Empty State (when no doctors) -->
+        <div *ngIf="doctors.length === 0" class="empty-state">
+          <p>No doctors found in {{ currentDepartment }}.</p>
+          <button class="btn-add-doctor-inline" (click)="addDoctor()">
+            Add First Doctor
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

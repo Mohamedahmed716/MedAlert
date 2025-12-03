@@ -8,6 +8,7 @@ import {NgClass} from '@angular/common';
   ],
   templateUrl: './er.html',
   styleUrl: './er.css',
+  standalone: true
 })
 export class Er {
   // Sample data for ER beds

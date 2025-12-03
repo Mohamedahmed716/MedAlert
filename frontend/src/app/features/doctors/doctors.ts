@@ -14,6 +14,7 @@ import {Topbar} from './components/topbar/topbar';
   ],
   templateUrl: './doctors.html',
   styleUrl: './doctors.css',
+  standalone: true
 })
 export class Doctors {
 }

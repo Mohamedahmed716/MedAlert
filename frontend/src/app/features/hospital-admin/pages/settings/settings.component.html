@@ -1,0 +1,133 @@
+<div class="page-container">
+  <div class="success-popup" [class.show]="showSuccessPopup">
+    <div class="success-content">
+      <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+      <span>Saved Successfully!</span>
+    </div>
+  </div>
+  <main class="main-content">
+    <header class="page-header">
+      <h1>Settings</h1>
+      <p>Manage hospital-specific configurations</p>
+    </header>
+
+    <!-- Tabs -->
+    <div class="settings-tabs">
+      <button class="tab" [class.active]="activeTab === 'hospital-profile'" (click)="activeTab = 'hospital-profile'">
+        Hospital Profile
+      </button>
+      <button class="tab" [class.active]="activeTab === 'departments'" (click)="activeTab = 'departments'">
+        Departments
+      </button>
+      <button class="tab" [class.active]="activeTab === 'doctor-onboarding'" (click)="activeTab = 'doctor-onboarding'">
+        Doctor Onboarding
+      </button>
+      <button class="tab" [class.active]="activeTab === 'patient-communication'" (click)="activeTab = 'patient-communication'">
+        Patient Communication
+      </button>
+    </div>
+
+    <!-- Hospital Profile Tab Content -->
+    <div *ngIf="activeTab === 'hospital-profile'" class="tab-content">
+      <div class="form-card">
+        <form [formGroup]="hospitalForm">
+          <div class="form-row">
+            <label>Hospital Name</label>
+            <label>Hospital Logo</label>
+          </div>
+
+          <div class="form-row inputs">
+            <input formControlName="name" class="input-field" placeholder="Hospital name" />
+
+            <div class="logo-container">
+              <div class="logo-section">
+                <!-- Logo Preview -->
+                <div class="logo-preview" *ngIf="logoPreview">
+                  <img [src]="logoPreview" alt="Hospital Logo">
+                </div>
+
+                <!-- Upload Zone -->
+                <div class="upload-zone"
+                     (drop)="onFileDropped($event)"
+                     (dragover)="isDragging = true; $event.preventDefault()"
+                     (dragleave)="isDragging = false"
+                     (dragend)="isDragging = false"
+                     [class.dragging]="isDragging">
+                  <img src="https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-11-30/oJFyz4cpTb.png" alt="upload">
+                  <p>Drag & drop or <label class="upload-link">
+                    click to upload
+                    <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden>
+                  </label></p>
+                  <small>PNG, JPG, SVG up to 10MB</small>
+                </div>
+              </div>
+
+              <button type="button" class="remove-logo" (click)="removeLogo()" *ngIf="logoPreview">
+                Remove logo
+              </button>
+            </div>
+          </div>
+
+          <label>Address</label>
+          <input formControlName="address" class="input-field" />
+
+          <div class="form-row">
+            <label>Phone Number</label>
+            <label>Email</label>
+          </div>
+
+          <div class="form-row inputs">
+            <input formControlName="phone" class="input-field" />
+            <input formControlName="email" class="input-field" type="email" />
+          </div>
+
+          <label>General Hospital Information</label>
+          <textarea formControlName="description" rows="6" class="textarea-field"></textarea>
+        </form>
+      </div>
+
+      <!-- Sticky Bottom Bar -->
+      <div class="sticky-bar">
+        <button class="btn-cancel" (click)="onCancel()">Cancel</button>
+        <button class="btn-save" (click)="onSave()" >
+          Save Changes
+        </button>
+      </div>
+    </div>
+
+    <!-- Departments Tab Content -->
+    <div *ngIf="activeTab === 'departments'" class="tab-content">
+      <div class="form-card">
+        <h2>Departments Management</h2>
+        <p class="subtitle">Manage hospital departments and their configurations</p>
+        <div class="placeholder-content">
+          <p>Department management content will go here...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Doctor Onboarding Tab Content -->
+    <div *ngIf="activeTab === 'doctor-onboarding'" class="tab-content">
+      <div class="form-card">
+        <h2>Doctor Onboarding</h2>
+        <p class="subtitle">Configure doctor onboarding process and requirements</p>
+        <div class="placeholder-content">
+          <p>Doctor onboarding settings will go here...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Patient Communication Tab Content -->
+    <div *ngIf="activeTab === 'patient-communication'" class="tab-content">
+      <div class="form-card">
+        <h2>Patient Communication</h2>
+        <p class="subtitle">Manage patient communication preferences and templates</p>
+        <div class="placeholder-content">
+          <p>Patient communication settings will go here...</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

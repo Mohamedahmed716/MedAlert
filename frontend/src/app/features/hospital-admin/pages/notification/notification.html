@@ -1,0 +1,125 @@
+<!-- notification-center.html -->
+<div class="page-wrapper">
+  <main class="main-content">
+    <div class="grid-layout">
+      <!-- Active Reservation Card -->
+      <div class="reservation-card">
+        <div class="header">
+          <div class="icon-bg">
+            <!-- Calendar + Bell Icon for Reservation -->
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1193d4" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+              <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/>
+            </svg>
+          </div>
+          <div class="title">New Reservation Pending</div>
+          <div class="time">5 minutes ago</div>
+        </div>
+
+        <h3 class="section-title">Patient Details</h3>
+        <div class="info-row">
+          <span class="label">Name</span>
+          <span class="label">Date of Birth</span>
+        </div>
+        <div class="info-row">
+          <strong>John Appleseed</strong>
+          <span>1985-07-22</span>
+        </div>
+
+        <div class="info-label">Contact</div>
+        <div class="info-value">(555) 123-4567</div>
+
+        <h3 class="section-title">Reservation Information</h3>
+        <div class="info-row">
+          <span class="label">Department</span>
+          <span class="label">Requested Date</span>
+        </div>
+        <div class="info-row">
+          <strong>Cardiology</strong>
+          <span>2023-10-28 at 10:00 AM</span>
+        </div>
+
+        <div class="info-label">Reason</div>
+        <div class="info-value reason">
+          Routine check-up and consultation regarding recent heart palpitations.
+        </div>
+
+        <div class="actions">
+          <button class="btn-dismiss">Dismiss</button>
+          <button class="btn-view">View Reservation</button>
+        </div>
+      </div>
+
+      <!-- Notifications Panel -->
+      <div class="notifications-panel">
+        <header>
+          <h2>Notifications</h2>
+          <p>All notifications from MedAlert</p>
+        </header>
+
+        <div class="search-bar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input type="text" placeholder="Search notifications">
+        </div>
+
+        <div class="tabs">
+          <button class="tab" [class.active]="activeTab === 'all'" (click)="activeTab = 'all'">All</button>
+          <button class="tab" [class.active]="activeTab === 'reservations'" (click)="activeTab = 'reservations'">Reservations</button>
+          <button class="tab" [class.active]="activeTab === 'er-status'" (click)="activeTab = 'er-status'">ER Status</button>
+          <button class="tab" [class.active]="activeTab === 'system-updates'" (click)="activeTab = 'system-updates'">System Updates</button>
+        </div>
+
+        <div class="notification-list">
+          <div
+            class="notification-item"
+            *ngFor="let notif of filteredNotifications()"
+            [style.background-color]="getNotificationColor(notif.type)"
+          >
+            <!-- Dynamic Icon per Type -->
+            <div class="notif-icon">
+              <ng-container [ngSwitch]="notif.type">
+                <!-- Reservation -->
+                <svg *ngSwitchCase="'reservation'" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1193d4" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+
+                <!-- ER / Emergency -->
+                <svg *ngSwitchCase="'er'" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
+                  <path d="M12 2a10 10 0 0 1 10 10a10 10 0 0 1-10 10A10 10 0 0 1 2 12A10 10 0 0 1 12 2z"/>
+                  <line x1="12" y1="8" x2="12" y2="12"/>
+                  <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+
+                <!-- System Update -->
+                <svg *ngSwitchCase="'system'" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                  <line x1="12" y1="22.08" x2="12" y2="12"/>
+                </svg>
+
+                <!-- Inquiry / Message -->
+                <svg *ngSwitchDefault width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+              </ng-container>
+            </div>
+
+            <div class="notif-content">
+              <div class="notif-title">{{ notif.title }}</div>
+              <div class="notif-time">{{ notif.timeAgo }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

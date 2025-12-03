@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './patients.html',
   styleUrl: './patients.css',
+  standalone: true
 })
 export class Patients {
   patients = [

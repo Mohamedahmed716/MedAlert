@@ -1,0 +1,499 @@
+/* reservations.component.css - COMPLETE VERSION */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.page-container {
+  padding: 24px;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.header-left h1 {
+  margin: 0 0 12px 0;
+  font-size: 28px;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.ids {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.patient-id, .request-id {
+  background: #f1f5f9;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.back-btn {
+  background: #f1f5f9;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #475569;
+  transition: all 0.2s;
+}
+
+.back-btn:hover {
+  background: #e2e8f0;
+  transform: translateX(-4px);
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 32px;
+}
+
+@media (max-width: 1024px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+  .actions-card {
+    order: -1;
+  }
+}
+
+.info-card, .actions-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 24px 24px 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.mt-32 { margin-top: 32px; }
+
+.info-grid {
+  padding: 20px 24px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 24px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.info-item label {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 6px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-item p {
+  margin: 0;
+  font-size: 16px;
+  color: #1e293b;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.copy-btn {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  cursor: pointer;
+  padding: 4px;
+  opacity: 0.7;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copy-btn:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.copy-btn .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.reason-text {
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 12px;
+  line-height: 1.6;
+  font-size: 15px;
+  border: 1px solid #e2e8f0;
+}
+
+.dept-badge {
+  background: #dbeafe;
+  color: #3b82f6;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.datetime {
+  font-weight: 600;
+  color: #166534;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.datetime .material-symbols-outlined {
+  font-size: 20px;
+}
+
+/* Actions Card */
+.actions-card h3 {
+  margin: 0;
+  padding: 24px 24px 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.action-buttons {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.btn {
+  padding: 16px 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.btn.accept   { background: #10b981; color: white; }
+.btn.decline  { background: #ef4444; color: white; }
+.btn.contact  { background: #3b82f6; color: white; }
+.btn.secondary { background: #e2e8f0; color: #475569; }
+.btn.danger    { background: #ef4444; color: white; }
+
+.btn .material-symbols-outlined {
+  font-size: 22px;
+}
+
+.quick-info {
+  padding: 0 24px 24px;
+  border-top: 1px solid #e2e8f0;
+  margin-top: 16px;
+  padding-top: 16px;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  color: #166534;
+  font-size: 15px;
+}
+
+.info-row .material-symbols-outlined {
+  font-size: 24px;
+  color: #10b981;
+}
+
+.info-row.success small {
+  color: #6b7280;
+  font-weight: normal;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal {
+  background: white;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 520px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+  overflow: hidden;
+  animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalPop {
+  from { transform: scale(0.7) translateY(50px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.modal-header {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  padding: 28px;
+  text-align: center;
+}
+
+.modal-header .warning {
+  font-size: 56px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.modal-header h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.modal-body {
+  padding: 32px;
+  text-align: center;
+}
+
+.modal-body p {
+  margin: 0 0 8px 0;
+  color: #64748b;
+  font-size: 15px;
+}
+
+.patient-name {
+  margin: 16px 0;
+  font-size: 18px;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 14px;
+}
+
+.required { color: #ef4444; font-weight: bold; }
+
+textarea {
+  width: 100%;
+  padding: 14px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 15px;
+  transition: border 0.2s;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 16px;
+  padding: 0 32px 32px;
+}
+
+.modal-actions .btn {
+  flex: 1;
+  padding: 16px;
+}
+
+/* Success Popup */
+.success-popup {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 16px 32px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 10000;
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.success-popup.show {
+  top: 24px;
+}
+
+/* Error Popup */
+.error-popup {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  padding: 16px 32px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 10000;
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.error-popup.show {
+  top: 24px;
+}
+
+/* Copy Popup */
+.copy-popup {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  padding: 16px 32px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 10000;
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.copy-popup.show {
+  top: 24px;
+}
+
+.popup-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.popup-content .material-symbols-outlined {
+  font-size: 24px;
+}
+
+.check-icon {
+  width: 24px;
+  height: 24px;
+  stroke: white;
+  animation: checkmark 0.5s ease-in-out;
+}
+
+.cross-icon {
+  width: 24px;
+  height: 24px;
+  stroke: white;
+  animation: crossmark 0.5s ease-in-out;
+}
+
+@keyframes checkmark {
+  0% {
+    transform: scale(0) rotate(45deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(45deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes crossmark {
+  0% {
+    transform: scale(0) rotate(-45deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(-45deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}

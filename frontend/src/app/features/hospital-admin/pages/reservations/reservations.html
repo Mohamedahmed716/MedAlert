@@ -1,0 +1,176 @@
+<div class="page-container">
+  <!-- Success Popup -->
+  <div class="success-popup" [class.show]="showSuccessPopup">
+    <div class="popup-content">
+      <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+      <span>Reservation Accepted!</span>
+    </div>
+  </div>
+
+  <!-- Error Popup -->
+  <div class="error-popup" [class.show]="showErrorPopup">
+    <div class="popup-content">
+      <svg class="cross-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+      <span>Reservation Declined!</span>
+    </div>
+  </div>
+
+  <!-- Copy Popup -->
+  <div class="copy-popup" [class.show]="showCopyPopup">
+    <div class="popup-content">
+      <span class="material-symbols-outlined">check_circle</span>
+      <span>Copied to clipboard!</span>
+    </div>
+  </div>
+
+  <!-- Page Header with Back Button -->
+  <div class="page-header">
+    <div class="header-left">
+      <h1>Pending Reservation Request</h1>
+      <div class="ids">
+        <span class="patient-id">Patient ID: <strong>{{ reservation.patientId }}</strong></span>
+        <span class="request-id">Request ID: <strong>{{ reservation.requestId }}</strong></span>
+      </div>
+    </div>
+    <button class="back-btn" (click)="goBack()">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Back to Dashboard
+    </button>
+  </div>
+
+  <div class="content-grid">
+    <!-- Patient & Request Information -->
+    <div class="info-card">
+      <div class="card-header">
+        <h3>Patient Information</h3>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <label>Full Name</label>
+          <p>{{ reservation.patientName }}</p>
+        </div>
+        <div class="info-item">
+          <label>Date of Birth</label>
+          <p>{{ reservation.dob }}</p>
+        </div>
+        <div class="info-item">
+          <label>Contact Number</label>
+          <p>
+            {{ reservation.contact }}
+            <button class="copy-btn copy" (click)="copyToClipboard(reservation.contact)" title="Copy">
+              <span class="material-symbols-outlined">content_copy</span>
+            </button>
+          </p>
+        </div>
+        <div class="info-item">
+          <label>Email Address</label>
+          <p>
+            {{ reservation.email }}
+            <button class="copy-btn" (click)="copyToClipboard(reservation.email)" title="Copy">
+              <span class="material-symbols-outlined">content_copy</span>
+            </button>
+          </p>
+        </div>
+        <div class="info-item full-width">
+          <label>Reason for Visit</label>
+          <p class="reason-text">{{ reservation.reason }}</p>
+        </div>
+      </div>
+
+      <div class="card-header mt-32">
+        <h3>Appointment Request Details</h3>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <label>Request Type</label>
+          <p>{{ reservation.requestType }}</p>
+        </div>
+        <div class="info-item">
+          <label>Preferred Doctor</label>
+          <p><strong>{{ reservation.doctorName }}</strong></p>
+        </div>
+        <div class="info-item">
+          <label>Department</label>
+          <p><span class="dept-badge">{{ reservation.department }}</span></p>
+        </div>
+        <div class="info-item">
+          <label>Requested Date & Time</label>
+          <p class="datetime">
+            <span class="material-symbols-outlined">schedule</span>
+            {{ reservation.datetime }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions Panel -->
+    <div class="actions-card">
+      <h3>Take Action</h3>
+
+      <div class="action-buttons">
+        <button class="btn accept" (click)="acceptReservation()">
+          <span class="material-symbols-outlined">check_circle</span>
+          Accept Reservation
+        </button>
+
+        <button class="btn decline" (click)="openDeclineModal()">
+          <span class="material-symbols-outlined">cancel</span>
+          Decline Reservation
+        </button>
+
+        <button class="btn contact" (click)="contactPatient()">
+          <span class="material-symbols-outlined">phone</span>
+          Contact Patient
+        </button>
+      </div>
+
+      <div class="quick-info">
+        <div class="info-row success">
+          <span class="material-symbols-outlined">person</span>
+          <div>
+            <strong>Dr. Ava Chen</strong> is available<br>
+            <small>No scheduling conflicts detected</small>
+          </div>
+        </div>
+        <div class="info-row success">
+          <span class="material-symbols-outlined">event_available</span>
+          Time slot confirmed as open
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Decline Confirmation Modal -->
+<div class="modal-overlay" [class.active]="showDeclineModal" (click)="closeModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <span class="material-symbols-outlined warning">warning</span>
+      <h3>Decline Reservation Request</h3>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to decline this reservation?</p>
+      <p class="patient-name"><strong>{{ reservation.patientName }}</strong> will be notified.</p>
+
+      <div class="form-group">
+        <label>Reason for declining <span class="required">*</span></label>
+        <textarea
+          [(ngModel)]="declineReason"
+          rows="4"
+          placeholder="e.g., Doctor unavailable, need additional medical records, etc."
+          required></textarea>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn secondary" (click)="closeModal()">Cancel</button>
+      <button class="btn danger" (click)="confirmDecline()">Decline Request</button>
+    </div>
+  </div>
+</div>

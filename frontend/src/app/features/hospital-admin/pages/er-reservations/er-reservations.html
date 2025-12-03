@@ -1,0 +1,108 @@
+<div class="content-wrapper">
+  <!-- Header -->
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">ER Bed Management</h1>
+      <p class="page-subtitle">Real-time bed availability and status</p>
+    </div>
+    <div class="stats-summary">
+      <div class="stat-item available">
+        <span class="stat-value">{{ availableCount }}</span>
+        <span class="stat-label">Available</span>
+      </div>
+      <div class="stat-item occupied">
+        <span class="stat-value">{{ occupiedCount }}</span>
+        <span class="stat-label">Occupied</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend-section">
+    <div class="legend-item">
+      <div class="color-box available"></div>
+      <div>
+        <p class="legend-label">Available</p>
+        <p class="legend-desc">Ready for new patient</p>
+      </div>
+    </div>
+    <div class="legend-item">
+      <div class="color-box occupied"></div>
+      <div>
+        <p class="legend-label">Occupied</p>
+        <p class="legend-desc">Currently in use</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Beds Grid -->
+  <div class="beds-grid">
+    <div
+      *ngFor="let bed of beds"
+      class="bed-card"
+      [class.available-bed]="bed.status === 'available'"
+      [class.occupied-bed]="bed.status === 'occupied'"
+      (click)="openModal(bed)"
+    >
+      <div class="bed-content">
+        <span class="material-symbols-outlined bed-icon">
+          {{ bed.status === 'available' ? 'bed' : 'clinical_notes' }}
+        </span>
+        <div class="bed-info">
+          <p class="bed-number">{{ bed.number }}</p>
+          <p class="bed-status">{{ bed.status | titlecase }}</p>
+          <p class="patient-info" *ngIf="bed.patientName">
+            {{ bed.patientName }}<br>
+            <small>Admitted {{ bed.admittedAt }}</small>
+          </p>
+        </div>
+      </div>
+      <div class="bed-action-hint">
+        Click to {{ bed.status === 'available' ? 'occupy' : 'free' }} bed
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" [class.active]="showModal" (click)="closeModal()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <span class="material-symbols-outlined modal-icon">
+        {{ selectedBed?.status === 'available' ? 'person_add' : 'logout' }}
+      </span>
+      <h3>Update Bed Status</h3>
+    </div>
+
+    <div class="modal-body">
+      <p>
+        You are about to change <strong>{{ selectedBed?.number }}</strong> from
+        <span class="status-current" [class.available]="selectedBed?.status === 'available'">
+          {{ selectedBed?.status | titlecase }}
+        </span>
+        to
+        <span class="status-new" [class.occupied]="selectedBed?.status === 'available'">
+          {{ selectedBed?.status === 'available' ? 'Occupied' : 'Available' }}
+        </span>
+      </p>
+
+      <div class="patient-summary" *ngIf="selectedBed?.status === 'available'">
+        <p><strong>Patient will be admitted</strong></p>
+        <p class="note">A new patient record will be created upon confirmation.</p>
+      </div>
+
+      <div class="patient-summary" *ngIf="selectedBed?.status === 'occupied'">
+        <p><strong>Patient: {{ selectedBed?.patientName }}</strong></p>
+        <p class="note">Bed will be marked as available for cleaning.</p>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="modal-btn cancel" (click)="closeModal()">Cancel</button>
+      <button class="modal-btn confirm" (click)="confirmChange()">
+        <span class="material-symbols-outlined">check</span>
+        Confirm Change
+      </button>
+    </div>
+  </div>
+</div>

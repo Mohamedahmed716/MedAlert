@@ -1,0 +1,52 @@
+<div class="topbar-container">
+  <!-- Left Side: Logo -->
+  <div class="logo">
+    <img src="./assets/Logo.png"  />
+  </div>
+
+  <!-- Right Side: Date, Notification, Avatar -->
+
+  <div class="topbar-actions">
+    <div class="current-date">
+      {{ currentDate | date:'MMMM d, y' }} | {{ currentDate | date:'shortTime' }}
+    </div>
+
+    <div class="actions-group">
+      <!-- Notification Button -->
+      <div class="notification-wrapper">
+        <button class="icon-btn notification-btn" (click)="toggleNotifications()">
+          <span class="material-symbols-outlined">notifications</span>
+        </button>
+
+        <!-- Notification Popup -->
+        <div class="notification-popup" [class.active]="showNotifications">
+          <div class="popup-header">
+            <span>Notifications</span>
+          </div>
+
+          <div class="popup-list">
+            <div *ngFor="let notification of notifications; let i = index"
+                 class="popup-item"
+                 [class.unread]="notification.status === 'unread'">
+              <span class="material-symbols-outlined"
+                    [ngClass]="{
+                      'icon-blue': i === 0,
+                      'icon-red': i === 1,
+                      'icon-green': i === 2
+                    }">
+                {{ i === 0 ? 'event' : i === 1 ? 'emergency' : 'science' }}
+              </span>
+              <div class="item-text">
+                <p class="title">{{ notification.message }}</p>
+                <p class="time">{{ notification.info }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- User Avatar -->
+      <div class="user-avatar-small" [style.background-image]="'url(' + user.avatar + ')'"></div>
+    </div>
+  </div>
+</div>

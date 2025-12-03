@@ -1,0 +1,195 @@
+/* Topbar Styles */
+.topbar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 1.5rem;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--slate-200);
+  box-sizing: border-box;
+  z-index: 1001;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.logo img {
+  height: 100px; /* smaller clean size */
+  width: auto;
+  object-fit: contain;
+}
+
+/* Brand Section */
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brand-name {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 700;
+  color: var(--slate-900);
+  letter-spacing: -0.015em;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.current-date {
+  display: none;
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500;
+  color: var(--slate-600);
+}
+
+@media (min-width: 768px) {
+  .current-date {
+    display: block;
+  }
+}
+
+/* Right Icons */
+.actions-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.notification-btn {
+  background-color: var(--slate-100);
+  color: var(--slate-600);
+}
+
+.notification-btn:hover {
+  background-color: var(--slate-200);
+  color: var(--slate-800);
+}
+
+.material-symbols-outlined {
+  font-size: 1.25rem;
+}
+
+/* Avatar */
+.user-avatar-small {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-full);
+  background-size: cover;
+  background-position: center;
+  background-color: var(--slate-200);
+}
+
+/* Notification Popup */
+.notification-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.notification-popup {
+  position: absolute;
+  top: 120%;
+  right: -60px;
+  width: 300px;
+  background-color: var(--white);
+  border: 1px solid var(--slate-200);
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease-in-out;
+}
+
+.notification-popup.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.popup-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--slate-100);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--slate-900);
+}
+
+.popup-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.popup-item {
+  display: flex;
+  align-items: start;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--slate-50);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.popup-item:hover {
+  background-color: var(--slate-50);
+}
+
+.popup-item.unread {
+  background-color: #d1f7ff;
+}
+
+.item-text .title {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--slate-800);
+}
+
+.item-text .time {
+  margin-top: 2px;
+  font-size: 0.75rem;
+  color: var(--slate-600);
+}
+
+/* Icon Colors */
+.icon-blue { color: #3b82f6; font-size: 1.2rem; }
+.icon-red { color: #ef4444; font-size: 1.2rem; }
+.icon-green { color: #10b981; font-size: 1.2rem; }
+
+/* Mobile */
+@media (max-width: 768px) {
+  .topbar-container {
+    left: 80px;
+  }
+
+  .logo img {
+    height: 100px;
+  }
+}
