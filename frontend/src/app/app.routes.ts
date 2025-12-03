@@ -19,12 +19,11 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: 'auth/SignIn',
     pathMatch: 'full',
   },
-   {
-  path: 'patient',
-  loadChildren: () => import('./features/patient/patient-module').then(m => m.PatientModule),
+  {
+    path: 'patient',
+    loadChildren: () => import('./features/patient/patient-module').then((m) => m.PatientModule),
   },
-
 ];
