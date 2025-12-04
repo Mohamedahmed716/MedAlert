@@ -5,12 +5,12 @@
 :root {
   --primary: #1193d4;
   --background-light: #f6f7f8;
-  --background-dark: #101c22; /* For potential dark mode */
+  --background-dark: #101c22;
   --text-primary: #0d171b;
   --text-secondary: #4c809a;
   --border-color: #cfdfe7;
-  --input-bg: #f8fafc; /* bg-slate-50 */
-  --input-bg-hover: #e2e8f0; /* bg-slate-100 */
+  --input-bg: #f8fafc;
+  --input-bg-hover: #e2e8f0;
   --white-text: #f8fafc;
 }
 
@@ -19,14 +19,20 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* Lock the global window scroll to prevent double bars */
+  height: 100vh;
+  overflow: hidden;
 }
+
 body {
   font-family: 'Inter', sans-serif;
   background-color: var(--background-light);
   margin: 0;
   padding: 0;
   color: var(--text-primary);
-  min-height: 100vh;
+  /* Lock the body scroll */
+  height: 100vh;
+  overflow: hidden;
 }
 
 .material-symbols-outlined {
@@ -34,7 +40,6 @@ body {
 }
 
 /* --- Utility Classes --- */
-/* This is crucial for the JavaScript toggle logic */
 .hidden {
   display: none !important;
 }
@@ -43,22 +48,24 @@ body {
 .container {
   position: relative;
   display: flex;
-  min-height: 100%;
-  width: 100%;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   background-color: var(--input-bg);
-  overflow-x: hidden;
   box-sizing: border-box;
+  width: 100%;
+
+  /* CRITICAL SETUP: Fixed viewport height + Standard Scrolling */
+  height: 100vh;
+  overflow-y: auto; /* Shows standard scrollbar if content overflows */
 }
 
 .layout-container {
   display: flex;
-  height: 100%;
-  flex-grow: 1;
   flex-direction: column;
   width: 100%;
+
+  /* CRITICAL FIX: "margin: auto" centers content when it fits,
+     but allows scrolling to top/bottom when it doesn't. */
+  margin: auto;
 }
 
 .main-content {
@@ -99,11 +106,11 @@ body {
 
 .logo-icon {
   color: var(--primary);
-  font-size: 2.25rem; /* 36px */
+  font-size: 2.25rem;
 }
 
 .logo-text {
-  font-size: 1.875rem; /* 30px */
+  font-size: 1.875rem;
   font-weight: 700;
   color: var(--text-primary);
 }
@@ -134,7 +141,7 @@ body {
 
 .title {
   color: var(--text-primary);
-  font-size: 2.25rem; /* 36px */
+  font-size: 2.25rem;
   font-weight: 900;
   line-height: 1.1;
   letter-spacing: -0.033em;
@@ -151,10 +158,10 @@ body {
 /* --- Form Styles --- */
 .signup-form {
   width: 100%;
-  max-width: 24rem; /* 384px */
+  max-width: 24rem;
   display: flex;
   flex-direction: column;
-  gap: 0; /* gap-0 */
+  gap: 0;
 }
 
 .form-group {
@@ -167,7 +174,6 @@ body {
   box-sizing: border-box;
 }
 
-/* Special padding for the button group */
 .form-group-button {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -185,7 +191,7 @@ body {
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.5;
-  padding-bottom: 0.5rem; /* Fixed padding to ensure spacing */
+  padding-bottom: 0.5rem;
   margin: 0;
 }
 
@@ -200,7 +206,7 @@ body {
   outline: 0;
   border: 1px solid var(--border-color);
   background-color: var(--input-bg);
-  height: 3.5rem; /* 56px */
+  height: 3.5rem;
   padding: 15px;
   font-size: 1rem;
   font-weight: 400;
@@ -218,7 +224,6 @@ body {
   box-shadow: 0 0 0 1px var(--primary);
 }
 
-/* Handle date input styling */
 .form-input[type='date'] {
   color: var(--text-primary);
 }
@@ -231,7 +236,6 @@ body {
 }
 
 /* --- Custom Select Styling --- */
-/* This handles the custom arrow icon for the Role dropdown */
 .select-wrapper {
   position: relative;
   width: 100%;
@@ -241,7 +245,7 @@ body {
   appearance: none;
   -webkit-appearance: none;
   cursor: pointer;
-  padding-right: 2.5rem; /* Make room for icon */
+  padding-right: 2.5rem;
   background-color: var(--input-bg);
 }
 
@@ -305,7 +309,7 @@ body {
   justify-content: center;
   overflow: hidden;
   border-radius: 0.5rem;
-  height: 3rem; /* 48px */
+  height: 3rem;
   padding-left: 1.25rem;
   padding-right: 1.25rem;
   flex: 1;
@@ -329,7 +333,7 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: #0e7ab0; /* Darker primary */
+  background-color: #0e7ab0;
 }
 
 /* --- Links --- */
@@ -371,11 +375,11 @@ body {
   }
 
   .title {
-    font-size: 1.875rem; /* 30px */
+    font-size: 1.875rem;
   }
 
   .subtitle {
-    font-size: 0.875rem; /* 14px */
+    font-size: 0.875rem;
   }
 
   .form-group {
