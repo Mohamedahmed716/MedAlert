@@ -26,12 +26,5 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'auth/SignIn',
     pathMatch: 'full',
-  },
-<<<<<<< HEAD
-  {
-    path: 'patient',
-    loadChildren: () => import('./features/patient/patient-module').then((m) => m.PatientModule),
-  },
-=======
->>>>>>> 7a300b898f903fa75fe28bc4b80d268b73620852
+  }
 ];
