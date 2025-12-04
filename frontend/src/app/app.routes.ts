@@ -3,7 +3,8 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: 'hospital-admin',
-    loadChildren: () => import('./features/hospital-admin/hospital_admin.routes').then((m) => m.Hospital_adminRoutes),
+    loadChildren: () =>
+      import('./features/hospital-admin/hospital_admin.routes').then((m) => m.Hospital_adminRoutes),
   },
   {
     path: 'doctors',
@@ -20,7 +21,7 @@ export const routes: Routes = [
   },
   {
     path: 'patient',
-    loadChildren: () => import('./features/patient/patient-module').then(m => m.PatientModule),
+    loadChildren: () => import('./features/patient/patient-module').then((m) => m.PatientModule),
   },
   {
     path: '',

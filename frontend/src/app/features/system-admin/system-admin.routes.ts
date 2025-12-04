@@ -8,6 +8,10 @@ import { AddUserComponent } from './add-user/add-user.component';
 export const ADMIN_ROUTES: Routes = [
   // 1. Main Dashboard
   {
+    path: '',
+    component: SystemAdminDashboardComponent,
+  },
+  {
     path: 'dashboard',
     component: SystemAdminDashboardComponent,
   },
