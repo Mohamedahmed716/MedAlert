@@ -22,6 +22,10 @@ export const ADMIN_ROUTES: Routes = [
     component: ManageHospitalComponent,
   },
   {
+    path: 'hospitals/edit/:id', // <--- New Route for Editing
+    component: ManageHospitalComponent,
+  },
+  {
     path: 'hospitals',
     redirectTo: 'dashboard',
     pathMatch: 'full',

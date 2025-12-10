@@ -1,6 +1,5 @@
 <div class="layout-wrapper">
   <div class="layout-container">
-    <!-- Header (No Sidebar) -->
     <header class="header">
       <div class="logo-container">
         <img class="logo-icon" src="assets/Logo.png" alt="MedAlert Logo" />
@@ -21,7 +20,6 @@
       </div>
     </header>
 
-    <!-- Main Content -->
     <main class="main-content">
       <div class="form-container">
         <div class="page-header">
@@ -33,8 +31,12 @@
           </div>
         </div>
 
-        <form class="form-layout" (ngSubmit)="onSaveHospital()">
-          <!-- Hospital Info Card -->
+        <form class="form-layout" (ngSubmit)="onSaveHospital()" #hospitalForm="ngForm">
+          <div *ngIf="errorMessage" class="error-banner">
+            <span class="material-symbols-outlined">error</span>
+            {{ errorMessage }}
+          </div>
+
           <div class="card">
             <h2 class="card-title">Hospital Information</h2>
             <div class="card-grid">
@@ -43,79 +45,115 @@
                   <p class="input-label">Hospital Name</p>
                   <input
                     class="form-input"
+                    [class.invalid]="nameField.invalid && nameField.touched"
                     placeholder="Enter hospital name"
                     type="text"
                     name="name"
                     [(ngModel)]="hospital.name"
                     required
+                    #nameField="ngModel"
                   />
+                  <div *ngIf="nameField.invalid && nameField.touched" class="error-text">
+                    Hospital name is required.
+                  </div>
                 </label>
               </div>
+
               <div>
                 <label class="form-label">
                   <p class="input-label">Street Address</p>
                   <input
                     class="form-input"
+                    [class.invalid]="addrField.invalid && addrField.touched"
                     placeholder="Enter street address"
                     type="text"
                     name="streetAddress"
                     [(ngModel)]="hospital.streetAddress"
                     required
+                    #addrField="ngModel"
                   />
+                  <div *ngIf="addrField.invalid && addrField.touched" class="error-text">
+                    Address is required.
+                  </div>
                 </label>
               </div>
+
               <div>
                 <label class="form-label">
                   <p class="input-label">City</p>
                   <input
                     class="form-input"
+                    [class.invalid]="cityField.invalid && cityField.touched"
                     placeholder="Enter city"
                     type="text"
                     name="city"
                     [(ngModel)]="hospital.city"
                     required
+                    #cityField="ngModel"
                   />
+                  <div *ngIf="cityField.invalid && cityField.touched" class="error-text">
+                    City is required.
+                  </div>
                 </label>
               </div>
+
               <div>
                 <label class="form-label">
                   <p class="input-label">State</p>
                   <input
                     class="form-input"
+                    [class.invalid]="stateField.invalid && stateField.touched"
                     placeholder="Enter state"
                     type="text"
                     name="state"
                     [(ngModel)]="hospital.state"
                     required
+                    #stateField="ngModel"
                   />
+                  <div *ngIf="stateField.invalid && stateField.touched" class="error-text">
+                    State is required.
+                  </div>
                 </label>
               </div>
+
               <div>
                 <label class="form-label">
                   <p class="input-label">Zip Code</p>
                   <input
                     class="form-input"
+                    [class.invalid]="zipField.invalid && zipField.touched"
                     placeholder="Enter zip code"
                     type="text"
                     name="zipCode"
                     [(ngModel)]="hospital.zipCode"
                     required
+                    #zipField="ngModel"
                   />
+                  <div *ngIf="zipField.invalid && zipField.touched" class="error-text">
+                    Zip code is required.
+                  </div>
                 </label>
               </div>
+
               <div>
                 <label class="form-label">
                   <p class="input-label">Hospital Phone Number</p>
                   <input
                     class="form-input"
+                    [class.invalid]="phoneField.invalid && phoneField.touched"
                     placeholder="(123) 456-7890"
                     type="tel"
                     name="phoneNumber"
                     [(ngModel)]="hospital.phoneNumber"
                     required
+                    #phoneField="ngModel"
                   />
+                  <div *ngIf="phoneField.invalid && phoneField.touched" class="error-text">
+                    Phone number is required.
+                  </div>
                 </label>
               </div>
+
               <div>
                 <label class="form-label">
                   <p class="input-label">
@@ -133,7 +171,6 @@
             </div>
           </div>
 
-          <!-- Admin Account Card -->
           <div class="card">
             <h2 class="card-title">Hospital Admin Account</h2>
             <p class="card-subtitle">Create an administrator account for this hospital.</p>
@@ -143,25 +180,38 @@
                   <p class="input-label">Username</p>
                   <input
                     class="form-input"
+                    [class.invalid]="userField.invalid && userField.touched"
                     placeholder="Enter a username"
                     type="text"
                     name="username"
                     [(ngModel)]="admin.username"
                     required
+                    #userField="ngModel"
+                    [disabled]="isEditMode"
                   />
+                  <div *ngIf="userField.invalid && userField.touched" class="error-text">
+                    Username is required.
+                  </div>
                 </label>
               </div>
               <div class="password-wrapper">
                 <label class="form-label">
-                  <p class="input-label">Password</p>
+                  <p class="input-label">
+                    Password
+                    <span *ngIf="isEditMode" class="label-optional"
+                      >(Leave blank to keep current)</span
+                    >
+                  </p>
                   <div style="position: relative">
                     <input
                       class="form-input password-input"
+                      [class.invalid]="passField.invalid && passField.touched"
                       placeholder="Enter a strong password"
                       [type]="passwordVisible ? 'text' : 'password'"
                       name="password"
                       [(ngModel)]="admin.password"
-                      required
+                      #passField="ngModel"
+                      [required]="!isEditMode"
                     />
                     <button
                       class="toggle-visibility"
@@ -173,15 +223,19 @@
                       }}</span>
                     </button>
                   </div>
+                  <div *ngIf="passField.invalid && passField.touched" class="error-text">
+                    Password is required.
+                  </div>
                 </label>
               </div>
             </div>
           </div>
 
-          <!-- Form Actions -->
           <div class="form-actions">
             <button class="btn btn-secondary" type="button" (click)="onCancel()">Cancel</button>
-            <button class="btn btn-primary" type="submit">Save Hospital</button>
+            <button class="btn btn-primary" type="submit" [disabled]="!hospitalForm.form.valid">
+              {{ isEditMode ? 'Update Hospital' : 'Save Hospital' }}
+            </button>
           </div>
         </form>
       </div>

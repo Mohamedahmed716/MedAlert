@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
-import { AuthService, LoginRequest } from '../../auth/auth.service';
+import { AuthService, LoginRequest } from '../auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -58,18 +58,19 @@ export class SignInComponent implements OnInit {
     this.authService.login(loginRequest).subscribe({
       next: (response) => {
         this.isLoading = false;
-        this.authService.saveToken(response.token);
 
-        // --- UPDATED ROLE-BASED REDIRECT ---
+        // Save both Token and Role
+        this.authService.saveUserSession(response.token, response.role);
+
+        // Role-Based Redirect
         if (response.role === 'SYSTEM_ADMIN') {
-          // Send to the new Admin root path, which defaults to the Hospital List table
           this.router.navigate(['/admin/hospitals']);
         } else if (response.role === 'HOSPITAL_ADMIN') {
-          this.router.navigate(['/hospital/dashboard']);
+          this.router.navigate(['/hospital-admin/dashboard']);
         } else if (response.role === 'DOCTOR') {
-          this.router.navigate(['/doctor/dashboard']);
+          this.router.navigate(['/doctors/dashboard']);
         } else {
-          this.router.navigate(['/dashboard']); // Patient/Default
+          this.router.navigate(['/patient/dashboard']);
         }
       },
       error: (err) => {

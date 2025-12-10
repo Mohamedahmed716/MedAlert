@@ -69,7 +69,6 @@ public class User implements UserDetails {
     @Override
     public boolean isCredentialsNonExpired() { return true; }
 
-    // --- CHANGED: Now linked to isActive field ---
     @Override
     public boolean isEnabled() { 
         return isActive; 

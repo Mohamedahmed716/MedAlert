@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 // --- INLINED DATA MODELS ---
 
@@ -32,29 +33,35 @@ export interface AuthResponse {
 })
 export class AuthService {
   private http = inject(HttpClient);
+  private router = inject(Router);
 
   private apiUrl = 'http://localhost:8080/api/v1/auth';
 
-  // Uses the inlined LoginRequest and AuthResponse interfaces
   login(request: LoginRequest): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, request);
   }
 
-  // Uses the inlined RegisterRequest interface
   register(request: RegisterRequest): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/register`, request);
   }
 
-  saveToken(token: string): void {
+  saveUserSession(token: string, role: string): void {
     localStorage.setItem('medalert_token', token);
+    localStorage.setItem('medalert_role', role);
   }
 
   getToken(): string | null {
     return localStorage.getItem('medalert_token');
   }
 
+  getUserRole(): string | null {
+    return localStorage.getItem('medalert_role');
+  }
+
   logout(): void {
     localStorage.removeItem('medalert_token');
+    localStorage.removeItem('medalert_role');
+    this.router.navigate(['/auth/SignIn']);
   }
 
   isAuthenticated(): boolean {
