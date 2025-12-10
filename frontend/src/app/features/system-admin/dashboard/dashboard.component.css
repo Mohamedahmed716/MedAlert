@@ -17,9 +17,67 @@
   --red-hover-light: #fef2f2;
   --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
   --primary-soft: rgba(17, 147, 212, 0.08);
+
+  /* Added these to match User Management Exact Look */
+  --slate-200: #e2e8f0;
+  --slate-700: #334155;
 }
 
-/* --- Layout --- */
+.notification-banner {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ecfdf5;
+  border: 1px solid #10b981;
+  border-radius: 0.75rem;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  z-index: 1000;
+  transition: top 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  width: 90%;
+  max-width: 28rem;
+}
+.notification-banner.show {
+  top: 2rem;
+}
+.notification-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.notification-icon {
+  color: #059669;
+  font-size: 1.5rem;
+  margin-top: 0.1rem;
+}
+.notification-text {
+  flex: 1;
+}
+.notification-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #064e3b;
+}
+.notification-desc {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.875rem;
+  color: #065f46;
+  line-height: 1.4;
+}
+.close-btn {
+  background: none;
+  border: none;
+  color: #059669;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+.close-btn:hover {
+  color: #064e3b;
+}
 .dashboard-layout {
   display: flex;
   flex-direction: column;
@@ -27,28 +85,28 @@
   width: 100%;
 }
 
-/* --- Header --- */
+/* --- HEADER (Exact copy from User Management) --- */
 .header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--light-border);
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(4px);
-  padding: 0.75rem 2.5rem;
-  height: 80px;
+  padding: 0 1.5rem;
+  height: 64px; /* Fixed Height matching user-management */
   width: 100%;
   box-sizing: border-box;
+  z-index: 100;
+  position: sticky;
+  top: 0;
 }
 
 .logo-container.header-logo {
   display: flex;
   align-items: center;
+  padding: 0;
 }
-
 .header-logo-img {
   width: 150px;
   height: auto;
@@ -59,15 +117,13 @@
   align-items: center;
   gap: 0.5rem;
 }
-
-/* --- Content Wrapper --- */
 .content-wrapper {
   display: flex;
-  flex: 1; /* Takes remaining height below header */
+  flex: 1;
   overflow: hidden;
 }
 
-/* --- Sidebar --- */
+/* --- SIDEBAR (Exact copy from User Management) --- */
 .sidebar {
   width: 256px;
   background-color: var(--light-surface-1);
@@ -77,21 +133,18 @@
   justify-content: space-between;
   padding: 1rem;
   box-sizing: border-box;
-  flex-shrink: 0;
-  overflow-y: auto;
 }
 
 .sidebar-top {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  padding-top: 1rem;
 }
-
 .sidebar-nav {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin-top: 1.5rem;
 }
 
 .nav-link {
@@ -120,16 +173,15 @@
   white-space: nowrap;
 }
 
-/* --- Updated Sidebar Profile (Logout Button Area) --- */
+/* --- SIDEBAR PROFILE / LOGOUT (Exact copy) --- */
 .sidebar-profile {
   display: flex;
   padding: 0 0 1rem 0;
 }
-
 .sidebar-profile .icon-btn {
   width: 100%;
-  background-color: var(--light-surface-2); /* Matches slate-200 look */
-  color: var(--light-text-primary); /* Matches slate-700 look */
+  background-color: var(--slate-200); /* Uses new variable */
+  color: var(--slate-700); /* Uses new variable */
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 500;
@@ -145,24 +197,48 @@
   aspect-ratio: 1/1;
   background-size: cover;
   border-radius: 9999px;
-  border: 1px solid var(--light-border);
   background-color: var(--light-surface-hover);
+  border: 1px solid var(--light-border);
 }
 
-/* --- Main Content --- */
+.icon-btn {
+  display: flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background-color: var(--light-surface-1);
+  color: var(--light-text-secondary);
+  border: 1px solid var(--light-border);
+  transition: background-color 0.2s;
+}
+.icon-btn:hover {
+  background-color: var(--light-surface-2);
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .main-content-area {
   flex: 1;
   display: flex;
   flex-direction: column;
   background-color: var(--background-light);
   overflow-y: auto;
-}
-.main-section {
-  flex: 1;
   padding: 2.5rem;
 }
 
-/* --- Stats & Table --- */
+.main-section {
+  flex: 1;
+}
+
+/* --- Dashboard Specific Styles Below --- */
+
 .page-header {
   display: flex;
   flex-direction: row;
@@ -188,7 +264,7 @@
   margin: 0;
 }
 
-.btn-primary {
+.btn {
   display: flex;
   width: auto;
   align-items: center;
@@ -203,16 +279,13 @@
   cursor: pointer;
   transition: background-color 0.2s;
   text-decoration: none;
+}
+.btn-primary {
   background-color: var(--primary);
   color: white;
 }
 .btn-primary:hover {
   background-color: #0e7ab0;
-}
-.truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .stats-grid {
@@ -221,6 +294,7 @@
   gap: 1.5rem;
   margin-bottom: 2rem;
 }
+
 .stat-card {
   background: white;
   border-radius: 1rem;
@@ -231,6 +305,7 @@
   box-shadow: var(--card-shadow);
   border: 1px solid var(--light-border);
 }
+
 .stat-icon {
   width: 48px;
   height: 48px;
@@ -248,7 +323,7 @@
   color: #16a34a;
 }
 .stat-icon.bg-orange-light {
-  background-color: #ffedd5;
+  background: #ffedd5;
   color: #ea580c;
 }
 .stat-info {
@@ -265,7 +340,6 @@
   color: var(--light-text-primary);
   line-height: 1.2;
 }
-
 .content-card {
   background: white;
   border-radius: 1rem;
@@ -285,6 +359,7 @@
   background-color: #ffffff;
   flex-wrap: wrap;
 }
+
 .search-wrapper {
   display: flex;
   align-items: center;
@@ -295,7 +370,15 @@
   border: 1px solid transparent;
   flex: 1;
   max-width: 320px;
+  transition: all 0.2s;
 }
+
+.search-wrapper:focus-within {
+  background-color: white;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+
 .search-icon {
   color: var(--light-text-secondary);
   font-size: 1.25rem;
@@ -309,6 +392,7 @@
   width: 100%;
   outline: none;
 }
+
 .toolbar-actions {
   display: flex;
   gap: 0.75rem;
@@ -331,14 +415,13 @@
   background-color: var(--light-surface-2);
   color: var(--light-text-primary);
 }
-
 .table-responsive {
   overflow-x: auto;
 }
 .modern-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 700px;
+  min-width: 900px;
 }
 .modern-table th {
   background-color: #f8fafc;
@@ -349,6 +432,7 @@
   color: var(--light-text-secondary);
   text-transform: uppercase;
   border-bottom: 1px solid var(--light-border);
+  letter-spacing: 0.05em;
 }
 .modern-table td {
   padding: 1rem 1.5rem;
@@ -485,80 +569,6 @@
 .page-arrow:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-.icon-btn {
-  display: flex;
-  width: 2.5rem;
-  height: 2.5rem;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.5rem;
-  background-color: var(--light-surface-1);
-  color: var(--light-text-secondary);
-  border: 1px solid var(--light-border);
-  transition: background-color 0.2s;
-}
-.icon-btn:hover {
-  background-color: var(--light-surface-2);
-}
-
-/* --- Notification Banner --- */
-.notification-banner {
-  position: fixed;
-  top: -100px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #ecfdf5;
-  border: 1px solid #10b981;
-  border-radius: 0.75rem;
-  padding: 1rem 1.5rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  z-index: 1000;
-  transition: top 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-  width: 90%;
-  max-width: 28rem;
-}
-.notification-banner.show {
-  top: 2rem;
-}
-.notification-content {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-}
-.notification-icon {
-  color: #059669;
-  font-size: 1.5rem;
-  margin-top: 0.1rem;
-}
-.notification-text {
-  flex: 1;
-}
-.notification-title {
-  margin: 0;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #064e3b;
-}
-.notification-desc {
-  margin: 0.25rem 0 0 0;
-  font-size: 0.875rem;
-  color: #065f46;
-  line-height: 1.4;
-}
-.close-btn {
-  background: none;
-  border: none;
-  color: #059669;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-}
-.close-btn:hover {
-  color: #064e3b;
 }
 
 /* ============================ */
