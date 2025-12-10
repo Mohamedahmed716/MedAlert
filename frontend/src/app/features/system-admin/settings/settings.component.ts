@@ -12,7 +12,6 @@ import { AuthService } from '../../auth/auth.service';
   styleUrls: ['./settings.component.css'],
 })
 export class SettingsComponent {
-  // Model for settings form
   settings = {
     appName: 'MedAlert',
     language: 'English (US)',

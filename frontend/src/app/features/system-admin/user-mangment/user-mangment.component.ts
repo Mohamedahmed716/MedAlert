@@ -2,15 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
-
-export interface User {
-  id: number;
-  fullName: string;
-  email: string;
-  role: string;
-  isActive: boolean;
-  dateCreated: string;
-}
+import { UserService, User, UserStats } from '../../../core/services/user.service';
 
 @Component({
   selector: 'app-user-list',
@@ -20,65 +12,100 @@ export interface User {
   styleUrls: ['./user-mangment.component.css'],
 })
 export class UserListComponent implements OnInit {
-  users: User[] = [
-    {
-      id: 1,
-      fullName: 'John Doe',
-      email: 'john.doe@example.com',
-      role: 'Patient',
-      isActive: true,
-      dateCreated: '2023-01-15',
-    },
-    {
-      id: 2,
-      fullName: 'Jane Smith',
-      email: 'jane.smith@hospital.org',
-      role: 'Hospital Admin',
-      isActive: true,
-      dateCreated: '2022-11-20',
-    },
-    {
-      id: 3,
-      fullName: 'Sam Wilson',
-      email: 'sam.wilson@medalert.io',
-      role: 'Super Admin',
-      isActive: false,
-      dateCreated: '2021-03-10',
-    },
-    {
-      id: 4,
-      fullName: 'Maria Garcia',
-      email: 'maria.garcia@example.com',
-      role: 'Patient',
-      isActive: true,
-      dateCreated: '2023-05-01',
-    },
-  ];
+  users: User[] = [];
+  paginatedUsers: User[] = [];
+
+  stats: UserStats = {
+    totalUsers: 0,
+    activeUsers: 0,
+    pendingUsers: 0,
+  };
+
+  currentPage = 1;
+  itemsPerPage = 3;
 
   showNotification = false;
 
+  showConfirmModal = false;
+  selectedUserId: number | null = null;
+  actionType: 'delete' | 'toggle' | null = null;
+  targetStatus: boolean = false;
+  confirmTitle = '';
+  confirmMessage = '';
+
   constructor(
     private authService: AuthService,
+    private userService: UserService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    // Check URL for ?created=true to show success banner
+    this.loadUsers();
+    this.loadStats();
+
     this.route.queryParams.subscribe((params) => {
       if (params['created'] === 'true') {
         this.showNotification = true;
         setTimeout(() => {
           this.showNotification = false;
-          // Clear the query param
           this.router.navigate([], {
             relativeTo: this.route,
             queryParams: { created: null },
             queryParamsHandling: 'merge',
           });
-        }, 2000);
+        }, 3000);
       }
     });
+  }
+
+  loadUsers() {
+    this.userService.getAllUsers().subscribe({
+      next: (data) => {
+        this.users = data;
+        this.updatePagination();
+      },
+      error: (err) => console.error('Failed to load users', err),
+    });
+  }
+
+  loadStats() {
+    this.userService.getStats().subscribe({
+      next: (data) => {
+        this.stats = data;
+      },
+      error: (err) => console.error('Failed to load stats', err),
+    });
+  }
+
+  updatePagination() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedUsers = this.users.slice(startIndex, endIndex);
+  }
+
+  nextPage() {
+    if (this.currentPage * this.itemsPerPage < this.users.length) {
+      this.currentPage++;
+      this.updatePagination();
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePagination();
+    }
+  }
+
+  get showStart(): number {
+    if (this.users.length === 0) return 0;
+    return (this.currentPage - 1) * this.itemsPerPage + 1;
+  }
+
+  get showEnd(): number {
+    const end = this.currentPage * this.itemsPerPage;
+    return end > this.users.length ? this.users.length : end;
   }
 
   logout() {
@@ -86,17 +113,70 @@ export class UserListComponent implements OnInit {
     this.router.navigate(['/auth/SignIn']);
   }
 
-  approveUser(user: User) {
-    if (confirm(`Approve account for ${user.fullName}?`)) {
-      console.log('Approving:', user.fullName);
-      user.isActive = true;
+  onEdit(id: number) {
+    this.router.navigate(['/admin/users/edit', id]);
+  }
+
+  initiateDelete(id: number) {
+    this.selectedUserId = id;
+    this.actionType = 'delete';
+    this.confirmTitle = 'Delete User Account?';
+    this.confirmMessage =
+      'Are you sure you want to delete this user? This action cannot be undone.';
+    this.showConfirmModal = true;
+  }
+
+  initiateToggleStatus(user: User) {
+    this.selectedUserId = user.id;
+    this.actionType = 'toggle';
+    this.targetStatus = !user.active;
+
+    const actionWord = this.targetStatus ? 'Activate' : 'Deactivate';
+    this.confirmTitle = `${actionWord} User Account?`;
+    this.confirmMessage = `Are you sure you want to ${actionWord.toLowerCase()} the account for ${
+      user.fullName
+    }?`;
+
+    this.showConfirmModal = true;
+  }
+
+  confirmAction() {
+    if (this.selectedUserId === null) {
+      return;
+    }
+
+    if (this.actionType === 'delete') {
+      this.userService.deleteUser(this.selectedUserId).subscribe({
+        next: () => {
+          this.loadUsers();
+          this.loadStats();
+          this.closeModal();
+        },
+        error: (err) => {
+          console.error('Delete failed:', err);
+          alert(`Delete Failed: ${err.message || 'Unknown error'}`);
+          this.closeModal();
+        },
+      });
+    } else if (this.actionType === 'toggle') {
+      this.userService.toggleStatus(this.selectedUserId, this.targetStatus).subscribe({
+        next: () => {
+          this.loadUsers();
+          this.loadStats();
+          this.closeModal();
+        },
+        error: (err) => {
+          console.error('Status toggle failed:', err);
+          alert(`Status Update Failed: ${err.message || 'Unknown error'}`);
+          this.closeModal();
+        },
+      });
     }
   }
 
-  deactivateUser(user: User) {
-    if (confirm(`Deactivate account for ${user.fullName}?`)) {
-      console.log('Deactivating:', user.fullName);
-      user.isActive = false;
-    }
+  closeModal() {
+    this.showConfirmModal = false;
+    this.selectedUserId = null;
+    this.actionType = null;
   }
 }

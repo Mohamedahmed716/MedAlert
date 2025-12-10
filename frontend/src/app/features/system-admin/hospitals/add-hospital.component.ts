@@ -48,7 +48,6 @@ export class ManageHospitalComponent implements OnInit {
   loadHospitalData(id: string) {
     this.hospitalService.getHospitalById(id).subscribe({
       next: (data: any) => {
-        // Map Hospital Data
         this.hospital = {
           id: data.id,
           name: data.name,
@@ -59,8 +58,6 @@ export class ManageHospitalComponent implements OnInit {
           phoneNumber: data.phoneNumber,
           website: data.website,
         };
-
-        // Map Admin Data (Username only)
         if (data.adminEmail) {
           this.admin.username = data.adminEmail;
         }

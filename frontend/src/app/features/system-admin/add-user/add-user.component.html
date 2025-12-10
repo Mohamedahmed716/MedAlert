@@ -23,54 +23,80 @@
       <div class="form-container">
         <div class="page-header">
           <div class="page-title-group">
-            <p class="page-title">Create a New User</p>
-            <p class="page-subtitle">Enter details to register a new user in the system.</p>
+            <p class="page-title">{{ isEditMode ? 'Edit User' : 'Create a New User' }}</p>
+            <p class="page-subtitle">
+              {{
+                isEditMode
+                  ? 'Update existing user details.'
+                  : 'Enter details to register a new user in the system.'
+              }}
+            </p>
           </div>
         </div>
 
-        <form class="form-layout" (ngSubmit)="onSaveUser()">
+        <form class="form-layout" (ngSubmit)="onSaveUser()" #userForm="ngForm">
+          <div *ngIf="errorMessage" class="error-banner">
+            <span class="material-symbols-outlined">error</span>
+            {{ errorMessage }}
+          </div>
+
           <div class="card">
             <h2 class="card-title">User Credentials</h2>
-            <p class="card-subtitle">Enter the basic account information for the new user.</p>
-
             <div class="card-grid">
               <div class="grid-span-2">
                 <label class="form-label">
                   <p class="input-label">Full Name</p>
                   <input
                     class="form-input"
+                    [class.invalid]="nameField.invalid && nameField.touched"
                     placeholder="Enter user's full name"
                     type="text"
                     name="fullName"
                     [(ngModel)]="user.fullName"
                     required
+                    #nameField="ngModel"
                   />
+                  <div *ngIf="nameField.invalid && nameField.touched" class="error-text">
+                    Full Name is required.
+                  </div>
                 </label>
               </div>
+
               <div class="grid-span-2">
                 <label class="form-label">
                   <p class="input-label">Email</p>
                   <input
                     class="form-input"
+                    [class.invalid]="emailField.invalid && emailField.touched"
                     placeholder="Enter user's email address"
                     type="email"
                     name="email"
                     [(ngModel)]="user.email"
                     required
+                    #emailField="ngModel"
                   />
+                  <div *ngIf="emailField.invalid && emailField.touched" class="error-text">
+                    Email is required.
+                  </div>
                 </label>
               </div>
+
               <div>
                 <label class="form-label">
-                  <p class="input-label">Create Password</p>
+                  <p class="input-label">
+                    {{ isEditMode ? 'New Password' : 'Create Password' }}
+                    <span *ngIf="isEditMode" class="label-optional">(Optional)</span>
+                  </p>
                   <div class="password-wrapper">
                     <input
                       class="form-input password-input"
+                      [class.invalid]="passField.invalid && passField.touched"
                       placeholder="Enter a secure password"
                       [type]="passwordVisible1 ? 'text' : 'password'"
                       name="password"
                       [(ngModel)]="user.password"
-                      required
+                      #passField="ngModel"
+                      [required]="!isEditMode"
                     />
                     <button class="toggle-visibility" type="button" (click)="togglePassword1()">
                       <span class="material-symbols-outlined">{{
@@ -78,19 +104,25 @@
                       }}</span>
                     </button>
                   </div>
+                  <div *ngIf="passField.invalid && passField.touched" class="error-text">
+                    Password is required.
+                  </div>
                 </label>
               </div>
+
               <div>
                 <label class="form-label">
                   <p class="input-label">Confirm Password</p>
                   <div class="password-wrapper">
                     <input
                       class="form-input password-input"
+                      [class.invalid]="confirmPassField.invalid && confirmPassField.touched"
                       placeholder="Confirm the password"
                       [type]="passwordVisible2 ? 'text' : 'password'"
                       name="confirmPassword"
                       [(ngModel)]="user.confirmPassword"
-                      required
+                      #confirmPassField="ngModel"
+                      [required]="!isEditMode || user.password !== ''"
                     />
                     <button class="toggle-visibility" type="button" (click)="togglePassword2()">
                       <span class="material-symbols-outlined">{{
@@ -98,25 +130,38 @@
                       }}</span>
                     </button>
                   </div>
-                  <p
-                    class="input-error-msg"
-                    *ngIf="user.confirmPassword && user.password !== user.confirmPassword"
+                  <div
+                    *ngIf="confirmPassField.invalid && confirmPassField.touched"
+                    class="error-text"
+                  >
+                    Please confirm the password.
+                  </div>
+                  <div
+                    class="error-text"
+                    *ngIf="user.password && user.password !== user.confirmPassword"
                   >
                     Passwords do not match.
-                  </p>
+                  </div>
                 </label>
               </div>
             </div>
           </div>
+
           <div class="card">
             <h2 class="card-title">Role & Permissions</h2>
-            <p class="card-subtitle">Assign a role and corresponding permissions to the user.</p>
             <div class="card-grid">
               <div class="grid-span-2">
                 <label class="form-label">
                   <p class="input-label">User Role</p>
-                  <div class="select-wrapper" style="position: relative">
-                    <select class="form-input" name="role" [(ngModel)]="user.role" required>
+                  <div class="select-wrapper">
+                    <select
+                      class="form-input"
+                      [class.invalid]="roleField.invalid && roleField.touched"
+                      name="role"
+                      [(ngModel)]="user.role"
+                      required
+                      #roleField="ngModel"
+                    >
                       <option value="" disabled selected>Select a role</option>
                       <option value="Patient">Patient</option>
                       <option value="Doctor">Doctor</option>
@@ -124,28 +169,50 @@
                       <option value="Super Admin">Super Admin</option>
                     </select>
                   </div>
+                  <div *ngIf="roleField.invalid && roleField.touched" class="error-text">
+                    Role selection is required.
+                  </div>
                 </label>
               </div>
+
               <div class="grid-span-2" *ngIf="showHospitalField">
                 <label class="form-label">
                   <p class="input-label">Hospital Assignment</p>
                   <div class="select-wrapper">
-                    <select class="form-input" name="hospital" [(ngModel)]="user.hospital" required>
+                    <select
+                      class="form-input"
+                      [class.invalid]="hospitalField.invalid && hospitalField.touched"
+                      name="hospital"
+                      [(ngModel)]="user.hospital"
+                      required
+                      #hospitalField="ngModel"
+                    >
                       <option value="" disabled selected>Select a hospital</option>
-                      <option value="General Hospital">General Hospital</option>
-                      <option value="City Central Medical Center">
-                        City Central Medical Center
+                      <option *ngFor="let h of hospitals" [value]="h.id">
+                        {{ h.name }}
                       </option>
-                      <option value="Sunrise Health Clinic">Sunrise Health Clinic</option>
                     </select>
+                  </div>
+                  <div *ngIf="hospitalField.invalid && hospitalField.touched" class="error-text">
+                    Hospital assignment is required.
                   </div>
                 </label>
               </div>
             </div>
           </div>
+
           <div class="form-actions">
             <button class="btn btn-secondary" type="button" (click)="onCancel()">Cancel</button>
-            <button class="btn btn-primary" type="submit">Create User</button>
+
+            <button
+              class="btn btn-primary"
+              type="submit"
+              [disabled]="
+                userForm.invalid || (user.password && user.password !== user.confirmPassword)
+              "
+            >
+              {{ isEditMode ? 'Update User' : 'Create User' }}
+            </button>
           </div>
         </form>
       </div>
