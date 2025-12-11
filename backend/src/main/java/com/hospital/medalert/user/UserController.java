@@ -65,7 +65,13 @@ public class UserController {
             @PathVariable Long id,
             @RequestBody Map<String, Boolean> payload
     ) {
-        service.toggleStatus(id, payload.get("isActive"));
+        Boolean isActive = payload.get("active"); 
+
+        if (isActive == null) {
+            throw new IllegalArgumentException("Payload must contain the key 'active' with a boolean value.");
+        }
+        
+        service.toggleStatus(id, isActive);
         return ResponseEntity.ok().build();
     }
 
