@@ -1,16 +1,3 @@
-.icon-action[disabled],
-.icon-action.disabled {
-  opacity: 0.5;
-  cursor: not-allowed !important;
-  pointer-events: none;
-  background-color: var(--light-surface-2) !important;
-  color: var(--light-text-muted) !important;
-}
-
-.icon-action[disabled]:hover,
-.icon-action.disabled:hover {
-  background-color: var(--light-surface-2) !important;
-}
 :root {
   --primary: #1193d4;
   --background-light: #f6f7f8;
@@ -37,6 +24,7 @@
   --slate-700: #334155;
 }
 
+/* --- Notification Banner --- */
 .notification-banner {
   position: fixed;
   top: -100px;
@@ -92,6 +80,7 @@
 .close-btn:hover {
   color: #064e3b;
 }
+
 .dashboard-layout {
   display: flex;
   flex-direction: column;
@@ -99,6 +88,7 @@
   width: 100%;
 }
 
+/* --- Header --- */
 .header {
   display: flex;
   align-items: center;
@@ -136,6 +126,7 @@
   overflow: hidden;
 }
 
+/* --- Sidebar --- */
 .sidebar {
   width: 256px;
   background-color: var(--light-surface-1);
@@ -234,6 +225,7 @@
   white-space: nowrap;
 }
 
+/* --- Main Content --- */
 .main-content-area {
   flex: 1;
   display: flex;
@@ -296,6 +288,7 @@
   background-color: #0e7ab0;
 }
 
+/* --- Stats Grid --- */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -348,12 +341,14 @@
   color: var(--light-text-primary);
   line-height: 1.2;
 }
+
+/* --- Content Card --- */
 .content-card {
   background: white;
   border-radius: 1rem;
   box-shadow: var(--card-shadow);
   border: 1px solid var(--light-border);
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
 }
@@ -366,6 +361,15 @@
   gap: 1rem;
   background-color: #ffffff;
   flex-wrap: wrap;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+/* --- SEARCH CONTAINER & SUGGESTIONS --- */
+.search-container {
+  position: relative;
+  flex: 1;
+  max-width: 320px;
 }
 
 .search-wrapper {
@@ -376,8 +380,7 @@
   padding: 0 0.75rem;
   height: 2.5rem;
   border: 1px solid transparent;
-  flex: 1;
-  max-width: 320px;
+  width: 100%;
   transition: all 0.2s;
 }
 
@@ -401,10 +404,97 @@
   outline: none;
 }
 
+.suggestions-box {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid var(--light-border);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-top: 4px;
+  list-style: none;
+  padding: 0;
+  z-index: 50;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.suggestions-box li {
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--light-surface-2);
+  transition: background-color 0.2s;
+}
+
+.suggestions-box li:last-child {
+  border-bottom: none;
+}
+
+.suggestions-box li:hover {
+  background-color: var(--light-surface-hover);
+}
+
+.suggestion-icon {
+  color: var(--light-text-secondary);
+  font-size: 1.25rem;
+}
+
+.suggestion-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.suggestion-name {
+  font-weight: 600;
+  color: var(--light-text-primary);
+  font-size: 0.875rem;
+}
+
+.suggestion-email {
+  font-size: 0.75rem;
+  color: var(--light-text-muted);
+}
+
+/* --- FILTER DROPDOWN & TOOLBAR --- */
 .toolbar-actions {
   display: flex;
   gap: 0.75rem;
+  position: relative;
 }
+
+.filter-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid var(--light-border);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-top: 4px;
+  z-index: 50;
+  min-width: 150px;
+  overflow: hidden;
+}
+
+.filter-item {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: var(--light-text-primary);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.filter-item:hover {
+  background-color: var(--light-surface-hover);
+  color: var(--primary);
+  font-weight: 500;
+}
+
 .btn-filter {
   background-color: white;
   border: 1px solid var(--light-border);
@@ -423,6 +513,8 @@
   background-color: var(--light-surface-2);
   color: var(--light-text-primary);
 }
+
+/* --- Table --- */
 .table-responsive {
   overflow-x: auto;
 }
@@ -746,4 +838,17 @@
     transform: scale(1);
     opacity: 1;
   }
+}
+
+.icon-action[disabled],
+.icon-action.disabled {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+  pointer-events: none;
+  background-color: var(--light-surface-2) !important;
+  color: var(--light-text-muted) !important;
+}
+.icon-action[disabled]:hover,
+.icon-action.disabled:hover {
+  background-color: var(--light-surface-2) !important;
 }

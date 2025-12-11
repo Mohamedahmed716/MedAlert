@@ -123,16 +123,58 @@
 
         <div class="content-card">
           <div class="card-toolbar">
-            <div class="search-wrapper">
-              <span class="material-symbols-outlined search-icon">search</span>
-              <input type="text" class="search-input-filter" placeholder="Search users..." />
+            <div class="search-container">
+              <div class="search-wrapper">
+                <span class="material-symbols-outlined search-icon">search</span>
+                <input
+                  type="text"
+                  class="search-input-filter"
+                  placeholder="Search users..."
+                  [(ngModel)]="searchTerm"
+                  (input)="onSearchChange()"
+                />
+              </div>
+
+              <ul class="suggestions-box" *ngIf="showSuggestions">
+                <li *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)">
+                  <span class="material-symbols-outlined suggestion-icon">person</span>
+                  <div class="suggestion-text">
+                    <span class="suggestion-name">{{ suggestion.fullName }}</span>
+                    <span class="suggestion-email">{{ suggestion.email }}</span>
+                  </div>
+                </li>
+              </ul>
             </div>
 
-            <div class="toolbar-actions">
-              <button class="btn-filter">
-                <span class="material-symbols-outlined">filter_list</span>
-                <span>Filter</span>
-              </button>
+            <div class="toolbar-actions" style="position: relative">
+              <div style="position: relative">
+                <button class="btn-filter" (click)="toggleFilterMenu()">
+                  <span class="material-symbols-outlined">toggle_on</span>
+                  <span>Status: {{ filterStatus }}</span>
+                </button>
+                <div class="filter-dropdown" *ngIf="showFilterMenu">
+                  <div class="filter-item" (click)="setFilter('All')">All Users</div>
+                  <div class="filter-item" (click)="setFilter('Active')">Active Only</div>
+                  <div class="filter-item" (click)="setFilter('Pending')">Pending Only</div>
+                </div>
+              </div>
+
+              <div style="position: relative">
+                <button class="btn-filter" (click)="toggleRoleFilterMenu()">
+                  <span class="material-symbols-outlined">badge</span>
+                  <span>Role: {{ filterRole }}</span>
+                </button>
+                <div class="filter-dropdown" *ngIf="showRoleFilterMenu">
+                  <div
+                    class="filter-item"
+                    *ngFor="let role of roleOptions"
+                    (click)="setRoleFilter(role)"
+                  >
+                    {{ role }}
+                  </div>
+                </div>
+              </div>
+
               <button class="btn-filter">
                 <span class="material-symbols-outlined">download</span>
                 <span>Export</span>
@@ -218,19 +260,28 @@
                     </div>
                   </td>
                 </tr>
+                <tr *ngIf="paginatedUsers.length === 0">
+                  <td colspan="5" style="text-align: center; padding: 2rem; color: #64748b">
+                    No users found matching your filters.
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
 
           <div class="card-footer">
             <span class="pagination-text">
-              Showing {{ showStart }}-{{ showEnd }} of {{ stats.totalUsers }}
+              Showing {{ showStart }}-{{ showEnd }} of {{ filteredUsers.length }}
             </span>
             <div class="pagination-simple">
               <button class="page-arrow" (click)="prevPage()" [disabled]="currentPage === 1">
                 <span class="material-symbols-outlined">chevron_left</span>
               </button>
-              <button class="page-arrow" (click)="nextPage()" [disabled]="showEnd >= users.length">
+              <button
+                class="page-arrow"
+                (click)="nextPage()"
+                [disabled]="showEnd >= filteredUsers.length"
+              >
                 <span class="material-symbols-outlined">chevron_right</span>
               </button>
             </div>
