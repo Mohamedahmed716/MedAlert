@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, ActivatedRoute } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
-import { UserService, User, UserStats } from '../../../core/services/user.service';
+import { UserService, UserStats } from '../../../core/services/user.service';
+import { User } from '../../../shared/ui/models/auth.models';
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './user-mangment.component.html',
   styleUrls: ['./user-mangment.component.css'],
 })
 export class UserListComponent implements OnInit {
   users: User[] = [];
+  filteredUsers: User[] = [];
   paginatedUsers: User[] = [];
 
   stats: UserStats = {
@@ -21,11 +24,26 @@ export class UserListComponent implements OnInit {
     pendingUsers: 0,
   };
 
+  profilePhotoUrl: string = 'assets/default.png';
+
+  // --- SEARCH & FILTER STATE ---
+  searchTerm: string = '';
+  suggestions: User[] = [];
+  showSuggestions: boolean = false;
+
+  // Status Filter
+  filterStatus: 'All' | 'Active' | 'Pending' = 'All';
+  showFilterMenu: boolean = false;
+
+  // NEW: Role Filter
+  filterRole: string = 'All';
+  showRoleFilterMenu: boolean = false;
+  roleOptions = ['All', 'Patient', 'Doctor', 'Hospital Admin', 'System Admin'];
+
   currentPage = 1;
   itemsPerPage = 3;
 
   showNotification = false;
-
   showConfirmModal = false;
   selectedUserId: number | null = null;
   actionType: 'delete' | 'toggle' | null = null;
@@ -37,10 +55,12 @@ export class UserListComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private eRef: ElementRef
   ) {}
 
   ngOnInit(): void {
+    this.loadCurrentUser();
     this.loadUsers();
     this.loadStats();
 
@@ -59,10 +79,109 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  // --- SEARCH LOGIC ---
+  onSearchChange() {
+    this.applyFilters();
+    this.showSuggestions = this.searchTerm.length > 0 && this.filteredUsers.length > 0;
+    this.suggestions = this.filteredUsers.slice(0, 5);
+  }
+
+  selectSuggestion(user: User) {
+    this.searchTerm = user.fullName;
+    this.showSuggestions = false;
+    this.applyFilters();
+  }
+
+  // --- FILTER LOGIC ---
+
+  // Status Filter
+  toggleFilterMenu() {
+    this.showFilterMenu = !this.showFilterMenu;
+    this.showRoleFilterMenu = false; // Close other menu
+  }
+
+  setFilter(status: 'All' | 'Active' | 'Pending') {
+    this.filterStatus = status;
+    this.showFilterMenu = false;
+    this.applyFilters();
+  }
+
+  // NEW: Role Filter
+  toggleRoleFilterMenu() {
+    this.showRoleFilterMenu = !this.showRoleFilterMenu;
+    this.showFilterMenu = false; // Close other menu
+  }
+
+  setRoleFilter(role: string) {
+    this.filterRole = role;
+    this.showRoleFilterMenu = false;
+    this.applyFilters();
+  }
+
+  // Unified Filter Application
+  applyFilters() {
+    let temp = [...this.users];
+
+    // 1. Filter by Status
+    if (this.filterStatus === 'Active') {
+      temp = temp.filter((u) => u.active);
+    } else if (this.filterStatus === 'Pending') {
+      temp = temp.filter((u) => !u.active);
+    }
+
+    // 2. Filter by Role (NEW)
+    if (this.filterRole !== 'All') {
+      // Convert friendly name to backend ENUM format (e.g. "Hospital Admin" -> "HOSPITAL_ADMIN")
+      const backendRole = this.filterRole.toUpperCase().replace(' ', '_');
+      temp = temp.filter((u) => u.role === backendRole);
+    }
+
+    // 3. Filter by Search Term
+    if (this.searchTerm.trim()) {
+      const term = this.searchTerm.toLowerCase();
+      temp = temp.filter(
+        (u) => u.fullName.toLowerCase().includes(term) || u.email.toLowerCase().includes(term)
+      );
+    }
+
+    this.filteredUsers = temp;
+    this.currentPage = 1;
+    this.updatePagination();
+  }
+
+  @HostListener('document:click', ['$event'])
+  clickout(event: any) {
+    if (!this.eRef.nativeElement.contains(event.target)) {
+      this.showSuggestions = false;
+      this.showFilterMenu = false;
+      this.showRoleFilterMenu = false;
+    }
+  }
+
+  // --- DATA LOADING ---
+  loadCurrentUser() {
+    this.userService.getCurrentUserProfile().subscribe({
+      next: (user) => {
+        if (user.profilePhotoUrl) {
+          this.profilePhotoUrl = user.profilePhotoUrl;
+        } else {
+          const gender = user.gender ? user.gender.toLowerCase() : '';
+          if (gender === 'male') this.profilePhotoUrl = 'assets/male.png';
+          else if (gender === 'female') this.profilePhotoUrl = 'assets/female.png';
+          else this.profilePhotoUrl = 'assets/default.png';
+        }
+      },
+      error: () => {
+        this.profilePhotoUrl = 'assets/default.png';
+      },
+    });
+  }
+
   loadUsers() {
     this.userService.getAllUsers().subscribe({
       next: (data) => {
         this.users = data;
+        this.filteredUsers = data;
         this.updatePagination();
       },
       error: (err) => console.error('Failed to load users', err),
@@ -71,9 +190,7 @@ export class UserListComponent implements OnInit {
 
   loadStats() {
     this.userService.getStats().subscribe({
-      next: (data) => {
-        this.stats = data;
-      },
+      next: (data) => (this.stats = data),
       error: (err) => console.error('Failed to load stats', err),
     });
   }
@@ -81,11 +198,11 @@ export class UserListComponent implements OnInit {
   updatePagination() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    this.paginatedUsers = this.users.slice(startIndex, endIndex);
+    this.paginatedUsers = this.filteredUsers.slice(startIndex, endIndex);
   }
 
   nextPage() {
-    if (this.currentPage * this.itemsPerPage < this.users.length) {
+    if (this.currentPage * this.itemsPerPage < this.filteredUsers.length) {
       this.currentPage++;
       this.updatePagination();
     }
@@ -99,13 +216,13 @@ export class UserListComponent implements OnInit {
   }
 
   get showStart(): number {
-    if (this.users.length === 0) return 0;
+    if (this.filteredUsers.length === 0) return 0;
     return (this.currentPage - 1) * this.itemsPerPage + 1;
   }
 
   get showEnd(): number {
     const end = this.currentPage * this.itemsPerPage;
-    return end > this.users.length ? this.users.length : end;
+    return end > this.filteredUsers.length ? this.filteredUsers.length : end;
   }
 
   logout() {
@@ -130,20 +247,16 @@ export class UserListComponent implements OnInit {
     this.selectedUserId = user.id;
     this.actionType = 'toggle';
     this.targetStatus = !user.active;
-
     const actionWord = this.targetStatus ? 'Activate' : 'Deactivate';
     this.confirmTitle = `${actionWord} User Account?`;
     this.confirmMessage = `Are you sure you want to ${actionWord.toLowerCase()} the account for ${
       user.fullName
     }?`;
-
     this.showConfirmModal = true;
   }
 
   confirmAction() {
-    if (this.selectedUserId === null) {
-      return;
-    }
+    if (this.selectedUserId === null) return;
 
     if (this.actionType === 'delete') {
       this.userService.deleteUser(this.selectedUserId).subscribe({
@@ -153,7 +266,6 @@ export class UserListComponent implements OnInit {
           this.closeModal();
         },
         error: (err) => {
-          console.error('Delete failed:', err);
           alert(`Delete Failed: ${err.message || 'Unknown error'}`);
           this.closeModal();
         },
@@ -166,7 +278,6 @@ export class UserListComponent implements OnInit {
           this.closeModal();
         },
         error: (err) => {
-          console.error('Status toggle failed:', err);
           alert(`Status Update Failed: ${err.message || 'Unknown error'}`);
           this.closeModal();
         },

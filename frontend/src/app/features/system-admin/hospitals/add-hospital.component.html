@@ -11,12 +11,7 @@
         <button class="icon-btn" (click)="logout()">
           <span class="material-symbols-outlined">logout</span>
         </button>
-        <div
-          class="profile-avatar"
-          style="
-            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCQMJlmgnFXFp0qn8G02lJo-D2mcRH8gVLwAfz8XU0gKdXaStO8HmtNw-sAFZYArzSAo0twgdJ6TIc2t3mEm-k6kgLYOjTpJygqwlUi7gc43PTlrEx6cWbuE-ppH5pXCBonvrtl1oAPhaMJEApNzb2pwtG8Xk16y6MHVfo-7F2xP8GgygrYbpvtrtKtPCCL8m03JqQFflbHI5Fb4FZ9fAJ8rkK3LzfwHW8R3LmMigR9wZm1v1cYvUshg6cIuQv9Ygf4QpribvtRljQ');
-          "
-        ></div>
+        <div class="profile-avatar" [style.background-image]="'url(' + profilePhotoUrl + ')'"></div>
       </div>
     </header>
 

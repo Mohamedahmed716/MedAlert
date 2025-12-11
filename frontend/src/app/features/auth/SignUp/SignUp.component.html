@@ -8,10 +8,8 @@
           </div>
 
           <div class="header-text">
-            <div class="header-text-content">
-              <p class="title">Create an Account</p>
-              <p class="subtitle">Join MedAlert today. It's quick and easy.</p>
-            </div>
+            <p class="title">Create an Account</p>
+            <p class="subtitle">Join MedAlert today. It's quick and easy.</p>
           </div>
 
           <form class="signup-form" (ngSubmit)="onSignUp()" #signupForm="ngForm">
@@ -21,7 +19,7 @@
 
             <div class="form-group">
               <label class="form-label">
-                <p class="input-label">Full Name</p>
+                <span class="input-label">Full Name</span>
                 <input
                   class="form-input"
                   placeholder="Enter your full name"
@@ -35,7 +33,7 @@
 
             <div class="form-group">
               <label class="form-label">
-                <p class="input-label">Email</p>
+                <span class="input-label">Email</span>
                 <input
                   class="form-input"
                   placeholder="Enter your email"
@@ -49,7 +47,7 @@
 
             <div class="form-group">
               <label class="form-label">
-                <p class="input-label">Password</p>
+                <span class="input-label">Password</span>
                 <div class="password-wrapper">
                   <input
                     class="form-input password-input"
@@ -60,9 +58,9 @@
                     required
                   />
                   <button type="button" class="toggle-visibility" (click)="togglePassword1()">
-                    <span class="material-symbols-outlined">
-                      {{ passwordVisible1 ? 'visibility' : 'visibility_off' }}
-                    </span>
+                    <span class="material-symbols-outlined">{{
+                      passwordVisible1 ? 'visibility' : 'visibility_off'
+                    }}</span>
                   </button>
                 </div>
               </label>
@@ -70,7 +68,7 @@
 
             <div class="form-group">
               <label class="form-label">
-                <p class="input-label">Confirm Password</p>
+                <span class="input-label">Confirm Password</span>
                 <div class="password-wrapper">
                   <input
                     class="form-input password-input"
@@ -81,57 +79,167 @@
                     required
                   />
                   <button type="button" class="toggle-visibility" (click)="togglePassword2()">
-                    <span class="material-symbols-outlined">
-                      {{ passwordVisible2 ? 'visibility' : 'visibility_off' }}
-                    </span>
+                    <span class="material-symbols-outlined">{{
+                      passwordVisible2 ? 'visibility' : 'visibility_off'
+                    }}</span>
                   </button>
                 </div>
               </label>
             </div>
 
-            <div class="form-group">
-              <label class="form-label">
-                <p class="input-label">Date of Birth</p>
-                <input
-                  class="form-input"
-                  placeholder="MM/DD/YYYY"
-                  type="date"
-                  name="dateOfBirth"
-                  [(ngModel)]="user.dateOfBirth"
-                  required
-                />
-              </label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem">
+              <div class="form-group">
+                <label class="form-label">
+                  <span class="input-label">Date of Birth</span>
+                  <div class="custom-select-container" (click)="$event.stopPropagation()">
+                    <div
+                      class="form-input select-trigger"
+                      [class.active]="isDateOpen"
+                      (click)="toggleDate()"
+                    >
+                      <span [class.placeholder-text]="!user.dateOfBirth">
+                        {{ user.dateOfBirth || 'mm/dd/yyyy' }}
+                      </span>
+                      <span
+                        class="material-symbols-outlined select-arrow"
+                        [class.rotate]="isDateOpen"
+                        >calendar_month</span
+                      >
+                    </div>
+
+                    <div class="calendar-popup" *ngIf="isDateOpen">
+                      <div class="calendar-header">
+                        <div class="month-nav">
+                          <button type="button" class="nav-btn" (click)="prevMonth()">
+                            <span class="material-symbols-outlined">chevron_left</span>
+                          </button>
+                          <span class="current-month-display">{{ monthNames[currentMonth] }}</span>
+                          <button type="button" class="nav-btn" (click)="nextMonth()">
+                            <span class="material-symbols-outlined">chevron_right</span>
+                          </button>
+                        </div>
+                        <select
+                          class="year-select"
+                          [ngModel]="currentYear"
+                          (ngModelChange)="jumpToYear($event)"
+                          [ngModelOptions]="{ standalone: true }"
+                        >
+                          <option *ngFor="let y of yearRange" [value]="y">{{ y }}</option>
+                        </select>
+                      </div>
+                      <div class="calendar-grid-header">
+                        <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span
+                        ><span>Fr</span><span>Sa</span>
+                      </div>
+                      <div class="calendar-grid">
+                        <div
+                          *ngFor="let day of calendarDays"
+                          class="calendar-day"
+                          [class.empty]="!day"
+                          [class.future]="isFutureDate(day)"
+                          (click)="!isFutureDate(day) && selectDate(day)"
+                        >
+                          {{ day }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">
+                  <span class="input-label">Gender</span>
+                  <div class="custom-select-container" (click)="$event.stopPropagation()">
+                    <div
+                      class="form-input select-trigger"
+                      [class.active]="isGenderOpen"
+                      (click)="toggleGender()"
+                    >
+                      <span>{{ user.gender }}</span>
+                      <span
+                        class="material-symbols-outlined select-arrow"
+                        [class.rotate]="isGenderOpen"
+                        >expand_more</span
+                      >
+                    </div>
+                    <div class="custom-options" *ngIf="isGenderOpen">
+                      <div class="option-item" *ngFor="let g of genders" (click)="selectGender(g)">
+                        {{ g }}
+                      </div>
+                    </div>
+                  </div>
+                </label>
+              </div>
             </div>
 
             <div class="form-group">
               <label class="form-label">
-                <p class="input-label">Role</p>
-                <div class="select-wrapper">
-                  <select class="form-input" name="role" [(ngModel)]="user.role" required>
-                    <option value="" disabled selected>Select your role</option>
-                    <option value="Patient">Patient</option>
-                    <option value="Doctor">Doctor</option>
-                    <option value="Hospital Admin">Hospital Admin</option>
-                  </select>
-                  <span class="material-symbols-outlined select-icon">expand_more</span>
+                <span class="input-label">Role</span>
+                <div class="custom-select-container" (click)="$event.stopPropagation()">
+                  <div
+                    class="form-input select-trigger"
+                    [class.active]="isRoleOpen"
+                    (click)="toggleRole()"
+                  >
+                    <span [class.placeholder-text]="!user.role">{{
+                      user.role || 'Select your role'
+                    }}</span>
+                    <span class="material-symbols-outlined select-arrow" [class.rotate]="isRoleOpen"
+                      >expand_more</span
+                    >
+                  </div>
+
+                  <div class="custom-options" *ngIf="isRoleOpen">
+                    <div class="option-item" *ngFor="let role of roles" (click)="selectRole(role)">
+                      <span class="material-symbols-outlined option-icon">
+                        {{
+                          role === 'Doctor'
+                            ? 'stethoscope'
+                            : role === 'Patient'
+                            ? 'person'
+                            : 'admin_panel_settings'
+                        }}
+                      </span>
+                      {{ role }}
+                    </div>
+                  </div>
                 </div>
               </label>
             </div>
 
             <div class="form-group" *ngIf="showHospitalField">
               <label class="form-label">
-                <p class="input-label">Hospital Assignment</p>
-                <div class="select-wrapper">
-                  <select class="form-input" name="hospital" [(ngModel)]="user.hospital" required>
-                    <option value="" disabled selected>Select a hospital</option>
+                <span class="input-label">Hospital Assignment</span>
+                <div class="custom-select-container" (click)="$event.stopPropagation()">
+                  <div
+                    class="form-input select-trigger"
+                    [class.active]="isHospitalOpen"
+                    (click)="toggleHospital()"
+                  >
+                    <span [class.placeholder-text]="!selectedHospitalName">{{
+                      selectedHospitalName || 'Select a hospital'
+                    }}</span>
+                    <span
+                      class="material-symbols-outlined select-arrow"
+                      [class.rotate]="isHospitalOpen"
+                      >domain</span
+                    >
+                  </div>
 
-                    <option disabled *ngIf="hospitals.length === 0">No hospitals found...</option>
-
-                    <option *ngFor="let h of hospitals" [value]="h.id">
+                  <div class="custom-options" *ngIf="isHospitalOpen">
+                    <div class="option-item disabled" *ngIf="hospitals.length === 0">
+                      No hospitals found...
+                    </div>
+                    <div
+                      class="option-item"
+                      *ngFor="let h of hospitals"
+                      (click)="selectHospital(h)"
+                    >
+                      <span class="material-symbols-outlined option-icon">local_hospital</span>
                       {{ h.name || h.hospitalName || h.title || h.id }}
-                    </option>
-                  </select>
-                  <span class="material-symbols-outlined select-icon">domain</span>
+                    </div>
+                  </div>
                 </div>
               </label>
             </div>
@@ -149,8 +257,7 @@
             </div>
 
             <p class="signin-link">
-              Already have an account?
-              <a class="link" routerLink="/auth/SignIn">Sign In</a>
+              Already have an account? <a class="link" routerLink="/auth/SignIn">Sign In</a>
             </p>
           </form>
         </div>

@@ -11,12 +11,7 @@
         <button class="icon-btn" (click)="logout()">
           <span class="material-symbols-outlined">logout</span>
         </button>
-        <div
-          class="profile-avatar"
-          style="
-            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC1JdiNkZXxoMHgmOOxvQwDhU6cjXEGfUCLxYx9mAtPl0UaKXrh0yTCdp-6RQc9PmUjkEggSDpw30r_DV7yqWx3SoTuBpvdXvFsK3me1ezq8x4PpSBOQqyvrPQNtKhYP2rxAF34A6ousnlw08zmx__zTcsJm37moVIpirCvzdIsMtk_2wkfGH3TnBl8YSl2bWawO2CI8FKUTA3TPhhgVE_0CZtVPiMAR3q9sG_VFRp_pS1HOz64sX5z-XDoAXsrG82pOBgqkQXsXdc');
-          "
-        ></div>
+        <div class="profile-avatar" [style.background-image]="'url(' + profilePhotoUrl + ')'"></div>
       </div>
     </header>
     <main class="main-content">
@@ -77,6 +72,32 @@
                   />
                   <div *ngIf="emailField.invalid && emailField.touched" class="error-text">
                     Email is required.
+                  </div>
+                </label>
+              </div>
+
+              <div class="grid-span-2">
+                <label class="form-label">
+                  <p class="input-label">Gender</p>
+                  <div class="custom-select-container" (click)="$event.stopPropagation()">
+                    <div
+                      class="form-input select-trigger"
+                      [class.active]="isGenderOpen"
+                      (click)="toggleGender()"
+                    >
+                      <span>{{ user.gender }}</span>
+                      <span
+                        class="material-symbols-outlined select-arrow"
+                        [class.rotate]="isGenderOpen"
+                        >expand_more</span
+                      >
+                    </div>
+
+                    <div class="custom-options" *ngIf="isGenderOpen">
+                      <div class="option-item" *ngFor="let g of genders" (click)="selectGender(g)">
+                        {{ g }}
+                      </div>
+                    </div>
                   </div>
                 </label>
               </div>
@@ -153,24 +174,40 @@
               <div class="grid-span-2">
                 <label class="form-label">
                   <p class="input-label">User Role</p>
-                  <div class="select-wrapper">
-                    <select
-                      class="form-input"
-                      [class.invalid]="roleField.invalid && roleField.touched"
-                      name="role"
-                      [(ngModel)]="user.role"
-                      required
-                      #roleField="ngModel"
+                  <div class="custom-select-container" (click)="$event.stopPropagation()">
+                    <div
+                      class="form-input select-trigger"
+                      [class.active]="isRoleOpen"
+                      (click)="toggleRole()"
                     >
-                      <option value="" disabled selected>Select a role</option>
-                      <option value="Patient">Patient</option>
-                      <option value="Doctor">Doctor</option>
-                      <option value="Hospital Admin">Hospital Admin</option>
-                      <option value="Super Admin">Super Admin</option>
-                    </select>
-                  </div>
-                  <div *ngIf="roleField.invalid && roleField.touched" class="error-text">
-                    Role selection is required.
+                      <span [class.placeholder-text]="!user.role">{{
+                        user.role || 'Select a role'
+                      }}</span>
+                      <span
+                        class="material-symbols-outlined select-arrow"
+                        [class.rotate]="isRoleOpen"
+                        >expand_more</span
+                      >
+                    </div>
+
+                    <div class="custom-options" *ngIf="isRoleOpen">
+                      <div
+                        class="option-item"
+                        *ngFor="let role of roles"
+                        (click)="selectRole(role)"
+                      >
+                        <span class="material-symbols-outlined option-icon">
+                          {{
+                            role === 'Doctor'
+                              ? 'stethoscope'
+                              : role === 'Patient'
+                              ? 'person'
+                              : 'admin_panel_settings'
+                          }}
+                        </span>
+                        {{ role }}
+                      </div>
+                    </div>
                   </div>
                 </label>
               </div>
@@ -178,23 +215,35 @@
               <div class="grid-span-2" *ngIf="showHospitalField">
                 <label class="form-label">
                   <p class="input-label">Hospital Assignment</p>
-                  <div class="select-wrapper">
-                    <select
-                      class="form-input"
-                      [class.invalid]="hospitalField.invalid && hospitalField.touched"
-                      name="hospital"
-                      [(ngModel)]="user.hospital"
-                      required
-                      #hospitalField="ngModel"
+                  <div class="custom-select-container" (click)="$event.stopPropagation()">
+                    <div
+                      class="form-input select-trigger"
+                      [class.active]="isHospitalOpen"
+                      (click)="toggleHospital()"
                     >
-                      <option value="" disabled selected>Select a hospital</option>
-                      <option *ngFor="let h of hospitals" [value]="h.id">
+                      <span [class.placeholder-text]="!user.hospital">{{
+                        selectedHospitalName || 'Select a hospital'
+                      }}</span>
+                      <span
+                        class="material-symbols-outlined select-arrow"
+                        [class.rotate]="isHospitalOpen"
+                        >domain</span
+                      >
+                    </div>
+
+                    <div class="custom-options" *ngIf="isHospitalOpen">
+                      <div class="option-item disabled" *ngIf="hospitals.length === 0">
+                        No hospitals found...
+                      </div>
+                      <div
+                        class="option-item"
+                        *ngFor="let h of hospitals"
+                        (click)="selectHospital(h.id)"
+                      >
+                        <span class="material-symbols-outlined option-icon">local_hospital</span>
                         {{ h.name }}
-                      </option>
-                    </select>
-                  </div>
-                  <div *ngIf="hospitalField.invalid && hospitalField.touched" class="error-text">
-                    Hospital assignment is required.
+                      </div>
+                    </div>
                   </div>
                 </label>
               </div>

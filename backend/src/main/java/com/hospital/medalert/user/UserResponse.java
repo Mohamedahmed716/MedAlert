@@ -19,4 +19,6 @@ public class UserResponse {
     private String hospitalId;
     private boolean isActive;
     private LocalDate dateCreated;
+    private String gender;
+    private String profilePhotoUrl;
 }

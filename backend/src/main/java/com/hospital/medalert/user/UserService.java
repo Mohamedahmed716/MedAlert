@@ -26,6 +26,10 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return mapToResponse(user);
     }
+    
+    public UserResponse getUserProfile(User user) {
+        return mapToResponse(user);
+    }
 
     public UserStatsResponse getStats() {
         return UserStatsResponse.builder()
@@ -49,6 +53,7 @@ public class UserService {
                 .role(role)
                 .hospitalId(request.getHospitalId())
                 .isActive(true)
+                .gender(request.getGender() != null ? request.getGender() : "Male") 
                 .build();
         
         var savedUser = repository.save(user);
@@ -69,6 +74,10 @@ public class UserService {
         Role role = Role.valueOf(request.getRole().toUpperCase().replace(" ", "_"));
         user.setRole(role);
         user.setHospitalId(request.getHospitalId());
+        
+        if (request.getGender() != null) {
+            user.setGender(request.getGender());
+        }
 
         repository.save(user);
         return mapToResponse(user);
@@ -82,9 +91,13 @@ public class UserService {
     }
 
     public void deleteUser(Long id) {
-        if (!repository.existsById(id)) {
-            throw new RuntimeException("User not found");
+        User user = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        
+        if (user.getRole().name().equals("SYSTEM_ADMIN")) {
+            throw new RuntimeException("Action denied: Cannot delete the System Admin account.");
         }
+
         repository.deleteById(id);
     }
 
@@ -96,6 +109,8 @@ public class UserService {
                 .role(user.getRole().name())
                 .hospitalId(user.getHospitalId())
                 .isActive(user.isActive())
+                .gender(user.getGender())
+                .profilePhotoUrl(user.getProfilePhotoUrl())
                 .build();
     }
 }

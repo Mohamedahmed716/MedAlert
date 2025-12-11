@@ -27,7 +27,7 @@ public class AuthenticationService {
             if (roleInput.equals("ADMIN")) {
                 userRole = Role.HOSPITAL_ADMIN;
             } else {
-                userRole = Role.valueOf(roleInput);
+                userRole = Role.valueOf(roleInput.replace(" ", "_"));
             }
         } catch (IllegalArgumentException e) {
             throw new RuntimeException("Invalid role: " + request.getRole());
@@ -46,6 +46,7 @@ public class AuthenticationService {
                 .role(userRole)
                 .hospitalId(request.getHospitalId())
                 .isActive(false)
+                .gender(request.getGender()) 
                 .build();
         
         repository.save(user);
@@ -55,6 +56,7 @@ public class AuthenticationService {
                 .email(user.getEmail())
                 .fullName(user.getFullName())
                 .role(user.getRole().name())
+                .gender(user.getGender())
                 .build();
     }
 
@@ -67,6 +69,7 @@ public class AuthenticationService {
         );
         var user = repository.findByEmail(request.getEmail())
                 .orElseThrow();
+        
         var jwtToken = jwtService.generateToken(user);
         
         return AuthenticationResponse.builder()
@@ -74,6 +77,8 @@ public class AuthenticationService {
                 .email(user.getEmail())
                 .fullName(user.getFullName())
                 .role(user.getRole().name())
+                .gender(user.getGender())
+                .profilePhotoUrl(user.getProfilePhotoUrl())
                 .build();
     }
 }

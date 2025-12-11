@@ -2,31 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-
-// --- INLINED DATA MODELS ---
-
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
-
-export interface RegisterRequest {
-  fullName: string;
-  email: string;
-  password: string;
-  dateOfBirth: string;
-  role: string;
-  hospitalId?: string | null;
-}
-
-export interface AuthResponse {
-  token: string;
-  email: string;
-  fullName: string;
-  role: string;
-}
-
-// ---------------------------
+import { LoginRequest, RegisterRequest, AuthResponse } from '../../shared/ui/models/auth.models';
 
 @Injectable({
   providedIn: 'root',

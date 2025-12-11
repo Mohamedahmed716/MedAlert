@@ -18,4 +18,5 @@ public class RegisterRequest {
     private LocalDate dateOfBirth;
     private String role;
     private String hospitalId;
+    private String gender;
 }

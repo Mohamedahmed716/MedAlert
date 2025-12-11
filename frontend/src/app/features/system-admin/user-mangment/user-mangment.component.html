@@ -43,12 +43,7 @@
     </div>
 
     <div class="header-actions">
-      <div
-        class="profile-avatar"
-        style="
-          background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC1JdiNkZXxoMHgmOOxvQwDhU6cjXEGfUCLxYx9mAtPl0UaKXrh0yTCdp-6RQc9PmUjkEggSDpw30r_DV7yqWx3SoTuBpvdXvFsK3me1ezq8x4PpSBOQqyvrPQNtKhYP2rxAF34A6ousnlw08zmx__zTcsJm37moVIpirCvzdIsMtk_2wkfGH3TnBl8YSl2bWawO2CI8FKUTA3TPhhgVE_0CZtVPiMAR3q9sG_VFRp_pS1HOz64sX5z-XDoAXsrG82pOBgqkQXsXdc');
-        "
-      ></div>
+      <div class="profile-avatar" [style.background-image]="'url(' + profilePhotoUrl + ')'"></div>
     </div>
   </header>
 
@@ -209,8 +204,14 @@
 
                       <button
                         class="icon-action danger"
-                        title="Delete Account"
+                        title="{{
+                          user.role === 'SYSTEM_ADMIN'
+                            ? 'Cannot delete System Admin'
+                            : 'Delete Account'
+                        }}"
                         (click)="initiateDelete(user.id)"
+                        [disabled]="user.role === 'SYSTEM_ADMIN'"
+                        [class.disabled]="user.role === 'SYSTEM_ADMIN'"
                       >
                         <span class="material-symbols-outlined">delete</span>
                       </button>

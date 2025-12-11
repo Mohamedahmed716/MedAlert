@@ -1,3 +1,16 @@
+.icon-action[disabled],
+.icon-action.disabled {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+  pointer-events: none;
+  background-color: var(--light-surface-2) !important;
+  color: var(--light-text-muted) !important;
+}
+
+.icon-action[disabled]:hover,
+.icon-action.disabled:hover {
+  background-color: var(--light-surface-2) !important;
+}
 :root {
   --primary: #1193d4;
   --background-light: #f6f7f8;

@@ -15,6 +15,10 @@
   --light-surface-hover: #f3f4f6;
   --light-surface-secondary: #e5e7eb;
   --light-surface-secondary-hover: #d1d5db;
+
+  /* Added specific shadow for dropdowns */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-float: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .layout-wrapper {
@@ -135,6 +139,7 @@
   padding: 1.5rem;
   border-radius: 0.75rem;
   border: 1px solid var(--light-border);
+  overflow: visible; /* FIXED: Important for dropdowns to overflow */
 }
 .card-title {
   color: var(--light-text-primary);
@@ -143,12 +148,6 @@
   padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--light-border);
   margin-top: 0;
-}
-.card-subtitle {
-  color: var(--secondary);
-  font-size: 0.875rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--light-border);
 }
 .card-grid {
   display: grid;
@@ -180,6 +179,7 @@
   padding: 0.75rem;
   font-size: 1rem;
   box-sizing: border-box;
+  transition: all 0.2s ease;
 }
 .form-input:focus {
   outline: none;
@@ -187,7 +187,97 @@
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
 }
 
-/* Validation Styles */
+/* --- CUSTOM DROPDOWN STYLES --- */
+.custom-select-container {
+  position: relative;
+  user-select: none;
+}
+
+.select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  background-color: var(--background-light);
+}
+
+.select-trigger.active {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+  background-color: #fff;
+}
+
+.select-arrow {
+  color: var(--light-text-secondary);
+  transition: transform 0.3s ease;
+}
+
+.select-arrow.rotate {
+  transform: rotate(180deg);
+  color: var(--primary);
+}
+
+.custom-options {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-float);
+  border: 1px solid var(--light-border);
+  z-index: 100;
+  overflow: hidden;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.option-item {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--light-text-primary);
+  font-weight: 500;
+  transition: background 0.1s;
+}
+
+.option-item:hover {
+  background-color: var(--light-surface-hover);
+  color: var(--primary);
+}
+
+.option-icon {
+  font-size: 1.25rem;
+  color: var(--light-text-secondary);
+}
+
+.option-item:hover .option-icon {
+  color: var(--primary);
+}
+
+.option-item.disabled {
+  cursor: default;
+  color: #999;
+  font-style: italic;
+}
+
+.placeholder-text {
+  color: var(--light-text-muted);
+}
+
+/* --- Validation Styles --- */
 .form-input.invalid {
   border-color: var(--error);
   background-color: #fef2f2;

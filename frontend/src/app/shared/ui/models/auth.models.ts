@@ -9,6 +9,7 @@ export interface RegisterRequest {
   password: string;
   dateOfBirth: string;
   role: string;
+  gender: 'Male' | 'Female';
   hospitalId?: string | null;
 }
 
@@ -17,6 +18,8 @@ export interface AuthResponse {
   email: string;
   fullName: string;
   role: string;
+  gender?: string;
+  profilePhotoUrl?: string;
 }
 
 export interface Hospital {
@@ -36,4 +39,16 @@ export interface HospitalStats {
   totalHospitals: number;
   operational: number;
   maintenance: number;
+}
+
+export interface User {
+  id: number;
+  fullName: string;
+  email: string;
+  role: string;
+  active: boolean;
+  dateCreated: string;
+  hospitalId?: string;
+  gender?: string;
+  profilePhotoUrl?: string;
 }

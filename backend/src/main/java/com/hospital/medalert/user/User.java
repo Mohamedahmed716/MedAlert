@@ -37,17 +37,16 @@ public class User implements UserDetails {
 
     @Column(unique = true)
     private String email;
-
     private String password;
-
     private LocalDate dateOfBirth;
+    private String gender;
+    private String profilePhotoUrl;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
     private String hospitalId;
 
-    // Default is FALSE (Pending)
     @Column(nullable = false)
     @Builder.Default
     private boolean isActive = false; 

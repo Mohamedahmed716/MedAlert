@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { HospitalService } from '../../../core/services/hospital.service';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
   selector: 'app-manage-hospital',
@@ -30,19 +31,49 @@ export class ManageHospitalComponent implements OnInit {
   isEditMode = false;
   errorMessage = '';
 
+  // Profile Photo Logic
+  profilePhotoUrl: string = 'assets/default.png';
+
   constructor(
     private authService: AuthService,
     private hospitalService: HospitalService,
+    private userService: UserService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.loadCurrentUser();
+
     const hospitalId = this.route.snapshot.paramMap.get('id');
     if (hospitalId) {
       this.isEditMode = true;
       this.loadHospitalData(hospitalId);
     }
+  }
+
+  loadCurrentUser() {
+    this.userService.getCurrentUserProfile().subscribe({
+      next: (user) => {
+        if (user.profilePhotoUrl) {
+          this.profilePhotoUrl = user.profilePhotoUrl;
+        } else {
+          const gender = user.gender ? user.gender.toLowerCase() : '';
+
+          if (gender === 'male') {
+            this.profilePhotoUrl = 'assets/male.png';
+          } else if (gender === 'female') {
+            this.profilePhotoUrl = 'assets/female.png';
+          } else {
+            this.profilePhotoUrl = 'assets/default.png';
+          }
+        }
+      },
+      error: (err) => {
+        console.error('Could not load user profile', err);
+        this.profilePhotoUrl = 'assets/default.png';
+      },
+    });
   }
 
   loadHospitalData(id: string) {
@@ -114,6 +145,6 @@ export class ManageHospitalComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/auth/sign-in']);
+    this.router.navigate(['/auth/SignIn']);
   }
 }

@@ -43,12 +43,7 @@
     </div>
 
     <div class="header-actions">
-      <div
-        class="profile-avatar"
-        style="
-          background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC1JdiNkZXxoMHgmOOxvQwDhU6cjXEGfUCLxYx9mAtPl0UaKXrh0yTCdp-6RQc9PmUjkEggSDpw30r_DV7yqWx3SoTuBpvdXvFsK3me1ezq8x4PpSBOQqyvrPQNtKhYP2rxAF34A6ousnlw08zmx__zTcsJm37moVIpirCvzdIsMtk_2wkfGH3TnBl8YSl2bWawO2CI8FKUTA3TPhhgVE_0CZtVPiMAR3q9sG_VFRp_pS1HOz64sX5z-XDoAXsrG82pOBgqkQXsXdc');
-        "
-      ></div>
+      <div class="profile-avatar" [style.background-image]="'url(' + profilePhotoUrl + ')'"></div>
     </div>
   </header>
 
@@ -130,16 +125,43 @@
 
         <div class="content-card">
           <div class="card-toolbar">
-            <div class="search-wrapper">
-              <span class="material-symbols-outlined search-icon">search</span>
-              <input type="text" class="search-input-filter" placeholder="Search hospitals..." />
+            <div class="search-container">
+              <div class="search-wrapper">
+                <span class="material-symbols-outlined search-icon">search</span>
+                <input
+                  type="text"
+                  class="search-input-filter"
+                  placeholder="Search hospitals..."
+                  [(ngModel)]="searchTerm"
+                  (input)="onSearchChange()"
+                />
+              </div>
+
+              <ul class="suggestions-box" *ngIf="showSuggestions">
+                <li *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)">
+                  <span class="material-symbols-outlined suggestion-icon">local_hospital</span>
+                  <div class="suggestion-text">
+                    <span class="suggestion-name">{{ suggestion.name }}</span>
+                    <span class="suggestion-email"
+                      >{{ suggestion.city }}, {{ suggestion.state }}</span
+                    >
+                  </div>
+                </li>
+              </ul>
             </div>
 
-            <div class="toolbar-actions">
-              <button class="btn-filter">
+            <div class="toolbar-actions" style="position: relative">
+              <button class="btn-filter" (click)="toggleFilterMenu()">
                 <span class="material-symbols-outlined">filter_list</span>
-                <span>Filter</span>
+                <span>Filter: {{ filterStatus }}</span>
               </button>
+
+              <div class="filter-dropdown" *ngIf="showFilterMenu">
+                <div class="filter-item" (click)="setFilter('All')">All Hospitals</div>
+                <div class="filter-item" (click)="setFilter('Active')">Active Only</div>
+                <div class="filter-item" (click)="setFilter('Inactive')">Inactive Only</div>
+              </div>
+
               <button class="btn-filter">
                 <span class="material-symbols-outlined">download</span>
                 <span>Export</span>
@@ -215,13 +237,18 @@
                     </div>
                   </td>
                 </tr>
+                <tr *ngIf="paginatedHospitals.length === 0">
+                  <td colspan="4" style="text-align: center; padding: 2rem; color: #64748b">
+                    No hospitals found matching your search.
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
 
           <div class="card-footer">
             <span class="pagination-text">
-              Showing {{ showStart }}-{{ showEnd }} of {{ stats.totalHospitals }}
+              Showing {{ showStart }}-{{ showEnd }} of {{ filteredHospitals.length }}
             </span>
 
             <div class="pagination-simple">
@@ -232,7 +259,7 @@
               <button
                 class="page-arrow"
                 (click)="nextPage()"
-                [disabled]="showEnd >= hospitals.length"
+                [disabled]="showEnd >= filteredHospitals.length"
               >
                 <span class="material-symbols-outlined">chevron_right</span>
               </button>

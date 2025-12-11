@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
-import { AuthService, LoginRequest } from '../auth.service';
+import { AuthService } from '../auth.service';
+// FIX: Import the interface from the models file directly
+import { LoginRequest } from '../../../shared/ui/models/auth.models';
 
 @Component({
   selector: 'app-sign-in',
@@ -59,7 +61,7 @@ export class SignInComponent implements OnInit {
       next: (response) => {
         this.isLoading = false;
 
-        // Save both Token and Role
+        // Save Token and Role
         this.authService.saveUserSession(response.token, response.role);
 
         // Role-Based Redirect

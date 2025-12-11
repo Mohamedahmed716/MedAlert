@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../features/auth/auth.service';
 import { UserService } from '../../../core/services/user.service';
 import { HospitalService } from '../../../core/services/hospital.service';
+import { User } from '../../../shared/ui/models/auth.models';
 
 @Component({
   selector: 'app-add-user',
@@ -22,23 +23,38 @@ export class AddUserComponent implements OnInit {
     confirmPassword: '',
     role: '',
     hospital: '',
+    gender: 'Male',
   };
 
+  // Dropdown Data
+  genders = ['Male', 'Female'];
+  roles = ['Patient', 'Doctor', 'Hospital Admin', 'Super Admin'];
   hospitals: any[] = [];
+
+  // Dropdown States
+  isGenderOpen = false;
+  isRoleOpen = false;
+  isHospitalOpen = false;
+
   passwordVisible1 = false;
   passwordVisible2 = false;
   errorMessage = '';
   isEditMode = false;
+
+  // Header Profile Photo
+  profilePhotoUrl: string = 'assets/default.png';
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
     private hospitalService: HospitalService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private eRef: ElementRef
   ) {}
 
   ngOnInit(): void {
+    this.loadCurrentUser();
     this.loadHospitals();
 
     const userId = this.route.snapshot.paramMap.get('id');
@@ -48,28 +64,93 @@ export class AddUserComponent implements OnInit {
     }
   }
 
+  // --- CUSTOM DROPDOWN LOGIC ---
+
+  toggleGender() {
+    this.isGenderOpen = !this.isGenderOpen;
+    this.isRoleOpen = false;
+    this.isHospitalOpen = false;
+  }
+
+  selectGender(gender: string) {
+    this.user.gender = gender;
+    this.isGenderOpen = false;
+  }
+
+  toggleRole() {
+    this.isRoleOpen = !this.isRoleOpen;
+    this.isGenderOpen = false;
+    this.isHospitalOpen = false;
+  }
+
+  selectRole(role: string) {
+    this.user.role = role;
+    this.isRoleOpen = false;
+
+    // Clear hospital if role doesn't need it
+    if (!this.showHospitalField) {
+      this.user.hospital = '';
+    }
+  }
+
+  toggleHospital() {
+    this.isHospitalOpen = !this.isHospitalOpen;
+    this.isGenderOpen = false;
+    this.isRoleOpen = false;
+  }
+
+  selectHospital(hospitalId: string) {
+    this.user.hospital = hospitalId;
+    this.isHospitalOpen = false;
+  }
+
+  @HostListener('document:click', ['$event'])
+  clickout(event: any) {
+    if (!this.eRef.nativeElement.contains(event.target)) {
+      this.isGenderOpen = false;
+      this.isRoleOpen = false;
+      this.isHospitalOpen = false;
+    }
+  }
+
+  // --- EXISTING LOGIC ---
+
+  loadCurrentUser() {
+    this.userService.getCurrentUserProfile().subscribe({
+      next: (user) => {
+        if (user.profilePhotoUrl) {
+          this.profilePhotoUrl = user.profilePhotoUrl;
+        } else {
+          const gender = user.gender ? user.gender.toLowerCase() : '';
+          if (gender === 'male') this.profilePhotoUrl = 'assets/male.png';
+          else if (gender === 'female') this.profilePhotoUrl = 'assets/female.png';
+          else this.profilePhotoUrl = 'assets/default.png';
+        }
+      },
+      error: (err) => {
+        this.profilePhotoUrl = 'assets/default.png';
+      },
+    });
+  }
+
   loadHospitals() {
     this.hospitalService.getHospitals().subscribe({
-      next: (data: any) => {
-        this.hospitals = data;
-      },
-      error: (err: any) => {
-        console.error('Error loading hospitals:', err);
-        this.errorMessage = 'Failed to load hospital list.';
-      },
+      next: (data: any) => (this.hospitals = data),
+      error: (err) => console.error('Error loading hospitals:', err),
     });
   }
 
   loadUserData(id: string) {
     this.userService.getUserById(id).subscribe({
-      next: (data: any) => {
-        this.user.id = data.id;
+      next: (data: User) => {
+        this.user.id = data.id as any;
         this.user.fullName = data.fullName;
         this.user.email = data.email;
-        this.user.hospital = data.hospitalId;
+        this.user.hospital = data.hospitalId || '';
         this.user.role = this.formatRoleForSelect(data.role);
+        this.user.gender = data.gender || 'Male';
       },
-      error: (err: any) => {
+      error: (err) => {
         this.errorMessage = 'Failed to load user data.';
       },
     });
@@ -86,6 +167,12 @@ export class AddUserComponent implements OnInit {
 
   get showHospitalField(): boolean {
     return this.user.role === 'Doctor' || this.user.role === 'Hospital Admin';
+  }
+
+  // Helper to display hospital name
+  get selectedHospitalName(): string {
+    const found = this.hospitals.find((h) => h.id == this.user.hospital);
+    return found ? found.name : '';
   }
 
   logout() {
@@ -117,19 +204,19 @@ export class AddUserComponent implements OnInit {
       email: this.user.email,
       password: this.user.password,
       role: backendRole,
-      // If the field is visible, send the ID. If not, send null.
       hospitalId: this.showHospitalField ? this.user.hospital : null,
+      gender: this.user.gender,
     };
 
     if (this.isEditMode && this.user.id) {
       this.userService.updateUser(this.user.id, payload).subscribe({
         next: () => this.router.navigate(['/admin/users'], { queryParams: { created: 'true' } }),
-        error: (err: any) => (this.errorMessage = err.error?.message || 'Failed to update user.'),
+        error: (err) => (this.errorMessage = err.error?.message || 'Failed to update user.'),
       });
     } else {
       this.userService.createUser(payload).subscribe({
         next: () => this.router.navigate(['/admin/users'], { queryParams: { created: 'true' } }),
-        error: (err: any) => (this.errorMessage = err.error?.message || 'Failed to create user.'),
+        error: (err) => (this.errorMessage = err.error?.message || 'Failed to create user.'),
       });
     }
   }

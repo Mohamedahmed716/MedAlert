@@ -18,12 +18,7 @@
     </div>
 
     <div class="header-actions">
-      <div
-        class="profile-avatar"
-        style="
-          background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA8q_Y0uzBl37q81pMOk9uee1h0vRM9YFtYSaGEoEsvKBKPeJ70Ftlas-nVUjmhcTwxXpL6_-KXRL2CcHelQR2PVOutLh-ZrBRWdWT1HbRXsub3tYU-h9xrhSs0ZFJFeiSTzTO5NoYSP6leYmKlA0bKgzL-M7ESS7aokOtLOrGlk6kFLVVlPvglieNknLDigSWR4ZPI7krdU-aAdzWd0utlHaBVRpp4DPnxkvA-eMXTVd3ifPtcfMeW8MINvaCm6fK7Y88_a-B4CIo');
-        "
-      ></div>
+      <div class="profile-avatar" [style.background-image]="'url(' + profilePhotoUrl + ')'"></div>
     </div>
   </header>
 
@@ -75,12 +70,16 @@
                 <input class="form-input" id="appName" type="text" [(ngModel)]="settings.appName" />
               </div>
             </div>
+
             <hr class="divider" />
+
             <div class="form-row">
               <div class="form-row-icon">
                 <span class="material-symbols-outlined">cloud_upload</span>
               </div>
-              <p class="form-row-text">Logo</p>
+              <div class="form-row-content">
+                <p class="form-row-text">Logo</p>
+              </div>
               <div class="form-row-action">
                 <button class="btn btn-upload">Upload</button>
               </div>
@@ -96,28 +95,64 @@
                 <span class="material-symbols-outlined">language</span>
               </div>
               <div class="form-row-content">
-                <label class="input-label" for="defaultLang">Default Language</label>
-                <select class="form-select" id="defaultLang" [(ngModel)]="settings.language">
-                  <option>English (US)</option>
-                  <option>Spanish</option>
-                  <option>French</option>
-                  <option>German</option>
-                </select>
+                <label class="input-label">Default Language</label>
+
+                <div class="custom-select-container" (click)="$event.stopPropagation()">
+                  <div
+                    class="form-input select-trigger"
+                    [class.active]="isLangOpen"
+                    (click)="toggleLang()"
+                  >
+                    <span>{{ settings.language }}</span>
+                    <span class="material-symbols-outlined select-arrow" [class.rotate]="isLangOpen"
+                      >expand_more</span
+                    >
+                  </div>
+                  <div class="custom-options" *ngIf="isLangOpen">
+                    <div
+                      class="option-item"
+                      *ngFor="let lang of languages"
+                      (click)="selectLang(lang)"
+                    >
+                      {{ lang }}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
+
             <hr class="divider" />
+
             <div class="form-row">
               <div class="form-row-icon">
                 <span class="material-symbols-outlined">schedule</span>
               </div>
               <div class="form-row-content">
-                <label class="input-label" for="timeZone">Time Zone</label>
-                <select class="form-select" id="timeZone" [(ngModel)]="settings.timeZone">
-                  <option>(GMT-08:00) Pacific Time (US & Canada)</option>
-                  <option>(GMT-05:00) Eastern Time (US & Canada)</option>
-                  <option>(GMT+00:00) Greenwich Mean Time</option>
-                  <option>(GMT+01:00) Central European Time</option>
-                </select>
+                <label class="input-label">Time Zone</label>
+
+                <div class="custom-select-container" (click)="$event.stopPropagation()">
+                  <div
+                    class="form-input select-trigger"
+                    [class.active]="isTimeZoneOpen"
+                    (click)="toggleTimeZone()"
+                  >
+                    <span>{{ settings.timeZone }}</span>
+                    <span
+                      class="material-symbols-outlined select-arrow"
+                      [class.rotate]="isTimeZoneOpen"
+                      >expand_more</span
+                    >
+                  </div>
+                  <div class="custom-options" *ngIf="isTimeZoneOpen">
+                    <div
+                      class="option-item"
+                      *ngFor="let tz of timeZones"
+                      (click)="selectTimeZone(tz)"
+                    >
+                      {{ tz }}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
