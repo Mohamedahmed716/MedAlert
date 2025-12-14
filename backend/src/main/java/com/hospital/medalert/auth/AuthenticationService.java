@@ -9,6 +9,8 @@ import com.hospital.medalert.config.JwtService;
 import com.hospital.medalert.user.Role;
 import com.hospital.medalert.user.User;
 import com.hospital.medalert.user.UserRepository;
+import com.hospital.medalert.models.Doctor;
+import com.hospital.medalert.repositories.DoctorRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthenticationService {
     private final UserRepository repository;
+    private final DoctorRepository doctorRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -48,8 +51,18 @@ public class AuthenticationService {
                 .isActive(false)
                 .gender(request.getGender()) 
                 .build();
-        
-        repository.save(user);
+
+        var savedUser = repository.save(user);
+
+        if (userRole == Role.DOCTOR) {
+            var doctor = Doctor.builder()
+                    .user(savedUser)
+                    .specialty(null)
+                    .phoneNumber(null)
+                    .build();
+
+            doctorRepository.save(doctor);
+        }
         
         return AuthenticationResponse.builder()
                 .token(null)

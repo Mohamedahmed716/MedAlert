@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {DatePipe} from '@angular/common';
+import {MiscService} from '../../services/misc-service';
+import{ inject } from '@angular/core';
+import{Shift} from '../../../../shared/ui/models/shift';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +15,49 @@ import {DatePipe} from '@angular/common';
   styleUrl: './dashboard.css',
   standalone: true
 })
-export class Dashboard {
+export class Dashboard implements OnInit {
+
+  private miscService = inject(MiscService);
+
+    ngOnInit(): void {
+      this.loadShift();
+    }
+
+  loadShift() {
+    this.miscService.getTodayShift().subscribe({
+      next: (data: Shift) => {
+        if (data) {
+          // Backend returned a shift
+          this.shift = [
+            this.formatTime(data.startTime),
+            this.formatTime(data.endTime)
+          ];
+        } else {
+          // Backend returned 204 No Content (null)
+          this.shift = ["Off", "Duty"];
+        }
+      },
+      error: (err) => {
+        console.error('Failed to load shift', err);
+        this.shift = ["--:--", "--:--"]; // Error state
+      }
+    });
+  }
+  private formatTime(timeStr: string): string {
+    if (!timeStr) return '';
+
+    // Split "09:00:00"
+    const [hourStr, minStr] = timeStr.split(':');
+    let hour = parseInt(hourStr, 10);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+
+    // Convert 24h to 12h format
+    hour = hour % 12;
+    hour = hour ? hour : 12; // the hour '0' should be '12'
+
+    return `${hour}:${minStr} ${ampm}`;
+  }
+
     reservations = [
         {name: 'John Doe', time: '10:00 AM', condition: 'Flu' },
         {name: 'Jane Smith', time: '11:00 AM', condition: 'Flu' },
