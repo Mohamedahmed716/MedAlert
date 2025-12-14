@@ -20,8 +20,8 @@ public class PatientDTO {
     private String name;
 
     // This will only appear in the JSON if you actually set it in the Service
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
 
     private String condition;
-    private String time;
+    private String lastVisit;
 }

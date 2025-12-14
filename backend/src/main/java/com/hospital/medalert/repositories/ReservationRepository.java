@@ -22,4 +22,12 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     );
 
     long countByDoctorAndAppointmentTimeBetween(Doctor doctor, LocalDateTime start, LocalDateTime end);
+
+    List<Reservation> findAllByDoctorAndAppointmentTimeBetweenOrderByAppointmentTimeAsc(
+            Doctor doctor,
+            LocalDateTime start,
+            LocalDateTime end
+    );
+
+    List<Reservation> findAllByDoctorOrderByAppointmentTimeDesc(Doctor doctor);
 }

@@ -8,9 +8,13 @@ import {Patient} from '../../../shared/ui/models/patient';
 })
 export class PatientService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/api/doctor';
+  private apiUrl = 'http://localhost:8080/api/doctor/patients';
 
   getRecentPatients(): Observable<Patient[]> {
-    return this.http.get<Patient[]>(`${this.apiUrl}/patients/recent`);
+    return this.http.get<Patient[]>(`${this.apiUrl}/recent`);
+  }
+
+  getPatients(): Observable<Patient[]> {
+    return this.http.get<Patient[]>(`${this.apiUrl}/all`);
   }
 }

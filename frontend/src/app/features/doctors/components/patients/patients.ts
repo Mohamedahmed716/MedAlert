@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
+import { PatientService } from '../../services/patient-service';
+import { Patient } from '../../../../shared/ui/models/patient';
 
 @Component({
   selector: 'app-patients',
@@ -7,11 +9,20 @@ import { Component } from '@angular/core';
   styleUrl: './patients.css',
   standalone: true
 })
-export class Patients {
-  patients = [
-    { name: 'John Doe', dob: '1990-05-15', condition: 'Flu', lastVisit: '2024-06-10' },
-    { name: 'Jane Smith', dob: '1985-08-22', condition: 'Diabetes', lastVisit: '2024-05-20' },
-    { name: 'Emily Johnson', dob: '1978-11-30', condition: 'Hypertension', lastVisit: '2024-04-15' },
-    { name: 'Michael Brown', dob: '2000-02-10', condition: 'Asthma', lastVisit: '2024-03-05' },
-  ] ;
+export class Patients implements OnInit {
+  private patientService = inject(PatientService);
+  ngOnInit(){
+    this.loadPatients();
+  }
+  loadPatients() {
+    this.patientService.getPatients().subscribe({
+      next: (data) => {
+        this.patients = data;
+      },
+      error: (err) => {
+        console.error('Failed to load patients', err);
+      }
+    });
+  }
+  patients: Patient[] = []
 }
