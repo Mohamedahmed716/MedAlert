@@ -29,8 +29,6 @@ public class Patient {
 
     private LocalDate dateOfBirth;
 
-    private String bloodType;
-
     @Column(columnDefinition = "TEXT")
     private String medicalHistory; // Simple text for now
 

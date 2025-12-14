@@ -4,6 +4,10 @@ import {DatePipe} from '@angular/common';
 import {MiscService} from '../../services/misc-service';
 import{ inject } from '@angular/core';
 import{Shift} from '../../../../shared/ui/models/shift';
+import{PatientService} from '../../services/patient-service';
+import {Patient} from '../../../../shared/ui/models/patient';
+import {ReservationService} from '../../services/reservation-service';
+import {Reservation} from '../../../../shared/ui/models/reservation';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,11 +22,52 @@ import{Shift} from '../../../../shared/ui/models/shift';
 export class Dashboard implements OnInit {
 
   private miscService = inject(MiscService);
+  private patientService = inject(PatientService);
+  private reservationService = inject(ReservationService);
 
     ngOnInit(): void {
       this.loadShift();
+      this.loadReservations();
+      this.loadReservationCount();
+      this.loadPatients();
+      this.loadPrescriptions();
     }
+  loadReservationCount() {
+    this.reservationService.getCount().subscribe({
+      next: (count) => {
+        this.pending_res = count;
+      },
+      error: (err) => {
+        console.error('Failed to load reservation count', err);
+      }
+    })
+  }
+  loadReservations() {
+    this.reservationService.getRecentReservations().subscribe({
+      next: (data) => {
+        this.reservations = data;
+        for(let res of this.reservations){
+          res.appointmentTime = this.formatResDate(res.appointmentTime);
+        }
+      },
+      error: (err) => {
+        console.error('Failed to load recent reservations', err);
+      }
+    });
+  }
+  loadPatients() {
+    this.patientService.getRecentPatients().subscribe({
+      next: (data) => {
+        this.patients = data;
+      },
+      error: (err) => {
+        console.error('Failed to load recent patients', err);
+      }
+    });
+  }
+  loadPrescriptions() {
 
+  }
   loadShift() {
     this.miscService.getTodayShift().subscribe({
       next: (data: Shift) => {
@@ -58,11 +103,12 @@ export class Dashboard implements OnInit {
     return `${hour}:${minStr} ${ampm}`;
   }
 
-    reservations = [
-        {name: 'John Doe', time: '10:00 AM', condition: 'Flu' },
-        {name: 'Jane Smith', time: '11:00 AM', condition: 'Flu' },
-        {name: 'Alice Johnson', time: '09:30 AM', condition: 'Flu' },
-    ];
+  formatResDate(dateStr: string): string {
+    const date = new Date(dateStr);
+    return new DatePipe('en-US').transform(date, 'MMM d, y, h:mm a') || '';
+  }
+
+    reservations : Reservation[] = [];
     pending_res = 2; // Example pending reservations count
 
     currentDate = new Date();
@@ -70,13 +116,7 @@ export class Dashboard implements OnInit {
     er_occ = 75; // Example occupancy percentage
     crit_cases = 5; // Example critical cases count
 
-    patients = [
-        {name: 'Michael Brown', room: "302", condition: 'Diabetes' },
-        {name: 'Emily Davis', room: "305", condition: 'Hypertension' },
-        {name: 'Daniel Wilson', room: "308", condition: 'Arthritis' },
-    ];
-
-    pending_patients = 12; // Example pending patients count
+    patients : Patient[] = [];
 
     prescriptions = [
         {name: 'Olivia Martinez', medication: "Atorvastatin", dosage: '10mg', date: '2024-06-15' },
