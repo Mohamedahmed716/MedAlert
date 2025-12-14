@@ -17,11 +17,16 @@
             <div class="reservation-list-simple">
               @for (reservation of reservations; track $index) {
                 <div class="reservation-item-simple">
-                  <p class="reservation-name">{{reservation.name}}</p>
-                  <p class="reservation-time">{{reservation.time}} - {{reservation.condition}}</p>
+                  <p class="reservation-name">{{reservation.patientName}}</p>
+                  <p class="reservation-time">{{reservation.appointmentTime}} - {{reservation.reason}}</p>
                 </div>
               }
             </div>
+            @if (reservations.length == 0) {
+            <div class="empty-state">
+              No reservations for today.
+              </div>
+            }
           </div>
 
           <div class="er-stats-grid">
@@ -76,11 +81,7 @@
     <div class="card patient-queue-card">
 
       <div class="patient-queue-header">
-        <h3>Patient Queue</h3>
-        <div class="stat-waiting-patients">
-          <p class="er-stat-label">Waiting Patients</p>
-          <p class="er-stat-value">{{ pending_patients }}</p>
-        </div>
+        <h3>Recent Patients</h3>
       </div>
 
       <div class="queue-list">
@@ -89,10 +90,15 @@
             <div class="queue-item-details">
               <div>
                 <p class="patient-name">{{ patient.name }}</p>
-                <p class="patient-info">Room {{ patient.room }} | {{ patient.condition }}</p>
+                <p class="patient-info">{{ patient.condition }}</p>
               </div>
             </div>
           </div>
+        }
+        @if (patients.length == 0) {
+        <div class="empty-state">
+          No recent patients found.
+        </div>
         }
       </div>
     </div>
