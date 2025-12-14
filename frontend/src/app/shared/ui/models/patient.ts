@@ -3,4 +3,5 @@ export interface Patient {
   name: string;
   condition: string;
   dateOfBirth?: string;
+  lastVisit?: string;
 }

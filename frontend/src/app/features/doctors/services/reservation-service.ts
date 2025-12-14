@@ -8,13 +8,21 @@ import {Reservation} from '../../../shared/ui/models/reservation';
 })
 export class ReservationService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/api/doctor';
+  private apiUrl = 'http://localhost:8080/api/doctor/reservations';
 
   getRecentReservations(): Observable<Reservation[]> {
-    return this.http.get<Reservation[]>(`${this.apiUrl}/reservations/recent`);
+    return this.http.get<Reservation[]>(`${this.apiUrl}/recent`);
   }
 
   getCount(): Observable<number> {
-    return this.http.get<number>(`${this.apiUrl}/reservations/count`);
+    return this.http.get<number>(`${this.apiUrl}/count`);
+  }
+
+  getTodayReservations(): Observable<Reservation[]> {
+    return this.http.get<Reservation[]>(`${this.apiUrl}/today`);
+  }
+
+  getAllReservations(): Observable<Reservation[]> {
+    return this.http.get<Reservation[]>(`${this.apiUrl}/all`);
   }
 }

@@ -34,12 +34,17 @@
                   <p class="patient-name">{{ patient.name }}</p>
                 </div>
               </td>
-              <td class="text-secondary">{{ patient.dob }}</td>
+              <td class="text-secondary">{{ patient.dateOfBirth }}</td>
               <td>{{patient.condition}}</td>
               <td class="text-secondary">{{patient.lastVisit}}</td>
               <td class="text-right">
                 <button class="button-view">View Prescription</button>
               </td>
+            </tr>
+          }
+          @if (patients.length == 0) {
+            <tr>
+              <td colspan="5" class="text-center text-secondary">No patients found.</td>
             </tr>
           }
           </tbody>

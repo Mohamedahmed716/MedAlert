@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/doctor")
+@RequestMapping("/api/doctor/reservations")
 @RequiredArgsConstructor
 public class ReservationController {
 
     private final ReservationService reservationService;
     private final ReservationRepository reservationRepository;
 
-    @GetMapping("/reservations/recent")
+    @GetMapping("/recent")
     public ResponseEntity<List<ReservationDTO>> getRecentReservations(Authentication authentication){
         String email = authentication.getName();
         List<ReservationDTO> reservations = reservationService.getRecentReservations(email);
@@ -33,10 +33,30 @@ public class ReservationController {
         }
     }
 
-    @GetMapping("/reservations/count")
+    @GetMapping("/count")
     public ResponseEntity<Long> getReservationsCount(Authentication authentication){
         String email = authentication.getName();
         Long count = reservationService.getCount(email);
         return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<ReservationDTO>> getAllReservations(Authentication authentication){
+        String email = authentication.getName();
+        List<ReservationDTO> reservations = reservationService.getAllReservations(email);
+        if (reservations != null) {
+            return ResponseEntity.ok(reservations);
+        }
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/today")
+    public ResponseEntity<List<ReservationDTO>> getTodayReservations(Authentication authentication){
+        String email = authentication.getName();
+        List<ReservationDTO> reservations = reservationService.getTodayReservations(email);
+        if (reservations != null) {
+            return ResponseEntity.ok(reservations);
+        }
+        return ResponseEntity.noContent().build();
     }
 }

@@ -2,13 +2,16 @@ package com.hospital.medalert.doctor;
 
 import com.hospital.medalert.dto.PatientDTO;
 import com.hospital.medalert.models.Doctor;
+import com.hospital.medalert.models.Patient;
 import com.hospital.medalert.models.Reservation;
 import com.hospital.medalert.models.ReservationStatus;
 import com.hospital.medalert.repositories.DoctorRepository;
 import com.hospital.medalert.repositories.ReservationRepository;
+import com.hospital.medalert.repositories.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +21,7 @@ public class PatientService {
 
     private final ReservationRepository reservationRepository;
     private final DoctorRepository doctorRepository;
+    private final PatientRepository patientRepository;
 
     public List<PatientDTO> getRecentPatients(String doctorEmail) {
         // 1. Find Doctor
@@ -34,8 +38,27 @@ public class PatientService {
                         .id(res.getPatient().getId())
                         .name(res.getPatient().getUser().getFullName())
                         .condition(res.getReason())
-                        .time(res.getAppointmentTime().toString())
+                        .lastVisit(res.getAppointmentTime().toString())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    public List<PatientDTO> getAll(String doctorEmail) {
+        Doctor doctor = doctorRepository.findByUserEmail(doctorEmail)
+                .orElseThrow(() -> new RuntimeException("Doctor not found"));
+
+        List<Object[]> results = patientRepository.findPatientsByDoctorWithLastVisit(doctor);
+        return results.stream().map(record -> {
+            Patient patient = (Patient) record[0];
+            LocalDateTime lastVisit = (LocalDateTime) record[1];
+
+            return PatientDTO.builder()
+                    .id(patient.getId())
+                    .name(patient.getUser().getFullName())
+                    .dateOfBirth(patient.getUser().getDateOfBirth().toString())
+                    .lastVisit(lastVisit.toLocalDate().toString())
+                    .condition(patient.getMedicalHistory())
+                    .build();
+        }).collect(Collectors.toList());
     }
 }

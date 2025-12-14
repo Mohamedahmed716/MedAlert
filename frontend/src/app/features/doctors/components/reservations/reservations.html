@@ -30,20 +30,27 @@
                 <tr class="table-row-hover">
                   <td>
                     <div class="patient-info-cell">
-                      <p class="patient-name">{{res.patient}}</p>
+                      <p class="patient-name">{{res.patientName}}</p>
                     </div>
                   </td>
-                  <td class="text-secondary">{{res.time}}</td>
-                  <td>{{res.condition}}</td>
+                  <td class="text-secondary">{{res.appointmentTime}}</td>
+                  <td>{{res.reason}}</td>
                   <td>
                     <span class="status-tag" [ngClass]="{
-                      'status-confirmed': res.status === 'Confirmed',
-                      'status-cancelled': res.status === 'Cancelled',
-                      'status-pending': res.status === 'Pending'
+                      'status-confirmed': res.status === ReservationStatusEnum.CONFIRMED,
+                      'status-cancelled': res.status === ReservationStatusEnum.CANCELLED,
+                      'status-pending':   res.status === ReservationStatusEnum.PENDING,
+                      'status-completed': res.status === ReservationStatusEnum.COMPLETED
                     }">{{res.status}}</span>
                   </td>
                 </tr>
               }
+              @if(todayReservations.length == 0){
+                <tr>
+                  <td colspan="4" class="no-data-cell">No reservations scheduled for today.</td>
+                </tr>
+              }
+
             </tbody>
           </table>
         </div>
@@ -73,19 +80,25 @@
                 <tr class="table-row-hover">
                   <td>
                     <div class="patient-info-cell">
-                      <p class="patient-name">{{res.patient}}</p>
+                      <p class="patient-name">{{res.patientName}}</p>
                     </div>
                   </td>
                   <!-- Shows full date for history -->
-                  <td class="text-secondary">{{res.date}} {{res.time}}</td>
-                  <td>{{res.condition}}</td>
+                  <td class="text-secondary">{{res.appointmentTime}}</td>
+                  <td>{{res.reason}}</td>
                   <td>
                     <span class="status-tag" [ngClass]="{
-                      'status-confirmed': res.status === 'Confirmed',
-                      'status-cancelled': res.status === 'Cancelled',
-                      'status-pending': res.status === 'Pending'
+                      'status-confirmed': res.status === ReservationStatusEnum.CONFIRMED,
+                      'status-cancelled': res.status === ReservationStatusEnum.CANCELLED,
+                      'status-pending':   res.status === ReservationStatusEnum.PENDING,
+                      'status-completed': res.status === ReservationStatusEnum.COMPLETED
                     }">{{res.status}}</span>
                   </td>
+                </tr>
+              }
+              @if (allReservations.length == 0){
+                <tr>
+                  <td colspan="4" class="no-data-cell">No reservations found.</td>
                 </tr>
               }
             </tbody>

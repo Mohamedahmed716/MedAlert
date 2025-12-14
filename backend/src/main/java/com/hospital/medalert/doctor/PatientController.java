@@ -11,15 +11,21 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/doctor")
+@RequestMapping("/api/doctor/patients")
 @RequiredArgsConstructor
 public class PatientController {
 
     private final PatientService patientService;
 
-    @GetMapping("/patients/recent")
+    @GetMapping("/recent")
     public ResponseEntity<List<PatientDTO>> getRecentPatients(Authentication authentication) {
         String email = authentication.getName();
         return ResponseEntity.ok(patientService.getRecentPatients(email));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<PatientDTO>> getAllPatients(Authentication authentication) {
+        String email = authentication.getName();
+        return ResponseEntity.ok(patientService.getAll(email));
     }
 }

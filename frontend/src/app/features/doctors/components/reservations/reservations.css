@@ -97,6 +97,10 @@
 .status-confirmed { background-color: var(--green-100); color: var(--green-800); }
 .status-cancelled { background-color: var(--red-100); color: var(--red-700); }
 .status-pending { background-color: var(--yellow-100); color: var(--yellow-800); }
+.status-completed {
+  background-color: var(--blue-100, #dbeafe); /* Light Blue */
+  color: var(--blue-800, #1e40af);           /* Dark Blue */
+}
 
 /* --- WIDGETS --- */
 .widget-title { font-size: 1.125rem; font-weight: 600; margin: 0 0 0.75rem 0; color: var(--slate-900); }

@@ -48,4 +48,39 @@ public class ReservationService {
 
         return reservationRepository.countByDoctorAndAppointmentTimeBetween(doctor, startOfDay, endOfDay);
     }
+
+    public List<ReservationDTO> getTodayReservations(String doctorEmail) {
+        Doctor doctor = doctorRepository.findByUserEmail(doctorEmail)
+                .orElseThrow(() -> new RuntimeException("Doctor not found"));
+
+        LocalDateTime startOfDay = LocalDate.now().atStartOfDay();
+        LocalDateTime endOfDay = LocalDate.now().atTime(LocalTime.MAX);
+
+        List<Reservation> reservations = reservationRepository.findAllByDoctorAndAppointmentTimeBetweenOrderByAppointmentTimeAsc(doctor, startOfDay,endOfDay);
+        return reservations.stream()
+                .map(res -> ReservationDTO.builder()
+                        .id(res.getId())
+                        .patientName(res.getPatient().getUser().getFullName())
+                        .appointmentTime(res.getAppointmentTime().toString())
+                        .reason(res.getReason())
+                        .status(res.getStatus())
+                        .build()
+                ).collect(Collectors.toList());
+    }
+
+    public List<ReservationDTO> getAllReservations(String doctorEmail) {
+        Doctor doctor = doctorRepository.findByUserEmail(doctorEmail)
+                .orElseThrow(() -> new RuntimeException("Doctor not found"));
+
+        List<Reservation> reservations = reservationRepository.findAllByDoctorOrderByAppointmentTimeDesc(doctor);
+        return reservations.stream()
+                .map(res -> ReservationDTO.builder()
+                        .id(res.getId())
+                        .patientName(res.getPatient().getUser().getFullName())
+                        .appointmentTime(res.getAppointmentTime().toString())
+                        .reason(res.getReason())
+                        .status(res.getStatus())
+                        .build()
+                ).collect(Collectors.toList());
+    }
 }
