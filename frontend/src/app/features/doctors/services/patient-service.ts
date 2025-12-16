@@ -14,7 +14,7 @@ export class PatientService {
     return this.http.get<Patient[]>(`${this.apiUrl}/recent`);
   }
 
-  getPatients(): Observable<Patient[]> {
-    return this.http.get<Patient[]>(`${this.apiUrl}/all`);
+  getPatients(query : string = ''): Observable<Patient[]> {
+    return this.http.get<Patient[]>(`${this.apiUrl}/my-patients`, { params: { query: query } });
   }
 }

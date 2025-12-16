@@ -1,21 +1,27 @@
 import {Component, inject, OnInit} from '@angular/core';
 import { PatientService } from '../../services/patient-service';
 import { Patient } from '../../../../shared/ui/models/patient';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-patients',
-  imports: [],
+  imports: [
+    FormsModule
+  ],
   templateUrl: './patients.html',
   styleUrl: './patients.css',
   standalone: true
 })
 export class Patients implements OnInit {
   private patientService = inject(PatientService);
+
+  searchText: string = '';
+  patients: Patient[] = []
   ngOnInit(){
     this.loadPatients();
   }
   loadPatients() {
-    this.patientService.getPatients().subscribe({
+    this.patientService.getPatients(this.searchText).subscribe({
       next: (data) => {
         this.patients = data;
       },
@@ -24,5 +30,7 @@ export class Patients implements OnInit {
       }
     });
   }
-  patients: Patient[] = []
+  onSearch() {
+    this.loadPatients();
+  }
 }

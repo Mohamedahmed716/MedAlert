@@ -61,7 +61,8 @@
 
         <div class="input-with-icon search-bar">
           <span class="material-symbols-outlined icon">search</span>
-          <input class="form-input" placeholder="Search by patient name..." type="text"/>
+          <input class="form-input" placeholder="Search by patient name..." type="text" [(ngModel)]="searchText"
+                 (input)="onSearch()"/>
         </div>
 
         <div class="table-wrapper">
