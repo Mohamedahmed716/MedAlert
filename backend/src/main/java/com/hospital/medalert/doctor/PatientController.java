@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -23,9 +24,13 @@ public class PatientController {
         return ResponseEntity.ok(patientService.getRecentPatients(email));
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<PatientDTO>> getAllPatients(Authentication authentication) {
-        String email = authentication.getName();
-        return ResponseEntity.ok(patientService.getAll(email));
+    @GetMapping("/my-patients")
+    public ResponseEntity<List<PatientDTO>> getMyPatients(
+            Authentication authentication,
+            @RequestParam(required = false) String query) {
+
+        List<PatientDTO> patients = patientService.getMyPatients(authentication.getName(), query);
+        if (patients != null) return ResponseEntity.ok(patients);
+        return ResponseEntity.noContent().build();
     }
 }

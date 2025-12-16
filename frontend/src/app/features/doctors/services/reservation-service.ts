@@ -22,7 +22,7 @@ export class ReservationService {
     return this.http.get<Reservation[]>(`${this.apiUrl}/today`);
   }
 
-  getAllReservations(): Observable<Reservation[]> {
-    return this.http.get<Reservation[]>(`${this.apiUrl}/all`);
+  getAllReservations(query: string = ''): Observable<Reservation[]> {
+    return this.http.get<Reservation[]>(`${this.apiUrl}/all`, { params: { query: query } });
   }
 }

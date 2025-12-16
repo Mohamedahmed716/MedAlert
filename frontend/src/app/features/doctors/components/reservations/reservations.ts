@@ -6,12 +6,14 @@ import {MiscService} from '../../services/misc-service';
 import {Shift} from '../../../../shared/ui/models/shift';
 import {Reservation} from '../../../../shared/ui/models/reservation';
 import {ReservationStatus} from '../../../../shared/ui/models/enums';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-reservations',
   imports: [
     RouterLink,
-    NgClass
+    NgClass,
+    FormsModule
   ],
   templateUrl: './reservations.html',
   styleUrl: './reservations.css',
@@ -22,12 +24,24 @@ export class Reservations implements OnInit {
   private miscService = inject(MiscService);
   private reservationService = inject(ReservationService);
   protected readonly ReservationStatusEnum = ReservationStatus;
+  searchText: string = '';
+  currentDate: Date = new Date();
+  shift = ["9:00AM" , "5:00PM"];
+
+  todayReservations:Reservation[] = [];
+  res_num = 0;
+
+  allReservations:Reservation[] = [];
 
   ngOnInit(): void {
     this.loadTodayReservations();
     this.loadAllReservations();
     this.loadShift();
   }
+  onSearch() {
+    this.loadAllReservations();
+  }
+
   loadTodayReservations() {
     this.reservationService.getTodayReservations().subscribe({
       next: (data) => {
@@ -44,7 +58,7 @@ export class Reservations implements OnInit {
   }
 
   loadAllReservations() {
-    this.reservationService.getAllReservations().subscribe({
+    this.reservationService.getAllReservations(this.searchText).subscribe({
       next: (data) => {
         this.allReservations = data;
         for(let res of this.allReservations){
@@ -102,15 +116,4 @@ export class Reservations implements OnInit {
     const date = new Date(dateStr);
     return new DatePipe('en-US').transform(date, 'h:mm a') || '';
   }
-
-  currentDate: Date = new Date();
-  shift = ["9:00AM" , "5:00PM"]; // Example shift times
-
-  // Sample reservation data
-  todayReservations:Reservation[] = [];
-  res_num = 0;
-
-  allReservations:Reservation[] = [];
-
-  protected readonly ReservationStatus = ReservationStatus;
 }

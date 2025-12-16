@@ -1,28 +1,4 @@
 <div class="profile">
-  <div class="notification-banner" [class.show]="showNotificationSettings">
-    <div class="notification-content">
-      <span class="material-symbols-outlined notification-icon">check_circle</span>
-      <div class="notification-text">
-        <p class="notification-title">Success</p>
-        <p class="notification-desc">Settings saved successfully!</p>
-      </div>
-      <button class="close-btn" (click)="showNotificationSettings = false">
-        <span class="material-symbols-outlined">close</span>
-      </button>
-    </div>
-  </div>
-  <div class="notification-banner" [class.show]="showNotificationPassword">
-    <div class="notification-content">
-      <span class="material-symbols-outlined notification-icon">check_circle</span>
-      <div class="notification-text">
-        <p class="notification-title">Success</p>
-        <p class="notification-desc">Password updated successfully!</p>
-      </div>
-      <button class="close-btn" (click)="showNotificationPassword = false">
-        <span class="material-symbols-outlined">close</span>
-      </button>
-    </div>
-  </div>
   <div class="header">
     <h2>Profile</h2>
     <p>Manage your personal information, address, and emergency contact.</p>
@@ -100,3 +76,4 @@
     <button class="save-button" (click)="savePassword()">Update Password</button>
   </div>
 </div>
+<app-toast></app-toast>

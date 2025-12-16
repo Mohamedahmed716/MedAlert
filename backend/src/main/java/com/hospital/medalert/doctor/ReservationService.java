@@ -68,11 +68,19 @@ public class ReservationService {
                 ).collect(Collectors.toList());
     }
 
-    public List<ReservationDTO> getAllReservations(String doctorEmail) {
+    public List<ReservationDTO> getAllReservations(String doctorEmail, String searchQuery) {
         Doctor doctor = doctorRepository.findByUserEmail(doctorEmail)
                 .orElseThrow(() -> new RuntimeException("Doctor not found"));
 
-        List<Reservation> reservations = reservationRepository.findAllByDoctorOrderByAppointmentTimeDesc(doctor);
+        List<Reservation> reservations;
+
+        if(searchQuery != null && !searchQuery.trim().isEmpty()){
+            reservations = reservationRepository.searchByDoctorAndPatientName(doctor, searchQuery);
+        }
+        else{
+            reservations = reservationRepository.findAllByDoctorOrderByAppointmentTimeDesc(doctor);
+        }
+
         return reservations.stream()
                 .map(res -> ReservationDTO.builder()
                         .id(res.getId())

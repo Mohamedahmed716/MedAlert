@@ -17,4 +17,14 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
             "WHERE r.doctor = :doctor " +
             "GROUP BY r.patient")
     List<Object[]> findPatientsByDoctorWithLastVisit(@Param("doctor") Doctor doctor);
+
+    @Query("SELECT r.patient, MAX(r.appointmentTime) " +
+            "FROM Reservation r " +
+            "WHERE r.doctor = :doctor " +
+            "AND LOWER(r.patient.user.fullName) LIKE LOWER(CONCAT('%', :query, '%')) " +
+            "GROUP BY r.patient")
+    List<Object[]> searchPatientsByDoctorAndName(
+            @Param("doctor") Doctor doctor,
+            @Param("query") String query
+    );
 }

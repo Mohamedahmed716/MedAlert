@@ -4,6 +4,8 @@ import com.hospital.medalert.models.Doctor;
 import com.hospital.medalert.models.Reservation;
 import com.hospital.medalert.models.ReservationStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,4 +32,13 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     );
 
     List<Reservation> findAllByDoctorOrderByAppointmentTimeDesc(Doctor doctor);
+
+    @Query("SELECT r FROM Reservation r " +
+            "WHERE r.doctor = :doctor " +
+            "AND LOWER(r.patient.user.fullName) LIKE LOWER(CONCAT('%', :name, '%')) " +
+            "ORDER BY r.appointmentTime DESC")
+    List<Reservation> searchByDoctorAndPatientName(
+            @Param("doctor") Doctor doctor,
+            @Param("name") String name
+    );
 }

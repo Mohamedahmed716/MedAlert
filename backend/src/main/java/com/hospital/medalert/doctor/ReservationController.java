@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -41,9 +42,9 @@ public class ReservationController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<ReservationDTO>> getAllReservations(Authentication authentication){
+    public ResponseEntity<List<ReservationDTO>> getAllReservations(Authentication authentication, @RequestParam(required = false) String query){
         String email = authentication.getName();
-        List<ReservationDTO> reservations = reservationService.getAllReservations(email);
+        List<ReservationDTO> reservations = reservationService.getAllReservations(email,  query);
         if (reservations != null) {
             return ResponseEntity.ok(reservations);
         }

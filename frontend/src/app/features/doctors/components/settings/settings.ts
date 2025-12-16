@@ -1,20 +1,24 @@
-import {Component, Input} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {DoctorService} from '../../doctor.service';
-
+import {ToastService} from '../../../../core/services/toast';
+import {Toast} from '../../../../shared/components/toast/toast';
 
 @Component({
   selector: 'app-settings',
-  imports: [],
+  imports: [
+    Toast
+  ],
   templateUrl: './settings.html',
   styleUrl: './settings.css',
 })
-export class Settings {
+export class Settings implements OnInit {
   user : any = {};
 
   showNotificationSettings = false;
   showNotificationPassword = false;
 
-  constructor(private doctorService: DoctorService) {}
+  private doctorService = inject(DoctorService);
+  private toastService = inject(ToastService);
 
   ngOnInit() {
     this.doctorService.currentUser$.subscribe(data => {
@@ -23,20 +27,12 @@ export class Settings {
   }
 
   saveSettings() {
-    console.log('Saving settings:');
-
-    this.showNotificationSettings = true;
-
-    setTimeout(() => {
-      this.showNotificationSettings = false;
-    }, 2000);
+    this.toastService.showSuccess("Success", "Settings saved successfully!");
   }
 
   savePassword() {
-    this.showNotificationPassword = true;
-
-    setTimeout(() => {
-      this.showNotificationPassword = false;
-    }, 2000);
+    this.toastService.showError("Error", "Password changed successfully!");
   }
+
+  // toast will be implememnted right with backend calls
 }

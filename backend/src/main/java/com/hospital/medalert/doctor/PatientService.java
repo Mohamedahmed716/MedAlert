@@ -43,11 +43,22 @@ public class PatientService {
                 .collect(Collectors.toList());
     }
 
-    public List<PatientDTO> getAll(String doctorEmail) {
+    public List<PatientDTO> getMyPatients(String doctorEmail, String searchQuery) {
         Doctor doctor = doctorRepository.findByUserEmail(doctorEmail)
                 .orElseThrow(() -> new RuntimeException("Doctor not found"));
 
-        List<Object[]> results = patientRepository.findPatientsByDoctorWithLastVisit(doctor);
+        List<Object[]> results;
+
+        // IF search query is present, use the Search Query
+        if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+            results = patientRepository.searchPatientsByDoctorAndName(doctor, searchQuery);
+        }
+        // ELSE, use the default "Get All" Query
+        else {
+            results = patientRepository.findPatientsByDoctorWithLastVisit(doctor);
+        }
+
+        // Map results to DTO (Same logic as before)
         return results.stream().map(record -> {
             Patient patient = (Patient) record[0];
             LocalDateTime lastVisit = (LocalDateTime) record[1];
