@@ -1,13 +1,13 @@
 import { DurationTime } from './enums';
 
 export interface Prescription {
-  id: number;
+  id?: number;
   medicationName: string;
   dosage: string;
   frequency: string;
   duration: number;
   durationTime: DurationTime;
-  prescribedDate: string;
-  instructions: string;
+  prescribedDate?: string;
+  instructions?: string;
   patientName: string;
 }

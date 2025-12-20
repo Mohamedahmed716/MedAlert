@@ -71,4 +71,10 @@ export class Settings implements OnInit {
     this.toastService.showError("Error", "Password changed successfully!");
   }
 
+  resetSettings() {
+    if (this.user) {
+      this.new_user = { ...this.user };
+    }
+  }
+
 }
