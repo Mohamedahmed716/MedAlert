@@ -48,6 +48,7 @@ public class AuthenticationService {
                 .dateOfBirth(request.getDateOfBirth())
                 .role(userRole)
                 .hospitalId(request.getHospitalId())
+                .phoneNumber(null)
                 .isActive(false)
                 .gender(request.getGender()) 
                 .build();
@@ -58,7 +59,6 @@ public class AuthenticationService {
             var doctor = Doctor.builder()
                     .user(savedUser)
                     .specialty(null)
-                    .phoneNumber(null)
                     .build();
 
             doctorRepository.save(doctor);

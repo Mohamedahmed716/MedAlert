@@ -27,8 +27,6 @@ public class Patient {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    private LocalDate dateOfBirth;
-
     @Column(columnDefinition = "TEXT")
     private String medicalHistory; // Simple text for now
 
