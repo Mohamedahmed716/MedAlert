@@ -1,9 +1,6 @@
 package com.hospital.medalert.doctor;
 
 import com.hospital.medalert.dto.ReservationDTO;
-import com.hospital.medalert.dto.ShiftDTO;
-import com.hospital.medalert.models.Reservation;
-import com.hospital.medalert.repositories.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -21,7 +18,6 @@ import java.util.List;
 public class ReservationController {
 
     private final ReservationService reservationService;
-    private final ReservationRepository reservationRepository;
 
     @GetMapping("/recent")
     public ResponseEntity<List<ReservationDTO>> getRecentReservations(Authentication authentication){

@@ -71,7 +71,7 @@
 
         <div class="input-with-icon search-bar">
           <span class="material-symbols-outlined icon">search</span>
-          <input class="form-input" placeholder="Search prescriptions..." type="text"/>
+          <input class="form-input" placeholder="Search prescriptions..." type="text" [(ngModel)]="searchtext" (input)="onSearch()"/>
         </div>
 
         <div class="prescription-list">
@@ -79,11 +79,11 @@
           @for (prescription of prescriptions ; track $index) {
             <div class="prescription-card">
               <div class="card-top">
-                <span class="patient-name">{{prescription.patient}}</span>
-                <span class="date">{{prescription.date}}</span>
+                <span class="patient-name">{{prescription.patientName}}</span>
+                <span class="date">{{prescription.prescribedDate}}</span>
               </div>
               <div class="card-bottom">
-                <span class="med-details">{{ prescription.medication }} - {{ prescription.dosage }} • {{ prescription.frequency }} • {{prescription.duration}}</span>
+                <span class="med-details">{{ prescription.medicationName }} - {{ prescription.dosage }} • {{ prescription.frequency }} • {{prescription.duration}} {{prescription.durationTime}}</span>
               </div>
             </div>
           }

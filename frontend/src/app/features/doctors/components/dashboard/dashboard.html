@@ -84,21 +84,23 @@
         <h3>Recent Patients</h3>
       </div>
 
-      <div class="queue-list">
+      <div class="prescription-list">
+
         @for (patient of patients; track $index) {
-          <div class="queue-item">
-            <div class="queue-item-details">
-              <div>
-                <p class="patient-name">{{ patient.name }}</p>
-                <p class="patient-info">{{ patient.condition }}</p>
-              </div>
+          <div class="prescription-item">
+            <div style="width: 100%;">
+              <p class="prescription-name">{{ patient.name }}</p>
+              <p class="prescription-patient">{{ patient.condition }}</p>
             </div>
           </div>
+
+          <hr class="divider" />
         }
+
         @if (patients.length == 0) {
-        <div class="empty-state">
-          No recent patients found.
-        </div>
+          <div class="empty-state">
+            No recent patients found.
+          </div>
         }
       </div>
     </div>
@@ -109,10 +111,10 @@
         @for (prescription of prescriptions; track $index) {
           <div class="prescription-item">
             <div>
-              <p class="prescription-name">{{ prescription.medication }} - {{ prescription.dosage }}</p>
-              <p class="prescription-patient">{{ prescription.name }}</p>
+              <p class="prescription-name">{{ prescription.medicationName }} - {{ prescription.dosage }}</p>
+              <p class="prescription-patient">{{ prescription.patientName }}</p>
             </div>
-            <p class="prescription-date">{{ prescription.date }}</p>
+            <p class="prescription-date">{{ prescription.prescribedDate }}</p>
           </div>
           <hr class="divider" />
         }

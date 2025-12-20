@@ -8,6 +8,8 @@ import{PatientService} from '../../services/patient-service';
 import {Patient} from '../../../../shared/ui/models/patient';
 import {ReservationService} from '../../services/reservation-service';
 import {Reservation} from '../../../../shared/ui/models/reservation';
+import {PrescriptionService} from '../../services/prescription-service';
+import {Prescription} from '../../../../shared/ui/models/prescription';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,14 +26,27 @@ export class Dashboard implements OnInit {
   private miscService = inject(MiscService);
   private patientService = inject(PatientService);
   private reservationService = inject(ReservationService);
+  private prescriptionService = inject(PrescriptionService);
 
-    ngOnInit(): void {
-      this.loadShift();
-      this.loadReservations();
-      this.loadReservationCount();
-      this.loadPatients();
-      this.loadPrescriptions();
-    }
+  reservations : Reservation[] = [];
+  pending_res = 2;
+
+  currentDate = new Date();
+  shift = ["9:00 AM", "5:00 PM"];
+  er_occ = 75;
+  crit_cases = 5;
+
+  patients : Patient[] = [];
+
+  prescriptions : Prescription[] = [];
+
+  ngOnInit(): void {
+    this.loadShift();
+    this.loadReservations();
+    this.loadReservationCount();
+    this.loadPatients();
+    this.loadPrescriptions();
+  }
   loadReservationCount() {
     this.reservationService.getCount().subscribe({
       next: (count) => {
@@ -66,8 +81,16 @@ export class Dashboard implements OnInit {
     });
   }
   loadPrescriptions() {
-
+    this.prescriptionService.loadRecentPrescriptions().subscribe({
+      next: (data) => {
+        this.prescriptions = data;
+      }
+      ,error: (err) => {
+        console.error('Failed to load recent prescriptions', err);
+      }
+    });
   }
+
   loadShift() {
     this.miscService.getTodayShift().subscribe({
       next: (data: Shift) => {
@@ -108,19 +131,5 @@ export class Dashboard implements OnInit {
     return new DatePipe('en-US').transform(date, 'MMM d, y, h:mm a') || '';
   }
 
-    reservations : Reservation[] = [];
-    pending_res = 2; // Example pending reservations count
 
-    currentDate = new Date();
-    shift = ["9:00 AM", "5:00 PM"];
-    er_occ = 75; // Example occupancy percentage
-    crit_cases = 5; // Example critical cases count
-
-    patients : Patient[] = [];
-
-    prescriptions = [
-        {name: 'Olivia Martinez', medication: "Atorvastatin", dosage: '10mg', date: '2024-06-15' },
-        {name: 'Liam Garcia', medication: "Lisinopril", dosage: '20mg', date: '2024-06-15' },
-        {name: 'Sophia Rodriguez', medication: "Metformin", dosage: '500mg', date: '2024-06-15' },
-    ];
 }
