@@ -3,7 +3,7 @@ export enum Role {
   HOSPITAL_ADMIN = 'HOSPITAL_ADMIN',
   DOCTOR = 'DOCTOR',
   PATIENT = 'PATIENT',
-  SYSTEM_ADMIN = 'SYSTEM_ADMIN' // Based on your SQL query example
+  SYSTEM_ADMIN = 'SYSTEM_ADMIN'
 }
 
 export enum ReservationStatus {
@@ -11,4 +11,10 @@ export enum ReservationStatus {
   CONFIRMED = 'CONFIRMED',
   CANCELLED = 'CANCELLED',
   COMPLETED = 'COMPLETED'
+}
+
+export enum DurationTime {
+  DAYS = 'DAYS',
+  WEEKS = 'WEEKS',
+  MONTHS = 'MONTHS'
 }

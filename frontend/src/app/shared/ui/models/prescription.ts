@@ -1,15 +1,13 @@
-import { Doctor } from './doctor';
-import { Patient } from './patient';
+import { DurationTime } from './enums';
 
 export interface Prescription {
   id: number;
-  doctor: Doctor;
-  patient: Patient;
   medicationName: string;
   dosage: string;
   frequency: string;
-  durationInDays: number;
-  prescribedDate: string; // ISO Date
+  duration: number;
+  durationTime: DurationTime;
+  prescribedDate: string;
   instructions: string;
-  status: string;
+  patientName: string;
 }

@@ -1,23 +1,44 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { ToastService } from '../../../../core/services/toast';
 import {Toast} from '../../../../shared/components/toast/toast';
+import {Prescription} from '../../../../shared/ui/models/prescription';
+import {PrescriptionService} from '../../services/prescription-service';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-prescriptions',
   imports: [
-    Toast
+    Toast,
+    FormsModule
   ],
   templateUrl: './prescriptions.html',
   styleUrl: './prescriptions.css',
   standalone: true
 })
-export class Prescriptions {
-  prescriptions = [
-    {patient: 'John Doe', date: '2023-10-24', medication: 'Drug A', dosage: '10mg', frequency: 'Once a day', duration: '30 days'},
-    {patient: 'Jane Smith', date: '2023-10-24', medication: 'Drug B', dosage: '5mg', frequency: 'Twice a day', duration: '14 days'},
-    {patient: 'Alice Johnson', date: '2023-10-24', medication: 'Drug C', dosage: '20mg', frequency: 'Once a day', duration: '60 days'},
-  ];
+export class Prescriptions implements OnInit {
+  prescriptions: Prescription[] = [];
+  searchtext: string = '';
+  private prescriptionService = inject(PrescriptionService);
   private toast = inject(ToastService);
+
+  ngOnInit() {
+    this.loadPrescriptions();
+  }
+
+  loadPrescriptions() {
+    this.prescriptionService.loadPrescriptions(this.searchtext).subscribe({
+      next: (data) => {
+        this.prescriptions = data;
+      },
+      error: (error) => {
+        console.error('Error loading prescriptions:', error);
+      }
+    });
+  }
+
+  onSearch(){
+    this.loadPrescriptions();
+  }
 
   sendPrescription() {
     // Success

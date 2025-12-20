@@ -1,5 +1,6 @@
 package com.hospital.medalert.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @Builder
@@ -36,12 +38,14 @@ public class Prescription {
 
     private String frequency; // e.g. "Twice daily"
 
-    private int durationInDays;
+    private int duration;
 
+    @Enumerated(EnumType.STRING)
+    private DurationTime durationTime;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate prescribedDate;
 
     @Column(columnDefinition = "TEXT")
     private String instructions; // e.g. "Take after food"
-
-    private String status; // e.g. "ACTIVE", "COMPLETED"
 }
