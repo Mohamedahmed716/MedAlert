@@ -27,6 +27,7 @@ public class Doctor {
     private User user;
 
     private String specialty;
+    private String department;
 
     // Relationships
     // "mappedBy" refers to the field name in the Prescription class

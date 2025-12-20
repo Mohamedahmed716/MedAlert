@@ -47,4 +47,12 @@ export class UserService {
   getStats(): Observable<UserStats> {
     return this.http.get<UserStats>(`${this.apiUrl}/stats`);
   }
+
+  changePassword(currentPassword: string, newPassword: string): Observable<{message: string}> {
+    const request = {
+      currentPassword: currentPassword,
+      newPassword: newPassword
+    };
+    return this.http.patch<{message: string}>(`${this.apiUrl}/me/password`, request);
+  }
 }

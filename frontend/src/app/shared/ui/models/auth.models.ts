@@ -11,6 +11,7 @@ export interface RegisterRequest {
   role: string;
   gender: 'Male' | 'Female';
   hospitalId?: string | null;
+  department?: string | null; // New field for doctor's department
 }
 
 export interface AuthResponse {

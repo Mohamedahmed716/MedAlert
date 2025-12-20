@@ -25,6 +25,7 @@ export class SignUpComponent implements OnInit {
     role: '',
     hospital: '',
     gender: 'Male', // FIX: Added default gender
+    department: '', // New field for doctor's department
   };
 
   selectedHospitalName: string = '';
@@ -38,9 +39,11 @@ export class SignUpComponent implements OnInit {
   isRoleOpen = false;
   isHospitalOpen = false;
   isGenderOpen = false; // New state for gender dropdown
+  isDepartmentOpen = false; // New state for department dropdown
 
   roles = ['Patient', 'Doctor', 'Hospital Admin'];
   genders = ['Male', 'Female']; // Options for gender
+  departments = ['Cardiology', 'Neurology', 'Pediatrics', 'Orthopedics', 'Dermatology', 'General Medicine']; // Department options
 
   // Calendar State
   isDateOpen = false;
@@ -76,6 +79,7 @@ export class SignUpComponent implements OnInit {
     this.isHospitalOpen = false;
     this.isDateOpen = false;
     this.isGenderOpen = false;
+    this.isDepartmentOpen = false;
   }
 
   selectRole(role: string) {
@@ -85,6 +89,9 @@ export class SignUpComponent implements OnInit {
       this.user.hospital = '';
       this.selectedHospitalName = '';
     }
+    if (!this.showDepartmentField) {
+      this.user.department = '';
+    }
   }
 
   toggleHospital() {
@@ -92,10 +99,11 @@ export class SignUpComponent implements OnInit {
     this.isRoleOpen = false;
     this.isDateOpen = false;
     this.isGenderOpen = false;
+    this.isDepartmentOpen = false;
   }
 
   selectHospital(hospital: any) {
-    this.user.hospital = hospital.id;
+    this.user.hospital = hospital.hospitalId; // Use hospitalId instead of id
     this.selectedHospitalName = hospital.name || hospital.hospitalName || hospital.title;
     this.isHospitalOpen = false;
   }
@@ -106,11 +114,26 @@ export class SignUpComponent implements OnInit {
     this.isRoleOpen = false;
     this.isHospitalOpen = false;
     this.isDateOpen = false;
+    this.isDepartmentOpen = false;
   }
 
   selectGender(gender: string) {
     this.user.gender = gender;
     this.isGenderOpen = false;
+  }
+
+  // New Department Logic
+  toggleDepartment() {
+    this.isDepartmentOpen = !this.isDepartmentOpen;
+    this.isRoleOpen = false;
+    this.isHospitalOpen = false;
+    this.isDateOpen = false;
+    this.isGenderOpen = false;
+  }
+
+  selectDepartment(department: string) {
+    this.user.department = department;
+    this.isDepartmentOpen = false;
   }
 
   @HostListener('document:click', ['$event'])
@@ -120,6 +143,7 @@ export class SignUpComponent implements OnInit {
       this.isHospitalOpen = false;
       this.isDateOpen = false;
       this.isGenderOpen = false;
+      this.isDepartmentOpen = false;
     }
   }
 
@@ -129,6 +153,7 @@ export class SignUpComponent implements OnInit {
     this.isRoleOpen = false;
     this.isHospitalOpen = false;
     this.isGenderOpen = false;
+    this.isDepartmentOpen = false;
     if (this.isDateOpen && this.user.dateOfBirth) {
       const parts = this.user.dateOfBirth.split('-');
       this.currentYear = parseInt(parts[0]);
@@ -201,17 +226,23 @@ export class SignUpComponent implements OnInit {
   }
 
   loadHospitals() {
+    console.log('Loading hospitals...');
     this.hospitalService.getHospitals().subscribe({
       next: (response: any) => {
+        console.log('Hospitals response:', response);
         if (Array.isArray(response)) {
           this.hospitals = response;
+          console.log('Loaded hospitals:', this.hospitals);
         } else if (response && Array.isArray(response.data)) {
           this.hospitals = response.data;
+          console.log('Loaded hospitals from data:', this.hospitals);
         } else {
           this.hospitals = [];
+          console.log('No hospitals found in response');
         }
       },
       error: (err: any) => {
+        console.error('Error loading hospitals:', err);
         if (err.status === 0) {
           this.errorMessage = 'Connection Error: Backend not reachable.';
         } else {
@@ -223,6 +254,10 @@ export class SignUpComponent implements OnInit {
 
   get showHospitalField(): boolean {
     return this.user.role === 'Doctor' || this.user.role === 'Hospital Admin';
+  }
+
+  get showDepartmentField(): boolean {
+    return this.user.role === 'Doctor';
   }
 
   togglePassword1() {
@@ -253,6 +288,7 @@ export class SignUpComponent implements OnInit {
       hospitalId: this.showHospitalField ? this.user.hospital : null,
       dateOfBirth: this.user.dateOfBirth,
       gender: this.user.gender as 'Male' | 'Female',
+      department: this.showDepartmentField ? this.user.department : null,
     };
 
     this.authService.register(payload).subscribe({

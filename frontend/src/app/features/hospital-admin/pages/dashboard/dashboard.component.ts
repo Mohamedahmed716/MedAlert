@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { HospitalAdminService, DashboardStats } from '../../services/hospital-admin.service';
 
 interface StatCard {
   title: string;
@@ -31,8 +32,9 @@ interface QuickAction {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   pageTitle = 'Hospital Dashboard';
+  isLoading = false;
 
   quickActions: QuickAction[] = [
     {
@@ -58,10 +60,10 @@ export class DashboardComponent {
   ];
 
   stats: StatCard[] = [
-    { title: 'Total Patients', value: '1,234' },
-    { title: 'Active Doctors', value: '87' },
-    { title: 'Available Beds', value: '15' },
-    { title: 'Upcoming Appointments', value: '42' },
+    { title: 'Total Patients', value: '0' },
+    { title: 'Active Doctors', value: '0' },
+    { title: 'Available Beds', value: '0' },
+    { title: 'Pending Reservations', value: '0' },
   ];
 
   chartData = [
@@ -109,7 +111,33 @@ export class DashboardComponent {
     },
   ];
 
-  constructor(private router: Router) {} // ← Inject Router
+  constructor(
+    private router: Router,
+    private hospitalAdminService: HospitalAdminService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadDashboardStats();
+  }
+
+  loadDashboardStats(): void {
+    this.isLoading = true;
+    this.hospitalAdminService.getDashboardStats().subscribe({
+      next: (stats: DashboardStats) => {
+        this.stats = [
+          { title: 'Total Patients', value: stats.totalPatients },
+          { title: 'Active Doctors', value: stats.activeDoctors },
+          { title: 'Available Beds', value: stats.availableBeds },
+          { title: 'Pending Reservations', value: stats.pendingReservations },
+        ];
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading dashboard stats:', error);
+        this.isLoading = false;
+      }
+    });
+  }
 
   // ← Add navigation method
   navigateTo(route: string): void {

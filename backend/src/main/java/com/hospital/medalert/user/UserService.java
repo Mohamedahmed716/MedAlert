@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.hospital.medalert.dto.ChangePasswordRequest;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -99,6 +100,20 @@ public class UserService {
         }
 
         repository.deleteById(id);
+    }
+
+    public void changePassword(Long userId, ChangePasswordRequest request) {
+        User user = repository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        
+        // Verify current password
+        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
+            throw new RuntimeException("Current password is incorrect");
+        }
+        
+        // Update to new password
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        repository.save(user);
     }
 
     private UserResponse mapToResponse(User user) {

@@ -41,6 +41,10 @@ public class AuthenticationService {
             throw new RuntimeException("Hospital selection is required for Doctors and Hospital Admins.");
         }
 
+        // Determine if user should be active based on role
+        // Patients are automatically active, Doctors need system admin approval
+        boolean isActive = (userRole == Role.PATIENT);
+
         var user = User.builder()
                 .fullName(request.getFullName())
                 .email(request.getEmail())
@@ -49,7 +53,7 @@ public class AuthenticationService {
                 .role(userRole)
                 .hospitalId(request.getHospitalId())
                 .phoneNumber(null)
-                .isActive(false)
+                .isActive(isActive)
                 .gender(request.getGender()) 
                 .build();
 
@@ -59,6 +63,7 @@ public class AuthenticationService {
             var doctor = Doctor.builder()
                     .user(savedUser)
                     .specialty(null)
+                    .department(request.getDepartment()) // Set department from request
                     .build();
 
             doctorRepository.save(doctor);

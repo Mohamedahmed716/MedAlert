@@ -41,4 +41,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             @Param("doctor") Doctor doctor,
             @Param("name") String name
     );
+    
+    long countByDoctorUserHospitalId(String hospitalId);
+    long countByDoctorUserHospitalIdAndStatus(String hospitalId, ReservationStatus status);
 }

@@ -2,10 +2,13 @@ package com.hospital.medalert.user;
 
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -16,11 +19,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hospital.medalert.dto.ChangePasswordRequest;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
     private final UserService service;
@@ -73,6 +78,39 @@ public class UserController {
         
         service.toggleStatus(id, isActive);
         return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/me/password")
+    public ResponseEntity<Map<String, String>> changePassword(
+            @RequestBody ChangePasswordRequest request,
+            @AuthenticationPrincipal User user
+    ) {
+        try {
+            System.out.println("=== PASSWORD CHANGE DEBUG ===");
+            System.out.println("User: " + (user != null ? user.getEmail() : "null"));
+            System.out.println("Request: " + request);
+            
+            if (user == null) {
+                System.out.println("ERROR: User is null - authentication failed");
+                Map<String, String> errorResponse = new HashMap<>();
+                errorResponse.put("error", "Authentication required");
+                return ResponseEntity.status(401).body(errorResponse);
+            }
+            
+            service.changePassword(user.getId(), request);
+            
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Password changed successfully");
+            System.out.println("Password changed successfully for user: " + user.getEmail());
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            System.err.println("Error changing password: " + e.getMessage());
+            e.printStackTrace();
+            
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", e.getMessage());
+            return ResponseEntity.badRequest().body(errorResponse);
+        }
     }
 
     @DeleteMapping("/{id}")

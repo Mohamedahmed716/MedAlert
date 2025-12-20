@@ -19,4 +19,5 @@ public class RegisterRequest {
     private String role;
     private String hospitalId;
     private String gender;
+    private String department; // New field for doctor's department
 }

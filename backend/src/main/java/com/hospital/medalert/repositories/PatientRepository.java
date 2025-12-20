@@ -27,4 +27,6 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
             @Param("doctor") Doctor doctor,
             @Param("query") String query
     );
+    
+    long countByUserHospitalId(String hospitalId);
 }

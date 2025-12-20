@@ -23,7 +23,9 @@ export const Hospital_adminRoutes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'add-doctor', component: AddDoctorComponent },
+      { path: 'edit-doctor/:id', component: AddDoctorComponent }, // Edit doctor route
       { path: 'doctors', component: DoctorListComponent },
+      { path: 'doctors/:id', component: AddDoctorComponent }, // Alternative edit route
       { path: 'doctors-departments', component: DoctorsDepartmentComponent },
       { path: 'er-alert', component: ErAlertComponent },
       { path: 'er-beds', component: ErBedManagementComponent },

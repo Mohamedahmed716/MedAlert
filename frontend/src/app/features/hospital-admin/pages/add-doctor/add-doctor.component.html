@@ -5,11 +5,11 @@
       <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
         <polyline points="20 6 9 17 4 12"></polyline>
       </svg>
-      <span>Saved Successfully!</span>
+      <span>{{ isEditMode ? 'Doctor Updated Successfully!' : 'Doctor Created - Pending Approval!' }}</span>
     </div>
   </div>
   <div class="content">
-    <h1 class="page-title">Add New Doctor</h1>
+    <h1 class="page-title">{{ isEditMode ? 'Edit Doctor' : 'Add New Doctor' }}</h1>
 
     <div class="form-card">
       <form [formGroup]="doctorForm" (ngSubmit)="onSubmit()">
@@ -17,23 +17,45 @@
         <section class="section">
           <h2>Doctor's Information</h2>
 
-          <div class="grid-2">
-            <div class="field">
-              <label>Full Name</label>
-              <input type="text" formControlName="fullName" placeholder="Enter doctor's full name" />
-            </div>
-            <div class="field">
-              <label>Specialty</label>
-              <input type="text" formControlName="specialty" placeholder="e.g., Cardiology" />
+          <div class="field">
+            <label>Full Name *</label>
+            <input type="text" formControlName="fullName" placeholder="Enter doctor's full name" />
+            <div *ngIf="doctorForm.get('fullName')?.invalid && doctorForm.get('fullName')?.touched" class="error">
+              Full name is required
             </div>
           </div>
 
           <div class="field">
-            <label>Department</label>
+            <label>Department *</label>
             <select formControlName="department">
               <option value="" disabled selected>Select a department</option>
               <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
             </select>
+            <div *ngIf="doctorForm.get('department')?.invalid && doctorForm.get('department')?.touched" class="error">
+              Department is required
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label>Date of Birth *</label>
+              <input type="date" formControlName="dateOfBirth" />
+              <div *ngIf="doctorForm.get('dateOfBirth')?.invalid && doctorForm.get('dateOfBirth')?.touched" class="error">
+                Date of birth is required
+              </div>
+            </div>
+            <div class="field">
+              <label>Gender *</label>
+              <select formControlName="gender">
+                <option value="" disabled selected>Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+              <div *ngIf="doctorForm.get('gender')?.invalid && doctorForm.get('gender')?.touched" class="error">
+                Gender is required
+              </div>
+            </div>
           </div>
 
           <div class="field">
@@ -57,13 +79,32 @@
           <h2>Contact Details</h2>
           <div class="grid-2">
             <div class="field">
-              <label>Phone Number</label>
+              <label>Phone Number *</label>
               <input type="tel" formControlName="phone" placeholder="(123) 456-7890" />
+              <div *ngIf="doctorForm.get('phone')?.invalid && doctorForm.get('phone')?.touched" class="error">
+                Phone number is required
+              </div>
             </div>
             <div class="field">
-              <label>Email Address</label>
+              <label>Email Address *</label>
               <input type="email" formControlName="email" placeholder="doctor.name@example.com" />
+              <div *ngIf="doctorForm.get('email')?.invalid && doctorForm.get('email')?.touched" class="error">
+                Valid email is required
+              </div>
             </div>
+          </div>
+
+          <div class="field">
+            <label>Password *</label>
+            <input type="password" formControlName="password" placeholder="Enter password (min 6 characters)" />
+            <div *ngIf="doctorForm.get('password')?.invalid && doctorForm.get('password')?.touched" class="error">
+              Password is required (minimum 6 characters)
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Address</label>
+            <textarea formControlName="address" rows="3" placeholder="Enter doctor's address..."></textarea>
           </div>
 
           <div class="field">
@@ -99,8 +140,11 @@
 
         <!-- Actions -->
         <div class="actions">
-          <button type="button" class="btn-cancel">Cancel</button>
-          <button type="submit" class="btn-save">Save Doctor</button>
+          <button type="button" class="btn-cancel" [disabled]="isLoading">Cancel</button>
+          <button type="submit" class="btn-save" [disabled]="isLoading">
+            <span *ngIf="isLoading">{{ isEditMode ? 'Updating...' : 'Creating...' }}</span>
+            <span *ngIf="!isLoading">{{ isEditMode ? 'Update Doctor' : 'Save Doctor' }}</span>
+          </button>
         </div>
       </form>
     </div>

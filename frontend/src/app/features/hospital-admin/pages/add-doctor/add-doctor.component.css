@@ -319,3 +319,19 @@
     grid-template-columns: 1fr;
   }
 }
+.error {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.field input.ng-invalid.ng-touched,
+.field select.ng-invalid.ng-touched {
+  border-color: #dc3545;
+}
+
+.btn-save:disabled,
+.btn-cancel:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

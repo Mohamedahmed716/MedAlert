@@ -3,6 +3,46 @@
   min-height: 100vh;
   background: #f6f7f8;
   font-family: 'Inter', sans-serif;
+  position: relative;
+}
+
+/* Status Update Notification */
+.status-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #10b981;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transform: translateX(400px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  max-width: 400px;
+}
+
+.status-notification.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.notification-content .check-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.notification-content span {
+  font-weight: 600;
+  font-size: 14px;
 }
 
 .content {
@@ -17,6 +57,12 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 32px;
+}
+
+.header > div:last-child {
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }
 
 .page-title {
@@ -50,6 +96,31 @@
 .btn-add:hover {
   background: #0d7bb3;
   transform: translateY(-2px);
+}
+
+.btn-refresh {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #6b7280;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-refresh:hover:not(:disabled) {
+  background: #4b5563;
+  transform: translateY(-2px);
+}
+
+.btn-refresh:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .filters-bar {
@@ -136,6 +207,24 @@
   flex-shrink: 0;
 }
 
+/* New avatar container styles for profile photos */
+.avatar-container {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 2px solid #e5e7eb;
+  background-color: #f3f4f6;
+}
+
+.doctor-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 .doctor-info h3 {
   margin: 0;
   font-size: 18px;
@@ -166,6 +255,19 @@
   border-radius: 999px;
   font-size: 13px;
   font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.status-badge.clickable {
+  cursor: pointer;
+}
+
+.status-badge.clickable:hover {
+  opacity: 0.8;
+}
+
+.status-badge.pending {
+  cursor: default;
 }
 
 .status-badge.active {
@@ -176,6 +278,11 @@
 .status-badge.inactive {
   background: rgba(239, 68, 68, 0.15);
   color: #dc2626;
+}
+
+.status-badge.pending {
+  background: rgba(245, 158, 11, 0.15);
+  color: #d97706;
 }
 
 .actions {
@@ -250,4 +357,25 @@
   .filter-selects { width: 100%; }
   select { width: 100%; }
   .doctors-grid { grid-template-columns: 1fr; }
+}
+.loading, .no-data {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.status-badge {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.status-badge:hover {
+  opacity: 0.8;
+}
+
+.email {
+  font-size: 0.875rem;
+  color: #666;
+  margin-top: 0.25rem;
 }

@@ -4,42 +4,33 @@
       <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
         <polyline points="20 6 9 17 4 12"></polyline>
       </svg>
-      <span>Saved Successfully!</span>
+      <span>Settings Updated Successfully!</span>
     </div>
   </div>
+  
   <main class="main-content">
     <header class="page-header">
-      <h1>Settings</h1>
-      <p>Manage hospital-specific configurations</p>
+      <h1>Hospital Settings</h1>
+      <p>Manage your hospital profile and account settings</p>
     </header>
 
-    <!-- Tabs -->
-    <div class="settings-tabs">
-      <button class="tab" [class.active]="activeTab === 'hospital-profile'" (click)="activeTab = 'hospital-profile'">
-        Hospital Profile
-      </button>
-      <button class="tab" [class.active]="activeTab === 'departments'" (click)="activeTab = 'departments'">
-        Departments
-      </button>
-      <button class="tab" [class.active]="activeTab === 'doctor-onboarding'" (click)="activeTab = 'doctor-onboarding'">
-        Doctor Onboarding
-      </button>
-      <button class="tab" [class.active]="activeTab === 'patient-communication'" (click)="activeTab = 'patient-communication'">
-        Patient Communication
-      </button>
-    </div>
-
-    <!-- Hospital Profile Tab Content -->
-    <div *ngIf="activeTab === 'hospital-profile'" class="tab-content">
+    <!-- Hospital Profile Section -->
+    <div class="tab-content">
       <div class="form-card">
+        <h2>Hospital Information</h2>
         <form [formGroup]="hospitalForm">
           <div class="form-row">
-            <label>Hospital Name</label>
+            <label>Hospital Name *</label>
             <label>Hospital Logo</label>
           </div>
 
           <div class="form-row inputs">
-            <input formControlName="name" class="input-field" placeholder="Hospital name" />
+            <div class="input-group">
+              <input formControlName="name" class="input-field" placeholder="Enter hospital name" />
+              <div *ngIf="hospitalForm.get('name')?.invalid && hospitalForm.get('name')?.touched" class="error">
+                Hospital name is required
+              </div>
+            </div>
 
             <div class="logo-container">
               <div class="logo-section">
@@ -70,63 +61,74 @@
             </div>
           </div>
 
-          <label>Address</label>
-          <input formControlName="address" class="input-field" />
-
-          <div class="form-row">
-            <label>Phone Number</label>
-            <label>Email</label>
+          <label>Admin Email *</label>
+          <div class="input-group">
+            <input formControlName="email" class="input-field" type="email" placeholder="admin@hospital.com" />
+            <div *ngIf="hospitalForm.get('email')?.invalid && hospitalForm.get('email')?.touched" class="error">
+              Please enter a valid email address
+            </div>
           </div>
 
-          <div class="form-row inputs">
-            <input formControlName="phone" class="input-field" />
-            <input formControlName="email" class="input-field" type="email" />
-          </div>
-
-          <label>General Hospital Information</label>
-          <textarea formControlName="description" rows="6" class="textarea-field"></textarea>
+          <label>Hospital Description</label>
+          <textarea formControlName="description" rows="4" class="textarea-field" 
+                    placeholder="Brief description of your hospital..."></textarea>
         </form>
+      </div>
+
+      <!-- Password Reset Section -->
+      <div class="form-card">
+        <div class="password-header">
+          <h2>Account Security</h2>
+          <button type="button" class="btn-toggle-password" (click)="togglePasswordSection()">
+            {{ showPasswordSection ? 'Cancel Password Change' : 'Change Password' }}
+          </button>
+        </div>
+
+        <div *ngIf="showPasswordSection" class="password-section">
+          <form [formGroup]="passwordForm">
+            <label>Current Password *</label>
+            <div class="input-group">
+              <input formControlName="currentPassword" type="password" class="input-field" 
+                     placeholder="Enter current password" />
+              <div *ngIf="passwordForm.get('currentPassword')?.invalid && passwordForm.get('currentPassword')?.touched" class="error">
+                Current password is required
+              </div>
+            </div>
+
+            <label>New Password *</label>
+            <div class="input-group">
+              <input formControlName="newPassword" type="password" class="input-field" 
+                     placeholder="Enter new password (min 6 characters)" />
+              <div *ngIf="passwordForm.get('newPassword')?.invalid && passwordForm.get('newPassword')?.touched" class="error">
+                Password must be at least 6 characters long
+              </div>
+            </div>
+
+            <label>Confirm New Password *</label>
+            <div class="input-group">
+              <input formControlName="confirmPassword" type="password" class="input-field" 
+                     placeholder="Confirm new password" />
+              <div *ngIf="passwordForm.get('confirmPassword')?.invalid && passwordForm.get('confirmPassword')?.touched" class="error">
+                <span *ngIf="passwordForm.get('confirmPassword')?.errors?.['required']">Please confirm your password</span>
+                <span *ngIf="passwordForm.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords do not match</span>
+              </div>
+            </div>
+
+            <button type="button" class="btn-reset-password" (click)="onPasswordReset()" [disabled]="isLoading">
+              <span *ngIf="isLoading">Updating...</span>
+              <span *ngIf="!isLoading">Update Password</span>
+            </button>
+          </form>
+        </div>
       </div>
 
       <!-- Sticky Bottom Bar -->
       <div class="sticky-bar">
-        <button class="btn-cancel" (click)="onCancel()">Cancel</button>
-        <button class="btn-save" (click)="onSave()" >
-          Save Changes
+        <button class="btn-cancel" (click)="onCancel()" [disabled]="isLoading">Cancel</button>
+        <button class="btn-save" (click)="onSave()" [disabled]="isLoading">
+          <span *ngIf="isLoading">Saving...</span>
+          <span *ngIf="!isLoading">Save Changes</span>
         </button>
-      </div>
-    </div>
-
-    <!-- Departments Tab Content -->
-    <div *ngIf="activeTab === 'departments'" class="tab-content">
-      <div class="form-card">
-        <h2>Departments Management</h2>
-        <p class="subtitle">Manage hospital departments and their configurations</p>
-        <div class="placeholder-content">
-          <p>Department management content will go here...</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Doctor Onboarding Tab Content -->
-    <div *ngIf="activeTab === 'doctor-onboarding'" class="tab-content">
-      <div class="form-card">
-        <h2>Doctor Onboarding</h2>
-        <p class="subtitle">Configure doctor onboarding process and requirements</p>
-        <div class="placeholder-content">
-          <p>Doctor onboarding settings will go here...</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Patient Communication Tab Content -->
-    <div *ngIf="activeTab === 'patient-communication'" class="tab-content">
-      <div class="form-card">
-        <h2>Patient Communication</h2>
-        <p class="subtitle">Manage patient communication preferences and templates</p>
-        <div class="placeholder-content">
-          <p>Patient communication settings will go here...</p>
-        </div>
       </div>
     </div>
   </main>

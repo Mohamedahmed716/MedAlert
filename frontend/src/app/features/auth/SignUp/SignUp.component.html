@@ -244,6 +244,39 @@
               </label>
             </div>
 
+            <div class="form-group" *ngIf="showDepartmentField">
+              <label class="form-label">
+                <span class="input-label">Department</span>
+                <div class="custom-select-container" (click)="$event.stopPropagation()">
+                  <div
+                    class="form-input select-trigger"
+                    [class.active]="isDepartmentOpen"
+                    (click)="toggleDepartment()"
+                  >
+                    <span [class.placeholder-text]="!user.department">{{
+                      user.department || 'Select your department'
+                    }}</span>
+                    <span
+                      class="material-symbols-outlined select-arrow"
+                      [class.rotate]="isDepartmentOpen"
+                      >medical_services</span
+                    >
+                  </div>
+
+                  <div class="custom-options" *ngIf="isDepartmentOpen">
+                    <div
+                      class="option-item"
+                      *ngFor="let dept of departments"
+                      (click)="selectDepartment(dept)"
+                    >
+                      <span class="material-symbols-outlined option-icon">medical_services</span>
+                      {{ dept }}
+                    </div>
+                  </div>
+                </div>
+              </label>
+            </div>
+
             <div class="form-group form-group-button">
               <button
                 type="submit"

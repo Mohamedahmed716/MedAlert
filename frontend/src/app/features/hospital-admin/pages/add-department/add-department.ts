@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SidebarComponent } from '../../components/sidebar/side.component';
-import {RouterModule} from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+import { HospitalAdminService, CreateDepartmentRequest } from '../../services/hospital-admin.service';
 
 @Component({
   selector: 'app-add-department',
@@ -15,14 +16,19 @@ export class AddDepartmentComponent {
   departmentForm: FormGroup;
   previewUrl: string | null = null;
   showSuccessPopup = false;
+  isLoading = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private hospitalAdminService: HospitalAdminService,
+    private router: Router
+  ) {
     this.departmentForm = this.fb.group({
-      name: [''],
+      name: ['', Validators.required],
       shortCode: [''],
       headOfDepartment: [''],
       phone: [''],
-      email: [''],
+      email: ['', Validators.email], // Email validation but not required
       description: ['']
     });
   }
@@ -37,16 +43,55 @@ export class AddDepartmentComponent {
   }
 
   onSubmit() {
-    console.log('Form submitted!');
-    const formValue = this.departmentForm.value;
-    console.log('Department Data:', formValue);
+    if (this.departmentForm.valid) {
+      this.isLoading = true;
+      
+      const formValue = this.departmentForm.value;
+      const request: CreateDepartmentRequest = {
+        name: formValue.name,
+        shortCode: formValue.shortCode,
+        headOfDepartment: formValue.headOfDepartment,
+        phone: formValue.phone,
+        email: formValue.email,
+        description: formValue.description
+      };
 
-    // Show success popup
-    this.showSuccessPopup = true;
-
-    // Hide popup after 3 seconds
-    setTimeout(() => {
-      this.showSuccessPopup = false;
-    }, 3000);
+      this.hospitalAdminService.createDepartment(request).subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          this.showSuccessPopup = true;
+          
+          console.log('Department created:', response.name);
+          
+          // Reset form
+          this.departmentForm.reset();
+          this.previewUrl = null;
+          
+          // Navigate back after success
+          setTimeout(() => {
+            this.showSuccessPopup = false;
+            this.router.navigate(['/hospital-admin/doctors-departments']);
+          }, 2000);
+        },
+        error: (error) => {
+          this.isLoading = false;
+          console.error('Error creating department:', error);
+          
+          let errorMessage = 'Unknown error';
+          if (error.error?.message) {
+            errorMessage = error.error.message;
+          } else if (error.message) {
+            errorMessage = error.message;
+          }
+          
+          alert('Error creating department: ' + errorMessage);
+        }
+      });
+    } else {
+      // Mark all fields as touched to show validation errors
+      Object.keys(this.departmentForm.controls).forEach(key => {
+        this.departmentForm.get(key)?.markAsTouched();
+      });
+    }
   }
 }

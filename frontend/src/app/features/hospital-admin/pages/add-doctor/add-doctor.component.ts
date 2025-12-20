@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule} from '@angular/forms';
-import {SidebarComponent} from '../../components/sidebar/side.component';
+import { HospitalAdminService, CreateDoctorRequest, Doctor } from '../../services/hospital-admin.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 interface DayAvailability {
   day: string;
@@ -17,10 +18,14 @@ interface DayAvailability {
   templateUrl: './add-doctor.component.html',
   styleUrls: ['./add-doctor.component.css']
 })
-export class AddDoctorComponent {
+export class AddDoctorComponent implements OnInit {
   doctorForm: FormGroup;
   previewUrl: string | null = null;
   showSuccessPopup = false;
+  isLoading = false;
+  isEditMode = false;
+  doctorId: number | null = null;
+  currentDoctor: Doctor | null = null;
 
   availability: DayAvailability[] = [
     { day: 'Mon', checked: true,  startTime: '09:00', endTime: '17:00' },
@@ -30,16 +35,95 @@ export class AddDoctorComponent {
     { day: 'Fri', checked: false, startTime: '',      endTime: '' },
   ];
 
-  departments = ['Cardiology', 'Neurology', 'Pediatrics', 'Orthopedics', 'Dermatology', 'General Medicine'];
+  departments: string[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private hospitalAdminService: HospitalAdminService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.doctorForm = this.fb.group({
-      fullName: [''],
-      specialty: [''],
-      department: [''],
-      phone: [''],
-      email: [''],
+      fullName: ['', Validators.required],
+      department: ['', Validators.required],
+      phone: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      dateOfBirth: ['', Validators.required],
+      gender: ['', Validators.required],
+      address: [''],
       bio: ['']
+    });
+    
+    this.loadDepartments();
+  }
+
+  ngOnInit(): void {
+    // Check if we're in edit mode
+    this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.isEditMode = true;
+        this.doctorId = +params['id'];
+        this.loadDoctorForEdit();
+      }
+    });
+  }
+
+  loadDoctorForEdit(): void {
+    if (!this.doctorId) return;
+    
+    this.isLoading = true;
+    // Get all doctors and find the one we want to edit
+    this.hospitalAdminService.getAllDoctors().subscribe({
+      next: (doctors) => {
+        this.currentDoctor = doctors.find(d => d.id === this.doctorId) || null;
+        if (this.currentDoctor) {
+          this.populateForm();
+        } else {
+          console.error('Doctor not found');
+          this.router.navigate(['/hospital-admin/doctors']);
+        }
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading doctor:', error);
+        this.isLoading = false;
+        this.router.navigate(['/hospital-admin/doctors']);
+      }
+    });
+  }
+
+  populateForm(): void {
+    if (!this.currentDoctor) return;
+
+    this.doctorForm.patchValue({
+      fullName: this.currentDoctor.fullName,
+      department: this.currentDoctor.department,
+      phone: this.currentDoctor.phoneNumber,
+      email: this.currentDoctor.email,
+      // Don't populate password for security
+      password: '',
+      dateOfBirth: '', // We don't have this in the current Doctor interface
+      gender: '', // We don't have this in the current Doctor interface
+      address: '', // We don't have this in the current Doctor interface
+      bio: this.currentDoctor.bio || ''
+    });
+
+    // Make password optional in edit mode
+    this.doctorForm.get('password')?.clearValidators();
+    this.doctorForm.get('password')?.updateValueAndValidity();
+  }
+
+  loadDepartments(): void {
+    this.hospitalAdminService.getDepartments().subscribe({
+      next: (departments) => {
+        this.departments = departments;
+      },
+      error: (error) => {
+        console.error('Error loading departments:', error);
+        // Fallback to default departments
+        this.departments = ['Cardiology', 'Neurology', 'Pediatrics', 'Orthopedics', 'Dermatology', 'General Medicine'];
+      }
     });
   }
 
@@ -61,16 +145,78 @@ export class AddDoctorComponent {
   }
 
   onSubmit() {
-    console.log('Form submitted!');
-    console.log('Doctor Data:', this.doctorForm.value);
-    console.log('Availability:', this.availability.filter(d => d.checked));
+    if (this.doctorForm.valid) {
+      this.isLoading = true;
+      
+      const formValue = this.doctorForm.value;
+      const request: CreateDoctorRequest = {
+        fullName: formValue.fullName,
+        email: formValue.email,
+        password: formValue.password,
+        specialty: formValue.department, // Use department as specialty
+        department: formValue.department,
+        phoneNumber: formValue.phone,
+        address: formValue.address,
+        bio: formValue.bio,
+        dateOfBirth: formValue.dateOfBirth,
+        gender: formValue.gender,
+        availability: this.availability.filter(d => d.checked).map(d => ({
+          day: d.day,
+          checked: d.checked,
+          startTime: d.startTime,
+          endTime: d.endTime
+        }))
+      };
 
-    // Show success popup
-    this.showSuccessPopup = true;
-
-    // Hide popup after 3 seconds
-    setTimeout(() => {
-      this.showSuccessPopup = false;
-    }, 3000);
+      if (this.isEditMode && this.doctorId) {
+        // Update existing doctor
+        this.hospitalAdminService.updateDoctor(this.doctorId, request).subscribe({
+          next: (response) => {
+            this.isLoading = false;
+            this.showSuccessPopup = true;
+            
+            // Navigate back after success
+            setTimeout(() => {
+              this.showSuccessPopup = false;
+              this.router.navigate(['/hospital-admin/doctors']);
+            }, 2000);
+          },
+          error: (error) => {
+            this.isLoading = false;
+            console.error('Error updating doctor:', error);
+            alert('Error updating doctor: ' + (error.error?.message || 'Unknown error'));
+          }
+        });
+      } else {
+        // Create new doctor
+        this.hospitalAdminService.createDoctor(request).subscribe({
+          next: (response) => {
+            this.isLoading = false;
+            this.showSuccessPopup = true;
+            
+            // Reset form
+            this.doctorForm.reset();
+            this.previewUrl = null;
+          
+            // Show approval message and navigate after 4 seconds
+            setTimeout(() => {
+              this.showSuccessPopup = false;
+              alert('Doctor created successfully! The doctor account is pending system admin approval before becoming active.');
+              this.router.navigate(['/hospital-admin/doctors']);
+            }, 3000);
+          },
+          error: (error) => {
+            this.isLoading = false;
+            console.error('Error creating doctor:', error);
+            alert('Error creating doctor: ' + (error.error?.message || 'Unknown error'));
+          }
+        });
+      }
+    } else {
+      // Mark all fields as touched to show validation errors
+      Object.keys(this.doctorForm.controls).forEach(key => {
+        this.doctorForm.get(key)?.markAsTouched();
+      });
+    }
   }
 }

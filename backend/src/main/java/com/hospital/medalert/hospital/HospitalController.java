@@ -30,14 +30,20 @@ public class HospitalController {
         return ResponseEntity.ok(service.getAllHospitals());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<HospitalResponse> getHospitalById(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getHospitalById(id));
+    @GetMapping("/count")
+    public ResponseEntity<Long> getHospitalCount() {
+        long count = service.getAllHospitals().size();
+        return ResponseEntity.ok(count);
     }
 
     @GetMapping("/stats")
     public ResponseEntity<HospitalStatsResponse> getStats() {
         return ResponseEntity.ok(service.getHospitalStats());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<HospitalResponse> getHospitalById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getHospitalById(id));
     }
 
     @PostMapping

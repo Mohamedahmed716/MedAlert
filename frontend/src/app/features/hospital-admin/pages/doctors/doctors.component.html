@@ -1,4 +1,13 @@
 <div class="page-wrapper">
+  <!-- Status Update Notification -->
+  <div class="status-notification" [class.show]="showStatusUpdateNotification">
+    <div class="notification-content">
+      <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+      <span>Doctor statuses have been refreshed! Check for any status changes from system admin approvals.</span>
+    </div>
+  </div>
 
   <main class="content">
     <!-- Header -->
@@ -7,34 +16,39 @@
         <h1 class="page-title">Doctor Management</h1>
         <p class="subtitle">Manage all doctors and their specialties</p>
       </div>
-      <button class="btn-add" routerLink="/hospital-admin/add-doctor">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        Add New Doctor
-      </button>
+      <div>
+        <button class="btn-add" routerLink="/hospital-admin/add-doctor">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          Add New Doctor
+        </button>
+        <button class="btn-refresh" (click)="forceRefresh()" [disabled]="isLoading" title="Refresh doctor list">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M1 4V10H7M23 20V14H17M20.49 9A9 9 0 0 0 5.64 5.64L1 10M22.35 14.36A9 9 0 0 1 3.51 15L7 10"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <small *ngIf="lastRefreshTime" class="last-refresh">
+          Last updated: {{ lastRefreshTime | date:'short' }}
+        </small>
+      </div>
     </div>
 
     <!-- Filters -->
     <div class="filters-bar">
       <div class="search-box">
-        <input
-          type="text"
-          placeholder="Search doctors..."
-          [(ngModel)]="searchTerm"
-          (input)="filterDoctors()"
-        />
+        <input type="text" placeholder="Search doctors..." [(ngModel)]="searchTerm" (input)="filterDoctors()" />
         <svg class="search-icon" viewBox="0 0 20 20" fill="none">
-          <path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M17.5 17.5L13.875 13.875" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+          <path
+            d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z"
+            stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M17.5 17.5L13.875 13.875" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round"
+            stroke-linejoin="round" />
         </svg>
       </div>
 
       <div class="filter-selects">
-        <select [(ngModel)]="selectedSpecialty" (change)="filterDoctors()">
-          <option value="">All Specialties</option>
-          <option *ngFor="let s of specialties">{{ s }}</option>
-        </select>
         <select [(ngModel)]="selectedDepartment" (change)="filterDoctors()">
           <option value="">All Departments</option>
           <option *ngFor="let d of departments">{{ d }}</option>
@@ -42,38 +56,48 @@
         <select [(ngModel)]="selectedStatus" (change)="filterDoctors()">
           <option value="">All Status</option>
           <option value="Active">Active</option>
-          <option value="Inactive">Inactive</option>
+          <option value="Pending">Pending Approval</option>
         </select>
       </div>
     </div>
 
     <!-- Doctors Grid (Cards) -->
-    <div class="doctors-grid">
+    <div *ngIf="isLoading" class="loading">Loading doctors...</div>
+    <div *ngIf="!isLoading && filteredDoctors.length === 0" class="no-data">No doctors found.</div>
+
+    <div *ngIf="!isLoading && filteredDoctors.length > 0" class="doctors-grid">
       <div *ngFor="let doctor of paginatedDoctors" class="doctor-card">
         <div class="doctor-info">
-          <div class="avatar-placeholder">
-            {{ doctor.name.charAt(4) }}{{ doctor.name.split(' ')[2]?.charAt(0) || '' }}
+          <div class="avatar-container">
+            <img [src]="doctor.profilePhotoUrl" [alt]="doctor.fullName" class="doctor-avatar"
+              (error)="onImageError($event, doctor)" />
           </div>
           <div>
-            <h3>{{ doctor.name }}</h3>
-            <p class="specialty">{{ doctor.specialty }}</p>
-            <p class="department">{{ doctor.department }} Department</p>
+            <h3>{{ doctor.fullName }}</h3>
+            <p class="department">{{ doctor.department }}</p>
+            <p class="email">{{ doctor.email }}</p>
           </div>
         </div>
 
         <div class="doctor-meta">
-          <span class="status-badge" [class.active]="doctor.status === 'Active'">
-            {{ doctor.status }}
+          <span class="status-badge" [class.active]="doctor.active" [class.pending]="!doctor.active"
+            [class.clickable]="doctor.active" (click)="doctor.active ? toggleDoctorStatus(doctor) : null"
+            [title]="doctor.active ? 'Click to toggle status' : 'Pending system admin approval'">
+            {{ doctor.active ? 'Active' : 'Pending Approval' }}
           </span>
           <div class="actions">
             <button class="btn-icon" (click)="editDoctor(doctor.id)" title="Edit">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M11 4H4C3.44772 4 3 4.44772 3 5V19C3 19.5523 3.44772 20 4 20H18C18.5523 20 19 19.5523 19 19V12M17 2L22 7L12.5 16.5H7.5V11.5L17 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path
+                  d="M11 4H4C3.44772 4 3 4.44772 3 5V19C3 19.5523 3.44772 20 4 20H18C18.5523 20 19 19.5523 19 19V12M17 2L22 7L12.5 16.5H7.5V11.5L17 2Z"
+                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </button>
             <button class="btn-icon delete" (click)="deleteDoctor(doctor.id)" title="Remove">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M3 6H5H21M8 6V4C8 3.44772 8.44772 3 9 3H15C15.5523 3 16 3.44772 16 4V6M19 6V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V6H19Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path
+                  d="M3 6H5H21M8 6V4C8 3.44772 8.44772 3 9 3H15C15.5523 3 16 3.44772 16 4V6M19 6V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V6H19Z"
+                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </button>
           </div>
@@ -84,14 +108,13 @@
     <!-- Pagination -->
     <div class="pagination">
       <span class="results">
-        Showing {{ ((currentPage - 1) * itemsPerPage) + 1 }}–{{ currentPage * itemsPerPage > filteredDoctors.length ? filteredDoctors.length : currentPage * itemsPerPage }}
+        Showing {{ ((currentPage - 1) * itemsPerPage) + 1 }}–{{ currentPage * itemsPerPage > filteredDoctors.length ?
+        filteredDoctors.length : currentPage * itemsPerPage }}
         of {{ filteredDoctors.length }} doctors
       </span>
       <div class="page-buttons">
         <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
-        <button *ngFor="let p of getPageNumbers()"
-                [class.active]="p === currentPage"
-                (click)="goToPage(p)">
+        <button *ngFor="let p of getPageNumbers()" [class.active]="p === currentPage" (click)="goToPage(p)">
           {{ p }}
         </button>
         <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>

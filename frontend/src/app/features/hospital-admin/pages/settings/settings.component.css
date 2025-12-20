@@ -380,3 +380,111 @@ label {
     padding: 0 20px;
   }
 }
+/* Password Section Styles */
+.password-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.password-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #0d171b;
+}
+
+.btn-toggle-password {
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  color: #374151;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-toggle-password:hover {
+  background: #e5e7eb;
+  border-color: #9ca3af;
+}
+
+.password-section {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 24px;
+  margin-top: 16px;
+}
+
+.btn-reset-password {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 16px;
+}
+
+.btn-reset-password:hover:not(:disabled) {
+  background: #b91c1c;
+}
+
+.btn-reset-password:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Input Group Styles */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Form validation styles */
+.input-field.ng-invalid.ng-touched {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.textarea-field.ng-invalid.ng-touched {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+/* Loading state */
+.btn-save:disabled,
+.btn-cancel:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Success popup enhancement */
+.success-popup.show {
+  animation: slideInFromTop 0.3s ease-out;
+}
+
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

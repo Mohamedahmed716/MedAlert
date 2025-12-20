@@ -5,7 +5,7 @@
       <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
         <polyline points="20 6 9 17 4 12"></polyline>
       </svg>
-      <span>Saved Successfully!</span>
+      <span>Department Created Successfully!</span>
     </div>
   </div>
 
@@ -21,8 +21,11 @@
 
           <div class="grid-2">
             <div class="field">
-              <label>Department Name</label>
+              <label>Department Name *</label>
               <input type="text" formControlName="name" placeholder="e.g., Cardiology" />
+              <div *ngIf="departmentForm.get('name')?.invalid && departmentForm.get('name')?.touched" class="error">
+                Department name is required
+              </div>
             </div>
 
             <div class="field">
@@ -59,13 +62,16 @@
 
           <div class="grid-2">
             <div class="field">
-              <label>Phone Number</label>
+              <label>Phone Number (optional)</label>
               <input type="tel" formControlName="phone" placeholder="(123) 456-7890" />
             </div>
 
             <div class="field">
-              <label>Email Address</label>
+              <label>Email Address (optional)</label>
               <input type="email" formControlName="email" placeholder="department@example.com" />
+              <div *ngIf="departmentForm.get('email')?.invalid && departmentForm.get('email')?.touched" class="error">
+                Please enter a valid email address
+              </div>
             </div>
           </div>
         </section>
@@ -84,8 +90,11 @@
 
         <!-- Actions -->
         <div class="actions">
-          <button type="button" class="btn-cancel">Cancel</button>
-          <button type="submit" class="btn-save">Save Department</button>
+          <button type="button" class="btn-cancel" [disabled]="isLoading">Cancel</button>
+          <button type="submit" class="btn-save" [disabled]="isLoading">
+            <span *ngIf="isLoading">Creating...</span>
+            <span *ngIf="!isLoading">Save Department</span>
+          </button>
         </div>
       </form>
     </div>
