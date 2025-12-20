@@ -51,4 +51,7 @@ export interface User {
   hospitalId?: string;
   gender?: string;
   profilePhotoUrl?: string;
+  phoneNumber?: string;
+  address?: string;
+  dateOfBirth?: string;
 }

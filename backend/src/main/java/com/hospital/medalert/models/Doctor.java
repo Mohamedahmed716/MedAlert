@@ -28,8 +28,6 @@ public class Doctor {
 
     private String specialty;
 
-    private String phoneNumber;
-
     // Relationships
     // "mappedBy" refers to the field name in the Prescription class
     @OneToMany(mappedBy = "doctor")

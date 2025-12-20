@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +29,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "_user")
+@DynamicUpdate
 public class User implements UserDetails {
 
     @Id
@@ -38,9 +41,14 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String email;
     private String password;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
+
     private String gender;
     private String profilePhotoUrl;
+    private String phoneNumber;
+    private String address;
 
     @Enumerated(EnumType.STRING)
     private Role role;
