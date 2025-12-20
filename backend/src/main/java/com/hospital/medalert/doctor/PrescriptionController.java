@@ -38,7 +38,9 @@ public class PrescriptionController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Prescription> createPrescription(Prescription prescription) {
-        return ResponseEntity.ok(new Prescription());
+    public ResponseEntity<PrescriptionDTO> createPrescription(Authentication authentication, @RequestBody PrescriptionDTO prescription) {
+        String email = authentication.getName();
+        PrescriptionDTO savedPrescription = prescriptionService.send(email, prescription);
+        return ResponseEntity.ok(savedPrescription);
     }
 }

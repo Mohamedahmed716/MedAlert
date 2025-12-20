@@ -9,21 +9,23 @@ import java.util.List;
 
 public interface PrescriptionRepository extends JpaRepository<Prescription, Long> {
 
-    // 1. Get All Prescriptions for a Doctor (Ordered by Date)
+    // 1. Added ', p.id DESC'
     @Query("SELECT p FROM Prescription p " +
             "WHERE p.doctor = :doctor " +
-            "ORDER BY p.prescribedDate DESC")
+            "ORDER BY p.prescribedDate DESC, p.id DESC")
     List<Prescription> findAllByDoctor(@Param("doctor") Doctor doctor);
 
-    // 2. Search by Patient Name (Case Insensitive)
+    // 2. Added ', p.id DESC'
     @Query("SELECT p FROM Prescription p " +
             "WHERE p.doctor = :doctor " +
             "AND LOWER(p.patient.user.fullName) LIKE LOWER(CONCAT('%', :query, '%')) " +
-            "ORDER BY p.prescribedDate DESC")
+            "ORDER BY p.prescribedDate DESC, p.id DESC")
     List<Prescription> searchByDoctorAndPatientName(
             @Param("doctor") Doctor doctor,
             @Param("query") String query
     );
 
-    List<Prescription> findTop3ByDoctorOrderByPrescribedDateDesc(Doctor doctor);
+    // 3. Updated method name to include 'IdDesc'
+    // This ensures if you have 5 prescriptions today, the very last one created shows up first.
+    List<Prescription> findTop3ByDoctorOrderByPrescribedDateDescIdDesc(Doctor doctor);
 }

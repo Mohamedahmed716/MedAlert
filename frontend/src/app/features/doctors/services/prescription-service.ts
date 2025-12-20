@@ -22,7 +22,4 @@ export class PrescriptionService {
     return this.http.post<Prescription>(`${this.apiUrl}/create`, prescription);
   }
 
-  getPrescriptions(patientId: number): Observable<Prescription[]> {
-    return this.http.get<Prescription[]>(`${this.apiUrl}/patient/${patientId}`);
-  }
 }
