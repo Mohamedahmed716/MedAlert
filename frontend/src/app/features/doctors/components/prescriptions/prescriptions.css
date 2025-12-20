@@ -247,4 +247,18 @@
   font-weight: 500;
 }
 
+.error-border {
+  border-color: var(--red-500, #ef4444) !important;
+  background-color: var(--red-100, #fef2f2);
+}
 
+/* Optional: Shake animation on error */
+.shake {
+  animation: shake 0.3s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}

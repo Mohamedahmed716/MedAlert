@@ -1,16 +1,16 @@
 import {Component, inject, OnInit} from '@angular/core';
-import { ToastService } from '../../../../core/services/toast';
+import {ToastService} from '../../../../core/services/toast';
 import {Toast} from '../../../../shared/components/toast/toast';
 import {Prescription} from '../../../../shared/ui/models/prescription';
 import {PrescriptionService} from '../../services/prescription-service';
 import {FormsModule} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
+import {CommonModule} from '@angular/common';
+import {DurationTime} from '../../../../shared/ui/models/enums';
 
 @Component({
   selector: 'app-prescriptions',
-  imports: [
-    Toast,
-    FormsModule
-  ],
+  imports: [Toast, FormsModule, CommonModule],
   templateUrl: './prescriptions.html',
   styleUrl: './prescriptions.css',
   standalone: true
@@ -18,37 +18,85 @@ import {FormsModule} from '@angular/forms';
 export class Prescriptions implements OnInit {
   prescriptions: Prescription[] = [];
   searchtext: string = '';
+
+  newPrescription : Prescription = {
+    patientName: '',
+    medicationName: '',
+    dosage: '',
+    frequency: 'Once daily',
+    duration: 0,
+    durationTime: DurationTime.DAYS,
+    instructions: ''
+  };
+
+  isFormSubmitted = false;
+
   private prescriptionService = inject(PrescriptionService);
   private toast = inject(ToastService);
+  private route = inject(ActivatedRoute);
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      if (params['search']) {
+        this.searchtext = params['search'];
+      }
+    })
     this.loadPrescriptions();
   }
 
   loadPrescriptions() {
     this.prescriptionService.loadPrescriptions(this.searchtext).subscribe({
-      next: (data) => {
-        this.prescriptions = data;
-      },
-      error: (error) => {
-        console.error('Error loading prescriptions:', error);
-      }
+      next: (data) => this.prescriptions = data,
+      error: (error) => console.error('Error loading prescriptions:', error)
     });
   }
 
-  onSearch(){
+  onSearch() {
     this.loadPrescriptions();
   }
 
   sendPrescription() {
-    // Success
-    this.toast.showSuccess('Success', 'Settings saved successfully!');
+    this.isFormSubmitted = true;
 
-    // Or Error
-    // this.toast.showError('Error', 'Failed to connect to the server.'); 2000);
-    // You can customize the title and message as needed
+    if (!this.isValid()) {
+      this.toast.showError('Error', 'Please fill in all required fields.');
+      return;
+    }
+
+    this.prescriptionService.createPrescription(this.newPrescription).subscribe({
+      next: (response) => {
+        this.toast.showSuccess('Success', 'Prescription sent successfully!');
+        this.resetForm();
+        this.loadPrescriptions();
+      },
+      error: (err) => {
+        this.toast.showError('Error', err.error.message);
+        console.error(err);
+      }
+    });
   }
 
-  // toast will be implememnted right with backend calls
-}
+  isValid(): boolean {
+    return !!(
+      this.newPrescription.patientName &&
+      this.newPrescription.medicationName &&
+      this.newPrescription.dosage &&
+      this.newPrescription.frequency &&
+      this.newPrescription.duration &&
+      this.newPrescription.durationTime
+    );
+  }
 
+  resetForm() {
+    this.isFormSubmitted = false;
+    this.newPrescription = {
+      patientName: '',
+      medicationName: '',
+      dosage: '',
+      frequency: 'Once daily',
+      duration: 0,
+      durationTime: DurationTime.DAYS,
+      instructions: ''
+    };
+  }
+}

@@ -39,7 +39,13 @@
               <td>{{patient.condition}}</td>
               <td class="text-secondary">{{patient.lastVisit}}</td>
               <td class="text-right">
-                <button class="button-view">View Prescription</button>
+                <a
+                  class="button-view"
+                  routerLink="/doctors/prescriptions"
+                  [queryParams]="{ search: patient.name }"
+                >
+                  View Prescription
+                </a>
               </td>
             </tr>
           }

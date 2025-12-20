@@ -167,6 +167,7 @@
   transition: background-color 0.2s;
   background-color: var(--slate-100);
   color: var(--slate-700);
+  text-decoration: none;
 }
 .button-view:hover {
   background-color: var(--slate-200);

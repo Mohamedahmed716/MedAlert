@@ -2,11 +2,13 @@ import {Component, inject, OnInit} from '@angular/core';
 import { PatientService } from '../../services/patient-service';
 import { Patient } from '../../../../shared/ui/models/patient';
 import {FormsModule} from '@angular/forms';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-patients',
   imports: [
-    FormsModule
+    FormsModule,
+    RouterLink
   ],
   templateUrl: './patients.html',
   styleUrl: './patients.css',

@@ -15,26 +15,57 @@
             <label class="form-label" for="patient-name">Patient Name</label>
             <div class="input-with-icon">
               <span class="material-symbols-outlined icon">search</span>
-              <input class="form-input" id="patient-name" placeholder="Select a patient" type="text"/>
+              <input
+                class="form-input"
+                id="patient-name"
+                placeholder="Select a patient"
+                type="text"
+                name="patientName"
+                [(ngModel)]="newPrescription.patientName"
+                [class.error-border]="isFormSubmitted && !newPrescription.patientName"
+              />
             </div>
           </div>
 
           <div class="form-group">
             <label class="form-label" for="medication-name">Medication Name</label>
-            <input class="form-input" id="medication-name" placeholder="e.g., Amoxicillin" type="text"/>
+            <input
+              class="form-input"
+              id="medication-name"
+              placeholder="e.g., Amoxicillin"
+              type="text"
+              name="medicationName"
+              [(ngModel)]="newPrescription.medicationName"
+              [class.error-border]="isFormSubmitted && !newPrescription.medicationName"
+            />
           </div>
 
           <div class="form-grid-cols-2">
             <div class="form-group">
               <label class="form-label" for="dosage">Dosage</label>
-              <input class="form-input" id="dosage" placeholder="e.g., 500mg" type="text"/>
+              <input
+                class="form-input"
+                id="dosage"
+                placeholder="e.g., 500mg"
+                type="text"
+                name="dosage"
+                [(ngModel)]="newPrescription.dosage"
+                [class.error-border]="isFormSubmitted && !newPrescription.dosage"
+              />
             </div>
             <div class="form-group">
               <label class="form-label" for="frequency">Frequency</label>
-              <select class="form-select" id="frequency">
-                <option>Once daily</option>
-                <option>Twice daily</option>
-                <option>Three times daily</option>
+              <select
+                class="form-select"
+                id="frequency"
+                name="frequency"
+                [(ngModel)]="newPrescription.frequency"
+                [class.error-border]="isFormSubmitted && !newPrescription.frequency"
+              >
+                <option value="Once daily">Once daily</option>
+                <option value="Twice daily">Twice daily</option>
+                <option value="Three times daily">Three times daily</option>
+                <option value="Every 8 hours">Every 8 hours</option>
               </select>
             </div>
           </div>
@@ -42,18 +73,37 @@
           <div class="form-group">
             <label class="form-label" for="duration">Duration</label>
             <div class="form-field-group">
-              <input class="form-input" id="duration" placeholder="e.g., 7" type="number"/>
-              <select class="form-select duration-unit">
-                <option>Days</option>
-                <option>Weeks</option>
-                <option>Months</option>
+              <input
+                class="form-input"
+                id="duration"
+                placeholder="e.g., 7"
+                type="number"
+                name="duration"
+                [(ngModel)]="newPrescription.duration"
+                [class.error-border]="isFormSubmitted && !newPrescription.duration"
+              />
+              <select
+                class="form-select duration-unit"
+                name="durationTime"
+                [(ngModel)]="newPrescription.durationTime"
+              >
+                <option value="DAYS">Days</option>
+                <option value="WEEKS">Weeks</option>
+                <option value="MONTHS">Months</option>
               </select>
             </div>
           </div>
 
           <div class="form-group">
             <label class="form-label" for="special-instructions">Special Instructions</label>
-            <textarea class="form-textarea" id="special-instructions" placeholder="e.g., Take with food." rows="4"></textarea>
+            <textarea
+              class="form-textarea"
+              id="special-instructions"
+              placeholder="e.g., Take with food."
+              rows="4"
+              name="instructions"
+              [(ngModel)]="newPrescription.instructions"
+            ></textarea>
           </div>
 
           <div class="button-group">
