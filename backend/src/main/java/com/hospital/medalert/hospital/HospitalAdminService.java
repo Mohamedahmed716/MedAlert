@@ -63,10 +63,10 @@ public class HospitalAdminService {
         var savedUser = userRepository.save(user);
 
         // Create Doctor
+        Department department = departmentRepository.findByHospitalIdAndName(request.getHospitalId(), request.getDepartment());
         var doctor = Doctor.builder()
                 .user(savedUser)
-                .specialty(request.getDepartment()) // Use department as specialty
-                .department(request.getDepartment())
+                .department(department)
                 .build();
 
         var savedDoctor = doctorRepository.save(doctor);
@@ -85,9 +85,8 @@ public class HospitalAdminService {
         if (request.getPassword() != null && !request.getPassword().isEmpty()) {
             user.setPassword(passwordEncoder.encode(request.getPassword()));
         }
-
-        doctor.setSpecialty(request.getDepartment()); // Use department as specialty
-        doctor.setDepartment(request.getDepartment());
+        Department department = departmentRepository.findByHospitalIdAndName(request.getHospitalId(), request.getDepartment());
+        doctor.setDepartment(department);
 
         userRepository.save(user);
         doctorRepository.save(doctor);
@@ -187,13 +186,11 @@ public class HospitalAdminService {
                             user.getFullName().replace(" ", "+") + 
                             "&background=0D8ABC&color=fff&size=200&bold=true";
         }
-        
         return DoctorDTO.builder()
                 .id(doctor.getId())
                 .fullName(user.getFullName())
                 .email(user.getEmail())
-                .specialty(doctor.getSpecialty())
-                .department(doctor.getDepartment())
+                .department(doctor.getDepartment().getName())
                 .phoneNumber(user.getPhoneNumber())
                 .profilePhotoUrl(profilePhotoUrl)
                 .isActive(user.isActive())
