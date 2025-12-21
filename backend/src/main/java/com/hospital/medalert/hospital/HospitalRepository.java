@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface HospitalRepository extends JpaRepository<Hospital, Long> {
     Optional<Hospital> findByName(String name);
+    Optional<Hospital> findByHospitalId(String hospitalId);
 
     @Query("SELECT COUNT(h) FROM Hospital h WHERE h.status = 'Active'")
     long countActiveHospitals();

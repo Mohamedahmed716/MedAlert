@@ -25,15 +25,22 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("🔄 DataInitializer running...");
         
+        // Clean up duplicate hospitals if any exist
+        cleanupDuplicateHospitals();
+        
         // Initialize hospitals
         long hospitalCount = hospitalRepository.count();
         System.out.println("📊 Current hospital count: " + hospitalCount);
         
-        if (hospitalCount == 0) {
-            System.out.println("🏥 No hospitals found, initializing...");
+        // Check if our specific hospitals exist instead of just counting
+        boolean hospitalsExist = hospitalRepository.findByHospitalId("HOSP001").isPresent() &&
+                                hospitalRepository.findByHospitalId("HOSP009").isPresent();
+        
+        if (!hospitalsExist) {
+            System.out.println("🏥 Standard hospitals not found, initializing...");
             initializeHospitals();
         } else {
-            System.out.println("✅ Hospitals already exist, skipping initialization");
+            System.out.println("✅ Standard hospitals already exist, skipping initialization");
         }
         
         // Initialize system admin
@@ -49,6 +56,36 @@ public class DataInitializer implements CommandLineRunner {
         
         // Initialize departments for each hospital
         initializeDepartments();
+    }
+
+    private void cleanupDuplicateHospitals() {
+        System.out.println("🧹 Checking for duplicate hospitals...");
+        
+        // Get all hospitals grouped by hospitalId
+        var allHospitals = hospitalRepository.findAll();
+        var hospitalGroups = allHospitals.stream()
+            .collect(java.util.stream.Collectors.groupingBy(Hospital::getHospitalId));
+        
+        int duplicatesRemoved = 0;
+        for (var entry : hospitalGroups.entrySet()) {
+            var hospitals = entry.getValue();
+            if (hospitals.size() > 1) {
+                System.out.println("   🔍 Found " + hospitals.size() + " duplicates for hospital ID: " + entry.getKey());
+                
+                // Keep the first one, delete the rest
+                for (int i = 1; i < hospitals.size(); i++) {
+                    hospitalRepository.delete(hospitals.get(i));
+                    duplicatesRemoved++;
+                    System.out.println("   🗑️ Removed duplicate: " + hospitals.get(i).getName());
+                }
+            }
+        }
+        
+        if (duplicatesRemoved > 0) {
+            System.out.println("✅ Removed " + duplicatesRemoved + " duplicate hospitals");
+        } else {
+            System.out.println("✅ No duplicate hospitals found");
+        }
     }
 
     private void initializeHospitals() {
@@ -175,7 +212,13 @@ public class DataInitializer implements CommandLineRunner {
         };
 
         for (Hospital hospital : hospitals) {
-            hospitalRepository.save(hospital);
+            // Check if hospital with this ID already exists
+            if (hospitalRepository.findByHospitalId(hospital.getHospitalId()).isEmpty()) {
+                hospitalRepository.save(hospital);
+                System.out.println("   ✅ Created hospital: " + hospital.getName() + " (" + hospital.getHospitalId() + ")");
+            } else {
+                System.out.println("   ⚠️ Hospital already exists: " + hospital.getName() + " (" + hospital.getHospitalId() + ")");
+            }
         }
         
         System.out.println("✅ Initialized " + hospitals.length + " hospitals in the database");
