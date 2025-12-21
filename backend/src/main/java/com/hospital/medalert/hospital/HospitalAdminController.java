@@ -6,6 +6,9 @@ import com.hospital.medalert.dto.ChangePasswordRequest;
 import com.hospital.medalert.dto.DashboardStatsDTO;
 import com.hospital.medalert.dto.DoctorDTO;
 import com.hospital.medalert.dto.DepartmentResponse;
+import com.hospital.medalert.dto.BedResponse;
+import com.hospital.medalert.dto.UpdateBedRequest;
+import com.hospital.medalert.dto.BedStatsResponse;
 import com.hospital.medalert.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -123,6 +126,99 @@ public class HospitalAdminController {
             System.err.println("Error changing password: " + e.getMessage());
             e.printStackTrace();
             
+            DepartmentResponse errorResponse = DepartmentResponse.builder()
+                    .name("")
+                    .message("Error: " + e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(errorResponse);
+        }
+    }
+
+    // Bed Management Endpoints
+    @GetMapping("/beds")
+    public ResponseEntity<List<BedResponse>> getAllBeds(@AuthenticationPrincipal User user) {
+        List<BedResponse> beds = hospitalAdminService.getAllBeds(user.getHospitalId());
+        return ResponseEntity.ok(beds);
+    }
+
+    @GetMapping("/beds/stats")
+    public ResponseEntity<BedStatsResponse> getBedStats(@AuthenticationPrincipal User user) {
+        BedStatsResponse stats = hospitalAdminService.getBedStats(user.getHospitalId());
+        return ResponseEntity.ok(stats);
+    }
+
+    @PatchMapping("/beds/{bedNumber}")
+    public ResponseEntity<BedResponse> updateBedStatus(
+            @PathVariable String bedNumber,
+            @RequestBody UpdateBedRequest request,
+            @AuthenticationPrincipal User user) {
+        try {
+            BedResponse bed = hospitalAdminService.updateBedStatus(user.getHospitalId(), bedNumber, request);
+            return ResponseEntity.ok(bed);
+        } catch (Exception e) {
+            System.err.println("Error updating bed: " + e.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PostMapping("/beds/initialize")
+    public ResponseEntity<DepartmentResponse> initializeBeds(
+            @RequestParam int numberOfBeds,
+            @AuthenticationPrincipal User user) {
+        try {
+            hospitalAdminService.initializeBeds(user.getHospitalId(), numberOfBeds);
+            
+            DepartmentResponse response = DepartmentResponse.builder()
+                    .name("")
+                    .message("Successfully initialized " + numberOfBeds + " beds")
+                    .build();
+            
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            DepartmentResponse errorResponse = DepartmentResponse.builder()
+                    .name("")
+                    .message("Error: " + e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(errorResponse);
+        }
+    }
+
+    @PostMapping("/beds/add")
+    public ResponseEntity<DepartmentResponse> addBeds(
+            @RequestParam int additionalBeds,
+            @AuthenticationPrincipal User user) {
+        try {
+            hospitalAdminService.addBeds(user.getHospitalId(), additionalBeds);
+            
+            DepartmentResponse response = DepartmentResponse.builder()
+                    .name("")
+                    .message("Successfully added " + additionalBeds + " beds")
+                    .build();
+            
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            DepartmentResponse errorResponse = DepartmentResponse.builder()
+                    .name("")
+                    .message("Error: " + e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(errorResponse);
+        }
+    }
+
+    @DeleteMapping("/beds/remove")
+    public ResponseEntity<DepartmentResponse> removeBeds(
+            @RequestParam int numberOfBeds,
+            @AuthenticationPrincipal User user) {
+        try {
+            hospitalAdminService.removeBeds(user.getHospitalId(), numberOfBeds);
+            
+            DepartmentResponse response = DepartmentResponse.builder()
+                    .name("")
+                    .message("Successfully removed " + numberOfBeds + " beds")
+                    .build();
+            
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
             DepartmentResponse errorResponse = DepartmentResponse.builder()
                     .name("")
                     .message("Error: " + e.getMessage())

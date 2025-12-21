@@ -54,43 +54,73 @@
               />
             </div>
             <div class="form-group">
-              <label class="form-label" for="frequency">Frequency</label>
-              <select
-                class="form-select"
-                id="frequency"
-                name="frequency"
-                [(ngModel)]="newPrescription.frequency"
-                [class.error-border]="isFormSubmitted && !newPrescription.frequency"
-              >
-                <option value="Once daily">Once daily</option>
-                <option value="Twice daily">Twice daily</option>
-                <option value="Three times daily">Three times daily</option>
-                <option value="Every 8 hours">Every 8 hours</option>
-              </select>
+              <label class="form-label">Frequency</label>
+
+              <div class="custom-select-container" (click)="$event.stopPropagation()">
+
+                <div
+                  class="select-trigger"
+                  [class.active]="isFrequencyOpen"
+                  [class.error-border]="isFormSubmitted && !newPrescription.frequency"
+                  (click)="toggleFrequency()"
+                >
+                  <span>{{ newPrescription.frequency || 'Select frequency' }}</span>
+                  <span class="material-symbols-outlined select-arrow" [class.rotate]="isFrequencyOpen">
+        expand_more
+      </span>
+                </div>
+
+                <div class="custom-options" *ngIf="isFrequencyOpen">
+                  <div
+                    class="option-item"
+                    *ngFor="let f of frequencies"
+                    (click)="selectFrequency(f)">
+                    {{ f }}
+                  </div>
+                </div>
+
+              </div>
             </div>
           </div>
 
           <div class="form-group">
             <label class="form-label" for="duration">Duration</label>
             <div class="form-field-group">
+
               <input
                 class="form-input"
                 id="duration"
-                placeholder="e.g., 7"
+                placeholder="7"
                 type="number"
                 name="duration"
                 [(ngModel)]="newPrescription.duration"
                 [class.error-border]="isFormSubmitted && !newPrescription.duration"
               />
-              <select
-                class="form-select duration-unit"
-                name="durationTime"
-                [(ngModel)]="newPrescription.durationTime"
-              >
-                <option value="DAYS">Days</option>
-                <option value="WEEKS">Weeks</option>
-                <option value="MONTHS">Months</option>
-              </select>
+
+              <div class="custom-select-container" style="min-width: 130px;" (click)="$event.stopPropagation()">
+
+                <div
+                  class="select-trigger"
+                  [class.active]="isDurationUnitOpen"
+                  (click)="toggleDurationUnit()"
+                >
+                  <span>{{ newPrescription.durationTime.toLocaleLowerCase() }}</span>
+                  <span class="material-symbols-outlined select-arrow" [class.rotate]="isDurationUnitOpen">
+          expand_more
+        </span>
+                </div>
+
+                <div class="custom-options" *ngIf="isDurationUnitOpen">
+                  <div
+                    class="option-item"
+                    *ngFor="let unit of durationUnits"
+                    (click)="selectDurationUnit(unit)">
+                    {{ unit.toLocaleLowerCase() }}
+                  </div>
+                </div>
+
+              </div>
+
             </div>
           </div>
 
@@ -133,7 +163,7 @@
                 <span class="date">{{prescription.prescribedDate}}</span>
               </div>
               <div class="card-bottom">
-                <span class="med-details">{{ prescription.medicationName }} - {{ prescription.dosage }} • {{ prescription.frequency }} • {{prescription.duration}} {{prescription.durationTime}}</span>
+                <span class="med-details">{{ prescription.medicationName }} - {{ prescription.dosage }} • {{ prescription.frequency }} • {{prescription.duration}} {{prescription.durationTime.toLocaleLowerCase()}}</span>
               </div>
             </div>
           }

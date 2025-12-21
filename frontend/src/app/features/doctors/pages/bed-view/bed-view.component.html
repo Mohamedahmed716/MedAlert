@@ -1,0 +1,108 @@
+<div class="bed-view-container">
+  <!-- Header -->
+  <div class="header">
+    <h1>ER Bed Status</h1>
+    <div class="header-actions">
+      <button class="btn btn-secondary" (click)="refreshBeds()">
+        🔄 Refresh
+      </button>
+    </div>
+  </div>
+
+  <!-- Error Messages -->
+  <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+
+  <!-- Bed Statistics -->
+  <div *ngIf="bedStats" class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">🏥</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ bedStats.totalBeds }}</div>
+        <div class="stat-label">Total Beds</div>
+      </div>
+    </div>
+    <div class="stat-card available">
+      <div class="stat-icon">🛏️</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ bedStats.availableBeds }}</div>
+        <div class="stat-label">Available</div>
+      </div>
+    </div>
+    <div class="stat-card occupied">
+      <div class="stat-icon">🏥</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ bedStats.occupiedBeds }}</div>
+        <div class="stat-label">Occupied</div>
+      </div>
+    </div>
+    <div class="stat-card maintenance">
+      <div class="stat-icon">🔧</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ bedStats.maintenanceBeds }}</div>
+        <div class="stat-label">Maintenance</div>
+      </div>
+    </div>
+    <div class="stat-card reserved">
+      <div class="stat-icon">📋</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ bedStats.reservedBeds }}</div>
+        <div class="stat-label">Reserved</div>
+      </div>
+    </div>
+    <div class="stat-card occupancy">
+      <div class="stat-icon">📊</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ bedStats.occupancyRate }}%</div>
+        <div class="stat-label">Occupancy Rate</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Read-only notice -->
+  <div class="info-banner">
+    <div class="info-icon">ℹ️</div>
+    <div class="info-text">
+      <strong>View Only:</strong> You can view bed status but cannot modify bed assignments. 
+      Contact hospital administration for bed management.
+    </div>
+  </div>
+
+  <!-- Beds Grid -->
+  <div *ngIf="beds.length > 0" class="beds-container">
+    <div class="beds-grid">
+      <div 
+        *ngFor="let bed of beds" 
+        class="bed-card"
+        [ngClass]="getBedStatusClass(bed.status)">
+        <div class="bed-icon">{{ getBedStatusIcon(bed.status) }}</div>
+        <div class="bed-number">{{ bed.bedNumber }}</div>
+        <div class="bed-status">{{ bed.status }}</div>
+        <div *ngIf="bed.patientName" class="bed-patient">
+          <strong>Patient:</strong> {{ bed.patientName }}
+        </div>
+        <div *ngIf="bed.patientId" class="bed-patient-id">
+          <strong>ID:</strong> {{ bed.patientId }}
+        </div>
+        <div *ngIf="bed.assignedDoctor" class="bed-doctor">
+          <strong>Doctor:</strong> {{ bed.assignedDoctor }}
+        </div>
+        <div *ngIf="bed.notes" class="bed-notes">
+          <strong>Notes:</strong> {{ bed.notes }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="loading && beds.length === 0" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading bed status...</p>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && beds.length === 0 && !error" class="empty-state">
+    <div class="empty-icon">🏥</div>
+    <h3>No Beds Available</h3>
+    <p>No bed information is currently available for your hospital.</p>
+  </div>
+</div>
