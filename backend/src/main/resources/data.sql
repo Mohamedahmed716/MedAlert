@@ -10,3 +10,5 @@ INSERT IGNORE INTO hospitals (hospital_id, name, street_address, city, state, zi
 ('HOSP008', 'Pacific Northwest Medical', '258 Forest Lane', 'Seattle', 'WA', '98101', '(206) 555-0800', 'www.pacificnwmed.com', 'OPERATIONAL'),
 ('HOSP009', 'Sunshine State Hospital', '369 Palm Avenue', 'Orlando', 'FL', '32801', '(407) 555-0900', 'www.sunshinestate.com', 'OPERATIONAL'),
 ('HOSP010', 'Great Lakes Medical Center', '741 Lakeshore Drive', 'Detroit', 'MI', '48201', '(313) 555-1000', 'www.greatlakesmed.com', 'OPERATIONAL');
+INSERT IGNORE INTO patient (id, user_id, medical_history) VALUES
+(1, 1, 'Seasonal allergies, mild asthma');

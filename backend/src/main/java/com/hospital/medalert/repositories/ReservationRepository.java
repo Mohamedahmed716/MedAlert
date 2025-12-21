@@ -1,6 +1,7 @@
 package com.hospital.medalert.repositories;
 
 import com.hospital.medalert.models.Doctor;
+import com.hospital.medalert.models.Patient;
 import com.hospital.medalert.models.Reservation;
 import com.hospital.medalert.models.ReservationStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -44,4 +45,5 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     
     long countByDoctorUserHospitalId(String hospitalId);
     long countByDoctorUserHospitalIdAndStatus(String hospitalId, ReservationStatus status);
+    List<Reservation> findAllByPatientOrderByAppointmentTimeDesc(Patient patient);
 }

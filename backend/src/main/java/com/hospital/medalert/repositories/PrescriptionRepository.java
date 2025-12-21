@@ -1,6 +1,7 @@
 package com.hospital.medalert.repositories;
 
 import com.hospital.medalert.models.Doctor;
+import com.hospital.medalert.models.Patient;
 import com.hospital.medalert.models.Prescription;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -28,4 +29,5 @@ public interface PrescriptionRepository extends JpaRepository<Prescription, Long
     // 3. Updated method name to include 'IdDesc'
     // This ensures if you have 5 prescriptions today, the very last one created shows up first.
     List<Prescription> findTop3ByDoctorOrderByPrescribedDateDescIdDesc(Doctor doctor);
+    List<Prescription> findAllByPatientOrderByPrescribedDateDesc(Patient patient);
 }
