@@ -1,5 +1,6 @@
 package com.hospital.medalert.auth;
 
+import com.hospital.medalert.models.Department;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +12,7 @@ import com.hospital.medalert.user.User;
 import com.hospital.medalert.user.UserRepository;
 import com.hospital.medalert.models.Doctor;
 import com.hospital.medalert.repositories.DoctorRepository;
+import com.hospital.medalert.repositories.DepartmentRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class AuthenticationService {
     private final UserRepository repository;
     private final DoctorRepository doctorRepository;
+    private final DepartmentRepository departmentRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -60,10 +63,10 @@ public class AuthenticationService {
         var savedUser = repository.save(user);
 
         if (userRole == Role.DOCTOR) {
+            Department department = departmentRepository.findByHospitalIdAndName(request.getHospitalId(), request.getDepartment());
             var doctor = Doctor.builder()
                     .user(savedUser)
-                    .specialty(null)
-                    .department(request.getDepartment()) // Set department from request
+                    .department(department)
                     .build();
 
             doctorRepository.save(doctor);
