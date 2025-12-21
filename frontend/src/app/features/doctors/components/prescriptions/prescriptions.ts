@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, HostListener, inject, OnInit} from '@angular/core';
 import {ToastService} from '../../../../core/services/toast';
 import {Toast} from '../../../../shared/components/toast/toast';
 import {Prescription} from '../../../../shared/ui/models/prescription';
@@ -99,4 +99,53 @@ export class Prescriptions implements OnInit {
       instructions: ''
     };
   }
+
+  frequencies = [
+    'Once daily',
+    'Twice daily',
+    'Three times daily',
+    'Every 8 hours',
+    'Every 12 hours'
+  ];
+
+  durationUnits = ['DAYS', 'WEEKS', 'MONTHS'];
+
+  // 2. STATE VARIABLES (Open/Close)
+  isFrequencyOpen = false;
+  isDurationUnitOpen = false;
+
+  // ... existing load/send methods ...
+
+  // 3. TOGGLE FUNCTIONS
+  toggleFrequency() {
+    this.isFrequencyOpen = !this.isFrequencyOpen;
+    this.isDurationUnitOpen = false; // Close others
+  }
+
+  selectFrequency(val: string) {
+    this.newPrescription.frequency = val;
+    this.isFrequencyOpen = false;
+  }
+
+  toggleDurationUnit() {
+    this.isDurationUnitOpen = !this.isDurationUnitOpen;
+    this.isFrequencyOpen = false; // Close others
+  }
+
+  selectDurationUnit(val: string) {
+    this.newPrescription.durationTime = val as DurationTime; // Ensure type matches (string vs Enum)
+    this.isDurationUnitOpen = false;
+  }
+
+  // Optional: Close dropdowns if clicking anywhere else on the page
+  @HostListener('document:click', ['$event'])
+  closeDropdowns(event: Event) {
+    const target = event.target as HTMLElement;
+    // If the click is NOT inside a custom-select-container, close everything
+    if (!target.closest('.custom-select-container')) {
+      this.isFrequencyOpen = false;
+      this.isDurationUnitOpen = false;
+    }
+  }
 }
+
