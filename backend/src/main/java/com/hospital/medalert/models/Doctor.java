@@ -26,8 +26,9 @@ public class Doctor {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    private String specialty;
-    private String department;
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     // Relationships
     // "mappedBy" refers to the field name in the Prescription class

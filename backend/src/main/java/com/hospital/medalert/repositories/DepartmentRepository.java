@@ -10,4 +10,5 @@ import java.util.List;
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
     List<Department> findByHospitalIdAndIsActive(String hospitalId, boolean isActive);
     List<Department> findByHospitalId(String hospitalId);
+    Department findByHospitalIdAndName(String hospitalId, String name);
 }
