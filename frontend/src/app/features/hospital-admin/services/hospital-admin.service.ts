@@ -7,7 +7,6 @@ export interface Doctor {
   id: number;
   fullName: string;
   email: string;
-  specialty: string;
   department: string;
   phoneNumber: string;
   profilePhotoUrl?: string;
@@ -19,7 +18,6 @@ export interface CreateDoctorRequest {
   fullName: string;
   email: string;
   password: string;
-  specialty: string;
   department: string;
   phoneNumber: string;
   address?: string;
@@ -172,5 +170,9 @@ export class HospitalAdminService {
 
   removeBeds(numberOfBeds: number): Observable<{message: string}> {
     return this.http.delete<{message: string}>(`${this.apiUrl}/beds/remove?numberOfBeds=${numberOfBeds}`);
+  }
+
+  fixDoctorsWithNullDepartments(): Observable<{message: string}> {
+    return this.http.post<{message: string}>(`${this.apiUrl}/doctors/fix-departments`, {});
   }
 }

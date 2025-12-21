@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule} from '@angular/forms';
 import { HospitalAdminService, CreateDoctorRequest, Doctor } from '../../services/hospital-admin.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastService } from '../../../../shared/services/toast.service';
 
 interface DayAvailability {
   day: string;
@@ -21,7 +22,6 @@ interface DayAvailability {
 export class AddDoctorComponent implements OnInit {
   doctorForm: FormGroup;
   previewUrl: string | null = null;
-  showSuccessPopup = false;
   isLoading = false;
   isEditMode = false;
   doctorId: number | null = null;
@@ -41,7 +41,8 @@ export class AddDoctorComponent implements OnInit {
     private fb: FormBuilder,
     private hospitalAdminService: HospitalAdminService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastService: ToastService
   ) {
     this.doctorForm = this.fb.group({
       fullName: ['', Validators.required],
@@ -153,7 +154,6 @@ export class AddDoctorComponent implements OnInit {
         fullName: formValue.fullName,
         email: formValue.email,
         password: formValue.password,
-        specialty: formValue.department, // Use department as specialty
         department: formValue.department,
         phoneNumber: formValue.phone,
         address: formValue.address,
@@ -171,44 +171,45 @@ export class AddDoctorComponent implements OnInit {
       if (this.isEditMode && this.doctorId) {
         // Update existing doctor
         this.hospitalAdminService.updateDoctor(this.doctorId, request).subscribe({
-          next: (response) => {
+          next: () => {
             this.isLoading = false;
-            this.showSuccessPopup = true;
+            this.toastService.success('Success', 'Doctor updated successfully!');
             
             // Navigate back after success
             setTimeout(() => {
-              this.showSuccessPopup = false;
               this.router.navigate(['/hospital-admin/doctors']);
-            }, 2000);
+            }, 1500);
           },
           error: (error) => {
             this.isLoading = false;
             console.error('Error updating doctor:', error);
-            alert('Error updating doctor: ' + (error.error?.message || 'Unknown error'));
+            this.toastService.error('Error', 'Failed to update doctor: ' + (error.error?.message || 'Unknown error'));
           }
         });
       } else {
         // Create new doctor
         this.hospitalAdminService.createDoctor(request).subscribe({
-          next: (response) => {
+          next: () => {
             this.isLoading = false;
-            this.showSuccessPopup = true;
             
             // Reset form
             this.doctorForm.reset();
             this.previewUrl = null;
           
-            // Show approval message and navigate after 4 seconds
+            this.toastService.success(
+              'Doctor Created Successfully!', 
+              'The doctor account is pending system admin approval before becoming active.'
+            );
+            
+            // Navigate after showing success
             setTimeout(() => {
-              this.showSuccessPopup = false;
-              alert('Doctor created successfully! The doctor account is pending system admin approval before becoming active.');
               this.router.navigate(['/hospital-admin/doctors']);
-            }, 3000);
+            }, 2000);
           },
           error: (error) => {
             this.isLoading = false;
             console.error('Error creating doctor:', error);
-            alert('Error creating doctor: ' + (error.error?.message || 'Unknown error'));
+            this.toastService.error('Error', 'Failed to create doctor: ' + (error.error?.message || 'Unknown error'));
           }
         });
       }

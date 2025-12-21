@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { SidebarComponent } from '../../components/sidebar/side.component';
 import { RouterModule, Router } from '@angular/router';
 import { HospitalAdminService, CreateDepartmentRequest } from '../../services/hospital-admin.service';
+import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
   selector: 'app-add-department',
@@ -15,13 +16,13 @@ import { HospitalAdminService, CreateDepartmentRequest } from '../../services/ho
 export class AddDepartmentComponent {
   departmentForm: FormGroup;
   previewUrl: string | null = null;
-  showSuccessPopup = false;
   isLoading = false;
 
   constructor(
     private fb: FormBuilder,
     private hospitalAdminService: HospitalAdminService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {
     this.departmentForm = this.fb.group({
       name: ['', Validators.required],
@@ -59,8 +60,8 @@ export class AddDepartmentComponent {
       this.hospitalAdminService.createDepartment(request).subscribe({
         next: (response) => {
           this.isLoading = false;
-          this.showSuccessPopup = true;
           
+          this.toastService.success('Success', 'Department created successfully!');
           console.log('Department created:', response.name);
           
           // Reset form
@@ -69,9 +70,8 @@ export class AddDepartmentComponent {
           
           // Navigate back after success
           setTimeout(() => {
-            this.showSuccessPopup = false;
             this.router.navigate(['/hospital-admin/doctors-departments']);
-          }, 2000);
+          }, 1500);
         },
         error: (error) => {
           this.isLoading = false;
@@ -84,7 +84,7 @@ export class AddDepartmentComponent {
             errorMessage = error.message;
           }
           
-          alert('Error creating department: ' + errorMessage);
+          this.toastService.error('Error', 'Failed to create department: ' + errorMessage);
         }
       });
     } else {

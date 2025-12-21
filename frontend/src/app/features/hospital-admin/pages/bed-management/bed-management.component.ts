@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HospitalAdminService, Bed, BedStats, UpdateBedRequest } from '../../services/hospital-admin.service';
+import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
   selector: 'app-bed-management',
@@ -12,6 +13,7 @@ import { HospitalAdminService, Bed, BedStats, UpdateBedRequest } from '../../ser
 })
 export class BedManagementComponent implements OnInit {
   private hospitalAdminService = inject(HospitalAdminService);
+  private toastService = inject(ToastService);
 
   beds: Bed[] = [];
   bedStats: BedStats | null = null;
@@ -52,7 +54,7 @@ export class BedManagementComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error loading beds:', error);
-        this.error = 'Failed to load beds';
+        this.toastService.error('Error', 'Failed to load beds');
         this.loading = false;
       }
     });
@@ -71,72 +73,66 @@ export class BedManagementComponent implements OnInit {
 
   initializeBeds() {
     if (this.numberOfBeds < 1 || this.numberOfBeds > 200) {
-      this.error = 'Number of beds must be between 1 and 200';
+      this.toastService.error('Invalid Input', 'Number of beds must be between 1 and 200');
       return;
     }
 
     this.loading = true;
     this.hospitalAdminService.initializeBeds(this.numberOfBeds).subscribe({
       next: (response) => {
-        this.success = response.message;
+        this.toastService.success('Success', response.message);
         this.showInitializeForm = false;
         this.loadBeds();
         this.loadBedStats();
-        this.clearMessages();
       },
       error: (error) => {
         console.error('Error initializing beds:', error);
-        this.error = error.error?.message || 'Failed to initialize beds';
+        this.toastService.error('Error', error.error?.message || 'Failed to initialize beds');
         this.loading = false;
-        this.clearMessages();
       }
     });
   }
 
   addMoreBeds() {
     if (this.additionalBeds < 1 || this.additionalBeds > 50) {
-      this.error = 'Additional beds must be between 1 and 50';
+      this.toastService.error('Invalid Input', 'Additional beds must be between 1 and 50');
       return;
     }
 
     this.loading = true;
     this.hospitalAdminService.addBeds(this.additionalBeds).subscribe({
       next: (response) => {
-        this.success = response.message;
+        this.toastService.success('Success', response.message);
         this.showAddBedsForm = false;
         this.loadBeds();
         this.loadBedStats();
-        this.clearMessages();
       },
       error: (error) => {
         console.error('Error adding beds:', error);
-        this.error = error.error?.message || 'Failed to add beds';
+        this.toastService.error('Error', error.error?.message || 'Failed to add beds');
         this.loading = false;
-        this.clearMessages();
       }
     });
   }
 
   removeBeds() {
     if (this.bedsToRemove < 1 || this.bedsToRemove > this.beds.length) {
-      this.error = `Number of beds to remove must be between 1 and ${this.beds.length}`;
+      this.toastService.error('Invalid Input', `Number of beds to remove must be between 1 and ${this.beds.length}`);
       return;
     }
 
     this.loading = true;
     this.hospitalAdminService.removeBeds(this.bedsToRemove).subscribe({
       next: (response) => {
-        this.success = response.message;
+        this.toastService.success('Success', response.message);
         this.showRemoveBedsForm = false;
         this.loadBeds();
         this.loadBedStats();
-        this.clearMessages();
       },
       error: (error) => {
         console.error('Error removing beds:', error);
-        this.error = error.error?.message || 'Failed to remove beds';
+        this.toastService.error('Error', error.error?.message || 'Failed to remove beds');
         this.loading = false;
-        this.clearMessages();
       }
     });
   }
@@ -178,16 +174,14 @@ export class BedManagementComponent implements OnInit {
 
     this.hospitalAdminService.updateBedStatus(this.selectedBed.bedNumber, request).subscribe({
       next: (updatedBed) => {
-        this.success = `Bed ${updatedBed.bedNumber} updated successfully`;
+        this.toastService.success('Success', `Bed ${updatedBed.bedNumber} updated successfully`);
         this.closeEditModal();
         this.loadBeds();
         this.loadBedStats();
-        this.clearMessages();
       },
       error: (error) => {
         console.error('Error updating bed:', error);
-        this.error = 'Failed to update bed';
-        this.clearMessages();
+        this.toastService.error('Error', 'Failed to update bed');
       }
     });
   }
@@ -205,8 +199,7 @@ export class BedManagementComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error toggling bed:', error);
-        this.error = 'Failed to update bed status';
-        this.clearMessages();
+        this.toastService.error('Error', 'Failed to update bed status');
       }
     });
   }

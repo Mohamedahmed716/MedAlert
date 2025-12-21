@@ -5,6 +5,7 @@ import { SidebarComponent } from '../../components/sidebar/side.component';
 import { RouterModule } from '@angular/router';
 import { HospitalAdminService } from '../../services/hospital-admin.service';
 import { UserService } from '../../../../core/services/user.service';
+import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
   selector: 'app-hospital-profile-settings',
@@ -18,7 +19,6 @@ export class HospitalProfileSettingsComponent implements OnInit {
   passwordForm: FormGroup;
   logoPreview = '';
   isDragging = false;
-  showSuccessPopup = false;
   showPasswordSection = false;
   isLoading = false;
   currentUser: any = null;
@@ -27,7 +27,8 @@ export class HospitalProfileSettingsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private hospitalAdminService: HospitalAdminService,
-    private userService: UserService
+    private userService: UserService,
+    private toastService: ToastService
   ) {
     this.hospitalForm = this.fb.group({
       name: ['', Validators.required],
@@ -171,11 +172,7 @@ export class HospitalProfileSettingsComponent implements OnInit {
       // For now, we'll just simulate a successful save
       setTimeout(() => {
         this.isLoading = false;
-        this.showSuccessPopup = true;
-
-        setTimeout(() => {
-          this.showSuccessPopup = false;
-        }, 3000);
+        this.toastService.success('Success', 'Hospital information updated successfully!');
       }, 1000);
     } else {
       // Mark all fields as touched to show validation errors
@@ -195,15 +192,11 @@ export class HospitalProfileSettingsComponent implements OnInit {
       this.hospitalAdminService.changePassword(currentPassword, newPassword).subscribe({
         next: (response) => {
           this.isLoading = false;
-          this.showSuccessPopup = true;
           this.showPasswordSection = false;
           this.passwordForm.reset();
           
+          this.toastService.success('Success', 'Password changed successfully!');
           console.log('Password changed successfully:', response.message);
-          
-          setTimeout(() => {
-            this.showSuccessPopup = false;
-          }, 3000);
         },
         error: (error) => {
           this.isLoading = false;
@@ -218,7 +211,7 @@ export class HospitalProfileSettingsComponent implements OnInit {
             errorMessage = error.message;
           }
           
-          alert('Error: ' + errorMessage);
+          this.toastService.error('Password Change Failed', errorMessage);
         }
       });
     } else {

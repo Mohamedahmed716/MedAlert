@@ -68,11 +68,27 @@ public class HospitalAdminService {
 
         var savedUser = userRepository.save(user);
 
+        // Find or create department
+        Department department = null;
+        if (request.getDepartment() != null && !request.getDepartment().trim().isEmpty()) {
+            department = departmentRepository.findByHospitalIdAndName(request.getHospitalId(), request.getDepartment());
+            
+            // If department doesn't exist, create it
+            if (department == null) {
+                department = Department.builder()
+                        .name(request.getDepartment())
+                        .hospitalId(request.getHospitalId())
+                        .description("Auto-created department")
+                        .isActive(true)
+                        .build();
+                department = departmentRepository.save(department);
+            }
+        }
+
         // Create Doctor
-        Department department = departmentRepository.findByHospitalIdAndName(request.getHospitalId(), request.getDepartment());
         var doctor = Doctor.builder()
                 .user(savedUser)
-                .department(department)
+                .department(department) // This can be null if no department specified
                 .build();
 
         var savedDoctor = doctorRepository.save(doctor);
@@ -91,7 +107,24 @@ public class HospitalAdminService {
         if (request.getPassword() != null && !request.getPassword().isEmpty()) {
             user.setPassword(passwordEncoder.encode(request.getPassword()));
         }
-        Department department = departmentRepository.findByHospitalIdAndName(request.getHospitalId(), request.getDepartment());
+
+        // Find or create department
+        Department department = null;
+        if (request.getDepartment() != null && !request.getDepartment().trim().isEmpty()) {
+            department = departmentRepository.findByHospitalIdAndName(request.getHospitalId(), request.getDepartment());
+            
+            // If department doesn't exist, create it
+            if (department == null) {
+                department = Department.builder()
+                        .name(request.getDepartment())
+                        .hospitalId(request.getHospitalId())
+                        .description("Auto-created department")
+                        .isActive(true)
+                        .build();
+                department = departmentRepository.save(department);
+            }
+        }
+        
         doctor.setDepartment(department);
 
         userRepository.save(user);
@@ -178,6 +211,35 @@ public class HospitalAdminService {
         userRepository.save(user);
         
         System.out.println("Password updated successfully for user ID: " + userId);
+    }
+
+    // Method to fix doctors with null departments
+    public void fixDoctorsWithNullDepartments(String hospitalId) {
+        List<Doctor> doctors = doctorRepository.findByUserHospitalId(hospitalId);
+        
+        // Find or create a "General Medicine" department as default
+        Department defaultDepartment = departmentRepository.findByHospitalIdAndName(hospitalId, "General Medicine");
+        if (defaultDepartment == null) {
+            defaultDepartment = Department.builder()
+                    .name("General Medicine")
+                    .hospitalId(hospitalId)
+                    .description("Default department for doctors")
+                    .isActive(true)
+                    .build();
+            defaultDepartment = departmentRepository.save(defaultDepartment);
+        }
+        
+        // Update doctors with null departments
+        int updatedCount = 0;
+        for (Doctor doctor : doctors) {
+            if (doctor.getDepartment() == null) {
+                doctor.setDepartment(defaultDepartment);
+                doctorRepository.save(doctor);
+                updatedCount++;
+            }
+        }
+        
+        System.out.println("Updated " + updatedCount + " doctors with default department for hospital: " + hospitalId);
     }
 
     // Bed Management Methods
@@ -318,11 +380,18 @@ public class HospitalAdminService {
                             user.getFullName().replace(" ", "+") + 
                             "&background=0D8ABC&color=fff&size=200&bold=true";
         }
+        
+        // Safely get department name, handle null department
+        String departmentName = null;
+        if (doctor.getDepartment() != null) {
+            departmentName = doctor.getDepartment().getName();
+        }
+        
         return DoctorDTO.builder()
                 .id(doctor.getId())
                 .fullName(user.getFullName())
                 .email(user.getEmail())
-                .department(doctor.getDepartment().getName())
+                .department(departmentName)
                 .phoneNumber(user.getPhoneNumber())
                 .profilePhotoUrl(profilePhotoUrl)
                 .isActive(user.isActive())

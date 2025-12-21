@@ -14,7 +14,6 @@ public class DoctorDTO {
     private Long id;
     private String fullName;
     private String email;
-    private String specialty;
     private String department;
     private String phoneNumber;
     private String profilePhotoUrl;

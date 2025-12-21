@@ -226,4 +226,24 @@ public class HospitalAdminController {
             return ResponseEntity.badRequest().body(errorResponse);
         }
     }
+
+    @PostMapping("/doctors/fix-departments")
+    public ResponseEntity<DepartmentResponse> fixDoctorsWithNullDepartments(@AuthenticationPrincipal User user) {
+        try {
+            hospitalAdminService.fixDoctorsWithNullDepartments(user.getHospitalId());
+            
+            DepartmentResponse response = DepartmentResponse.builder()
+                    .name("")
+                    .message("Successfully fixed doctors with missing departments")
+                    .build();
+            
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            DepartmentResponse errorResponse = DepartmentResponse.builder()
+                    .name("")
+                    .message("Error: " + e.getMessage())
+                    .build();
+            return ResponseEntity.badRequest().body(errorResponse);
+        }
+    }
 }

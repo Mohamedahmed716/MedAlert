@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { SidebarComponent } from '../../components/sidebar/side.component';
 import { HospitalAdminService, Doctor } from '../../services/hospital-admin.service';
+import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
   selector: 'app-doctor-list',
@@ -31,7 +32,8 @@ export class DoctorListComponent implements OnInit {
 
   constructor(
     private hospitalAdminService: HospitalAdminService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -183,17 +185,43 @@ export class DoctorListComponent implements OnInit {
   }
 
   deleteDoctor(id: number): void {
-    if (confirm('Are you sure you want to delete this doctor?')) {
-      this.hospitalAdminService.deleteDoctor(id).subscribe({
-        next: () => {
-          this.loadDoctors(); // Reload the list
-        },
-        error: (error) => {
-          console.error('Error deleting doctor:', error);
-          alert('Error deleting doctor: ' + (error.error?.message || 'Unknown error'));
-        }
-      });
-    }
+    this.toastService.confirm(
+      'Delete Doctor',
+      'Are you sure you want to delete this doctor? This action cannot be undone.',
+      () => {
+        this.hospitalAdminService.deleteDoctor(id).subscribe({
+          next: () => {
+            this.toastService.success('Success', 'Doctor deleted successfully');
+            this.loadDoctors(); // Reload the list
+          },
+          error: (error) => {
+            console.error('Error deleting doctor:', error);
+            this.toastService.error('Error', 'Failed to delete doctor: ' + (error.error?.message || 'Unknown error'));
+          }
+        });
+      }
+    );
+  }
+
+  fixDepartments(): void {
+    this.toastService.confirm(
+      'Fix Departments',
+      'This will assign a default department to doctors who have no department. Continue?',
+      () => {
+        this.isLoading = true;
+        this.hospitalAdminService.fixDoctorsWithNullDepartments().subscribe({
+          next: (response) => {
+            this.toastService.success('Success', response.message);
+            this.loadDoctors(); // Reload the list to see changes
+          },
+          error: (error) => {
+            console.error('Error fixing departments:', error);
+            this.toastService.error('Error', 'Failed to fix departments: ' + (error.error?.message || 'Unknown error'));
+            this.isLoading = false;
+          }
+        });
+      }
+    );
   }
 
   toggleDoctorStatus(doctor: Doctor): void {
@@ -201,10 +229,11 @@ export class DoctorListComponent implements OnInit {
     this.hospitalAdminService.toggleDoctorStatus(doctor.id, newStatus).subscribe({
       next: () => {
         doctor.active = newStatus;
+        this.toastService.success('Success', `Doctor status updated to ${newStatus ? 'Active' : 'Inactive'}`);
       },
       error: (error) => {
         console.error('Error updating doctor status:', error);
-        alert('Error updating doctor status: ' + (error.error?.message || 'Unknown error'));
+        this.toastService.error('Error', 'Failed to update doctor status: ' + (error.error?.message || 'Unknown error'));
       }
     });
   }
