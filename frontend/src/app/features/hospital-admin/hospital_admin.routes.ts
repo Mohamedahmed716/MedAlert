@@ -6,7 +6,7 @@ import { DoctorListComponent } from './pages/doctors/doctors.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DoctorsDepartmentComponent } from './pages/doctors-departments/doctors-departments';
 import { ErAlertComponent } from './pages/er-alert/er-alert';
-import { ErBedManagementComponent } from './pages/er-beds/er-beds';
+import { BedManagementComponent } from './pages/bed-management/bed-management.component';
 import { ErReservationsComponent } from './pages/er-reservations/er-reservations';
 import { ReservationsComponent } from './pages/reservations/reservations';
 import { HospitalProfileSettingsComponent } from './pages/settings/settings.component';
@@ -28,7 +28,7 @@ export const Hospital_adminRoutes: Routes = [
       { path: 'doctors/:id', component: AddDoctorComponent }, // Alternative edit route
       { path: 'doctors-departments', component: DoctorsDepartmentComponent },
       { path: 'er-alert', component: ErAlertComponent },
-      { path: 'er-beds', component: ErBedManagementComponent },
+      { path: 'er-beds', component: BedManagementComponent },
       { path: 'er-reservations', component: ErReservationsComponent },
       { path: 'reservations', component: ReservationsComponent },
       { path: 'settings', component: HospitalProfileSettingsComponent },

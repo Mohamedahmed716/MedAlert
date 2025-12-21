@@ -3,7 +3,9 @@ package com.hospital.medalert.config;
 import com.hospital.medalert.hospital.Hospital;
 import com.hospital.medalert.hospital.HospitalRepository;
 import com.hospital.medalert.models.Department;
+import com.hospital.medalert.models.Bed;
 import com.hospital.medalert.repositories.DepartmentRepository;
+import com.hospital.medalert.repositories.BedRepository;
 import com.hospital.medalert.user.Role;
 import com.hospital.medalert.user.User;
 import com.hospital.medalert.user.UserRepository;
@@ -19,6 +21,7 @@ public class DataInitializer implements CommandLineRunner {
     private final HospitalRepository hospitalRepository;
     private final UserRepository userRepository;
     private final DepartmentRepository departmentRepository;
+    private final BedRepository bedRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -56,6 +59,9 @@ public class DataInitializer implements CommandLineRunner {
         
         // Initialize departments for each hospital
         initializeDepartments();
+        
+        // Initialize beds for each hospital
+        initializeBeds();
     }
 
     private void cleanupDuplicateHospitals() {
@@ -336,6 +342,44 @@ public class DataInitializer implements CommandLineRunner {
             System.out.println("✅ Created " + totalCreated + " total departments across all hospitals");
         } else {
             System.out.println("✅ All departments already exist for all hospitals");
+        }
+    }
+    
+    private void initializeBeds() {
+        System.out.println("🛏️ Creating beds for each hospital...");
+        
+        var hospitals = hospitalRepository.findAll();
+        int totalCreated = 0;
+        
+        for (Hospital hospital : hospitals) {
+            // Check if beds already exist for this hospital
+            long existingBeds = bedRepository.countTotalBeds(hospital.getHospitalId());
+            
+            if (existingBeds == 0) {
+                // Create 20 beds for each hospital by default
+                int numberOfBeds = 20;
+                
+                for (int i = 1; i <= numberOfBeds; i++) {
+                    String bedNumber = String.format("B%03d", i);
+                    
+                    Bed bed = Bed.builder()
+                            .bedNumber(bedNumber)
+                            .hospitalId(hospital.getHospitalId())
+                            .status(Bed.BedStatus.AVAILABLE)
+                            .build();
+                    
+                    bedRepository.save(bed);
+                    totalCreated++;
+                }
+                
+                System.out.println("   ✅ Created " + numberOfBeds + " beds for: " + hospital.getName());
+            }
+        }
+        
+        if (totalCreated > 0) {
+            System.out.println("✅ Created " + totalCreated + " total beds across all hospitals");
+        } else {
+            System.out.println("✅ All hospitals already have beds initialized");
         }
     }
 }

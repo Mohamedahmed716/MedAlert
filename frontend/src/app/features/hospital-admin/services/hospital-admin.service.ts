@@ -54,6 +54,34 @@ export interface CreateDepartmentRequest {
   description: string;
 }
 
+export interface Bed {
+  id: number;
+  bedNumber: string;
+  hospitalId: string;
+  status: 'AVAILABLE' | 'OCCUPIED' | 'MAINTENANCE' | 'RESERVED';
+  patientName?: string;
+  patientId?: string;
+  assignedDoctor?: string;
+  notes?: string;
+}
+
+export interface BedStats {
+  totalBeds: number;
+  availableBeds: number;
+  occupiedBeds: number;
+  maintenanceBeds: number;
+  reservedBeds: number;
+  occupancyRate: number;
+}
+
+export interface UpdateBedRequest {
+  status: string;
+  patientName?: string;
+  patientId?: string;
+  assignedDoctor?: string;
+  notes?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -118,5 +146,31 @@ export class HospitalAdminService {
       newPassword: newPassword
     };
     return this.http.patch<{message: string}>(`${this.apiUrl}/me/password`, request);
+  }
+
+  // Bed Management Methods
+  getAllBeds(): Observable<Bed[]> {
+    const timestamp = new Date().getTime();
+    return this.http.get<Bed[]>(`${this.apiUrl}/beds?_t=${timestamp}`);
+  }
+
+  getBedStats(): Observable<BedStats> {
+    return this.http.get<BedStats>(`${this.apiUrl}/beds/stats`);
+  }
+
+  updateBedStatus(bedNumber: string, request: UpdateBedRequest): Observable<Bed> {
+    return this.http.patch<Bed>(`${this.apiUrl}/beds/${bedNumber}`, request);
+  }
+
+  initializeBeds(numberOfBeds: number): Observable<{message: string}> {
+    return this.http.post<{message: string}>(`${this.apiUrl}/beds/initialize?numberOfBeds=${numberOfBeds}`, {});
+  }
+
+  addBeds(additionalBeds: number): Observable<{message: string}> {
+    return this.http.post<{message: string}>(`${this.apiUrl}/beds/add?additionalBeds=${additionalBeds}`, {});
+  }
+
+  removeBeds(numberOfBeds: number): Observable<{message: string}> {
+    return this.http.delete<{message: string}>(`${this.apiUrl}/beds/remove?numberOfBeds=${numberOfBeds}`);
   }
 }

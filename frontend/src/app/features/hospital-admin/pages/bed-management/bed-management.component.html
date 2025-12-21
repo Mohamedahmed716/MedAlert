@@ -1,0 +1,277 @@
+<div class="bed-management-container">
+  <!-- Header -->
+  <div class="header">
+    <h1>ER Bed Management</h1>
+    <div class="header-actions">
+      <button 
+        *ngIf="beds.length === 0" 
+        class="btn btn-primary"
+        (click)="showInitializeForm = true">
+        Initialize Beds
+      </button>
+      <button 
+        *ngIf="beds.length > 0" 
+        class="btn btn-secondary"
+        (click)="showAddBedsForm = true">
+        Add More Beds
+      </button>
+      <button 
+        *ngIf="beds.length > 0" 
+        class="btn btn-danger"
+        (click)="showRemoveBedsForm = true">
+        Remove Beds
+      </button>
+    </div>
+  </div>
+
+  <!-- Error/Success Messages -->
+  <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+  <div *ngIf="success" class="alert alert-success">{{ success }}</div>
+
+  <!-- Bed Statistics -->
+  <div *ngIf="bedStats" class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">🏥</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ bedStats.totalBeds }}</div>
+        <div class="stat-label">Total Beds</div>
+      </div>
+    </div>
+    <div class="stat-card available">
+      <div class="stat-icon">🛏️</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ bedStats.availableBeds }}</div>
+        <div class="stat-label">Available</div>
+      </div>
+    </div>
+    <div class="stat-card occupied">
+      <div class="stat-icon">🏥</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ bedStats.occupiedBeds }}</div>
+        <div class="stat-label">Occupied</div>
+      </div>
+    </div>
+    <div class="stat-card maintenance">
+      <div class="stat-icon">🔧</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ bedStats.maintenanceBeds }}</div>
+        <div class="stat-label">Maintenance</div>
+      </div>
+    </div>
+    <div class="stat-card reserved">
+      <div class="stat-icon">📋</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ bedStats.reservedBeds }}</div>
+        <div class="stat-label">Reserved</div>
+      </div>
+    </div>
+    <div class="stat-card occupancy">
+      <div class="stat-icon">📊</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ bedStats.occupancyRate }}%</div>
+        <div class="stat-label">Occupancy Rate</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Initialize Beds Form -->
+  <div *ngIf="showInitializeForm" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Initialize Hospital Beds</h3>
+        <button class="close-btn" (click)="showInitializeForm = false">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="numberOfBeds">Number of Beds:</label>
+          <input 
+            type="number" 
+            id="numberOfBeds"
+            [(ngModel)]="numberOfBeds" 
+            min="1" 
+            max="200"
+            class="form-control">
+          <small class="form-text">Enter the total number of beds for your hospital (1-200)</small>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="showInitializeForm = false">Cancel</button>
+        <button class="btn btn-primary" (click)="initializeBeds()" [disabled]="loading">
+          {{ loading ? 'Initializing...' : 'Initialize Beds' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add More Beds Form -->
+  <div *ngIf="showAddBedsForm" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Add More Beds</h3>
+        <button class="close-btn" (click)="showAddBedsForm = false">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="additionalBeds">Number of Additional Beds:</label>
+          <input 
+            type="number" 
+            id="additionalBeds"
+            [(ngModel)]="additionalBeds" 
+            min="1" 
+            max="50"
+            class="form-control">
+          <small class="form-text">Enter the number of beds to add (1-50)</small>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="showAddBedsForm = false">Cancel</button>
+        <button class="btn btn-primary" (click)="addMoreBeds()" [disabled]="loading">
+          {{ loading ? 'Adding...' : 'Add Beds' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Remove Beds Form -->
+  <div *ngIf="showRemoveBedsForm" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Remove Beds</h3>
+        <button class="close-btn" (click)="showRemoveBedsForm = false">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="bedsToRemove">Number of Beds to Remove:</label>
+          <input 
+            type="number" 
+            id="bedsToRemove"
+            [(ngModel)]="bedsToRemove" 
+            min="1" 
+            [max]="beds.length"
+            class="form-control">
+          <small class="form-text">Enter the number of beds to remove (1-{{ beds.length }})</small>
+          <small class="form-text text-warning">⚠️ This will remove the highest numbered beds first</small>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="showRemoveBedsForm = false">Cancel</button>
+        <button class="btn btn-danger" (click)="removeBeds()" [disabled]="loading">
+          {{ loading ? 'Removing...' : 'Remove Beds' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Beds Grid -->
+  <div *ngIf="beds.length > 0" class="beds-container">
+    <div class="beds-grid">
+      <div 
+        *ngFor="let bed of beds" 
+        class="bed-card"
+        [ngClass]="getBedStatusClass(bed.status)"
+        (click)="openEditModal(bed)">
+        <div class="bed-icon">{{ getBedStatusIcon(bed.status) }}</div>
+        <div class="bed-number">{{ bed.bedNumber }}</div>
+        <div class="bed-status">{{ bed.status }}</div>
+        <div *ngIf="bed.patientName" class="bed-patient">{{ bed.patientName }}</div>
+        <div class="bed-actions">
+          <button 
+            class="quick-toggle-btn"
+            (click)="quickToggleBed(bed); $event.stopPropagation()"
+            [title]="bed.status === 'AVAILABLE' ? 'Mark as Occupied' : 'Mark as Available'">
+            {{ bed.status === 'AVAILABLE' ? '🔴' : '🟢' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Bed Modal -->
+  <div *ngIf="showEditModal" class="modal-overlay">
+    <div class="modal large">
+      <div class="modal-header">
+        <h3>Edit Bed {{ selectedBed?.bedNumber }}</h3>
+        <button class="close-btn" (click)="closeEditModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="updateBed()">
+          <div class="form-group">
+            <label for="status">Bed Status:</label>
+            <select id="status" [(ngModel)]="editForm.status" name="status" class="form-control">
+              <option value="AVAILABLE">Available</option>
+              <option value="OCCUPIED">Occupied</option>
+              <option value="MAINTENANCE">Maintenance</option>
+              <option value="RESERVED">Reserved</option>
+            </select>
+          </div>
+
+          <div *ngIf="editForm.status === 'OCCUPIED'" class="patient-info">
+            <div class="form-group">
+              <label for="patientName">Patient Name:</label>
+              <input 
+                type="text" 
+                id="patientName"
+                [(ngModel)]="editForm.patientName" 
+                name="patientName"
+                class="form-control"
+                placeholder="Enter patient name">
+            </div>
+
+            <div class="form-group">
+              <label for="patientId">Patient ID:</label>
+              <input 
+                type="text" 
+                id="patientId"
+                [(ngModel)]="editForm.patientId" 
+                name="patientId"
+                class="form-control"
+                placeholder="Enter patient ID">
+            </div>
+
+            <div class="form-group">
+              <label for="assignedDoctor">Assigned Doctor:</label>
+              <input 
+                type="text" 
+                id="assignedDoctor"
+                [(ngModel)]="editForm.assignedDoctor" 
+                name="assignedDoctor"
+                class="form-control"
+                placeholder="Enter doctor name">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="notes">Notes:</label>
+            <textarea 
+              id="notes"
+              [(ngModel)]="editForm.notes" 
+              name="notes"
+              class="form-control"
+              rows="3"
+              placeholder="Enter any additional notes"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeEditModal()">Cancel</button>
+        <button class="btn btn-primary" (click)="updateBed()">Update Bed</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="loading && beds.length === 0" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading beds...</p>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && beds.length === 0 && !showInitializeForm" class="empty-state">
+    <div class="empty-icon">🏥</div>
+    <h3>No Beds Configured</h3>
+    <p>Initialize your hospital beds to start managing bed availability.</p>
+    <button class="btn btn-primary" (click)="showInitializeForm = true">
+      Initialize Beds
+    </button>
+  </div>
+</div>
