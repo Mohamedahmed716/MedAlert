@@ -80,7 +80,7 @@
 
         <!-- Actions -->
         <div class="actions">
-          <button type="button" class="btn-cancel" [disabled]="isLoading">Cancel</button>
+          <button type="button" class="btn-cancel" [disabled]="isLoading" (click)="cancel()">Cancel</button>
           <button type="submit" class="btn-save" [disabled]="isLoading">
             <span *ngIf="isLoading">Creating...</span>
             <span *ngIf="!isLoading">Save Department</span>
