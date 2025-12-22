@@ -48,8 +48,9 @@ public class SecurityConfiguration {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/v1/auth/**").permitAll()        
+                .requestMatchers("/api/v1/auth/**").permitAll()
                 .requestMatchers("/api/v1/hospitals/**").permitAll()
+                .requestMatchers("/api/emergency/hospitals/**").permitAll()
                 .anyRequest().authenticated()
             )
             .exceptionHandling(exception -> exception.authenticationEntryPoint(authenticationEntryPoint())) 
