@@ -32,10 +32,13 @@
   margin: 0.25rem 0 0 0;
 }
 
+/* --- LAYOUT GRID (Updated for Equal Height) --- */
 .prescription-layout-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
+  /* CRITICAL: This ensures both columns stretch to the height of the tallest one */
+  align-items: stretch;
 }
 
 @media (min-width: 1024px) {
@@ -51,10 +54,19 @@
 }
 
 .card {
-  background-color: var(--slate-50);
+  background-color: var(--white);
   border-radius: var(--radius-xl);
-  padding: 1.5rem; /* p-6 */
+  padding: 1.5rem;
   box-shadow: var(--shadow-sm);
+  /* Default behavior */
+}
+
+/* NEW: Applied to the right card to make it fill the grid cell */
+.full-height-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column; /* Stack header, search, list, footer */
+  box-sizing: border-box;
 }
 
 .card-title {
@@ -94,7 +106,7 @@
   border-radius: var(--radius-lg);
   color: var(--text-primary);
   border: 1px solid var(--slate-300);
-  background-color: var(--slate-100);
+  background-color: var(--white);
   padding: 0 1rem;
   font-size: 1rem;
   line-height: 1.5;
@@ -190,27 +202,24 @@
   background-color: #1193d4e6;
 }
 
-.text-secondary {
-  color: var(--slate-500);
-}
-.text-right {
-  text-align: right;
-}
-
+/* --- PRESCRIPTION LIST STYLES --- */
 .prescription-list {
   display: flex;
   flex-direction: column;
-  gap: 1rem; /* Space between cards */
+  gap: 1rem;
+
+  /* CRITICAL: This pushes the footer down to fill available space */
+  flex: 1;
+  min-height: 0; /* Prevents flex overflow */
 }
 
 .prescription-card {
   display: flex;
-  flex-direction: column; /* Stacks the two lines vertically */
-  gap: 0.5rem; /* Gap between the Name line and Med line */
-
-  background-color: #f1f5f9; /* Your light gray/blue background */
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: #f1f5f9;
   padding: 1.25rem 1.5rem;
-  border-radius: 0.5rem; /* Rounded corners */
+  border-radius: 0.5rem;
   transition: background-color 0.2s;
 }
 
@@ -218,10 +227,9 @@
   background-color: var(--slate-200);
 }
 
-/* --- Line 1: Name and Date --- */
 .card-top {
   display: flex;
-  justify-content: space-between; /* Pushes Name to left, Date to right */
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -243,61 +251,113 @@
 
 .med-details {
   font-size: 0.95rem;
-  color: #334155; /* Slightly lighter than the name */
+  color: #334155;
   font-weight: 500;
 }
 
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: var(--slate-500);
+  font-style: italic;
+  background-color: #f8fafc;
+  border-radius: 0.5rem;
+  border: 1px dashed var(--slate-300);
+}
+
+/* --- PAGINATION FOOTER --- */
+.pagination-footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--slate-200, #e2e8f0);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  /* Ensure it sits at bottom */
+  flex-shrink: 0;
+}
+
+.page-info {
+  font-size: 0.875rem;
+  color: var(--slate-500, #64748b);
+  font-weight: 500;
+}
+
+.page-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.icon-btn {
+  background: none;
+  border: 1px solid var(--slate-300);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  color: var(--slate-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  width: 2rem;
+  height: 2rem;
+}
+
+.icon-btn:hover:not(:disabled) {
+  background-color: var(--slate-100);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.icon-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: var(--slate-200);
+  background-color: #f1f5f9;
+}
+
+
+/* --- ERROR & VALIDATION --- */
 .error-border {
   border-color: var(--red-500, #ef4444) !important;
   background-color: var(--red-100, #fef2f2);
 }
 
-/* Optional: Shake animation on error */
-.shake {
-  animation: shake 0.3s;
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
-}
 
 /* --- CUSTOM DROPDOWN STYLES --- */
 .custom-select-container {
   position: relative;
   user-select: none;
-  width: 100%; /* Ensure it fills the space */
+  width: 100%;
 }
 
-/* The box that looks like an input */
 .select-trigger {
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  height: 3.25rem; /* Match your input height */
+  height: 3.5rem; /* Matched to form inputs */
   padding: 0 1rem;
   font-size: 1rem;
   background-color: #fff;
-  border: 1px solid #cfdfe7; /* Your default border var */
+  border: 1px solid #cfdfe7;
   border-radius: 0.5rem;
   transition: all 0.2s ease;
   color: var(--slate-800);
 }
 
 .select-trigger:hover {
-  background-color: #f8fafc; /* Your input-bg-hover var */
+  background-color: #f8fafc;
 }
 
 .select-trigger.active {
-  border-color: #1193d4; /* Your primary color */
+  border-color: #1193d4;
   box-shadow: 0 0 0 3px rgba(17, 147, 212, 0.15);
 }
 
-/* The Arrow Icon */
 .select-arrow {
-  color: #4c809a; /* Your text-secondary var */
+  color: #4c809a;
   transition: transform 0.3s ease;
 }
 
@@ -306,10 +366,9 @@
   color: #1193d4;
 }
 
-/* The Popup List */
 .custom-options {
   position: absolute;
-  top: 115%; /* Slight gap below trigger */
+  top: 115%;
   left: 0;
   right: 0;
   background: white;
@@ -318,12 +377,11 @@
   border: 1px solid #cfdfe7;
   z-index: 100;
   overflow: hidden;
-  max-height: 200px; /* Scroll if too long */
+  max-height: 200px;
   overflow-y: auto;
   animation: fadeIn 0.2s ease-out;
 }
 
-/* List Items */
 .option-item {
   padding: 0.75rem 1rem;
   cursor: pointer;
@@ -337,14 +395,7 @@
   color: #1193d4;
 }
 
-/* Animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-/* Validation Error Style (Red Border) */
-.error-border {
-  border-color: #ef4444 !important;
-  background-color: #fef2f2;
 }

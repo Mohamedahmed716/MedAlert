@@ -1,12 +1,12 @@
-import {Component, HostListener, inject, OnInit} from '@angular/core';
-import {ToastService} from '../../../../core/services/toast';
-import {Toast} from '../../../../shared/components/toast/toast';
-import {Prescription} from '../../../../shared/ui/models/prescription';
-import {PrescriptionService} from '../../services/prescription-service';
-import {FormsModule} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
-import {CommonModule} from '@angular/common';
-import {DurationTime} from '../../../../shared/ui/models/enums';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
+import { ToastService } from '../../../../core/services/toast';
+import { Toast } from '../../../../shared/components/toast/toast';
+import { Prescription } from '../../../../shared/ui/models/prescription';
+import { PrescriptionService } from '../../services/prescription-service';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { DurationTime } from '../../../../shared/ui/models/enums';
 
 @Component({
   selector: 'app-prescriptions',
@@ -16,21 +16,45 @@ import {DurationTime} from '../../../../shared/ui/models/enums';
   standalone: true
 })
 export class Prescriptions implements OnInit {
-  prescriptions: Prescription[] = [];
+  // --- 1. DATA & PAGINATION ---
+  allPrescriptions: Prescription[] = [];       // All matching results from backend
+  displayedPrescriptions: Prescription[] = []; // Sliced data for current page (max 4)
+
   searchtext: string = '';
 
-  newPrescription : Prescription = {
+  // Pagination Settings
+  currentPage = 1;
+  itemsPerPage = 5;
+  totalPages = 1;
+
+  // --- 2. FORM DATA ---
+  newPrescription: any = {
     patientName: '',
     medicationName: '',
     dosage: '',
     frequency: 'Once daily',
-    duration: 0,
+    duration: null,
     durationTime: DurationTime.DAYS,
     instructions: ''
   };
 
   isFormSubmitted = false;
 
+  // --- 3. DROPDOWN DATA ---
+  frequencies = [
+    'Once daily',
+    'Twice daily',
+    'Three times daily',
+    'Every 8 hours',
+    'Every 12 hours'
+  ];
+
+  durationUnits = Object.values(DurationTime);
+
+  isFrequencyOpen = false;
+  isDurationUnitOpen = false;
+
+  // --- 4. SERVICES ---
   private prescriptionService = inject(PrescriptionService);
   private toast = inject(ToastService);
   private route = inject(ActivatedRoute);
@@ -40,21 +64,54 @@ export class Prescriptions implements OnInit {
       if (params['search']) {
         this.searchtext = params['search'];
       }
-    })
-    this.loadPrescriptions();
+      this.loadPrescriptions();
+    });
   }
 
+  // --- 5. DATA LOADING ---
   loadPrescriptions() {
+    // Backend handles filtering based on searchtext
     this.prescriptionService.loadPrescriptions(this.searchtext).subscribe({
-      next: (data) => this.prescriptions = data,
+      next: (data) => {
+        this.allPrescriptions = data;
+        this.currentPage = 1; // Reset to page 1 on new load
+        this.updatePagination();
+      },
       error: (error) => console.error('Error loading prescriptions:', error)
     });
   }
 
   onSearch() {
+    // Reload data from backend when user types
     this.loadPrescriptions();
   }
 
+  // Only handles slicing (splitting into pages)
+  updatePagination() {
+    // 1. Calculate Total Pages
+    this.totalPages = Math.ceil(this.allPrescriptions.length / this.itemsPerPage) || 1;
+
+    // 2. Slice Data for current page
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.displayedPrescriptions = this.allPrescriptions.slice(startIndex, endIndex);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePagination();
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePagination();
+    }
+  }
+
+  // --- 6. FORM ACTIONS ---
   sendPrescription() {
     this.isFormSubmitted = true;
 
@@ -67,10 +124,11 @@ export class Prescriptions implements OnInit {
       next: (response) => {
         this.toast.showSuccess('Success', 'Prescription sent successfully!');
         this.resetForm();
-        this.loadPrescriptions();
+        this.loadPrescriptions(); // Refresh list to show new item
       },
       error: (err) => {
-        this.toast.showError('Error', err.error.message);
+        const msg = err.error?.message || 'Failed to send prescription.';
+        this.toast.showError('Error', msg);
         console.error(err);
       }
     });
@@ -94,32 +152,16 @@ export class Prescriptions implements OnInit {
       medicationName: '',
       dosage: '',
       frequency: 'Once daily',
-      duration: 0,
+      duration: null,
       durationTime: DurationTime.DAYS,
       instructions: ''
     };
   }
 
-  frequencies = [
-    'Once daily',
-    'Twice daily',
-    'Three times daily',
-    'Every 8 hours',
-    'Every 12 hours'
-  ];
-
-  durationUnits = ['DAYS', 'WEEKS', 'MONTHS'];
-
-  // 2. STATE VARIABLES (Open/Close)
-  isFrequencyOpen = false;
-  isDurationUnitOpen = false;
-
-  // ... existing load/send methods ...
-
-  // 3. TOGGLE FUNCTIONS
+  // --- 7. DROPDOWN LOGIC ---
   toggleFrequency() {
     this.isFrequencyOpen = !this.isFrequencyOpen;
-    this.isDurationUnitOpen = false; // Close others
+    this.isDurationUnitOpen = false;
   }
 
   selectFrequency(val: string) {
@@ -129,23 +171,20 @@ export class Prescriptions implements OnInit {
 
   toggleDurationUnit() {
     this.isDurationUnitOpen = !this.isDurationUnitOpen;
-    this.isFrequencyOpen = false; // Close others
+    this.isFrequencyOpen = false;
   }
 
-  selectDurationUnit(val: string) {
-    this.newPrescription.durationTime = val as DurationTime; // Ensure type matches (string vs Enum)
+  selectDurationUnit(val: any) {
+    this.newPrescription.durationTime = val as DurationTime;
     this.isDurationUnitOpen = false;
   }
 
-  // Optional: Close dropdowns if clicking anywhere else on the page
   @HostListener('document:click', ['$event'])
   closeDropdowns(event: Event) {
     const target = event.target as HTMLElement;
-    // If the click is NOT inside a custom-select-container, close everything
     if (!target.closest('.custom-select-container')) {
       this.isFrequencyOpen = false;
       this.isDurationUnitOpen = false;
     }
   }
 }
-
