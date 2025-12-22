@@ -56,7 +56,7 @@ public class EmergencyService {
             throw new RuntimeException("Bed is no longer available!");
         }
 
-        Patient guestPatient = patientRepository.findById(9999L)
+        Patient guestPatient = patientRepository.findByUserEmail("guest@medalert.com")
                 .orElseThrow(() -> new RuntimeException("System Error: Guest Account missing"));
 
         String guestInfo = String.format("GUEST: %s | REASON: %s", request.getGuestName(), request.getReason());
