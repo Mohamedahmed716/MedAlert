@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.hospital.medalert.models.Department;
+import com.hospital.medalert.repositories.DepartmentRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,7 @@ public class HospitalService {
     private final HospitalRepository hospitalRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    DepartmentRepository departmentRepository;
 
     @Transactional
     public Hospital createHospitalWithAdmin(HospitalRegistrationRequest request) {
@@ -135,5 +138,10 @@ public class HospitalService {
             throw new RuntimeException("Hospital not found with id: " + id);
         }
         hospitalRepository.deleteById(id);
+    }
+    // File: com.hospital.medalert.hospital.HospitalService
+    public List<Department> getDepartmentsByHospitalId(String hospitalId) {
+        // Uses the custom query method from your repository
+        return departmentRepository.findByHospitalId(hospitalId);
     }
 }

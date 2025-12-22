@@ -18,6 +18,7 @@ import java.time.LocalDate;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReservationDTO {
     private Long id;
+    private Long doctorId;
     private String patientName;
     private String reason;
     private String appointmentTime;

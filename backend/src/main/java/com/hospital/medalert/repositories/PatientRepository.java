@@ -27,6 +27,7 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
             @Param("doctor") Doctor doctor,
             @Param("query") String query
     );
+    Optional<Patient> findByUserEmail(String email);
     Optional<Patient> findByUserFullName(String patientName);
     long countByUserHospitalId(String hospitalId);
 }

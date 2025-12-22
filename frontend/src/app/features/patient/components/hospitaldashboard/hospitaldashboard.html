@@ -1,47 +1,36 @@
-<div class="dashboard-container">
-
-  <!-- Header -->
+<div class="dashboard-container" *ngIf="hospital">
   <header class="header">
-    <h1>General City Hospital</h1>
+    <h1>{{ hospital.name }}</h1>
   </header>
 
-  <!-- Info Box -->
   <section class="info-box">
     <h2>Hospital Information</h2>
-
     <div class="info-item">
       <span class="icon">📍</span>
-      <p>123 Main St, Anytown, USA 12345</p>
+      <p>{{ hospital.streetAddress }}, {{ hospital.city }}, {{ hospital.state }} {{ hospital.zipCode }}</p>
     </div>
-
     <div class="info-item">
       <span class="icon">📞</span>
-      <p>(123) 456-7890</p>
+      <p>{{ hospital.phoneNumber }}</p>
     </div>
-
     <div class="info-item">
       <span class="icon">🌐</span>
-      <p>www.generalcityhospital.com</p>
+      <p>{{ hospital.website }}</p>
     </div>
   </section>
 
-  <!-- Upper Cards -->
   <section class="features">
-  <div class="feature-card" routerLink="/patient/hospitaldepartments">
-    <div class="feature-icon">🏥</div>
-    <h3>View Departments</h3>
-    <p>Explore all hospital departments</p>
-  </div>
-
-
-
-
+    <div class="feature-card" 
+     *ngIf="hospital?.Id" 
+     [routerLink]="['/patient/hospital', hospital.hospitalId, 'departments']">
+  <div class="feature-icon">🏥</div>
+  <h3>View Departments</h3>
+</div>
 
     <div class="feature-card" routerLink="/patient/er">
       <div class="feature-icon">⚠️</div>
-      <h3>Emergency Room Status</h3>
-      <p class="status">Moderate Wait Time</p>
+      <h3>ER Status</h3>
+      <p class="status">Normal Wait Time</p>
     </div>
   </section>
-
 </div>

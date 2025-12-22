@@ -3,6 +3,7 @@ package com.hospital.medalert.hospital;
 import java.util.List;
 import java.util.Map;
 
+import com.hospital.medalert.models.Department;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -73,5 +74,11 @@ public class HospitalController {
     public ResponseEntity<Void> deleteHospital(@PathVariable Long id) {
         service.deleteHospital(id);
         return ResponseEntity.noContent().build();
+    }
+    // File: com.hospital.medalert.hospital.HospitalController
+    @GetMapping("/{hospitalId}/departments")
+    public ResponseEntity<List<Department>> getHospitalDepartments(@PathVariable String hospitalId) {
+        // Fetches departments associated with the hospital's unique string ID
+        return ResponseEntity.ok(service.getDepartmentsByHospitalId(hospitalId));
     }
 }

@@ -1,85 +1,34 @@
 <div class="page-container">
-
-  <!-- Header -->
   <h1 class="page-title">My Reservations</h1>
 
-
-
-  <!-- Search -->
-  <div class="search-bar">
-    <input
-      type="text"
-      class="search-input"
-      placeholder="Search by doctor's name..."
-      [(ngModel)]="searchText" />
+  <div class="tab-container">
+    <button class="tab-btn" [class.active]="activeTab === 'upcoming'" (click)="switchTab('upcoming')">
+      Upcoming
+    </button>
+    <button class="tab-btn" [class.active]="activeTab === 'past'" (click)="switchTab('past')">
+      Past / Cancelled
+    </button>
   </div>
 
-  <!-- Upcoming -->
-  <div *ngIf="activeTab === 'upcoming'">
+  <div class="search-bar">
+    <input type="text" class="search-input" placeholder="Search by doctor..." [(ngModel)]="searchText" />
+  </div>
 
+  <div *ngIf="activeTab === 'upcoming'">
     <div *ngFor="let r of filteredUpcoming" class="reservation-card">
       <div class="reservation-main">
         <div class="reservation-status">{{ r.status }}</div>
         <div class="reservation-text">
-          <div class="doctor-name">
-            {{ r.doctor }}, {{ r.specialty }}
-          </div>
-          <div class="location">
-            {{ r.location }}
-          </div>
-          <div class="time-label">
-            {{ r.timeLabel }}
-          </div>
+          <div class="doctor-name">{{ r.patientName }}</div>
+          <div class="reason">Reason: {{ r.reason }}</div>
+          <div class="time-label">Date: {{ r.appointmentTime | date:'medium' }}</div>
         </div>
       </div>
-
       <div class="reservation-actions">
-        <button class="btn-reschedule" (click)="reschedule(r)">
-          Reschedule
-        </button>
-        <button class="btn-cancel" (click)="cancel(r)">
-          Cancel
-        </button>
-      </div>
-    </div>
-
-    <!-- Empty state -->
-    <div *ngIf="filteredUpcoming.length === 0" class="empty-state">
-      <div class="empty-icon">📅</div>
-      <div class="empty-title">No more upcoming reservations</div>
-      <div class="empty-text">
-        You're all caught up! When you book a new appointment,
-        it will appear here.
+        <button class="btn-reschedule" (click)="reschedule(r)">Reschedule</button>
+        <button class="btn-cancel" (click)="cancel(r)">Cancel</button>
       </div>
     </div>
   </div>
 
-  <!-- Past -->
-  <div *ngIf="activeTab === 'past'">
-
-    <div *ngFor="let r of filteredPast" class="reservation-card">
-      <div class="reservation-main">
-        <div class="reservation-status cancelled">Cancelled</div>
-        <div class="reservation-text">
-          <div class="doctor-name">
-            {{ r.doctor }}, {{ r.specialty }}
-          </div>
-          <div class="location">
-            {{ r.location }}
-          </div>
-          <div class="time-label">
-            {{ r.timeLabel }}
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div *ngIf="filteredPast.length === 0" class="empty-state">
-      <div class="empty-icon">📅</div>
-      <div class="empty-title">No past reservations</div>
-      <div class="empty-text">
-        Once appointments are completed or cancelled, they'll show up here.
-      </div>
-    </div>
   </div>
-</div>
