@@ -16,4 +16,5 @@ public class DashboardStatsDTO {
     private long upcomingAppointments;
     private long totalReservations;
     private long pendingReservations;
+    private long pendingERAlerts; // New field for ER alerts count
 }

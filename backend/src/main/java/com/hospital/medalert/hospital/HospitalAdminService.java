@@ -15,9 +15,13 @@ import com.hospital.medalert.models.Doctor;
 import com.hospital.medalert.models.Bed;
 import com.hospital.medalert.models.Reservation;
 import com.hospital.medalert.models.ReservationStatus;
+import com.hospital.medalert.models.ERAlertStatus;
 import com.hospital.medalert.repositories.DepartmentRepository;
 import com.hospital.medalert.repositories.DoctorRepository;
 import com.hospital.medalert.repositories.PatientRepository;
+import com.hospital.medalert.repositories.ReservationRepository;
+import com.hospital.medalert.repositories.BedRepository;
+import com.hospital.medalert.repositories.ERAlertRepository;
 import com.hospital.medalert.repositories.ReservationRepository;
 import com.hospital.medalert.repositories.BedRepository;
 import com.hospital.medalert.user.Role;
@@ -40,6 +44,7 @@ public class HospitalAdminService {
     private final UserRepository userRepository;
     private final DepartmentRepository departmentRepository;
     private final BedRepository bedRepository;
+    private final ERAlertRepository erAlertRepository;
     private final PasswordEncoder passwordEncoder;
 
     public List<DoctorDTO> getAllDoctorsByHospital(String hospitalId) {
@@ -161,13 +166,23 @@ public class HospitalAdminService {
         long totalReservations = reservationRepository.countByDoctorUserHospitalId(hospitalId);
         long pendingReservations = reservationRepository.countByDoctorUserHospitalIdAndStatus(hospitalId, com.hospital.medalert.models.ReservationStatus.PENDING);
         
+        // Get real bed data
+        long availableBeds = bedRepository.countAvailableBeds(hospitalId);
+        
+        // Get confirmed reservations as upcoming appointments
+        long upcomingAppointments = reservationRepository.countByDoctorUserHospitalIdAndStatus(hospitalId, com.hospital.medalert.models.ReservationStatus.CONFIRMED);
+        
+        // Get pending ER alerts count
+        long pendingERAlerts = erAlertRepository.countByHospitalIdAndStatus(hospitalId, ERAlertStatus.PENDING);
+        
         return DashboardStatsDTO.builder()
                 .totalPatients(totalPatients)
                 .activeDoctors(activeDoctors)
-                .availableBeds(15) // This would come from a beds table
-                .upcomingAppointments(42) // This would come from appointments
+                .availableBeds(availableBeds) // Real available beds count
+                .upcomingAppointments(upcomingAppointments) // Real confirmed appointments count
                 .totalReservations(totalReservations)
                 .pendingReservations(pendingReservations)
+                .pendingERAlerts(pendingERAlerts) // Real ER alerts count
                 .build();
     }
 

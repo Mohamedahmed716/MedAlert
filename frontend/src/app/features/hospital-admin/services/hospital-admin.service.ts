@@ -41,6 +41,7 @@ export interface DashboardStats {
   upcomingAppointments: number;
   totalReservations: number;
   pendingReservations: number;
+  pendingERAlerts: number; // New field for ER alerts
 }
 
 export interface CreateDepartmentRequest {
@@ -95,6 +96,23 @@ export interface ReservationResponse {
 }
 
 export interface ReservationActionRequest {
+  action: 'ACCEPT' | 'DECLINE';
+  declineReason?: string;
+}
+
+export interface ERAlertResponse {
+  id: number;
+  guestName: string;
+  reason: string;
+  bedNumber: string;
+  waitTimeMinutes: number;
+  status: 'PENDING' | 'ACCEPTED' | 'DECLINED' | 'EXPIRED';
+  requestTime: string;
+  expiryTime: string;
+  declineReason?: string;
+}
+
+export interface ERAlertActionRequest {
   action: 'ACCEPT' | 'DECLINE';
   declineReason?: string;
 }
@@ -212,5 +230,24 @@ export class HospitalAdminService {
 
   getPendingReservationsCount(): Observable<number> {
     return this.http.get<number>(`${this.apiUrl}/reservations/pending/count`);
+  }
+
+  // ER Alert Management Methods
+  getPendingERAlerts(): Observable<ERAlertResponse[]> {
+    const timestamp = new Date().getTime();
+    return this.http.get<ERAlertResponse[]>(`${this.apiUrl}/er-alerts/pending?_t=${timestamp}`);
+  }
+
+  getAllERAlerts(): Observable<ERAlertResponse[]> {
+    const timestamp = new Date().getTime();
+    return this.http.get<ERAlertResponse[]>(`${this.apiUrl}/er-alerts?_t=${timestamp}`);
+  }
+
+  processERAlert(alertId: number, request: ERAlertActionRequest): Observable<ERAlertResponse> {
+    return this.http.post<ERAlertResponse>(`${this.apiUrl}/er-alerts/${alertId}/process`, request);
+  }
+
+  getPendingERAlertsCount(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/er-alerts/pending/count`);
   }
 }

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { ToastService } from '../../../shared/services/toast.service';
+import { ToastComponent } from '../../../shared/components/toast/toast.component';
 
 interface PublicBedDTO {
   id: number;
@@ -13,7 +15,7 @@ interface PublicBedDTO {
 @Component({
   selector: 'app-public-bed-view',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ToastComponent],
   templateUrl: './public.bed.view.html',
   styleUrls: ['./public.bed.view.css']
 })
@@ -21,6 +23,7 @@ export class PublicBedView implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private http = inject(HttpClient);
+  private toastService = inject(ToastService);
 
   hospitalNameParam: string | null = null; // The raw string from URL
   displayHospitalName = ''; // The clean string for the UI title
@@ -30,6 +33,7 @@ export class PublicBedView implements OnInit {
 
   guestName = '';
   visitReason = '';
+  waitTimeMinutes: number | null = null;
 
   loading = false;
 
@@ -66,7 +70,7 @@ export class PublicBedView implements OnInit {
         error: (err) => {
           console.error('Error loading beds', err);
           this.loading = false;
-          alert('Could not load beds. Please check the hospital name.');
+          this.toastService.error('Error', 'Could not load beds. Please check the hospital name.');
         }
       });
   }
@@ -89,10 +93,11 @@ export class PublicBedView implements OnInit {
     this.selectedBed = null;
     this.guestName = '';
     this.visitReason = '';
+    this.waitTimeMinutes = null;
   }
 
   confirm() {
-    if (!this.selectedBed || !this.hospitalNameParam) return;
+    if (!this.selectedBed || !this.hospitalNameParam || !this.waitTimeMinutes) return;
 
     this.loading = true;
 
@@ -101,13 +106,17 @@ export class PublicBedView implements OnInit {
       hospitalName: this.hospitalNameParam,
       bedId: this.selectedBed.id,
       guestName: this.guestName,
-      reason: this.visitReason
+      reason: this.visitReason,
+      waitTimeMinutes: this.waitTimeMinutes
     };
 
     this.http.post('http://localhost:8080/api/public/emergency/reserve', payload)
       .subscribe({
         next: () => {
-          alert('Reservation Confirmed! Please proceed to the ER.');
+          this.toastService.success(
+            'ER Request Submitted!', 
+            `Your request has been sent to ${this.hospitalNameParam} for approval. You have ${this.waitTimeMinutes} minutes to arrive once approved. Please wait for confirmation before proceeding to the ER.`
+          );
 
           if (this.selectedBed) {
             this.selectedBed.status = 'RESERVED';
@@ -118,7 +127,7 @@ export class PublicBedView implements OnInit {
         },
         error: (err) => {
           console.error('Reservation failed', err);
-          alert('Failed to reserve. Bed might be taken or name invalid.');
+          this.toastService.error('Request Failed', 'Failed to submit ER request. Please try again.');
           this.loading = false;
           // Reload to refresh status
           if (this.hospitalNameParam) this.loadBeds(this.hospitalNameParam);

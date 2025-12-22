@@ -21,7 +21,6 @@ export class DoctorListComponent implements OnInit {
   selectedDepartment = '';
   selectedStatus: 'Active' | 'Pending' | '' = '';
   isLoading = false;
-  showStatusUpdateNotification = false;
   lastRefreshTime: Date | null = null;
 
   currentPage = 1;
@@ -87,13 +86,11 @@ export class DoctorListComponent implements OnInit {
         this.lastRefreshTime = new Date();
 
         if (hasChanges) {
-          this.showStatusUpdateNotification = true;
+          this.toastService.success(
+            'Status Updated', 
+            'Doctor statuses updated from system admin approval'
+          );
           console.log('🎉 Doctor statuses updated from system admin approval');
-
-          // Hide notification after 5 seconds
-          setTimeout(() => {
-            this.showStatusUpdateNotification = false;
-          }, 5000);
         } else {
           console.log('ℹ️ No status changes detected');
         }
@@ -261,15 +258,16 @@ export class DoctorListComponent implements OnInit {
         
         console.log('🔄 Force refresh completed at', this.lastRefreshTime.toLocaleTimeString());
         
-        // Show a brief success message
-        this.showStatusUpdateNotification = true;
-        setTimeout(() => {
-          this.showStatusUpdateNotification = false;
-        }, 3000);
+        // Show toast notification instead of popup
+        this.toastService.success(
+          'Doctors Refreshed', 
+          'Doctor statuses have been refreshed! Check for any status changes from system admin approvals.'
+        );
       },
       error: (error) => {
         console.error('Error loading doctors:', error);
         this.isLoading = false;
+        this.toastService.error('Error', 'Failed to refresh doctors. Please try again.');
       }
     });
   }

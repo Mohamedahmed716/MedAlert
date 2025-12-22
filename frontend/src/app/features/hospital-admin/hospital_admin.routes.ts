@@ -5,7 +5,7 @@ import { AddDoctorComponent } from './pages/add-doctor/add-doctor.component';
 import { DoctorListComponent } from './pages/doctors/doctors.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DoctorsDepartmentComponent } from './pages/doctors-departments/doctors-departments';
-import { ErAlertComponent } from './pages/er-alert/er-alert';
+import { ERAlertComponent } from './pages/er-alerts/er-alerts.component'; // New ER Alerts component
 import { BedManagementComponent } from './pages/bed-management/bed-management.component';
 import { ErReservationsComponent } from './pages/er-reservations/er-reservations';
 import { ReservationsComponent as StaticReservationsComponent } from './pages/reservations/reservations';
@@ -28,7 +28,7 @@ export const Hospital_adminRoutes: Routes = [
       { path: 'doctors', component: DoctorListComponent },
       { path: 'doctors/:id', component: AddDoctorComponent }, // Alternative edit route
       { path: 'doctors-departments', component: DoctorsDepartmentComponent },
-      { path: 'er-alert', component: ErAlertComponent },
+      { path: 'er-alerts', component: ERAlertComponent }, // New ER Alerts management
       { path: 'er-beds', component: BedManagementComponent },
       { path: 'er-reservations', component: ErReservationsComponent },
       { path: 'reservations', component: ReservationsManagementComponent }, // Use the dynamic component

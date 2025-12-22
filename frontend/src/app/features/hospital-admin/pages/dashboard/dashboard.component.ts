@@ -57,6 +57,11 @@ export class DashboardComponent implements OnInit {
       img: 'https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-11-30/x3oKrwC5ja.png',
       route: '/hospital-admin/er-beds' // ← Add route
     },
+    {
+      title: 'ER Alerts Management',
+      img: 'https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-11-30/x3oKrwC5ja.png',
+      route: '/hospital-admin/er-alerts' // ← Add route for ER alerts
+    },
   ];
 
   stats: StatCard[] = [
@@ -64,6 +69,7 @@ export class DashboardComponent implements OnInit {
     { title: 'Active Doctors', value: '0' },
     { title: 'Available Beds', value: '0' },
     { title: 'Pending Reservations', value: '0' },
+    { title: 'Pending ER Alerts', value: '0' },
   ];
 
   chartData = [
@@ -129,6 +135,7 @@ export class DashboardComponent implements OnInit {
           { title: 'Active Doctors', value: stats.activeDoctors },
           { title: 'Available Beds', value: stats.availableBeds },
           { title: 'Pending Reservations', value: stats.pendingReservations },
+          { title: 'Pending ER Alerts', value: stats.pendingERAlerts },
         ];
         this.isLoading = false;
       },

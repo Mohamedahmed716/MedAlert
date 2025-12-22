@@ -11,6 +11,8 @@ import com.hospital.medalert.dto.UpdateBedRequest;
 import com.hospital.medalert.dto.BedStatsResponse;
 import com.hospital.medalert.dto.ReservationResponse;
 import com.hospital.medalert.dto.ReservationActionRequest;
+import com.hospital.medalert.dto.ERAlertResponse;
+import com.hospital.medalert.dto.ERAlertActionRequest;
 import com.hospital.medalert.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,7 @@ import java.util.List;
 public class HospitalAdminController {
 
     private final HospitalAdminService hospitalAdminService;
+    private final EmergencyService emergencyService;
 
     @GetMapping("/departments")
     public ResponseEntity<List<String>> getDepartments(@AuthenticationPrincipal User user) {
@@ -305,6 +308,46 @@ public class HospitalAdminController {
     @GetMapping("/reservations/pending/count")
     public ResponseEntity<Long> getPendingReservationsCount(@AuthenticationPrincipal User user) {
         long count = hospitalAdminService.getPendingReservationsCount(user.getHospitalId());
+        return ResponseEntity.ok(count);
+    }
+
+    // ER Alert Management Endpoints
+    @GetMapping("/er-alerts/pending")
+    public ResponseEntity<List<ERAlertResponse>> getPendingERAlerts(@AuthenticationPrincipal User user) {
+        List<ERAlertResponse> alerts = emergencyService.getPendingERAlerts(user.getHospitalId());
+        return ResponseEntity.ok(alerts);
+    }
+
+    @GetMapping("/er-alerts")
+    public ResponseEntity<List<ERAlertResponse>> getAllERAlerts(@AuthenticationPrincipal User user) {
+        List<ERAlertResponse> alerts = emergencyService.getAllERAlerts(user.getHospitalId());
+        return ResponseEntity.ok(alerts);
+    }
+
+    @PostMapping("/er-alerts/{alertId}/process")
+    public ResponseEntity<ERAlertResponse> processERAlert(
+            @PathVariable Long alertId,
+            @RequestBody ERAlertActionRequest request,
+            @AuthenticationPrincipal User user) {
+        try {
+            System.out.println("=== HOSPITAL ADMIN PROCESS ER ALERT ===");
+            System.out.println("User: " + user.getEmail());
+            System.out.println("Hospital ID: " + user.getHospitalId());
+            System.out.println("Alert ID: " + alertId);
+            System.out.println("Action: " + request.getAction());
+            
+            ERAlertResponse alert = emergencyService.processERAlert(alertId, request, user.getHospitalId());
+            return ResponseEntity.ok(alert);
+        } catch (Exception e) {
+            System.err.println("Error processing ER alert: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/er-alerts/pending/count")
+    public ResponseEntity<Long> getPendingERAlertsCount(@AuthenticationPrincipal User user) {
+        long count = emergencyService.getPendingERAlertsCount(user.getHospitalId());
         return ResponseEntity.ok(count);
     }
 }

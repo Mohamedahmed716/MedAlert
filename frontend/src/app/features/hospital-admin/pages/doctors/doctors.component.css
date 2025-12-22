@@ -6,45 +6,6 @@
   position: relative;
 }
 
-/* Status Update Notification */
-.status-notification {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #10b981;
-  color: white;
-  padding: 16px 24px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  transform: translateX(400px);
-  opacity: 0;
-  transition: all 0.3s ease;
-  z-index: 1000;
-  max-width: 400px;
-}
-
-.status-notification.show {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.notification-content {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.notification-content .check-icon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
-
-.notification-content span {
-  font-weight: 600;
-  font-size: 14px;
-}
-
 .content {
   flex: 1;
   padding: 40px;

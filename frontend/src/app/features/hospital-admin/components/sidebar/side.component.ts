@@ -22,7 +22,7 @@ export class SidebarComponent {
     { label: 'Doctors & Departments',icon: 'local_hospital',  route: '/hospital-admin/doctors-departments' },
     { label: 'Reservations',         icon: 'book_online',     route: '/hospital-admin/reservations' },
     { label: 'ER Bed Management',    icon: 'hotel',           route: '/hospital-admin/er-beds' },
-    { label: 'ER Alert',             icon: 'emergency',       route: '/hospital-admin/er-alert' },
+    { label: 'ER Alerts Management', icon: 'notification_important', route: '/hospital-admin/er-alerts' },
     { label: 'Settings',             icon: 'settings',        route: '/hospital-admin/settings' },
   ];
 
