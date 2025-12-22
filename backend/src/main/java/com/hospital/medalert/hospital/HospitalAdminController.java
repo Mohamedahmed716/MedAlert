@@ -262,15 +262,42 @@ public class HospitalAdminController {
         return ResponseEntity.ok(reservations);
     }
 
+    @GetMapping("/reservations/{reservationId}/debug")
+    public ResponseEntity<String> debugReservation(
+            @PathVariable Long reservationId,
+            @AuthenticationPrincipal User user) {
+        try {
+            System.out.println("=== DEBUG RESERVATION ===");
+            System.out.println("User: " + user.getEmail());
+            System.out.println("Hospital ID: " + user.getHospitalId());
+            System.out.println("Reservation ID: " + reservationId);
+            
+            String debugInfo = hospitalAdminService.debugReservation(reservationId, user.getHospitalId());
+            return ResponseEntity.ok(debugInfo);
+        } catch (Exception e) {
+            System.err.println("Error debugging reservation: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.ok("Error: " + e.getMessage());
+        }
+    }
+
     @PostMapping("/reservations/{reservationId}/process")
     public ResponseEntity<ReservationResponse> processReservation(
             @PathVariable Long reservationId,
             @RequestBody ReservationActionRequest request,
             @AuthenticationPrincipal User user) {
         try {
-            ReservationResponse reservation = hospitalAdminService.processReservation(reservationId, request);
+            System.out.println("=== HOSPITAL ADMIN PROCESS RESERVATION ===");
+            System.out.println("User: " + user.getEmail());
+            System.out.println("Hospital ID: " + user.getHospitalId());
+            System.out.println("Reservation ID: " + reservationId);
+            System.out.println("Action: " + request.getAction());
+            
+            ReservationResponse reservation = hospitalAdminService.processReservation(reservationId, request, user.getHospitalId());
             return ResponseEntity.ok(reservation);
         } catch (Exception e) {
+            System.err.println("Error processing reservation: " + e.getMessage());
+            e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }

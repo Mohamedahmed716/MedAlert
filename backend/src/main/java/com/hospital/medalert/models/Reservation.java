@@ -33,6 +33,7 @@ public class Reservation {
     private String reason; // e.g. "Flu symptoms"
 
     @Enumerated(EnumType.STRING)
+    @Column(length = 20) // Ensure column is large enough for all enum values
     private ReservationStatus status; // PENDING, CONFIRMED, CANCELLED, COMPLETED
 
     private String declineReason; // Reason for declining the reservation
