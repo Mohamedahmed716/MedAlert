@@ -1,47 +1,41 @@
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { PrescriptionService } from '../../services/prescription.service';
+import { Prescription } from '../../../../shared/ui/models/prescription';
+
 
 @Component({
   selector: 'app-my-prescriptions',
-  imports:[CommonModule,FormsModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './myprescriptions.html',
   styleUrls: ['./myprescriptions.css']
 })
-export class Myprescriptions {
-
+export class Myprescriptions implements OnInit {
   searchText: string = "";
+  prescriptions: Prescription[] = []; 
 
-  prescriptions = [
-    {
-      name: "Amoxicillin",
-      dosage: "500mg, twice a day",
-      instructions: "Take with food for 7 days.",
-      doctor: "Dr. Emily Carter",
-      date: "October 26, 2023"
-    },
-    {
-      name: "Ibuprofen",
-      dosage: "200mg, as needed for pain",
-      instructions: "Do not exceed 1200mg in 24 hours.",
-      doctor: "Dr. John Smith",
-      date: "October 22, 2023"
-    },
-    {
-      name: "Lisinopril",
-      dosage: "10mg, once a day",
-      instructions: "Take in the morning.",
-      doctor: "Dr. Ben Adams",
-      date: "September 15, 2023"
-    }
-  ];
+  constructor(private prescriptionService: PrescriptionService) {}
 
-  printPrescription(p: any) {
-    alert("Printing: " + p.name);
+  ngOnInit(): void {
+    this.prescriptionService.getMyPrescriptions().subscribe({
+      next: (data) => this.prescriptions = data,
+      error: (err) => console.error('Error loading prescriptions', err)
+    });
   }
 
-  viewPrescription(p: any) {
-    alert("Viewing details for: " + p.name);
+  get filteredPrescriptions() {
+    return this.prescriptions.filter(p => 
+      p.medicationName.toLowerCase().includes(this.searchText.toLowerCase())
+    );
   }
 
+  printPrescription(p: Prescription) {
+    window.print();
+  }
+
+  viewPrescription(p: Prescription) {
+    alert(`Details for ${p.medicationName}: ${p.instructions}`);
+  }
 }

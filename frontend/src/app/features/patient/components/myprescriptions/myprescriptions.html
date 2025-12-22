@@ -1,47 +1,32 @@
 <div class="page-container">
-
-  <!-- Title -->
   <h1 class="page-title">My Prescriptions</h1>
-  <p class="page-subtitle">
-    Here is a list of all your current and past prescriptions.
-  </p>
-
-  <!-- Search -->
+  
   <div class="search-bar">
-    <input 
-      type="text" 
-      class="search-input"
-      placeholder="Search by medication or doctor"
-      [(ngModel)]="searchText"
-    />
+    <input type="text" class="search-input" placeholder="Search medication..." [(ngModel)]="searchText"/>
   </div>
 
-  <!-- Prescription Cards -->
-  <div *ngFor="let p of prescriptions">
-    <div class="prescription-card">
-
+  <div class="prescription-list">
+    <div class="prescription-card" *ngFor="let p of filteredPrescriptions">
       <div class="prescription-left">
-
-        <!-- Icon -->
         <div class="prescription-icon">💊</div>
-
-        <!-- Details -->
         <div class="prescription-details">
-          <h3>{{ p.name }}</h3>
-          <p>{{ p.dosage }}</p>
-          <p>{{ p.instructions }}</p>
-          <p>Prescribed by {{ p.doctor }} on {{ p.date }}</p>
+          <h3>{{ p.medicationName }}</h3>
+          <p><strong>Dosage:</strong> {{ p.dosage }}</p>
+          <p><strong>Frequency:</strong> {{ p.frequency }}</p>
+          <p><strong>Duration:</strong> {{ p.duration }} {{ p.durationTime }}</p>
+          <p><em>Instructions:</em> {{ p.instructions }}</p>
+          <p class="date-label">Prescribed on: {{ p.prescribedDate | date }}</p>
         </div>
-
       </div>
 
-      <!-- Actions -->
       <div class="prescription-actions">
         <button class="btn-details" (click)="viewPrescription(p)">View Details</button>
         <button class="btn-print" (click)="printPrescription(p)">Print</button>
       </div>
-
     </div>
   </div>
 
+  <div *ngIf="filteredPrescriptions.length === 0" class="empty-state">
+    <p>No prescriptions found.</p>
+  </div>
 </div>
