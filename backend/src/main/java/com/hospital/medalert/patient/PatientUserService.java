@@ -1,5 +1,6 @@
 package com.hospital.medalert.patient;
 
+import com.hospital.medalert.dto.PatientDashboardStatsDTO;
 import com.hospital.medalert.dto.PrescriptionDTO;
 import com.hospital.medalert.dto.ReservationDTO;
 import com.hospital.medalert.dto.ReservationResponse;
@@ -96,6 +97,23 @@ public class PatientUserService {
                 .id(saved.getId())
                 .status(saved.getStatus())
                 .appointmentTime(saved.getAppointmentTime().toString())
+                .build();
+    }
+    // PatientUserService.java
+    public PatientDashboardStatsDTO getDashboardStats(String email) {
+        Patient patient = getAuthenticatedPatient(email);
+
+        long upcoming = reservationRepository.findAllByPatientOrderByAppointmentTimeDesc(patient)
+                .stream()
+                .filter(r -> r.getStatus() == ReservationStatus.CONFIRMED || r.getStatus() == ReservationStatus.PENDING)
+                .count();
+
+        long prescriptions = prescriptionRepository.findAllByPatientOrderByPrescribedDateDesc(patient).size();
+
+        return PatientDashboardStatsDTO.builder()
+                .upcomingAppointments(upcoming)
+                .activePrescriptions(prescriptions)
+                .healthStatus("Normal")
                 .build();
     }
 }

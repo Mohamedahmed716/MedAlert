@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { PatientService } from '../../services/patient.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,23 +11,28 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css']
 })
+// dashboard.ts
 export class DashboardComponent implements OnInit {
   stats = {
     upcomingAppointments: 0,
     activePrescriptions: 0,
-    activeTreatments: 1
+    healthStatus: 'Loading...'
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private patientService: PatientService) {}
 
   ngOnInit(): void {
-    // You can create a DashboardService to fetch these stats from your backend
     this.loadStats();
   }
 
   loadStats() {
-    // Fetch summary stats logic here
-    this.stats.upcomingAppointments = 2; // Sample data
-    this.stats.activePrescriptions = 5;
+    this.patientService.getDashboardStats().subscribe({
+      next: (data) => {
+        this.stats.upcomingAppointments = data.upcomingAppointments;
+        this.stats.activePrescriptions = data.activePrescriptions;
+        this.stats.healthStatus = data.healthStatus;
+      },
+      error: (err) => console.error('Error fetching stats', err)
+    });
   }
 }
