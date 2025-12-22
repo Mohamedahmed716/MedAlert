@@ -53,11 +53,10 @@
                 [class.error-border]="isFormSubmitted && !newPrescription.dosage"
               />
             </div>
+
             <div class="form-group">
               <label class="form-label">Frequency</label>
-
               <div class="custom-select-container" (click)="$event.stopPropagation()">
-
                 <div
                   class="select-trigger"
                   [class.active]="isFrequencyOpen"
@@ -66,10 +65,9 @@
                 >
                   <span>{{ newPrescription.frequency || 'Select frequency' }}</span>
                   <span class="material-symbols-outlined select-arrow" [class.rotate]="isFrequencyOpen">
-        expand_more
-      </span>
+                    expand_more
+                  </span>
                 </div>
-
                 <div class="custom-options" *ngIf="isFrequencyOpen">
                   <div
                     class="option-item"
@@ -78,7 +76,6 @@
                     {{ f }}
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -86,7 +83,6 @@
           <div class="form-group">
             <label class="form-label" for="duration">Duration</label>
             <div class="form-field-group">
-
               <input
                 class="form-input"
                 id="duration"
@@ -98,29 +94,25 @@
               />
 
               <div class="custom-select-container" style="min-width: 130px;" (click)="$event.stopPropagation()">
-
                 <div
                   class="select-trigger"
                   [class.active]="isDurationUnitOpen"
                   (click)="toggleDurationUnit()"
                 >
-                  <span>{{ newPrescription.durationTime.toLocaleLowerCase() }}</span>
+                  <span>{{ newPrescription.durationTime?.toString() || 'DAYS' }}</span>
                   <span class="material-symbols-outlined select-arrow" [class.rotate]="isDurationUnitOpen">
-          expand_more
-        </span>
+                    expand_more
+                  </span>
                 </div>
-
                 <div class="custom-options" *ngIf="isDurationUnitOpen">
                   <div
                     class="option-item"
                     *ngFor="let unit of durationUnits"
                     (click)="selectDurationUnit(unit)">
-                    {{ unit.toLocaleLowerCase() }}
+                    {{ unit }}
                   </div>
                 </div>
-
               </div>
-
             </div>
           </div>
 
@@ -146,32 +138,70 @@
     </div>
 
     <div class="table-column">
-      <div class="card">
+      <div class="card full-height-card">
         <h2 class="card-title">Sent Prescriptions</h2>
 
         <div class="input-with-icon search-bar">
           <span class="material-symbols-outlined icon">search</span>
-          <input class="form-input" placeholder="Search prescriptions..." type="text" [(ngModel)]="searchtext" (input)="onSearch()"/>
+          <input
+            class="form-input"
+            placeholder="Search prescriptions..."
+            type="text"
+            [(ngModel)]="searchtext"
+            (input)="onSearch()"
+          />
         </div>
 
         <div class="prescription-list">
 
-          @for (prescription of prescriptions ; track $index) {
+          @for (prescription of displayedPrescriptions ; track $index) {
             <div class="prescription-card">
               <div class="card-top">
                 <span class="patient-name">{{prescription.patientName}}</span>
                 <span class="date">{{prescription.prescribedDate}}</span>
               </div>
               <div class="card-bottom">
-                <span class="med-details">{{ prescription.medicationName }} - {{ prescription.dosage }} • {{ prescription.frequency }} • {{prescription.duration}} {{prescription.durationTime.toLocaleLowerCase()}}</span>
+                <span class="med-details">
+                   {{ prescription.medicationName }} - {{ prescription.dosage }} •
+                  {{ prescription.frequency }} •
+                  {{prescription.duration}} {{prescription.durationTime.toString().toLowerCase()}}
+                </span>
               </div>
             </div>
           }
 
+          @if (displayedPrescriptions.length == 0) {
+            <div class="empty-state">
+              No recent prescriptions found.
+            </div>
+          }
         </div>
+
+        <div class="pagination-footer">
+          <span class="page-info">
+            Page {{currentPage}} of {{totalPages}}
+          </span>
+          <div class="page-actions">
+            <button
+              class="icon-btn"
+              [disabled]="currentPage === 1"
+              (click)="prevPage()"
+            >
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            <button
+              class="icon-btn"
+              [disabled]="currentPage === totalPages"
+              (click)="nextPage()"
+            >
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+          </div>
         </div>
+
       </div>
     </div>
 
   </div>
+</div>
 <app-toast></app-toast>

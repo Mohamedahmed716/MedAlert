@@ -69,7 +69,7 @@
               <span class="ping-dot"></span>
             </span>
           </div>
-          <p class="er-stat-value">{{ crit_cases }}</p>
+          <p class="er-stat-value">{{ bedStats?.occupiedBeds }}</p>
         </div>
       </div>
     </div>
@@ -117,6 +117,12 @@
             <p class="prescription-date">{{ prescription.prescribedDate }}</p>
           </div>
           <hr class="divider" />
+        }
+
+        @if (prescriptions.length == 0) {
+          <div class="empty-state">
+            No recent prescriptions found.
+          </div>
         }
       </div>
     </div>

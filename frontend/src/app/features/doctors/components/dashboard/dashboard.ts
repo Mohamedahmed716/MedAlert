@@ -10,6 +10,7 @@ import {ReservationService} from '../../services/reservation-service';
 import {Reservation} from '../../../../shared/ui/models/reservation';
 import {PrescriptionService} from '../../services/prescription-service';
 import {Prescription} from '../../../../shared/ui/models/prescription';
+import {BedStats, DoctorService} from '../../doctor.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,6 +28,7 @@ export class Dashboard implements OnInit {
   private patientService = inject(PatientService);
   private reservationService = inject(ReservationService);
   private prescriptionService = inject(PrescriptionService);
+  private doctorService = inject(DoctorService);
 
   reservations : Reservation[] = [];
   pending_res = 2;
@@ -34,7 +36,7 @@ export class Dashboard implements OnInit {
   currentDate = new Date();
   shift = ["9:00 AM", "5:00 PM"];
   er_occ = 75;
-  crit_cases = 5;
+  bedStats: BedStats | null = null;
 
   patients : Patient[] = [];
 
@@ -46,7 +48,24 @@ export class Dashboard implements OnInit {
     this.loadReservationCount();
     this.loadPatients();
     this.loadPrescriptions();
+    this.loadStats();
   }
+
+  loadStats() {
+    this.doctorService.getBedStats().subscribe({
+      next: (stats) => {
+        this.bedStats = stats;
+        this.er_occ = Math.round(this.bedStats.occupiedBeds / this.bedStats.totalBeds * 100);
+        if(this.bedStats.totalBeds == 0){
+          this.er_occ = 0;
+        }
+      },
+      error: (err) => {
+        console.error('Failed to load bed stats', err);
+      }
+    });
+  }
+
   loadReservationCount() {
     this.reservationService.getCount().subscribe({
       next: (count) => {
