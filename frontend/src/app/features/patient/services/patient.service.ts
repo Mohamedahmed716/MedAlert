@@ -87,4 +87,8 @@ export class PatientService {
   getDoctorsByHospital(hospitalId: string): Observable<Doctor[]> {
     return this.http.get<Doctor[]>(`http://localhost:8080/api/v1/public/hospitals/${hospitalId}/doctors`);
   }
+  // patient.service.ts
+getDashboardStats(): Observable<any> {
+  return this.http.get<any>(`${this.baseUrl}/dashboard/stats`);
+}
 }

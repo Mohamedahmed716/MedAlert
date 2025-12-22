@@ -1,5 +1,6 @@
 package com.hospital.medalert.patient;
 
+import com.hospital.medalert.dto.PatientDashboardStatsDTO;
 import com.hospital.medalert.dto.PrescriptionDTO;
 import com.hospital.medalert.dto.ReservationDTO;
 import com.hospital.medalert.dto.ReservationResponse;
@@ -40,6 +41,11 @@ public class PatientUserController {
             Authentication authentication) {
         ReservationResponse reservation = patientService.cancelReservation(reservationId, authentication.getName());
         return ResponseEntity.ok(reservation);
+    }
+    // PatientUserController.java
+    @GetMapping("/dashboard/stats")
+    public ResponseEntity<PatientDashboardStatsDTO> getDashboardStats(Authentication authentication) {
+        return ResponseEntity.ok(patientService.getDashboardStats(authentication.getName()));
     }
 
 }
