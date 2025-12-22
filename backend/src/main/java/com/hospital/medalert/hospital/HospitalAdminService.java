@@ -436,25 +436,79 @@ public class HospitalAdminService {
                 .collect(Collectors.toList());
     }
 
-    public ReservationResponse processReservation(Long reservationId, ReservationActionRequest request) {
+    public String debugReservation(Long reservationId, String hospitalId) {
+        StringBuilder debug = new StringBuilder();
+        debug.append("=== RESERVATION DEBUG INFO ===\n");
+        debug.append("Reservation ID: ").append(reservationId).append("\n");
+        debug.append("Hospital ID: ").append(hospitalId).append("\n");
+        
+        // Check if reservation exists
+        var reservationOpt = reservationRepository.findById(reservationId);
+        if (reservationOpt.isEmpty()) {
+            debug.append("❌ Reservation not found!\n");
+            return debug.toString();
+        }
+        
+        Reservation reservation = reservationOpt.get();
+        debug.append("✅ Reservation found\n");
+        debug.append("Patient: ").append(reservation.getPatient().getUser().getFullName()).append("\n");
+        debug.append("Doctor: ").append(reservation.getDoctor().getUser().getFullName()).append("\n");
+        debug.append("Doctor Hospital ID: ").append(reservation.getDoctor().getUser().getHospitalId()).append("\n");
+        debug.append("Status: ").append(reservation.getStatus()).append("\n");
+        debug.append("Reason: ").append(reservation.getReason()).append("\n");
+        
+        // Check hospital match
+        if (reservation.getDoctor().getUser().getHospitalId().equals(hospitalId)) {
+            debug.append("✅ Hospital ID matches\n");
+        } else {
+            debug.append("❌ Hospital ID mismatch! Expected: ").append(hospitalId)
+                  .append(", Found: ").append(reservation.getDoctor().getUser().getHospitalId()).append("\n");
+        }
+        
+        return debug.toString();
+    }
+
+    public ReservationResponse processReservation(Long reservationId, ReservationActionRequest request, String hospitalId) {
+        System.out.println("=== PROCESSING RESERVATION ===");
+        System.out.println("Reservation ID: " + reservationId);
+        System.out.println("Action: " + request.getAction());
+        System.out.println("Hospital ID: " + hospitalId);
+        
         Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new RuntimeException("Reservation not found"));
+
+        System.out.println("Found reservation for doctor hospital: " + reservation.getDoctor().getUser().getHospitalId());
+        
+        // Verify the reservation belongs to this hospital
+        if (!reservation.getDoctor().getUser().getHospitalId().equals(hospitalId)) {
+            throw new RuntimeException("Reservation does not belong to your hospital");
+        }
 
         if (reservation.getStatus() != ReservationStatus.PENDING) {
             throw new RuntimeException("Reservation has already been processed");
         }
 
+        if (request.getAction() == null || request.getAction().trim().isEmpty()) {
+            throw new RuntimeException("Action is required");
+        }
+
         if ("ACCEPT".equalsIgnoreCase(request.getAction())) {
             reservation.setStatus(ReservationStatus.CONFIRMED);
             reservation.setDeclineReason(null); // Clear any previous decline reason
+            System.out.println("Reservation accepted");
         } else if ("DECLINE".equalsIgnoreCase(request.getAction())) {
+            if (request.getDeclineReason() == null || request.getDeclineReason().trim().isEmpty()) {
+                throw new RuntimeException("Decline reason is required when declining a reservation");
+            }
             reservation.setStatus(ReservationStatus.DECLINED);
             reservation.setDeclineReason(request.getDeclineReason());
+            System.out.println("Reservation declined with reason: " + request.getDeclineReason());
         } else {
             throw new RuntimeException("Invalid action. Must be ACCEPT or DECLINE");
         }
 
         Reservation savedReservation = reservationRepository.save(reservation);
+        System.out.println("Reservation processed successfully");
         return ReservationResponse.fromReservation(savedReservation);
     }
 
