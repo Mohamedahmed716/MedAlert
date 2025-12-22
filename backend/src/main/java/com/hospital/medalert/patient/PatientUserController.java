@@ -25,5 +25,12 @@ public class PatientUserController {
     public ResponseEntity<List<ReservationDTO>> getReservations(Authentication authentication) {
         return ResponseEntity.ok(patientService.getMyReservations(authentication.getName()));
     }
+    @PostMapping("/reservations")
+    public ResponseEntity<ReservationDTO> bookReservation(
+            Authentication authentication,
+            @RequestBody ReservationDTO request) {
+        // authentication.getName() provides the user's email from the JWT
+        return ResponseEntity.ok(patientService.createReservation(authentication.getName(), request));
+    }
 
 }

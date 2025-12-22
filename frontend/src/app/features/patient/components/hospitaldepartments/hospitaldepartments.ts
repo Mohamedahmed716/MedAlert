@@ -1,46 +1,31 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { HospitalService } from '../../services/hospital.service'; 
 
 @Component({
   selector: 'app-department-list',
-  imports: [
-    CommonModule,
-    RouterLink
-  ],
+  standalone: true,
+  imports: [CommonModule, RouterLink],
   templateUrl: './hospitaldepartments.html',
   styleUrls: ['./hospitaldepartments.css']
 })
-export class Hospitaldepartments {
+export class Hospitaldepartments implements OnInit {
+  hospitalId: string | null = null;
+  departments: any[] = [];
 
-  hospitalName = "St. Jude's Hospital";
+  constructor(
+    private route: ActivatedRoute,
+    private hospitalService: HospitalService
+  ) {}
 
-  departments = [
-    {
-      name: "Cardiology",
-      description: "Specializes in heart and blood vessel disorders.",
-      icon: "❤️"
-    },
-    {
-      name: "Orthopedics",
-      description: "Focuses on the musculoskeletal system.",
-      icon: "🦴"
-    },
-    {
-      name: "Neurology",
-      description: "Deals with disorders of the nervous system.",
-      icon: "🧠"
-    },
-    {
-      name: "Pediatrics",
-      description: "Medical care of infants, children, and adolescents.",
-      icon: "👶"
-    },
-    {
-      name: "Oncology",
-      description: "Diagnosis and treatment of cancer.",
-      icon: "🎗️"
+  ngOnInit(): void {
+    this.hospitalId = this.route.snapshot.paramMap.get('id');
+    if (this.hospitalId) {
+      this.hospitalService.getDepartments(this.hospitalId).subscribe({
+        next: (data) => this.departments = data,
+        error: (err) => console.error('Error loading departments', err)
+      });
     }
-  ];
-
+  }
 }

@@ -1,42 +1,34 @@
+<main class="content">
+  <div class="header">
+    <h1>Find a Hospital</h1>
+    <p>Search for hospitals near you</p>
+  </div>
 
-  <main class="content">
-    <div class="header">
-      <h1>Find a Hospital</h1>
-      <p>Search for hospitals near you</p>
-    </div>
+  <div class="search-bar">
+    <input 
+      type="text" 
+      [(ngModel)]="searchText" 
+      placeholder="Search by hospital name, city, or zip code...">
+  </div>
 
-    <div class="search-bar">
-      <input type="text" placeholder="Search by hospital name, city, or zip code...">
-      <button class="btn-primary">Filters</button>
-      <button class="btn-secondary">Use My Location</button>
-    </div>
+  <div class="cards">
+    <div class="card" *ngFor="let h of filteredHospitals">
+      <div class="card-image" style="background-image: url('assets/hospital-placeholder.jpg');"></div>
 
-    <div class="cards">
-      <!-- CARD 1 -->
-      <div class="card">
-        <div class="card-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBPLKpk7NlSsCJZUL6lRGwmhGH6-ZC7yZYmLOpGCMUPcwazWOL5vfrrnv10PozCRL0L44lY8257AEN-bYbV6U-DoHwqsjqOxun-MckqmPkdXZvgLLg1jjMQuaMQKpbXzYjpPvF19WMy45R1ju5HRMc5AFb-1y4MNMcoWte-gXfu7Xd1Xo-ROtbuRDmFLAvYsdL_zVb4m9Ix5XplSYSBKYyAWbl57q8LpYBMBPJyjS6TP3pCKsjUG5Mn9I2mGC67U7ZfSQ2JA1IHiX4');"></div>
-
-        <div class="card-body">
-          <h2>City General Hospital</h2>
-          <p class="location">📍 123 Health St, Medville, USA</p>
-          <p>A leading healthcare provider committed to delivering compassionate and high-quality medical care.</p>
-          <button class="btn-primary full" routerLink="/patient/hospitaldashboard">
-  View Details
-          </button>
-        </div>
+      <div class="card-body">
+        <h2>{{ h.name }}</h2>
+        <p class="location">📍 {{ h.streetAddress }}, {{ h.city }}, {{ h.state }}</p>
+        <p>Contact: {{ h.phoneNumber }}</p>
+        <a [href]="'http://' + h.website" target="_blank" class="website-link">{{ h.website }}</a>
+        
+        <button class="btn-primary full" [routerLink]="['/patient/hospital', h.id]">
+          View Details
+        </button>
       </div>
-
-      <!-- Duplicate above card for remaining hospitals -->
     </div>
+  </div>
 
-    <div class="pagination">
-      <button>&lt;</button>
-      <button class="active">1</button>
-      <button>2</button>
-      <button>3</button>
-      <span>...</span>
-      <button>8</button>
-      <button>&gt;</button>
-    </div>
-  </main>
-
+  <div *ngIf="filteredHospitals.length === 0" class="empty-state">
+    <p>No hospitals found matching your search.</p>
+  </div>
+</main>

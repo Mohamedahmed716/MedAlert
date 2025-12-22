@@ -1,31 +1,23 @@
 <div class="page-container">
+  <h1 class="page-title">Departments</h1>
+  <p class="page-subtitle">Select a department to find specialists.</p>
 
-
-  <!-- Title -->
-  <h1 class="page-title">{{ hospitalName }} - Departments</h1>
-  <p class="page-subtitle">Select a department to view available doctors.</p>
-
-  <!-- Search Box -->
-  <div class="search-box">
-    <input type="text" placeholder="Search for a department..." />
-  </div>
-
-  <!-- Department Cards -->
   <div class="department-list">
-
-    <div class="department-card" *ngFor="let d of departments" routerLink="/patient/departmentview">
+    <div class="department-card" 
+         *ngFor="let d of departments" 
+         [routerLink]="['/patient/hospital', hospitalId, 'departments', d.name]">
       <div class="department-info">
-        <div class="department-icon">{{ d.icon }}</div>
-
+        <div class="department-icon">⚕️</div>
         <div class="department-text">
           <h3>{{ d.name }}</h3>
           <p>{{ d.description }}</p>
         </div>
       </div>
-
       <div class="arrow">›</div>
     </div>
-
   </div>
 
+  <div *ngIf="departments.length === 0" class="empty-state">
+    <p>No departments found for this hospital.</p>
+  </div>
 </div>
