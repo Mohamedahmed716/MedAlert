@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { RoleGuard } from './core/guards/role.guard';
+import { PublicBedView } from './features/er/public.bed.view/public.bed.view';
+import { PublicHospitalList } from './features/er/public.hospital.list/public.hospital.list';
 
 export const routes: Routes = [
   {
@@ -32,6 +34,8 @@ export const routes: Routes = [
     canActivate: [RoleGuard],
     data: { roles: ['PATIENT'] },
   },
+  { path: 'emergency/hospitals', component: PublicHospitalList },
+  { path: 'emergency/hospital/:id', component: PublicBedView },
   {
     path: '',
     redirectTo: 'auth/SignIn',

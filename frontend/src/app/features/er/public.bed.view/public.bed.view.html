@@ -1,0 +1,48 @@
+<div class="er-container">
+  <div class="header">
+    <button class="btn-back" (click)="goBack()">← Back to Hospitals</button>
+    <h1>{{ hospitalName }}</h1>
+    <p class="subtitle">Live ER Bed Status</p>
+  </div>
+
+  <div class="legend">
+    <span><span class="dot available"></span> Available</span>
+    <span><span class="dot occupied"></span> Occupied</span>
+  </div>
+
+  <div class="beds-grid">
+    <div *ngFor="let bed of beds"
+         class="bed-card"
+         [class.available]="bed.status === 'AVAILABLE'"
+         [class.selected]="selectedBed === bed"
+         [class.disabled]="bed.status !== 'AVAILABLE'"
+         (click)="selectBed(bed)">
+
+      <div class="icon">{{ getIcon(bed.status) }}</div>
+      <div class="number">{{ bed.bedNumber }}</div>
+      <div class="status">{{ bed.status }}</div>
+    </div>
+  </div>
+
+  <div class="footer-bar" [class.visible]="selectedBed">
+    <div class="footer-content">
+      <div class="selected-info">
+        Selected: <strong>{{ selectedBed?.bedNumber }}</strong>
+      </div>
+
+      <div class="form-inputs">
+        <input type="text" placeholder="Patient Name" [(ngModel)]="guestName">
+        <input type="text" placeholder="Reason (e.g. Chest Pain)" [(ngModel)]="visitReason">
+      </div>
+
+      <div class="actions">
+        <button class="btn-cancel" (click)="clear()">Cancel</button>
+        <button class="btn-confirm"
+                [disabled]="!guestName || !visitReason"
+                (click)="confirm()">
+          Confirm Bed
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

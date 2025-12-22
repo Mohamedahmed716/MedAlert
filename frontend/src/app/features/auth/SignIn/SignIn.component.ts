@@ -90,4 +90,8 @@ export class SignInComponent implements OnInit {
       },
     });
   }
+
+  openER() {
+    this.router.navigate(['/emergency/hospitals']);
+  }
 }

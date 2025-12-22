@@ -1,0 +1,31 @@
+<div class="public-container">
+  <div class="header-section">
+    <h1>🚑 Emergency Services</h1>
+    <p>Find the nearest hospital with available ER capacity.</p>
+  </div>
+
+  <div class="search-wrapper">
+    <input
+      type="text"
+      class="search-input"
+      [(ngModel)]="searchText"
+      placeholder="Search by hospital name or city...">
+  </div>
+
+  <div class="hospital-grid">
+    <div class="hospital-card" *ngFor="let h of filteredHospitals">
+      <div class="card-image"></div>
+      <div class="card-content">
+        <h2>{{ h.name }}</h2>
+        <p class="location">📍 {{ h.city }}, {{ h.state }}</p>
+        <div class="badge-row">
+          <span class="badge available">ER Open</span>
+          <span class="badge dist">2.5 km away</span>
+        </div>
+        <button class="btn-action" [routerLink]="['/emergency/hospital', h.id]">
+          View ER Beds
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
