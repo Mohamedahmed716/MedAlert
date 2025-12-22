@@ -7,7 +7,7 @@
   <div class="topbar-actions">
 
     <div class="current-date">
-      October 26, 2024 | 10:30 AM
+      {{ currentDate | date:'MMMM d, y' }} | {{ currentDate | date:'shortTime' }}
     </div>
 
     <div class="actions-group">

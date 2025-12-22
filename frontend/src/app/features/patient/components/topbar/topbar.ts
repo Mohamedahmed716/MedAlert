@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 })
 export class Topbar {
   showNotifications = false;
+  currentDate: Date = new Date()
 
   toggleNotifications() {
     this.showNotifications = !this.showNotifications;
