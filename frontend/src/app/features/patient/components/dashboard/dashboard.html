@@ -1,74 +1,41 @@
-<div class="dashboard-root">
-  <!-- Header -->
-  <header class="top-row">
-    <div>
-      <h2 class="greeting">{{ greeting }}, {{ userName }} 👋</h2>
-      <p class="subtle">{{ personalizedMessage }}</p>
-    </div>
-
-    <div class="top-actions">
-      <div class="avatar-small" title="{{ userName }}"></div>
-    </div>
+<div class="dashboard-container">
+  <header class="dashboard-header">
+    <h1>Welcome back, Patient</h1>
+    <p>Here is what's happening with your health today.</p>
   </header>
 
-  <div class="main-grid">
-    <!-- Left column: Reservations timeline -->
-    <section class="reservations">
-      <h3>Upcoming Reservations</h3>
-      <p class="muted">Next appointments & telehealth visits</p>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-value">{{ stats.upcomingAppointments }}</span>
+      <span class="stat-label">Upcoming Appointments</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-value">{{ stats.activePrescriptions }}</span>
+      <span class="stat-label">Prescriptions</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-value">Normal</span>
+      <span class="stat-label">Health Status</span>
+    </div>
+  </div>
 
-      <div class="timeline-wrap">
-        <ul class="timeline">
-          <li *ngFor="let r of reservations; trackBy: trackByReservation" class="timeline-item">
-            <div class="time">
-              <div class="date">{{ r.date | date:'MMM d' }}</div>
-              <div class="hour">{{ r.time }}</div>
-            </div>
+  <div class="action-grid">
+    <div class="feature-card" routerLink="/patient/book-appointment">
+      <div class="feature-icon">🏥</div>
+      <h3>Book Appointment</h3>
+      <p>Locate medical centers near you</p>
+    </div>
 
-            <div class="detail">
-              <div class="title">{{ r.department }} — {{ r.doctor }}</div>
-              <div class="location">{{ r.location }}</div>
+    <div class="feature-card" routerLink="//patient/myprescreptions">
+      <div class="feature-icon">💊</div>
+      <h3>My Prescriptions</h3>
+      <p>View your medications and history</p>
+    </div>
 
-              <div class="item-actions">
-                <button class="btn-link" *ngIf="r.online" (click)="joinOnlineVisit(r.id)">Join Online Visit</button>
-                <button class="btn-link" (click)="rescheduleReservation(r.id)">Reschedule</button>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- Right column: Prescriptions + Quick Actions -->
-    <aside class="right-column">
-      <div class="box prescriptions">
-        <div class="box-header">
-          <h3>Recent Prescriptions</h3>
-          <button class="btn-small" (click)="requestRefill()">Request Refill</button>
-        </div>
-
-        <ul class="pres-list">
-          <li *ngFor="let p of prescriptions; trackBy: trackByPrescription" [class.expiring]="isExpiringSoon(p)">
-            <div class="pres-left">
-              <div class="pres-name">{{ p.name }}</div>
-              <div class="pres-meta">{{ p.dosage || '' }} • {{ p.remainingDays }} days left</div>
-            </div>
-            <div class="pres-actions">
-              <button class="btn-inline" (click)="renewPrescription(p)">Renew</button>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="box quick-actions">
-        <h3>Quick Actions</h3>
-        <div class="actions-grid">
-          <button class="qa" (click)="bookAppointment()">Book Appointment</button>
-          <button class="qa" (click)="requestRefill()">Request Refill</button>
-          <button class="qa" (click)="uploadDocument()">Upload Document</button>
-          <button class="qa" (click)="contactSupport()">Contact Support</button>
-        </div>
-      </div>
-    </aside>
+    <div class="feature-card" routerLink="/patient/myreservations">
+      <div class="feature-icon">📅</div>
+      <h3>My Reservations</h3>
+      <p>Manage your doctor appointments</p>
+    </div>
   </div>
 </div>

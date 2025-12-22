@@ -1,105 +1,136 @@
+/* myprescriptions.css */
 .page-container {
-  max-width: 900px;
-  margin: auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
+    padding: 2rem;
+    background-color: #f8fafc;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
 }
 
-/* Header */
 .page-title {
-  font-size: 32px;
-  font-weight: 800;
-  margin-bottom: 5px;
+    color: #1e293b;
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
 }
 
 .page-subtitle {
-  color: #666;
-  margin-bottom: 25px;
+    color: #64748b;
+    margin-bottom: 2rem;
 }
 
-/* Search Bar */
+/* Search Bar styling matching your Reservation search */
 .search-bar {
-  margin-bottom: 30px;
+    margin-bottom: 2rem;
+    max-width: 500px;
 }
 
 .search-input {
-  width: 100%;
-  padding: 14px 18px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  font-size: 15px;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    transition: border-color 0.2s;
 }
 
-/* Prescription List */
+.search-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Prescription Card styling */
+.prescription-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 .prescription-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 20px;
-  border: 1px solid #eee;
-  margin-bottom: 15px;
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-  justify-content: space-between;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .prescription-left {
-  display: flex;
-  gap: 15px;
-  align-items: flex-start;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
 }
 
-/* Medicine icon */
 .prescription-icon {
-  width: 42px;
-  height: 42px;
-  background: #d9e9ff;
-  color: #2e7be5;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 22px;
+    font-size: 1.5rem;
+    background: #eff6ff;
+    padding: 1rem;
+    border-radius: 12px;
+    color: #3b82f6;
 }
 
-/* Text */
 .prescription-details h3 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: bold;
+    margin: 0 0 0.25rem 0;
+    color: #0f172a;
+    font-size: 1.125rem;
 }
 
 .prescription-details p {
-  margin: 5px 0;
-  color: #666;
-  font-size: 14px;
+    margin: 0.15rem 0;
+    color: #64748b;
+    font-size: 0.875rem;
 }
 
-/* Right side buttons */
+.date-label {
+    font-weight: 500;
+    color: #94a3b8 !important;
+    margin-top: 0.5rem !important;
+}
+
+/* Actions matching your button theme */
 .prescription-actions {
-  display: flex;
-  gap: 10px;
+    display: flex;
+    gap: 0.75rem;
 }
 
 .btn-details {
-  background: transparent;
-  border: none;
-  color: #2e7be5;
-  font-weight: bold;
-  cursor: pointer;
+    background-color: white;
+    color: #1e293b;
+    border: 1px solid #e2e8f0;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-details:hover {
+    background-color: #f1f5f9;
 }
 
 .btn-print {
-  background: #e0e9ff;
-  color: #2e7be5;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
 }
 
 .btn-print:hover {
-  background: #d1ddfa;
+    background-color: #2563eb;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 4rem;
+    background: white;
+    border-radius: 12px;
+    border: 2px dashed #e2e8f0;
+    color: #64748b;
 }
