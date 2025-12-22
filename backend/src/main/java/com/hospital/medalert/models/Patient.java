@@ -37,7 +37,11 @@ public class Patient {
     @OneToMany(mappedBy = "patient")
     private List<Reservation> reservations;
 
-    @ManyToMany
-    @JoinTable(name = "patient_id")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "patient_doctors",
+            joinColumns = @JoinColumn(name = "patient_id"),
+            inverseJoinColumns = @JoinColumn(name = "doctor_id")
+    )
     private List<Doctor> doctors;
 }
