@@ -1,0 +1,179 @@
+<div class="booking-container">
+  <!-- Progress Bar -->
+  <div class="progress-bar">
+    <div class="progress-steps">
+      <div class="step" [class.active]="currentStep >= 1" [class.completed]="currentStep > 1">
+        <div class="step-number">1</div>
+        <div class="step-label">Hospital</div>
+      </div>
+      <div class="step" [class.active]="currentStep >= 2" [class.completed]="currentStep > 2">
+        <div class="step-number">2</div>
+        <div class="step-label">Doctor</div>
+      </div>
+      <div class="step" [class.active]="currentStep >= 3" [class.completed]="currentStep > 3">
+        <div class="step-number">3</div>
+        <div class="step-label">Date & Time</div>
+      </div>
+      <div class="step" [class.active]="currentStep >= 4" [class.completed]="currentStep > 4">
+        <div class="step-number">4</div>
+        <div class="step-label">Details</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 1: Select Hospital -->
+  <div *ngIf="currentStep === 1" class="step-content">
+    <h2>Select Hospital</h2>
+    <p class="step-description">Choose the hospital where you'd like to book your appointment</p>
+
+    <div *ngIf="loadingHospitals" class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading hospitals...</p>
+    </div>
+
+    <div *ngIf="!loadingHospitals" class="options-grid">
+      <div 
+        *ngFor="let hospital of hospitals" 
+        class="option-card"
+        (click)="onHospitalSelect(hospital)">
+        <div class="option-icon">🏥</div>
+        <div class="option-content">
+          <h3>{{ hospital.name }}</h3>
+          <p *ngIf="hospital.address">{{ hospital.address }}</p>
+        </div>
+        <div class="option-arrow">→</div>
+      </div>
+    </div>
+
+    <div *ngIf="!loadingHospitals && hospitals.length === 0" class="empty-state">
+      <div class="empty-icon">🏥</div>
+      <h3>No Hospitals Available</h3>
+      <p>No hospitals are currently available for booking.</p>
+    </div>
+  </div>
+
+  <!-- Step 2: Select Doctor -->
+  <div *ngIf="currentStep === 2" class="step-content">
+    <h2>Select Doctor</h2>
+    <p class="step-description">Choose a doctor at {{ selectedHospital?.name }}</p>
+
+    <div *ngIf="loadingDoctors" class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading doctors...</p>
+    </div>
+
+    <div *ngIf="!loadingDoctors" class="options-grid">
+      <div 
+        *ngFor="let doctor of doctors" 
+        class="option-card"
+        (click)="onDoctorSelect(doctor)">
+        <div class="option-icon">👨‍⚕️</div>
+        <div class="option-content">
+          <h3>{{ doctor.fullName }}</h3>
+          <p>{{ doctor.department }}</p>
+          <small>{{ doctor.email }}</small>
+        </div>
+        <div class="option-arrow">→</div>
+      </div>
+    </div>
+
+    <div *ngIf="!loadingDoctors && doctors.length === 0" class="empty-state">
+      <div class="empty-icon">👨‍⚕️</div>
+      <h3>No Doctors Available</h3>
+      <p>No active doctors are currently available at this hospital.</p>
+    </div>
+
+    <button class="btn btn-secondary" (click)="prevStep()">← Back</button>
+  </div>
+
+  <!-- Step 3: Select Date & Time -->
+  <div *ngIf="currentStep === 3" class="step-content">
+    <h2>Select Date & Time</h2>
+    <p class="step-description">Choose your preferred appointment date and time with {{ selectedDoctor?.fullName }}</p>
+
+    <div class="datetime-selection">
+      <div class="date-section">
+        <label for="appointmentDate">Select Date:</label>
+        <input 
+          type="date" 
+          id="appointmentDate"
+          [(ngModel)]="selectedDate"
+          [min]="getMinDate()"
+          [max]="getMaxDate()"
+          class="date-input">
+      </div>
+
+      <div class="time-section" *ngIf="selectedDate">
+        <label>Available Time Slots:</label>
+        <div class="time-slots">
+          <button 
+            *ngFor="let slot of timeSlots"
+            class="time-slot"
+            [class.selected]="selectedTime === slot.time"
+            [class.unavailable]="!slot.available"
+            [disabled]="!slot.available"
+            (click)="selectedTime = slot.time">
+            {{ slot.time }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-actions">
+      <button class="btn btn-secondary" (click)="prevStep()">← Back</button>
+      <button 
+        class="btn btn-primary" 
+        [disabled]="!canProceed()"
+        (click)="nextStep()">
+        Continue →
+      </button>
+    </div>
+  </div>
+
+  <!-- Step 4: Enter Details -->
+  <div *ngIf="currentStep === 4" class="step-content">
+    <h2>Appointment Details</h2>
+    <p class="step-description">Please provide the reason for your visit</p>
+
+    <!-- Appointment Summary -->
+    <div class="appointment-summary">
+      <h3>Appointment Summary</h3>
+      <div class="summary-item">
+        <strong>Hospital:</strong> {{ selectedHospital?.name }}
+      </div>
+      <div class="summary-item">
+        <strong>Doctor:</strong> {{ selectedDoctor?.fullName }} ({{ selectedDoctor?.department }})
+      </div>
+      <div class="summary-item">
+        <strong>Date & Time:</strong> {{ selectedDate | date:'fullDate' }} at {{ selectedTime }}
+      </div>
+    </div>
+
+    <!-- Reason for Visit -->
+    <div class="form-group">
+      <label for="reason">Reason for Visit *</label>
+      <textarea 
+        id="reason"
+        [(ngModel)]="reason"
+        placeholder="Please describe the reason for your visit (e.g., routine checkup, specific symptoms, follow-up appointment)"
+        class="reason-textarea"
+        rows="4"
+        required></textarea>
+    </div>
+
+    <div class="step-actions">
+      <button class="btn btn-secondary" (click)="prevStep()">← Back</button>
+      <button 
+        class="btn btn-primary" 
+        [disabled]="!canProceed() || submitting"
+        (click)="submitReservation()">
+        {{ submitting ? 'Booking...' : 'Book Appointment' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Reset Button -->
+  <div class="reset-section" *ngIf="currentStep > 1">
+    <button class="btn btn-link" (click)="resetBooking()">Start Over</button>
+  </div>
+</div>

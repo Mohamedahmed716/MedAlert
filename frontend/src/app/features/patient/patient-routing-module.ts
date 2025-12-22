@@ -12,6 +12,7 @@ import { Hospitaldepartments } from './components/hospitaldepartments/hospitalde
 import { Doctorprofile } from './components/doctorprofile/doctorprofile';
 import { ReservationConfirmComponent } from './components/reservationconfirmation/reservationconfirmation';
 import { Er } from './components/er/er';
+import { BookAppointmentComponent } from './pages/book-appointment/book-appointment.component';
 
 const routes: Routes = [
   { path: '', component: Patient ,
@@ -20,6 +21,7 @@ const routes: Routes = [
         {path: 'findhospital', component: Findhospital},
         {path: 'myprescreptions', component: Myprescriptions},
         {path: 'myreservations', component: MyReservations},
+        {path: 'book-appointment', component: BookAppointmentComponent},
         {path: 'settings', component: Settings},
         {path: 'hospital/:id', component: Hospitaldashboard},
         {path: 'patient/hospital/:id/departments/:deptName', component: Departmentview},

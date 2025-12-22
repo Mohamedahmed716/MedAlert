@@ -22,6 +22,20 @@ export interface BedStats {
   occupancyRate: number;
 }
 
+export interface ReservationResponse {
+  id: number;
+  patientName: string;
+  patientEmail: string;
+  doctorName: string;
+  doctorDepartment: string;
+  appointmentTime: string;
+  reason: string;
+  status: 'PENDING' | 'CONFIRMED' | 'DECLINED' | 'CANCELLED' | 'COMPLETED';
+  declineReason?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -51,5 +65,14 @@ export class DoctorService {
 
   getBedStats(): Observable<BedStats> {
     return this.http.get<BedStats>(`${this.apiUrl}/beds/stats`);
+  }
+
+  // Reservation methods for doctors
+  getMyReservations(): Observable<ReservationResponse[]> {
+    return this.http.get<ReservationResponse[]>(`${this.apiUrl}/reservations`);
+  }
+
+  getUpcomingReservations(): Observable<ReservationResponse[]> {
+    return this.http.get<ReservationResponse[]>(`${this.apiUrl}/reservations/upcoming`);
   }
 }

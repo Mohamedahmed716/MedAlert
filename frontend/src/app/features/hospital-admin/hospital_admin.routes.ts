@@ -8,7 +8,8 @@ import { DoctorsDepartmentComponent } from './pages/doctors-departments/doctors-
 import { ErAlertComponent } from './pages/er-alert/er-alert';
 import { BedManagementComponent } from './pages/bed-management/bed-management.component';
 import { ErReservationsComponent } from './pages/er-reservations/er-reservations';
-import { ReservationsComponent } from './pages/reservations/reservations';
+import { ReservationsComponent as StaticReservationsComponent } from './pages/reservations/reservations';
+import { ReservationsManagementComponent } from './pages/reservations/reservations.component';
 import { HospitalProfileSettingsComponent } from './pages/settings/settings.component';
 import { ReservationAcceptedComponent } from './pages/reservation-confirmation/reservation-confirmation';
 import { NotificationCenterComponent } from './pages/notification/notification';
@@ -30,7 +31,7 @@ export const Hospital_adminRoutes: Routes = [
       { path: 'er-alert', component: ErAlertComponent },
       { path: 'er-beds', component: BedManagementComponent },
       { path: 'er-reservations', component: ErReservationsComponent },
-      { path: 'reservations', component: ReservationsComponent },
+      { path: 'reservations', component: ReservationsManagementComponent }, // Use the dynamic component
       { path: 'settings', component: HospitalProfileSettingsComponent },
       { path: 'reservations/accepted', component: ReservationAcceptedComponent },
       { path: 'pending-reservations', component: PendingReservationDetailComponent },

@@ -1,0 +1,127 @@
+<div class="reservations-container">
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <h1>My Reservations</h1>
+      <p class="subtitle">View and manage your medical appointments</p>
+    </div>
+    <button class="btn btn-secondary" (click)="loadReservations()" [disabled]="loading">
+      🔄 Refresh
+    </button>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs-section">
+    <div class="tabs">
+      <button 
+        class="tab-button"
+        [class.active]="activeTab === 'upcoming'"
+        (click)="setActiveTab('upcoming')">
+        Upcoming Reservations
+      </button>
+      <button 
+        class="tab-button"
+        [class.active]="activeTab === 'past'"
+        (click)="setActiveTab('past')">
+        Past Reservations
+      </button>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-section">
+    <div class="filter-group">
+      <label for="statusFilter">Status:</label>
+      <select id="statusFilter" [(ngModel)]="statusFilter" (change)="onFilterChange()" class="filter-select">
+        <option value="ALL">All Statuses</option>
+        <option value="PENDING">Pending</option>
+        <option value="CONFIRMED">Confirmed</option>
+        <option value="DECLINED">Declined</option>
+        <option value="CANCELLED">Cancelled</option>
+        <option value="COMPLETED">Completed</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="searchTerm">Search:</label>
+      <input 
+        type="text" 
+        id="searchTerm"
+        [(ngModel)]="searchTerm" 
+        (input)="onFilterChange()"
+        placeholder="Search by doctor, department, or reason..."
+        class="search-input">
+    </div>
+  </div>
+
+  <!-- Reservations List -->
+  <div class="reservations-list" *ngIf="!loading">
+    <div 
+      *ngFor="let reservation of filteredReservations; trackBy: trackByReservationId" 
+      class="reservation-card"
+      [ngClass]="getStatusClass(reservation.status)">
+      
+      <div class="reservation-header">
+        <div class="status-badge">
+          <span class="status-icon">{{ getStatusIcon(reservation.status) }}</span>
+          <span class="status-text">{{ reservation.status }}</span>
+        </div>
+        <div class="reservation-id">#{{ reservation.id }}</div>
+      </div>
+
+      <div class="reservation-content">
+        <div class="reservation-info">
+          <div class="info-row">
+            <strong>Doctor:</strong> {{ reservation.doctorName }}
+            <span class="department">({{ reservation.doctorDepartment }})</span>
+          </div>
+          <div class="info-row">
+            <strong>Appointment:</strong> 
+            {{ formatDate(reservation.appointmentTime) }} at {{ formatTime(reservation.appointmentTime) }}
+          </div>
+          <div class="info-row">
+            <strong>Reason:</strong> {{ reservation.reason }}
+          </div>
+          <div *ngIf="reservation.declineReason" class="info-row decline-reason">
+            <strong>Decline Reason:</strong> {{ reservation.declineReason }}
+          </div>
+        </div>
+
+        <div class="reservation-actions" *ngIf="canCancel(reservation)">
+          <button 
+            class="btn btn-danger"
+            (click)="cancelReservation(reservation)">
+            🚫 Cancel
+          </button>
+        </div>
+      </div>
+
+      <div class="reservation-footer">
+        <small class="created-date">
+          Created: {{ formatDateTime(reservation.createdAt) }}
+        </small>
+        <small *ngIf="reservation.updatedAt !== reservation.createdAt" class="updated-date">
+          Updated: {{ formatDateTime(reservation.updatedAt) }}
+        </small>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="filteredReservations.length === 0" class="empty-state">
+      <div class="empty-icon">📅</div>
+      <h3>No Reservations Found</h3>
+      <p *ngIf="activeTab === 'upcoming' && statusFilter === 'ALL' && !searchTerm">You don't have any upcoming reservations.</p>
+      <p *ngIf="activeTab === 'past' && statusFilter === 'ALL' && !searchTerm">You don't have any past reservations.</p>
+      <p *ngIf="statusFilter !== 'ALL' || searchTerm">No reservations match your current filters.</p>
+      <button class="btn btn-primary" style="margin-top: 1rem;">
+        Book New Appointment
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading reservations...</p>
+  </div>
+</div>

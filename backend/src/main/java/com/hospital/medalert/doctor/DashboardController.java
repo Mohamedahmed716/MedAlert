@@ -3,6 +3,7 @@ package com.hospital.medalert.doctor;
 import com.hospital.medalert.dto.ShiftDTO;
 import com.hospital.medalert.dto.BedResponse;
 import com.hospital.medalert.dto.BedStatsResponse;
+import com.hospital.medalert.dto.ReservationResponse;
 import com.hospital.medalert.hospital.HospitalAdminService;
 import com.hospital.medalert.user.User;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class DashboardController {
 
     private final ShiftService shiftService;
     private final HospitalAdminService hospitalAdminService;
+    private final DoctorReservationService doctorReservationService;
 
     @GetMapping("/shift/today")
     public ResponseEntity<ShiftDTO> getTodayShift(Authentication authentication) {
@@ -47,5 +49,20 @@ public class DashboardController {
     public ResponseEntity<BedStatsResponse> getBedStats(@AuthenticationPrincipal User user) {
         BedStatsResponse stats = hospitalAdminService.getBedStats(user.getHospitalId());
         return ResponseEntity.ok(stats);
+    }
+
+    // Reservation endpoints for doctors (view confirmed reservations only)
+    @GetMapping("/reservations")
+    public ResponseEntity<List<ReservationResponse>> getMyReservations(Authentication authentication) {
+        String email = authentication.getName();
+        List<ReservationResponse> reservations = doctorReservationService.getDoctorReservations(email);
+        return ResponseEntity.ok(reservations);
+    }
+
+    @GetMapping("/reservations/upcoming")
+    public ResponseEntity<List<ReservationResponse>> getUpcomingReservations(Authentication authentication) {
+        String email = authentication.getName();
+        List<ReservationResponse> reservations = doctorReservationService.getUpcomingReservations(email);
+        return ResponseEntity.ok(reservations);
     }
 }

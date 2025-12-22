@@ -33,5 +33,22 @@ public class Reservation {
     private String reason; // e.g. "Flu symptoms"
 
     @Enumerated(EnumType.STRING)
-    private ReservationStatus status; // PENDING, CONFIRMED, CANCELLED
+    private ReservationStatus status; // PENDING, CONFIRMED, CANCELLED, COMPLETED
+
+    private String declineReason; // Reason for declining the reservation
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 }

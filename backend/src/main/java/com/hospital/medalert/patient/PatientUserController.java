@@ -2,6 +2,7 @@ package com.hospital.medalert.patient;
 
 import com.hospital.medalert.dto.PrescriptionDTO;
 import com.hospital.medalert.dto.ReservationDTO;
+import com.hospital.medalert.dto.ReservationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -22,7 +23,7 @@ public class PatientUserController {
     }
 
     @GetMapping("/reservations")
-    public ResponseEntity<List<ReservationDTO>> getReservations(Authentication authentication) {
+    public ResponseEntity<List<ReservationResponse>> getReservations(Authentication authentication) {
         return ResponseEntity.ok(patientService.getMyReservations(authentication.getName()));
     }
     @PostMapping("/reservations")
@@ -31,6 +32,14 @@ public class PatientUserController {
             @RequestBody ReservationDTO request) {
         // authentication.getName() provides the user's email from the JWT
         return ResponseEntity.ok(patientService.createReservation(authentication.getName(), request));
+    }
+
+    @PatchMapping("/reservations/{reservationId}/cancel")
+    public ResponseEntity<ReservationResponse> cancelReservation(
+            @PathVariable Long reservationId,
+            Authentication authentication) {
+        ReservationResponse reservation = patientService.cancelReservation(reservationId, authentication.getName());
+        return ResponseEntity.ok(reservation);
     }
 
 }

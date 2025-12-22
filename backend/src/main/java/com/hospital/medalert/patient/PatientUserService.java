@@ -2,6 +2,7 @@ package com.hospital.medalert.patient;
 
 import com.hospital.medalert.dto.PrescriptionDTO;
 import com.hospital.medalert.dto.ReservationDTO;
+import com.hospital.medalert.dto.ReservationResponse;
 import com.hospital.medalert.models.*;
 import com.hospital.medalert.repositories.DoctorRepository;
 import com.hospital.medalert.repositories.PatientRepository;
@@ -35,21 +36,15 @@ public class PatientUserService {
                 .collect(Collectors.toList());
     }
 
-    public List<ReservationDTO> getMyReservations(String email) {
+    public List<ReservationResponse> getMyReservations(String email) {
         Patient patient = getAuthenticatedPatient(email);
         return reservationRepository.findAllByPatientOrderByAppointmentTimeDesc(patient)
                 .stream()
-                .map(res -> ReservationDTO.builder()
-                        .id(res.getId())
-                        .patientName("Dr. " + res.getDoctor().getUser().getFullName()) // Using patientName field for Dr Name in UI
-                        .appointmentTime(res.getAppointmentTime().toString())
-                        .status(res.getStatus())
-                        .reason(res.getReason())
-                        .build()
-                ).collect(Collectors.toList());
+                .map(ReservationResponse::fromReservation)
+                .collect(Collectors.toList());
     }
 
-    public void cancelReservation(Long id, String email) {
+    public ReservationResponse cancelReservation(Long id, String email) {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Reservation not found"));
 
@@ -58,7 +53,8 @@ public class PatientUserService {
         }
 
         reservation.setStatus(ReservationStatus.CANCELLED);
-        reservationRepository.save(reservation);
+        Reservation savedReservation = reservationRepository.save(reservation);
+        return ReservationResponse.fromReservation(savedReservation);
     }
 
     private PrescriptionDTO mapPrescriptionToDTO(Prescription p) {

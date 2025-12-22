@@ -9,6 +9,8 @@ import com.hospital.medalert.dto.DepartmentResponse;
 import com.hospital.medalert.dto.BedResponse;
 import com.hospital.medalert.dto.UpdateBedRequest;
 import com.hospital.medalert.dto.BedStatsResponse;
+import com.hospital.medalert.dto.ReservationResponse;
+import com.hospital.medalert.dto.ReservationActionRequest;
 import com.hospital.medalert.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -245,5 +247,37 @@ public class HospitalAdminController {
                     .build();
             return ResponseEntity.badRequest().body(errorResponse);
         }
+    }
+
+    // Reservation Management Endpoints
+    @GetMapping("/reservations/pending")
+    public ResponseEntity<List<ReservationResponse>> getPendingReservations(@AuthenticationPrincipal User user) {
+        List<ReservationResponse> reservations = hospitalAdminService.getPendingReservations(user.getHospitalId());
+        return ResponseEntity.ok(reservations);
+    }
+
+    @GetMapping("/reservations")
+    public ResponseEntity<List<ReservationResponse>> getAllReservations(@AuthenticationPrincipal User user) {
+        List<ReservationResponse> reservations = hospitalAdminService.getAllReservations(user.getHospitalId());
+        return ResponseEntity.ok(reservations);
+    }
+
+    @PostMapping("/reservations/{reservationId}/process")
+    public ResponseEntity<ReservationResponse> processReservation(
+            @PathVariable Long reservationId,
+            @RequestBody ReservationActionRequest request,
+            @AuthenticationPrincipal User user) {
+        try {
+            ReservationResponse reservation = hospitalAdminService.processReservation(reservationId, request);
+            return ResponseEntity.ok(reservation);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/reservations/pending/count")
+    public ResponseEntity<Long> getPendingReservationsCount(@AuthenticationPrincipal User user) {
+        long count = hospitalAdminService.getPendingReservationsCount(user.getHospitalId());
+        return ResponseEntity.ok(count);
     }
 }

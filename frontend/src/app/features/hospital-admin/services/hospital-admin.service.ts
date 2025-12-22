@@ -80,6 +80,25 @@ export interface UpdateBedRequest {
   notes?: string;
 }
 
+export interface ReservationResponse {
+  id: number;
+  patientName: string;
+  patientEmail: string;
+  doctorName: string;
+  doctorDepartment: string;
+  appointmentTime: string;
+  reason: string;
+  status: 'PENDING' | 'CONFIRMED' | 'DECLINED' | 'CANCELLED' | 'COMPLETED';
+  declineReason?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ReservationActionRequest {
+  action: 'ACCEPT' | 'DECLINE';
+  declineReason?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -174,5 +193,24 @@ export class HospitalAdminService {
 
   fixDoctorsWithNullDepartments(): Observable<{message: string}> {
     return this.http.post<{message: string}>(`${this.apiUrl}/doctors/fix-departments`, {});
+  }
+
+  // Reservation Management Methods
+  getPendingReservations(): Observable<ReservationResponse[]> {
+    const timestamp = new Date().getTime();
+    return this.http.get<ReservationResponse[]>(`${this.apiUrl}/reservations/pending?_t=${timestamp}`);
+  }
+
+  getAllReservations(): Observable<ReservationResponse[]> {
+    const timestamp = new Date().getTime();
+    return this.http.get<ReservationResponse[]>(`${this.apiUrl}/reservations?_t=${timestamp}`);
+  }
+
+  processReservation(reservationId: number, request: ReservationActionRequest): Observable<ReservationResponse> {
+    return this.http.post<ReservationResponse>(`${this.apiUrl}/reservations/${reservationId}/process`, request);
+  }
+
+  getPendingReservationsCount(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/reservations/pending/count`);
   }
 }

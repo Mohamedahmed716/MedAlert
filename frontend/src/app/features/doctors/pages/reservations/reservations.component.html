@@ -1,0 +1,130 @@
+<div class="reservations-container">
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <h1>My Patient Reservations</h1>
+      <p class="subtitle">View confirmed appointments with your patients</p>
+    </div>
+    <button class="btn btn-secondary" (click)="loadReservations()" [disabled]="loading">
+      🔄 Refresh
+    </button>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs-section">
+    <div class="tabs">
+      <button 
+        class="tab-button"
+        [class.active]="activeTab === 'upcoming'"
+        (click)="setActiveTab('upcoming')">
+        Upcoming Appointments
+      </button>
+      <button 
+        class="tab-button"
+        [class.active]="activeTab === 'all'"
+        (click)="setActiveTab('all')">
+        All Reservations
+      </button>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-section">
+    <div class="filter-group">
+      <label for="statusFilter">Status:</label>
+      <select id="statusFilter" [(ngModel)]="statusFilter" (change)="onFilterChange()" class="filter-select">
+        <option value="ALL">All Statuses</option>
+        <option value="CONFIRMED">Confirmed</option>
+        <option value="COMPLETED">Completed</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="searchTerm">Search:</label>
+      <input 
+        type="text" 
+        id="searchTerm"
+        [(ngModel)]="searchTerm" 
+        (input)="onFilterChange()"
+        placeholder="Search by patient name, email, or reason..."
+        class="search-input">
+    </div>
+  </div>
+
+  <!-- Info Notice -->
+  <div class="info-notice">
+    <span class="info-icon">ℹ️</span>
+    <p>You can only see confirmed and completed reservations. Pending reservations are managed by your hospital admin.</p>
+  </div>
+
+  <!-- Reservations List -->
+  <div class="reservations-list" *ngIf="!loading">
+    <div 
+      *ngFor="let reservation of filteredReservations; trackBy: trackByReservationId" 
+      class="reservation-card"
+      [ngClass]="getStatusClass(reservation.status)">
+      
+      <div class="reservation-header">
+        <div class="status-badge">
+          <span class="status-icon">{{ getStatusIcon(reservation.status) }}</span>
+          <span class="status-text">{{ reservation.status }}</span>
+        </div>
+        <div class="reservation-id">#{{ reservation.id }}</div>
+      </div>
+
+      <div class="reservation-content">
+        <div class="reservation-info">
+          <div class="info-row">
+            <strong>Patient:</strong> {{ reservation.patientName }}
+            <span class="email">({{ reservation.patientEmail }})</span>
+          </div>
+          <div class="info-row">
+            <strong>Appointment:</strong> 
+            {{ formatDate(reservation.appointmentTime) }} at {{ formatTime(reservation.appointmentTime) }}
+          </div>
+          <div class="info-row">
+            <strong>Reason:</strong> {{ reservation.reason }}
+          </div>
+          <div class="info-row" *ngIf="isUpcoming(reservation)">
+            <span class="upcoming-badge">📅 Upcoming</span>
+          </div>
+        </div>
+
+        <div class="reservation-actions">
+          <div class="action-info">
+            <p class="action-note">
+              <strong>Note:</strong> Contact your patient directly for any changes or cancellations.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reservation-footer">
+        <small class="created-date">
+          Booked: {{ formatDateTime(reservation.createdAt) }}
+        </small>
+        <small *ngIf="reservation.updatedAt !== reservation.createdAt" class="updated-date">
+          Updated: {{ formatDateTime(reservation.updatedAt) }}
+        </small>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="filteredReservations.length === 0" class="empty-state">
+      <div class="empty-icon">👨‍⚕️</div>
+      <h3>No Reservations Found</h3>
+      <p *ngIf="activeTab === 'upcoming' && statusFilter === 'ALL' && !searchTerm">You don't have any upcoming patient appointments.</p>
+      <p *ngIf="activeTab === 'all' && statusFilter === 'ALL' && !searchTerm">You don't have any confirmed reservations yet.</p>
+      <p *ngIf="statusFilter !== 'ALL' || searchTerm">No reservations match your current filters.</p>
+      <div class="empty-actions">
+        <p class="empty-note">Patients can book appointments with you through the patient portal. Once approved by your hospital admin, they will appear here.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading reservations...</p>
+  </div>
+</div>

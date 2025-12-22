@@ -49,6 +49,10 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     long countByDoctorUserHospitalIdAndStatus(String hospitalId, ReservationStatus status);
     List<Reservation> findAllByPatientOrderByAppointmentTimeDesc(Patient patient);
 
+    // New methods for hospital admin reservation management
+    List<Reservation> findByDoctorUserHospitalIdAndStatus(String hospitalId, ReservationStatus status);
+    List<Reservation> findByDoctorUserHospitalIdOrderByCreatedAtDesc(String hospitalId);
+
     @Query("SELECT r FROM Reservation r WHERE r.status = 'ACCEPTED' " +
             "AND (r.appointmentTime < :today " +
             "OR (r.appointmentTime = :today AND r.appointmentTime < :now))")

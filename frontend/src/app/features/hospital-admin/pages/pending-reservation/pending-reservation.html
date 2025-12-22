@@ -2,87 +2,104 @@
   <app-sidebar></app-sidebar>
 
   <main class="main-content">
-    <h1 class="page-title">Pending Reservation Details</h1>
+    <h1 class="page-title">Pending Reservations</h1>
 
-    <div class="content-grid">
-      <!-- Patient & Reservation Info -->
-      <section class="info-card">
-        <h2>Patient Information</h2>
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-container">
+      <div class="spinner"></div>
+      <p>Loading pending reservations...</p>
+    </div>
 
-        <div class="info-grid">
-          <div class="field">
-            <label>Patient Name</label>
-            <strong>Liam Johnson</strong>
-          </div>
-          <div class="field">
-            <label>Contact Number</label>
-            <strong>(555) 123-4567</strong>
-          </div>
-          <div class="field">
-            <label>Email Address</label>
-            <strong>liam.johnson&#64;example.com</strong>
-          </div>
-          <div class="field">
-            <label>Date of Birth</label>
-            <strong>October 26, 1988</strong>
-          </div>
+    <!-- Pending Reservations List -->
+    <div *ngIf="!loading && pendingReservations.length > 0" class="reservations-list">
+      <div *ngFor="let reservation of pendingReservations" class="reservation-card">
+        <div class="content-grid">
+          <!-- Patient & Reservation Info -->
+          <section class="info-card">
+            <h2>Patient Information</h2>
+
+            <div class="info-grid">
+              <div class="field">
+                <label>Patient Name</label>
+                <strong>{{ reservation.patientName }}</strong>
+              </div>
+              <div class="field">
+                <label>Email Address</label>
+                <strong>{{ reservation.patientEmail }}</strong>
+              </div>
+              <div class="field">
+                <label>Reservation ID</label>
+                <strong>#{{ reservation.id }}</strong>
+              </div>
+              <div class="field">
+                <label>Created</label>
+                <strong>{{ formatDateTime(reservation.createdAt) }}</strong>
+              </div>
+            </div>
+
+            <div class="section">
+              <label class="section-label">Reason for Visit</label>
+              <p class="value">{{ reservation.reason }}</p>
+            </div>
+
+            <h2>Reservation Request</h2>
+
+            <div class="info-grid">
+              <div class="field">
+                <label>Doctor's Name</label>
+                <strong>{{ reservation.doctorName }}</strong>
+              </div>
+              <div class="field">
+                <label>Department</label>
+                <strong>{{ reservation.doctorDepartment }}</strong>
+              </div>
+              <div class="field">
+                <label>Requested Date</label>
+                <strong>{{ formatDate(reservation.appointmentTime) }}</strong>
+              </div>
+              <div class="field">
+                <label>Requested Time</label>
+                <strong>{{ formatTime(reservation.appointmentTime) }}</strong>
+              </div>
+            </div>
+          </section>
+
+          <!-- Actions Panel -->
+          <section class="actions-card">
+            <h2>Actions</h2>
+
+            <button class="btn-accept" (click)="onAccept(reservation)">
+              ✅ Accept Reservation
+            </button>
+
+            <form [formGroup]="reservationForm">
+              <label class="decline-label">Reason for Decline (Required)</label>
+              <textarea
+                formControlName="declineReason"
+                placeholder="e.g., Doctor unavailable, time slot conflict"
+                class="decline-textarea"
+              ></textarea>
+            </form>
+
+            <button class="btn-decline" (click)="onDecline(reservation)">
+              ❌ Decline Reservation
+            </button>
+
+            <hr class="divider">
+
+            <button class="contact-link" (click)="contactPatient(reservation)">
+              📧 Contact Patient
+            </button>
+          </section>
         </div>
+      </div>
+    </div>
 
-        <div class="section">
-          <label class="section-label">Reason for Visit</label>
-          <p class="value">Annual check-up and persistent cough.</p>
-        </div>
-
-        <h2>Reservation Request</h2>
-
-        <div class="info-grid">
-          <div class="field">
-            <label>Requested</label>
-            <strong>Doctor</strong>
-          </div>
-          <div class="field">
-            <label>Doctor's Name</label>
-            <strong>Dr. Ava Chen</strong>
-          </div>
-          <div class="field">
-            <label>Department</label>
-            <strong>Cardiology</strong>
-          </div>
-          <div class="field">
-            <label>Requested Date & Time</label>
-            <strong>November 15, 2023, 10:30 AM</strong>
-          </div>
-        </div>
-      </section>
-
-      <!-- Actions Panel -->
-      <section class="actions-card">
-        <h2>Actions</h2>
-
-        <button class="btn-accept" (click)="onAccept()">
-          Accept Reservation
-        </button>
-
-        <button class="btn-decline" (click)="onDecline()">
-          Decline Reservation
-        </button>
-
-        <form [formGroup]="reservationForm">
-          <label class="decline-label">Reason for Decline (Optional)</label>
-          <textarea
-            formControlName="declineReason"
-            placeholder="e.g., Doctor unavailable"
-            class="decline-textarea"
-          ></textarea>
-        </form>
-
-        <hr class="divider">
-
-        <button class="contact-link" (click)="contactPatient()">
-          <img src="https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-11-30/uAmZhCguzA.png" alt="contact">
-          Contact Patient
-        </button>
-      </section>
+    <!-- Empty State -->
+    <div *ngIf="!loading && pendingReservations.length === 0" class="empty-state">
+      <div class="empty-icon">📅</div>
+      <h3>No Pending Reservations</h3>
+      <p>There are currently no pending reservations requiring your attention.</p>
     </div>
   </main>
 </div>

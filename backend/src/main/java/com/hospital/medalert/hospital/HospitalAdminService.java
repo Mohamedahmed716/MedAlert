@@ -8,9 +8,13 @@ import com.hospital.medalert.dto.DoctorDTO;
 import com.hospital.medalert.dto.BedResponse;
 import com.hospital.medalert.dto.UpdateBedRequest;
 import com.hospital.medalert.dto.BedStatsResponse;
+import com.hospital.medalert.dto.ReservationResponse;
+import com.hospital.medalert.dto.ReservationActionRequest;
 import com.hospital.medalert.models.Department;
 import com.hospital.medalert.models.Doctor;
 import com.hospital.medalert.models.Bed;
+import com.hospital.medalert.models.Reservation;
+import com.hospital.medalert.models.ReservationStatus;
 import com.hospital.medalert.repositories.DepartmentRepository;
 import com.hospital.medalert.repositories.DoctorRepository;
 import com.hospital.medalert.repositories.PatientRepository;
@@ -413,5 +417,48 @@ public class HospitalAdminService {
         }
         
         return initials.length() > 0 ? initials.toString().toUpperCase() : "DR";
+    }
+
+    // Reservation Management Methods
+    public List<ReservationResponse> getPendingReservations(String hospitalId) {
+        // Get all pending reservations for doctors in this hospital
+        List<Reservation> reservations = reservationRepository.findByDoctorUserHospitalIdAndStatus(hospitalId, ReservationStatus.PENDING);
+        return reservations.stream()
+                .map(ReservationResponse::fromReservation)
+                .collect(Collectors.toList());
+    }
+
+    public List<ReservationResponse> getAllReservations(String hospitalId) {
+        // Get all reservations for doctors in this hospital
+        List<Reservation> reservations = reservationRepository.findByDoctorUserHospitalIdOrderByCreatedAtDesc(hospitalId);
+        return reservations.stream()
+                .map(ReservationResponse::fromReservation)
+                .collect(Collectors.toList());
+    }
+
+    public ReservationResponse processReservation(Long reservationId, ReservationActionRequest request) {
+        Reservation reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new RuntimeException("Reservation not found"));
+
+        if (reservation.getStatus() != ReservationStatus.PENDING) {
+            throw new RuntimeException("Reservation has already been processed");
+        }
+
+        if ("ACCEPT".equalsIgnoreCase(request.getAction())) {
+            reservation.setStatus(ReservationStatus.CONFIRMED);
+            reservation.setDeclineReason(null); // Clear any previous decline reason
+        } else if ("DECLINE".equalsIgnoreCase(request.getAction())) {
+            reservation.setStatus(ReservationStatus.DECLINED);
+            reservation.setDeclineReason(request.getDeclineReason());
+        } else {
+            throw new RuntimeException("Invalid action. Must be ACCEPT or DECLINE");
+        }
+
+        Reservation savedReservation = reservationRepository.save(reservation);
+        return ReservationResponse.fromReservation(savedReservation);
+    }
+
+    public long getPendingReservationsCount(String hospitalId) {
+        return reservationRepository.countByDoctorUserHospitalIdAndStatus(hospitalId, ReservationStatus.PENDING);
     }
 }

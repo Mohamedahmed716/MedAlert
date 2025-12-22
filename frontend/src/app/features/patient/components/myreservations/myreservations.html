@@ -3,32 +3,94 @@
 
   <div class="tab-container">
     <button class="tab-btn" [class.active]="activeTab === 'upcoming'" (click)="switchTab('upcoming')">
-      Upcoming
+      Upcoming Appointments
     </button>
     <button class="tab-btn" [class.active]="activeTab === 'past'" (click)="switchTab('past')">
-      Past / Cancelled
+      Past Appointments
     </button>
   </div>
 
   <div class="search-bar">
-    <input type="text" class="search-input" placeholder="Search by doctor..." [(ngModel)]="searchText" />
+    <input type="text" class="search-input" placeholder="Search by doctor name..." [(ngModel)]="searchText" />
   </div>
 
-  <div *ngIf="activeTab === 'upcoming'">
-    <div *ngFor="let r of filteredUpcoming" class="reservation-card">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading reservations...</p>
+  </div>
+
+  <!-- Upcoming Reservations -->
+  <div *ngIf="!loading && activeTab === 'upcoming'">
+    <div *ngFor="let r of filteredUpcoming" class="reservation-card" [ngClass]="getStatusClass(r.status)">
+      <div class="reservation-header">
+        <div class="status-badge">
+          <span class="status-text">{{ r.status }}</span>
+        </div>
+        <div class="reservation-id">#{{ r.id }}</div>
+      </div>
+      
       <div class="reservation-main">
-        <div class="reservation-status">{{ r.status }}</div>
-        <div class="reservation-text">
-          <div class="doctor-name">{{ r.patientName }}</div>
-          <div class="reason">Reason: {{ r.reason }}</div>
-          <div class="time-label">Date: {{ r.appointmentTime | date:'medium' }}</div>
+        <div class="reservation-info">
+          <div class="doctor-name">{{ r.doctorName }}</div>
+          <div class="department">{{ r.doctorDepartment }}</div>
+          <div class="appointment-time">
+            {{ formatDate(r.appointmentTime) }} at {{ formatTime(r.appointmentTime) }}
+          </div>
+          <div class="reason">{{ r.reason }}</div>
+          <div *ngIf="r.declineReason" class="decline-reason">
+            <strong>Decline Reason:</strong> {{ r.declineReason }}
+          </div>
+        </div>
+        
+        <div class="reservation-actions" *ngIf="canCancel(r)">
+          <button class="btn-reschedule" (click)="reschedule(r)">Reschedule</button>
+          <button class="btn-cancel" (click)="cancel(r)">Cancel</button>
         </div>
       </div>
-      <div class="reservation-actions">
-        <button class="btn-reschedule" (click)="reschedule(r)">Reschedule</button>
-        <button class="btn-cancel" (click)="cancel(r)">Cancel</button>
-      </div>
+    </div>
+
+    <!-- Empty State for Upcoming -->
+    <div *ngIf="filteredUpcoming.length === 0" class="empty-state">
+      <div class="empty-icon">📅</div>
+      <h3>No Upcoming Appointments</h3>
+      <p>You don't have any upcoming reservations.</p>
+      <button class="btn btn-primary" routerLink="/patient/book-appointment" style="margin-top: 1rem;">
+        📅 Book New Appointment
+      </button>
     </div>
   </div>
 
+  <!-- Past Reservations -->
+  <div *ngIf="!loading && activeTab === 'past'">
+    <div *ngFor="let r of filteredPast" class="reservation-card" [ngClass]="getStatusClass(r.status)">
+      <div class="reservation-header">
+        <div class="status-badge">
+          <span class="status-text">{{ r.status }}</span>
+        </div>
+        <div class="reservation-id">#{{ r.id }}</div>
+      </div>
+      
+      <div class="reservation-main">
+        <div class="reservation-info">
+          <div class="doctor-name">{{ r.doctorName }}</div>
+          <div class="department">{{ r.doctorDepartment }}</div>
+          <div class="appointment-time">
+            {{ formatDate(r.appointmentTime) }} at {{ formatTime(r.appointmentTime) }}
+          </div>
+          <div class="reason">{{ r.reason }}</div>
+          <div *ngIf="r.declineReason" class="decline-reason">
+            <strong>Decline Reason:</strong> {{ r.declineReason }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State for Past -->
+    <div *ngIf="filteredPast.length === 0" class="empty-state">
+      <div class="empty-icon">📋</div>
+      <h3>No Past Appointments</h3>
+      <p>You don't have any past reservations.</p>
+    </div>
   </div>
+</div>
