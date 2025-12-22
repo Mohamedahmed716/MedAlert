@@ -98,7 +98,7 @@ public class ReservationService {
                         .build()
                 ).collect(Collectors.toList());
     }
-    @Scheduled(cron = "0 0/15 * * * *")
+    @Scheduled(cron = "0 0/1 * * * *")
     @Transactional
     public void scanAndCompleteReservations() {
         LocalDate today = LocalDate.now();
