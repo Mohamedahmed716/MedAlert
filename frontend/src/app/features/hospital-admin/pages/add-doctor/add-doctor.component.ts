@@ -55,7 +55,7 @@ export class AddDoctorComponent implements OnInit {
       address: [''],
       bio: ['']
     });
-    
+
     this.loadDepartments();
   }
 
@@ -72,7 +72,7 @@ export class AddDoctorComponent implements OnInit {
 
   loadDoctorForEdit(): void {
     if (!this.doctorId) return;
-    
+
     this.isLoading = true;
     // Get all doctors and find the one we want to edit
     this.hospitalAdminService.getAllDoctors().subscribe({
@@ -148,7 +148,7 @@ export class AddDoctorComponent implements OnInit {
   onSubmit() {
     if (this.doctorForm.valid) {
       this.isLoading = true;
-      
+
       const formValue = this.doctorForm.value;
       const request: CreateDoctorRequest = {
         fullName: formValue.fullName,
@@ -174,7 +174,7 @@ export class AddDoctorComponent implements OnInit {
           next: () => {
             this.isLoading = false;
             this.toastService.success('Success', 'Doctor updated successfully!');
-            
+
             // Navigate back after success
             setTimeout(() => {
               this.router.navigate(['/hospital-admin/doctors']);
@@ -191,16 +191,16 @@ export class AddDoctorComponent implements OnInit {
         this.hospitalAdminService.createDoctor(request).subscribe({
           next: () => {
             this.isLoading = false;
-            
+
             // Reset form
             this.doctorForm.reset();
             this.previewUrl = null;
-          
+
             this.toastService.success(
-              'Doctor Created Successfully!', 
+              'Doctor Created Successfully!',
               'The doctor account is pending system admin approval before becoming active.'
             );
-            
+
             // Navigate after showing success
             setTimeout(() => {
               this.router.navigate(['/hospital-admin/doctors']);
@@ -219,5 +219,9 @@ export class AddDoctorComponent implements OnInit {
         this.doctorForm.get(key)?.markAsTouched();
       });
     }
+  }
+
+  cancel() {
+    this.router.navigate(['/hospital-admin']);
   }
 }

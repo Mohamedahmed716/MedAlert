@@ -131,7 +131,7 @@
 
         <!-- Actions -->
         <div class="actions">
-          <button type="button" class="btn-cancel" [disabled]="isLoading">Cancel</button>
+          <button type="button" class="btn-cancel" [disabled]="isLoading" (click)="cancel()">Cancel</button>
           <button type="submit" class="btn-save" [disabled]="isLoading">
             <span *ngIf="isLoading">{{ isEditMode ? 'Updating...' : 'Creating...' }}</span>
             <span *ngIf="!isLoading">{{ isEditMode ? 'Update Doctor' : 'Save Doctor' }}</span>

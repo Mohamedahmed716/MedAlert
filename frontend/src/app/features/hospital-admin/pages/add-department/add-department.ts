@@ -46,7 +46,7 @@ export class AddDepartmentComponent {
   onSubmit() {
     if (this.departmentForm.valid) {
       this.isLoading = true;
-      
+
       const formValue = this.departmentForm.value;
       const request: CreateDepartmentRequest = {
         name: formValue.name,
@@ -60,14 +60,14 @@ export class AddDepartmentComponent {
       this.hospitalAdminService.createDepartment(request).subscribe({
         next: (response) => {
           this.isLoading = false;
-          
+
           this.toastService.success('Success', 'Department created successfully!');
           console.log('Department created:', response.name);
-          
+
           // Reset form
           this.departmentForm.reset();
           this.previewUrl = null;
-          
+
           // Navigate back after success
           setTimeout(() => {
             this.router.navigate(['/hospital-admin/doctors-departments']);
@@ -76,14 +76,14 @@ export class AddDepartmentComponent {
         error: (error) => {
           this.isLoading = false;
           console.error('Error creating department:', error);
-          
+
           let errorMessage = 'Unknown error';
           if (error.error?.message) {
             errorMessage = error.error.message;
           } else if (error.message) {
             errorMessage = error.message;
           }
-          
+
           this.toastService.error('Error', 'Failed to create department: ' + errorMessage);
         }
       });
@@ -93,5 +93,9 @@ export class AddDepartmentComponent {
         this.departmentForm.get(key)?.markAsTouched();
       });
     }
+  }
+
+  cancel() {
+    this.router.navigate(['/hospital-admin/doctors-departments']);
   }
 }
