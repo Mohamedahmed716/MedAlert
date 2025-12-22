@@ -21,4 +21,6 @@ public interface BedRepository extends JpaRepository<Bed, Long> {
     
     @Query("SELECT COUNT(b) FROM Bed b WHERE b.hospitalId = :hospitalId")
     long countTotalBeds(@Param("hospitalId") String hospitalId);
+
+    List<Bed> findByHospitalId(String hospitalId);
 }
