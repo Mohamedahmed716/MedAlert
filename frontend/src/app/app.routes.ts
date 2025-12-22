@@ -35,7 +35,7 @@ export const routes: Routes = [
     data: { roles: ['PATIENT'] },
   },
   { path: 'emergency/hospitals', component: PublicHospitalList },
-  { path: 'emergency/hospital/:id', component: PublicBedView },
+  { path: 'emergency/hospital/:name', component: PublicBedView },
   {
     path: '',
     redirectTo: 'auth/SignIn',
